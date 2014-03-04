@@ -1,25 +1,21 @@
-# C++ objects and libs
-
+# Compiled Object files
 *.slo
 *.lo
 *.o
-*.a
-*.la
-*.lai
+*.obj
+
+# Compiled Dynamic libraries
 *.so
-*.dll
 *.dylib
+*.dll
 
-# Qt-es
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
 
-*.pro.user
-*.pro.user.*
-moc_*.cpp
-qrc_*.cpp
-ui_*.h
-Makefile*
-*-build-*
-
-# QtCreator
-
-*.autosave
+# Executables
+*.exe
+*.out
+*.app

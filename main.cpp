@@ -1,10 +1,16 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <string>
+#include "Window.h"
 #include <iostream>
 
 using namespace std;
 
-int main()
-{
-    cout << "Hello World!" << endl;
-    return 0;
-}
+int main( int argc, char* args[] ) {
+	
+    Window *window = new Window();
+    window->loop();
 
+	return 0;
+
+}
