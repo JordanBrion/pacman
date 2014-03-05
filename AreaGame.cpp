@@ -18,6 +18,18 @@ bool AreaGame::imgLoad() {
 
 }
 
+SDL_Surface* AreaGame::getSpriteLevel() const {
+
+    return _spriteLevel;
+
+}
+
+SDL_Surface* AreaGame::getSpriteAnim() const {
+
+    return _spriteAnim;
+
+}
+
 void AreaGame::initLevelTable(char pLevel[]) {
 
     char* context = NULL;

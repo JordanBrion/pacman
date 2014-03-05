@@ -20,6 +20,8 @@ public:
     AreaGame(int const&, int const&);
     ~AreaGame();
     bool imgLoad();
+    SDL_Surface* getSpriteLevel() const;
+    SDL_Surface* getSpriteAnim() const;
     void initLevelTable(char[]);
     std::vector<std::vector<int> > getLevelTable() const;
     int getLevelTableCase(int, int) const;
