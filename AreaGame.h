@@ -27,6 +27,8 @@ public:
     std::vector<std::map<std::string, int> > getLevelSpriteCoord() const;
     void addCharacterCoord(std::string, int, int);
     std::map<std::string, std::map<std::string, int> > getCharactersCoord() const;
+    int getCharacterCoordX(std::string);
+    int getCharacterCoordY(std::string);
     void initArea(char[], SDL_Renderer* const&);
 
 private:

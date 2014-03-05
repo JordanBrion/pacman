@@ -124,7 +124,23 @@ void AreaGame::addCharacterCoord(string key, int x, int y) {
 
 }
 
-map<std::string, map<string, int> > AreaGame::getCharactersCoord() const {}
+map<string, map<string, int> > AreaGame::getCharactersCoord() const {
+
+    return _charactersCoord;
+
+}
+
+int AreaGame::getCharacterCoordX(string key) {
+
+    return _charactersCoord[key]["x"];
+
+}
+
+int AreaGame::getCharacterCoordY(string key) {
+
+    return _charactersCoord[key]["y"];
+
+}
 
 void AreaGame::initArea( char pLevel[], SDL_Renderer* const& pRenderer ) {
 
