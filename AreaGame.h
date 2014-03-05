@@ -17,17 +17,17 @@
 class AreaGame
 {
 public:
-    AreaGame(int, int);
+    AreaGame(int const&, int const&);
     ~AreaGame();
     bool imgLoad();
     void initLevelTable(char[]);
-    std::vector<std::vector<int> > getLevelTable();
-    int getLevelTableCase(int, int);
+    std::vector<std::vector<int> > getLevelTable() const;
+    int getLevelTableCase(int, int) const;
     void initLevelSpriteCoord();
-    std::vector<std::map<std::string, int> > getLevelSpriteCoord();
+    std::vector<std::map<std::string, int> > getLevelSpriteCoord() const;
     void addCharacterCoord(std::string, int, int);
-    std::map<std::string, std::map<std::string, int> > getCharactersCoord();
-    void initArea(char[], SDL_Renderer*);
+    std::map<std::string, std::map<std::string, int> > getCharactersCoord() const;
+    void initArea(char[], SDL_Renderer* const&);
 
 private:
     int _rowsNbr;

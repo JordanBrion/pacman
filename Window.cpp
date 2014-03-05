@@ -30,7 +30,9 @@ Window::Window() throw(exception) : _screenWidth(900), _screenHeight(800) {
                 "0 ;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
                 "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
-        _areaGame = new AreaGame(22, 23);
+        int rows(22);
+        int cols(23);
+        _areaGame = new AreaGame(rows, cols);
 
         initSDL();
 

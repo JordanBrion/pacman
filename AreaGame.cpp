@@ -2,7 +2,7 @@
 
 using namespace std;
 
-AreaGame::AreaGame(int rows, int cols) : _rowsNbr(rows), _colsNbr(cols) {}
+AreaGame::AreaGame(int const& rows, int const& cols) : _rowsNbr(rows), _colsNbr(cols) {}
 
 AreaGame::~AreaGame() {}
 
@@ -82,13 +82,13 @@ void AreaGame::initLevelTable(char pLevel[]) {
 
 }
 
-vector<vector<int> > AreaGame::getLevelTable() {
+vector<vector<int> > AreaGame::getLevelTable() const {
 
     return _levelTable;
 
 }
 
-int AreaGame::getLevelTableCase(int i, int j) {
+int AreaGame::getLevelTableCase(int i, int j) const {
 
     return _levelTable[i][j];
 
@@ -110,7 +110,7 @@ void AreaGame::initLevelSpriteCoord() {
 
 }
 
-vector<map<string, int> > AreaGame::getLevelSpriteCoord() {
+vector<map<string, int> > AreaGame::getLevelSpriteCoord() const {
 
     return _levelSpriteCoord;
 
@@ -124,9 +124,9 @@ void AreaGame::addCharacterCoord(string key, int x, int y) {
 
 }
 
-map<std::string, map<string, int> > AreaGame::getCharactersCoord() {}
+map<std::string, map<string, int> > AreaGame::getCharactersCoord() const {}
 
-void AreaGame::initArea( char pLevel[], SDL_Renderer* pRenderer ) {
+void AreaGame::initArea( char pLevel[], SDL_Renderer* const& pRenderer ) {
 
     initLevelTable(pLevel);
     initLevelSpriteCoord();
