@@ -9,10 +9,16 @@ INCLUDEPATH = usr/include
 
 SOURCES += main.cpp \
     Window.cpp \
-    AreaGame.cpp
+    AreaGame.cpp \
+    InteractiveElement.cpp \
+    Pacman.cpp \
+    Personnage.cpp
 
 HEADERS += \
     Window.h \
     Const.h \
-    AreaGame.h
+    AreaGame.h \
+    InteractiveElement.h \
+    Pacman.h \
+    Personnage.h
 
