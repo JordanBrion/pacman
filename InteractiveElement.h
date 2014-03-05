@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
@@ -14,12 +15,17 @@
 class InteractiveElement {
 
 protected:
-    SDL_Surface* _element;
-    SDL_Rect _position;
-    int _zIndex;
+    InteractiveElement(std::map<std::string, int>, std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+    void show(SDL_Renderer* const&);
 
 protected:
-    virtual void init () = 0;
+    std::map<std::string, int> _initialStateSrc; // Initial coord on the sprite
+    std::map<std::string, int> _initialStateDest; // Coord on the screen at the start of the game
+    SDL_Texture* _element;
+    SDL_Rect _position;
+    SDL_Rect _selection;
+    static int zIndexCounter;
+    int _zIndex;
 
 };
 
