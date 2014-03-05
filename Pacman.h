@@ -3,18 +3,20 @@
 
 #include "Personnage.h"
 
-class Pacman: public Personnage {
+class Pacman : public Personnage {
 
-private:
-    bool _superPower;
 public:
-    void init();
+    Pacman(std::map<std::string, int>, std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+    ~Pacman();
     void move();
     void stopMove();
     void checkCollision();
     void deadAnimation();
     void teleportation();
     void calculateDirection(std::map<std::string, bool>);
+
+private:
+    bool _superPower;
 
 };
 
