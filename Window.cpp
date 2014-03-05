@@ -38,7 +38,8 @@ Window::Window() throw(exception) : _screenWidth(900), _screenHeight(800) {
 
         SDL_RenderClear(_renderer);
 
-        _areaGame->initArea(_levelString, _renderer);
+        createAreaGame(_levelString);
+        createCharacters();
 
         SDL_RenderPresent(_renderer);
 
@@ -114,9 +115,20 @@ void Window::initSDL() {
 
 }
 
-void Window::createAreaGame() {}
+void Window::createAreaGame(char pLevel[]) {
+
+    _areaGame->initArea(pLevel, _renderer);
+
+}
+
 void Window::createHUD() {}
-void Window::createCharacters() {}
+
+void Window::createCharacters() {
+
+    // Pacman creation
+    //pacman = new Pacman();
+
+}
 
 void Window::loop() {
 

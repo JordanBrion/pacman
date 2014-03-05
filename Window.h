@@ -9,8 +9,10 @@
 #include <exception>
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
 #include "Const.h"
 #include "AreaGame.h"
+#include "Pacman.h"
 
 class Window {
 
@@ -18,7 +20,7 @@ public:
     Window() throw(std::exception);
     ~Window();
     void initSDL();
-    void createAreaGame();
+    void createAreaGame(char[]);
     void createHUD();
     void createCharacters();
     void loop();
@@ -36,6 +38,7 @@ private:
     SDL_Surface *_windowSurface;
     SDL_Renderer *_renderer;
     AreaGame *_areaGame;
+    Pacman *pacman;
 
 };
 #endif
