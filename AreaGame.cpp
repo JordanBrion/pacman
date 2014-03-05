@@ -27,6 +27,7 @@ void AreaGame::initLevelTable(char pLevel[]) {
 
     int i(0);
     int j(0);
+    int ghostCounter(0);
 
     // Before start, add of a subarray which will contain the data level of a row
     vector<int> subarray;
@@ -45,8 +46,31 @@ void AreaGame::initLevelTable(char pLevel[]) {
 
         }
 
-        temp = atoi(rows);
-        _levelTable[i].push_back( temp );
+        // If the case contains Pacman or a ghost > we add -1 (free space) in _levelTable
+        // Pacman => @
+        if( *rows == '@' ) {
+
+            addCharacterCoord("Pacman", i, j);
+            _levelTable[i].push_back( -1 ); // Free space
+
+        }
+        // Ghost => #
+        else if( *rows == '#' ) {
+
+            ghostCounter++;
+            // Convert ghostCounter to string
+            stringstream ss;
+            ss << "Ghost" << ghostCounter;
+            addCharacterCoord(ss.str(), i, j);
+            _levelTable[i].push_back( -1 ); // Free space
+
+        }
+        // Others cases
+        else {
+
+            temp = atoi(rows);
+            _levelTable[i].push_back( temp );
+        }
 
         j++;
 
@@ -58,7 +82,7 @@ void AreaGame::initLevelTable(char pLevel[]) {
 
 }
 
-std::vector<std::vector<int> > AreaGame::getLevelTable() {
+vector<vector<int> > AreaGame::getLevelTable() {
 
     return _levelTable;
 
@@ -92,6 +116,16 @@ vector<map<string, int> > AreaGame::getLevelSpriteCoord() {
 
 }
 
+void AreaGame::addCharacterCoord(string key, int x, int y) {
+
+    // Coordonates of the character on the screen
+    _charactersCoord[key]["x"] = x;
+    _charactersCoord[key]["y"] = y;
+
+}
+
+map<std::string, map<string, int> > AreaGame::getCharactersCoord() {}
+
 void AreaGame::initArea( char pLevel[], SDL_Renderer* pRenderer ) {
 
     initLevelTable(pLevel);
@@ -99,11 +133,13 @@ void AreaGame::initArea( char pLevel[], SDL_Renderer* pRenderer ) {
 
     SDL_Texture *text = SDL_CreateTextureFromSurface( pRenderer, _spriteLevel);
 
+    // Position on the screen
     SDL_Rect position;
     position.x = 0;
     position.y = 0;
     position.w = 30;
     position.h = 30;
+    // Selection the image on the sprite
     SDL_Rect selection;
     selection.x = 0;
     selection.y = 0;
@@ -112,6 +148,7 @@ void AreaGame::initArea( char pLevel[], SDL_Renderer* pRenderer ) {
 
     int element = -1;
 
+    // Loop for the levelTable array and show each value of this table on the screen
     for(int i(0); i < _rowsNbr; i++) {
 
         position.x = 0;

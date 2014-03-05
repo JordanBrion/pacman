@@ -27,6 +27,6 @@ enum levelProperties {
         // Total
 		COUNT
 
-	};
+    };
 
 #endif
