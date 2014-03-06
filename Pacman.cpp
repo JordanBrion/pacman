@@ -18,7 +18,6 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
 
 }
 
-void Pacman::move() {}
 void Pacman::stopMove() {}
 void Pacman::checkCollision() {}
 void Pacman::deadAnimation() {}
