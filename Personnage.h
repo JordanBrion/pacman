@@ -17,6 +17,7 @@ public:
     virtual void teleportation () = 0;
 
 protected:
+    int _stepCounter;
     int _vitesse;
     bool _dead;
     int _spriteFlag;
