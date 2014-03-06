@@ -16,6 +16,7 @@ class InteractiveElement {
 
 protected:
     InteractiveElement(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+public:
     void show(SDL_Renderer* const&);
 
 protected:
