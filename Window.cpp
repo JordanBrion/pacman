@@ -125,15 +125,12 @@ void Window::createHUD() {}
 
 void Window::createCharacters() {
 
-    map<string, int> src;
     map<string, int> dest;
 
     // Pacman creation
-    src["x"] = 100;
-    src["y"] = 100;
-    dest["x"] = _areaGame->getCharacterCoordX("Pacman") * 30;
-    dest["y"] = _areaGame->getCharacterCoordY("Pacman") * 30;
-    pacman = new Pacman( src, dest, _renderer, _areaGame->getSpriteAnim() );
+    dest["x"] = ( _areaGame->getCharacterCoordX("Pacman") * 30);
+    dest["y"] = ( _areaGame->getCharacterCoordY("Pacman") * 30);
+    pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
 
 }
 
