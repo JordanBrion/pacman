@@ -7,7 +7,9 @@ class Personnage: public InteractiveElement {
 
 protected:
     Personnage(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
-    virtual void move () = 0;
+public:
+    void moveVertically(bool);
+    void moveHorizontally(bool);
     virtual void stopMove () = 0;
     virtual void checkCollision () = 0;
     virtual void deadAnimation () = 0;
