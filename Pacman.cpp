@@ -22,4 +22,3 @@ void Pacman::stopMove() {}
 void Pacman::checkCollision() {}
 void Pacman::deadAnimation() {}
 void Pacman::teleportation() {}
-void Pacman::calculateDirection(std::map<std::string, bool>) {}

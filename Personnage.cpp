@@ -40,3 +40,7 @@ void Personnage::moveHorizontally(bool left) {
     }
 
 }
+
+void Personnage::calculateDirection (int, int) {
+
+}

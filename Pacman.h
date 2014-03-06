@@ -12,7 +12,6 @@ public:
     void checkCollision();
     void deadAnimation();
     void teleportation();
-    void calculateDirection(std::map<std::string, bool>);
 
 private:
     bool _superPower;

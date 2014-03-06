@@ -10,11 +10,11 @@ protected:
 public:
     void moveVertically(bool);
     void moveHorizontally(bool);
+    void calculateDirection (int, int);
     virtual void stopMove () = 0;
     virtual void checkCollision () = 0;
     virtual void deadAnimation () = 0;
     virtual void teleportation () = 0;
-    virtual void calculateDirection ( std::map<std::string, bool> ) = 0;
 
 protected:
     int _vitesse;
