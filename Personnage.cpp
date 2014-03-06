@@ -41,6 +41,12 @@ void Personnage::moveHorizontally(bool left) {
 
 }
 
-void Personnage::calculateDirection (int, int) {
+void Personnage::calculateDirection(int x, int y, vector<vector<int> > levelTable) {
+
+    // Check if the next positions are runnable by pacman
+    _directionsPossible["up"] = ( levelTable[y-1][x] < 0 ) ? true : false;
+    _directionsPossible["bottom"] = ( levelTable[y+1][x] < 0 ) ? true : false;
+    _directionsPossible["right"] = ( levelTable[y][x+1] < 0 ) ? true : false;
+    _directionsPossible["left"] = ( levelTable[y][x-1] < 0 ) ? true : false;
 
 }

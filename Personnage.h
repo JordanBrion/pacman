@@ -10,7 +10,7 @@ protected:
 public:
     void moveVertically(bool);
     void moveHorizontally(bool);
-    void calculateDirection (int, int);
+    void calculateDirection (int, int, std::vector<std::vector<int> >);
     virtual void stopMove () = 0;
     virtual void checkCollision () = 0;
     virtual void deadAnimation () = 0;
