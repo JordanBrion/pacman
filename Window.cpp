@@ -130,7 +130,19 @@ void Window::createCharacters() {
     // Pacman creation
     dest["x"] = ( _areaGame->getCharacterCoordX("Pacman") * 30);
     dest["y"] = ( _areaGame->getCharacterCoordY("Pacman") * 30);
-    pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
+    _pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
+
+    // Ghosts creation
+    stringstream ss;
+    for(int i(0); i < 4; i++) {
+
+        ss << "Ghost" << i+1;
+        dest["x"] = ( _areaGame->getCharacterCoordX(ss.str()) * 30);
+        dest["y"] = ( _areaGame->getCharacterCoordY(ss.str()) * 30);
+        _ghosts.push_back( new Ghost(dest, _renderer, _areaGame->getSpriteAnim()) );
+        ss.str(""); // Clear the string stream
+
+    }
 
 }
 

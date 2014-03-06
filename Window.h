@@ -13,6 +13,7 @@
 #include "Const.h"
 #include "AreaGame.h"
 #include "Pacman.h"
+#include "Ghost.h"
 
 class Window {
 
@@ -38,7 +39,8 @@ private:
     SDL_Surface *_windowSurface;
     SDL_Renderer *_renderer;
     AreaGame *_areaGame;
-    Pacman *pacman;
+    Pacman *_pacman;
+    std::vector<Ghost*> _ghosts;
 
 };
 #endif
