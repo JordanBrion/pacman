@@ -179,9 +179,6 @@ void AreaGame::initArea( char pLevel[], SDL_Renderer* const& pRenderer ) {
     // Loop for the levelTable array and show each value of this table on the screen
     for(int i(0); i < _rowsNbr; i++) {
 
-        position.x = 0;
-        position.y += 30;
-
         for(int j(0); j < _colsNbr; j++) {
 
             element = _levelTable[i][j];
@@ -194,14 +191,17 @@ void AreaGame::initArea( char pLevel[], SDL_Renderer* const& pRenderer ) {
 
             }
 
-            // Position on the window
-            position.x += 30;
-
             if( element > -1 ) {
                 SDL_RenderCopy( pRenderer, text, &selection, &position );
             }
 
+            // Position on the window
+            position.x += 30;
+
         }
+
+        position.x = 0;
+        position.y += 30;
 
     }
 
