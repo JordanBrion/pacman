@@ -62,7 +62,7 @@ void AreaGame::initLevelTable(char pLevel[]) {
         // Pacman => @
         if( *rows == '@' ) {
 
-            addCharacterCoord("Pacman", i, j);
+            addCharacterCoord("Pacman", j, i);
             _levelTable[i].push_back( -1 ); // Free space
 
         }
@@ -73,7 +73,7 @@ void AreaGame::initLevelTable(char pLevel[]) {
             // Convert ghostCounter to string
             stringstream ss;
             ss << "Ghost" << ghostCounter;
-            addCharacterCoord(ss.str(), i, j);
+            addCharacterCoord(ss.str(), j, i);
             _levelTable[i].push_back( -1 ); // Free space
 
         }
