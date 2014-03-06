@@ -41,8 +41,6 @@ Window::Window() throw(exception) : _screenWidth(900), _screenHeight(800) {
         createAreaGame(_levelString);
         createCharacters();
 
-        SDL_RenderPresent(_renderer);
-
     }
     catch(const exception &e) {
 
@@ -184,8 +182,6 @@ void Window::loop() {
             }
             break;
         }
-
-        SDL_RenderPresent(_renderer);
 
     }
 
