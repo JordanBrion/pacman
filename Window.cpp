@@ -129,6 +129,7 @@ void Window::createCharacters() {
     dest["x"] = ( _areaGame->getCharacterCoordX("Pacman") * 30);
     dest["y"] = ( _areaGame->getCharacterCoordY("Pacman") * 30);
     _pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
+    _pacman->calculateDirection(dest["x"]/30, dest["y"]/30, _areaGame->getLevelTable());
 
     // Ghosts creation
     stringstream ss;
