@@ -153,7 +153,7 @@ void Window::loop() {
 
     while( !quit ) {
 
-        SDL_WaitEvent(&e);
+        SDL_PollEvent(&e);
 
         switch( e.type ) {
         case SDL_QUIT:
@@ -164,9 +164,28 @@ void Window::loop() {
             case SDLK_ESCAPE:
                 quit = true;
                 break;
+            // Pacman controls
+            case SDLK_UP:
+                _pacman->moveVertically(true);
+                _pacman->show(_renderer);
+                break;
+            case SDLK_DOWN:
+                _pacman->moveVertically(false);
+                _pacman->show(_renderer);
+                break;
+            case SDLK_RIGHT:
+                _pacman->moveHorizontally(false);
+                _pacman->show(_renderer);
+                break;
+            case SDLK_LEFT:
+                _pacman->moveHorizontally(true);
+                _pacman->show(_renderer);
+                break;
             }
             break;
         }
+
+        SDL_RenderPresent(_renderer);
 
     }
 
