@@ -150,38 +150,52 @@ void Window::loop() {
     bool quit(false);
     SDL_Event e;
 
+    // Variables to
+    int start = SDL_GetTicks();
+    int later = 0;
+
     while( !quit ) {
 
         SDL_PollEvent(&e);
 
-        switch( e.type ) {
-        case SDL_QUIT:
-            quit = true;
-            break;
-        case SDL_KEYDOWN:
-            switch(e.key.keysym.sym) {
-            case SDLK_ESCAPE:
+        later = SDL_GetTicks();
+
+        // If 10 ms down between the 2 keys pressed
+        // else > nothing to do
+        if( later - start > 10 ) {
+
+            start = later;
+            later = 0;
+
+            switch( e.type ) {
+            case SDL_QUIT:
                 quit = true;
                 break;
-            // Pacman controls
-            case SDLK_UP:
-                _pacman->moveVertically(true);
-                _pacman->show(_renderer);
-                break;
-            case SDLK_DOWN:
-                _pacman->moveVertically(false);
-                _pacman->show(_renderer);
-                break;
-            case SDLK_RIGHT:
-                _pacman->moveHorizontally(false);
-                _pacman->show(_renderer);
-                break;
-            case SDLK_LEFT:
-                _pacman->moveHorizontally(true);
-                _pacman->show(_renderer);
+            case SDL_KEYDOWN:
+                switch(e.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    quit = true;
+                    break;
+                    // Pacman controls
+                case SDLK_UP:
+                    _pacman->moveVertically(true);
+                    _pacman->show(_renderer);
+                    break;
+                case SDLK_DOWN:
+                    _pacman->moveVertically(false);
+                    _pacman->show(_renderer);
+                    break;
+                case SDLK_RIGHT:
+                    _pacman->moveHorizontally(false);
+                    _pacman->show(_renderer);
+                    break;
+                case SDLK_LEFT:
+                    _pacman->moveHorizontally(true);
+                    _pacman->show(_renderer);
+                    break;
+                }
                 break;
             }
-            break;
         }
 
     }
