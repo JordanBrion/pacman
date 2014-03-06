@@ -27,5 +27,6 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
 void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
 
     SDL_RenderCopy(pRenderer, _element, &_selection, &_position);
+    SDL_RenderPresent(pRenderer);
 
 }
