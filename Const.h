@@ -29,4 +29,10 @@ enum levelProperties {
 
     };
 
+enum directions {
+
+    UP, DOWN, RIGHT, LEFT
+
+};
+
 #endif
