@@ -12,8 +12,8 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
 
     // Initialize positions on the screen
     _initialStateDest = dest;
-    _position.x = _initialStateDest["x"];
-    _position.y = _initialStateDest["y"];
+    _position.x = _initialStateDest["x"] * 30;
+    _position.y = _initialStateDest["y"] * 30;
     _position.w = 30;
     _position.h = 30;
 

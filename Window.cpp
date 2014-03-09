@@ -126,10 +126,10 @@ void Window::createCharacters() {
     map<string, int> dest;
 
     // Pacman creation
-    dest["x"] = ( _areaGame->getCharacterCoordX("Pacman") * 30);
-    dest["y"] = ( _areaGame->getCharacterCoordY("Pacman") * 30);
+    dest["x"] = _areaGame->getCharacterCoordX("Pacman");
+    dest["y"] = _areaGame->getCharacterCoordY("Pacman");
     _pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
-    _pacman->calculateDirection(dest["x"]/30, dest["y"]/30, _areaGame->getLevelTable());
+    _pacman->calculateDirection(_areaGame->getLevelTable());
 
     // Ghosts creation
     stringstream ss;
@@ -150,9 +150,12 @@ void Window::loop() {
     bool quit(false);
     SDL_Event e;
 
-    // Variables to
+    // Variables to compare time left
     int start = SDL_GetTicks();
     int later = 0;
+
+    // Flag for blocking of key up infinite loop
+    bool stopKeyUp(false);
 
     while( !quit ) {
 
@@ -168,33 +171,132 @@ void Window::loop() {
             later = 0;
 
             switch( e.type ) {
+
             case SDL_QUIT:
                 quit = true;
                 break;
+
+            // Key Down
             case SDL_KEYDOWN:
                 switch(e.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     quit = true;
                     break;
-                    // Pacman controls
+
+                // Pacman controls
                 case SDLK_UP:
+                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+
+                        _pacman->updatePositionInTheGrid();
+                        _pacman->calculateDirection(_areaGame->getLevelTable());
+                        _pacman->calculateOffset(true);
+                        _pacman->resetValues();
+
+                    }
                     _pacman->moveVertically(true);
                     _pacman->show(_renderer);
+                    stopKeyUp = false;
                     break;
+
                 case SDLK_DOWN:
+                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+                        _pacman->updatePositionInTheGrid();
+                        _pacman->calculateDirection(_areaGame->getLevelTable());
+                        _pacman->calculateOffset(true);
+                        _pacman->resetValues();
+
+                    }
                     _pacman->moveVertically(false);
                     _pacman->show(_renderer);
+                    stopKeyUp = false;
                     break;
+
                 case SDLK_RIGHT:
+                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+
+                        _pacman->updatePositionInTheGrid();
+                        _pacman->calculateDirection(_areaGame->getLevelTable());
+                        _pacman->calculateOffset(false);
+                        _pacman->resetValues();
+
+                    }
                     _pacman->moveHorizontally(false);
                     _pacman->show(_renderer);
+                    stopKeyUp = false;
                     break;
+
                 case SDLK_LEFT:
+                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+
+                        _pacman->updatePositionInTheGrid();
+                        _pacman->calculateDirection(_areaGame->getLevelTable());
+                        _pacman->calculateOffset(false);
+                        _pacman->resetValues();
+
+                    }
                     _pacman->moveHorizontally(true);
                     _pacman->show(_renderer);
+                    stopKeyUp = false;
                     break;
                 }
+                /* END Pacman controls */
                 break;
+
+            // Key Up
+            case SDL_KEYUP:
+
+                // Once the key is down and when the user releases this key,
+                // the programm goes through this case in an infinite loop
+                // So we freeze this loop with a flag
+                if( !stopKeyUp ) {
+
+                    stopKeyUp = true;
+
+                    switch(e.key.keysym.sym) {
+
+                    case SDLK_UP:
+                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
+
+                            _pacman->updatePositionInTheGrid();
+                            _pacman->calculateDirection(_areaGame->getLevelTable());
+                            _pacman->calculateOffset(true);
+                            _pacman->resetValues();
+                        }
+                        break;
+
+                    case SDLK_DOWN:
+                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
+
+                            _pacman->updatePositionInTheGrid();
+                            _pacman->calculateDirection(_areaGame->getLevelTable());
+                            _pacman->calculateOffset(true);
+                            _pacman->resetValues();
+                        }
+                        break;
+
+                    case SDLK_RIGHT:
+                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
+
+                            _pacman->updatePositionInTheGrid();
+                            _pacman->calculateDirection(_areaGame->getLevelTable());
+                            _pacman->calculateOffset(false);
+                            _pacman->resetValues();
+                        }
+                        break;
+
+                    case SDLK_LEFT:
+                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
+
+                            _pacman->updatePositionInTheGrid();
+                            _pacman->calculateDirection(_areaGame->getLevelTable());
+                            _pacman->calculateOffset(false);
+                            _pacman->resetValues();
+                        }
+                        break;
+                    }
+                }
+                break;
+
             }
         }
 
