@@ -4,8 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 # Include SDL
-LIBS += -L/usr/lib -lSDL2 -lSDL2_image -lSDL_ttf
 INCLUDEPATH = usr/include
+LIBS += -L/usr/lib -lSDL2 -lSDL2_image
 
 SOURCES += main.cpp \
     Window.cpp \
