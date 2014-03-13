@@ -11,8 +11,7 @@ public:
     void moveVertically(bool);
     void moveHorizontally(bool);
     void calculateDirection(std::vector<std::vector<int> >);
-    bool isCenteredInTheSquareWhenKeyDown();
-    bool isCenteredInTheSquareWhenKeyUp();
+    bool isCenteredInTheSquare();
     void setStepCounter(int, int);
     void calculateOffset(bool);
     void updatePositionInTheGrid();

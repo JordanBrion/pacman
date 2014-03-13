@@ -18,6 +18,19 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
 
 }
 
+bool Pacman::isCenteredInTheSquareWhenKeyUp() {
+
+    if( _stepCounter > 30 - _offset || (_back && _stepCounter < 6 - _offset ) ) {
+
+        return true;
+
+    }
+
+    return false;
+
+
+}
+
 void Pacman::stopMove() {}
 void Pacman::checkCollision() {}
 void Pacman::deadAnimation() {}

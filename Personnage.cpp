@@ -141,7 +141,7 @@ void Personnage::calculateDirection(vector<vector<int> > levelTable) {
 
 }
 
-bool Personnage::isCenteredInTheSquareWhenKeyDown() {
+bool Personnage::isCenteredInTheSquare() {
 
     // If the character is centered
     if( _stepCounter == 33 - _offset || (_back && _stepCounter == 3 - _offset ) ) {
@@ -151,19 +151,6 @@ bool Personnage::isCenteredInTheSquareWhenKeyDown() {
     }
 
     return false;
-
-}
-
-bool Personnage::isCenteredInTheSquareWhenKeyUp() {
-
-    if( _stepCounter > 30 - _offset || (_back && _stepCounter < 6 - _offset ) ) {
-
-        return true;
-
-    }
-
-    return false;
-
 
 }
 

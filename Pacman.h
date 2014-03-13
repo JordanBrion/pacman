@@ -8,6 +8,7 @@ class Pacman : public Personnage {
 public:
     Pacman(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
     ~Pacman();
+    bool isCenteredInTheSquareWhenKeyUp();
     void stopMove();
     void checkCollision();
     void deadAnimation();

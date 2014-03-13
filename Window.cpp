@@ -185,7 +185,7 @@ void Window::loop() {
 
                 // Pacman controls
                 case SDLK_UP:
-                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+                    if( _pacman->isCenteredInTheSquare() ) {
 
                         _pacman->updatePositionInTheGrid();
                         _pacman->calculateDirection(_areaGame->getLevelTable());
@@ -199,7 +199,7 @@ void Window::loop() {
                     break;
 
                 case SDLK_DOWN:
-                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+                    if( _pacman->isCenteredInTheSquare() ) {
                         _pacman->updatePositionInTheGrid();
                         _pacman->calculateDirection(_areaGame->getLevelTable());
                         _pacman->calculateOffset(true);
@@ -212,7 +212,7 @@ void Window::loop() {
                     break;
 
                 case SDLK_RIGHT:
-                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+                    if( _pacman->isCenteredInTheSquare() ) {
 
                         _pacman->updatePositionInTheGrid();
                         _pacman->calculateDirection(_areaGame->getLevelTable());
@@ -226,7 +226,7 @@ void Window::loop() {
                     break;
 
                 case SDLK_LEFT:
-                    if( _pacman->isCenteredInTheSquareWhenKeyDown() ) {
+                    if( _pacman->isCenteredInTheSquare() ) {
 
                         _pacman->updatePositionInTheGrid();
                         _pacman->calculateDirection(_areaGame->getLevelTable());
