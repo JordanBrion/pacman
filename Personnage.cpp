@@ -5,7 +5,7 @@ using namespace std;
 Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
       _x(dest["x"]), _y(dest["y"]), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
-      _goTo(-1), _back(false), _vitesse(1) {
+      _goTo(-1), _back(false), _spriteFlag(false), _vitesse(1) {
 
     // Init the possible directions for the character
     _directionsPossible["up"] = false;
@@ -67,6 +67,7 @@ void Personnage::moveVertically(bool up) {
             }
 
         }
+
     }
 
 }
@@ -123,6 +124,7 @@ void Personnage::moveHorizontally(bool left) {
             }
 
         }
+
     }
 
 }
@@ -226,3 +228,5 @@ void Personnage::resetValues() {
     _goTo = -1;
 
 }
+
+void Personnage::nextSprite(int direction) {}

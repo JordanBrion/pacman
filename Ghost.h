@@ -8,6 +8,7 @@ class Ghost : public Personnage {
 
   public:
     Ghost(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+    void loadSpriteCoord();
     void move();
     void stopMove();
     void checkCollision();

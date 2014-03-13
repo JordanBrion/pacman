@@ -5,6 +5,9 @@ using namespace std;
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Personnage(dest, renderer, sprite), _superPower(false) {
 
+    // Initialize the sprite coord for the animations
+    loadSpriteCoord();
+
     // Select image on the screen
     _initialStateSrc["x"] = 45;
     _initialStateSrc["y"] = 3;
@@ -15,6 +18,50 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
 
     // Render on the screen
     show(renderer);
+
+}
+
+void Pacman::loadSpriteCoord() {
+
+    vector<vector<int> > temp(2);
+    vector<int> coord(2);
+
+    // UP
+    coord[0] = 5;
+    coord[1] = 43;
+    temp[0] = coord;
+    coord[0] = 25;
+    coord[1] = 43;
+    temp[1] = coord;
+    _spriteCoord.push_back(temp);
+
+    // DOWN
+    coord[0] = 5;
+    coord[1] = 63;
+    temp[0] = coord;
+    coord[0] = 25;
+    coord[1] = 63;
+    temp[1] = coord;
+    _spriteCoord.push_back(temp);
+
+    // RIGHT
+    coord[0] = 5;
+    coord[1] = 23;
+    temp[0] = coord;
+    coord[0] = 25;
+    coord[1] = 23;
+    temp[1] = coord;
+    _spriteCoord.push_back(temp);
+
+    // LEFT
+    coord[0] = 5;
+    coord[1] = 3;
+    temp[0] = coord;
+    coord[0] = 25;
+    coord[1] = 3;
+    temp[1] = coord;
+    _spriteCoord.push_back(temp);
+
 
 }
 

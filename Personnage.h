@@ -7,6 +7,11 @@ class Personnage: public InteractiveElement {
 
 protected:
     Personnage(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+    virtual void loadSpriteCoord() = 0;
+    virtual void stopMove() = 0;
+    virtual void checkCollision() = 0;
+    virtual void deadAnimation() = 0;
+    virtual void teleportation() = 0;
 public:
     void moveVertically(bool);
     void moveHorizontally(bool);
@@ -16,10 +21,7 @@ public:
     void calculateOffset(bool);
     void updatePositionInTheGrid();
     void resetValues();
-    virtual void stopMove () = 0;
-    virtual void checkCollision () = 0;
-    virtual void deadAnimation () = 0;
-    virtual void teleportation () = 0;
+    void nextSprite(int);
 
 protected:
     int _x;
@@ -31,10 +33,10 @@ protected:
     int _goTo;
     bool _back;
     std::map<std::string, bool> _directionsPossible;
+    bool _spriteFlag;
+    std::vector<std::vector<std::vector<int> > > _spriteCoord;
     int _vitesse;
     bool _dead;
-    int _spriteFlag;
-    std::vector<std::map<std::string, int> > _spriteCoord;
     std::map<std::string, int> _positionForRespawn;
 
 };

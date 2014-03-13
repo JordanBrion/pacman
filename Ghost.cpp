@@ -41,6 +41,7 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
 
 }
 
+void Ghost::loadSpriteCoord() {}
 void Ghost::move() {}
 void Ghost::stopMove() {}
 void Ghost::checkCollision() {}
