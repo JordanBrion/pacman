@@ -66,9 +66,41 @@ void Pacman::loadSpriteCoord() {
 }
 
 void Pacman::moveVertically(bool up) {
+
+    if( Personnage::moveVertically(up) ) {
+
+        int direction = ( up ) ? UP : DOWN;
+
+        if( _spriteFlag == _spriteCoord[direction].size() && _stepCounter % 5 == 0 ) {
+            _selection.x = 45;
+            _selection.y = 3;
+            _spriteFlag = 0;
+        }
+        else {
+            nextSprite(direction);
+        }
+
+
+    }
+
 }
 
 void Pacman::moveHorizontally(bool left) {
+
+    if( Personnage::moveHorizontally(left) ) {
+
+        int direction = ( left ) ? LEFT : RIGHT;
+
+        if( _spriteFlag == _spriteCoord[direction].size() && _stepCounter % 5 == 0 ) {
+            _selection.x = 45;
+            _selection.y = 3;
+            _spriteFlag = 0;
+        }
+        else {
+            nextSprite(direction);
+        }
+
+    }
 
 }
 
