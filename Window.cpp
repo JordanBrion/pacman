@@ -136,8 +136,8 @@ void Window::createCharacters() {
     for(int i(0); i < 4; i++) {
 
         ss << "Ghost" << i+1;
-        dest["x"] = ( _areaGame->getCharacterCoordX(ss.str()) * 30);
-        dest["y"] = ( _areaGame->getCharacterCoordY(ss.str()) * 30);
+        dest["x"] = _areaGame->getCharacterCoordX(ss.str());
+        dest["y"] = _areaGame->getCharacterCoordY(ss.str());
         _ghosts.push_back( new Ghost(dest, _renderer, _areaGame->getSpriteAnim()) );
         ss.str(""); // Clear the string stream
 
