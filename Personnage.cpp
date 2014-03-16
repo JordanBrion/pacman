@@ -5,7 +5,7 @@ using namespace std;
 Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
       _x(dest["x"]), _y(dest["y"]), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
-      _goTo(-1), _back(false), _spriteFlag(false), _vitesse(1) {
+      _goTo(-1), _back(false), _spriteFlag(0), _vitesse(1) {
 
     // Init the possible directions for the character
     _directionsPossible["up"] = false;
@@ -15,7 +15,7 @@ Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL
 
 }
 
-void Personnage::moveVertically(bool up) {
+bool Personnage::moveVertically(bool up) {
 
     // Check if the character doesn't move in this two directions
     // If he moves for just 1 only pixel (up or down) > block this two directions
@@ -68,11 +68,15 @@ void Personnage::moveVertically(bool up) {
 
         }
 
+        return true;
+
     }
+
+    return false;
 
 }
 
-void Personnage::moveHorizontally(bool left) {
+bool Personnage::moveHorizontally(bool left) {
 
     // Check if the character doesn't move in this two directions
     // If he moves for just 1 only pixel (left or right) > block this two directions
@@ -125,7 +129,11 @@ void Personnage::moveHorizontally(bool left) {
 
         }
 
+        return true;
+
     }
+
+    return false;
 
 }
 
@@ -229,4 +237,21 @@ void Personnage::resetValues() {
 
 }
 
-void Personnage::nextSprite(int direction) {}
+void Personnage::nextSprite(int direction) {
+
+    if( _stepCounter % 5 == 0 ) {
+
+        // Load new x
+        _selection.x = _spriteCoord[direction][_spriteFlag][0];
+        // Load new y
+        _selection.y = _spriteCoord[direction][_spriteFlag][1];
+
+        // The character's animation has two parts
+        // 0 = first part
+        // 1 = second part
+        if( _spriteFlag >= _spriteCoord[direction].size() ) _spriteFlag = 0;
+        else _spriteFlag++;
+
+    }
+
+}

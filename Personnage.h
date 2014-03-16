@@ -8,13 +8,13 @@ class Personnage: public InteractiveElement {
 protected:
     Personnage(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
     virtual void loadSpriteCoord() = 0;
+    bool moveVertically(bool);
+    bool moveHorizontally(bool);
     virtual void stopMove() = 0;
     virtual void checkCollision() = 0;
     virtual void deadAnimation() = 0;
     virtual void teleportation() = 0;
 public:
-    void moveVertically(bool);
-    void moveHorizontally(bool);
     void calculateDirection(std::vector<std::vector<int> >);
     bool isCenteredInTheSquare();
     void setStepCounter(int, int);
@@ -33,7 +33,7 @@ protected:
     int _goTo;
     bool _back;
     std::map<std::string, bool> _directionsPossible;
-    bool _spriteFlag;
+    int _spriteFlag;
     std::vector<std::vector<std::vector<int> > > _spriteCoord;
     int _vitesse;
     bool _dead;

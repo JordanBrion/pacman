@@ -65,6 +65,13 @@ void Pacman::loadSpriteCoord() {
 
 }
 
+void Pacman::moveVertically(bool up) {
+}
+
+void Pacman::moveHorizontally(bool left) {
+
+}
+
 bool Pacman::isCenteredInTheSquareWhenKeyUp() {
 
     if( _stepCounter > 30 - _offset || (_back && _stepCounter < 6 - _offset ) ) {
