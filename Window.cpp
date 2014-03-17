@@ -162,9 +162,15 @@ void Window::threadGhostsLoop() {
     // The ghosts move while Pacman is not dead
     while( !_pacman->isDead() ) {
 
-        _ghosts[0]->move();
-        SDL_Delay(250);
+        if( _ghosts[0]->isCenteredInTheSquare() ) {
 
+            _ghosts[0]->updatePositionInTheGrid();
+            _ghosts[0]->calculateDirection(_areaGame->getLevelTable());
+            _ghosts[0]->calculateOffset(false);
+            _ghosts[0]->resetValues();
+        }
+        _ghosts[0]->move();
+        SDL_Delay(20);
 
     }
 
@@ -324,8 +330,12 @@ void Window::loop() {
             }
         }
 
-    }
+        // Copy new ghosts positions in the renderer
+        _ghosts[0]->show(_renderer);
 
+        // Render changes on the screen
+        SDL_RenderPresent(_renderer);
+    }
 }
 
 void Window::quit() {

@@ -5,6 +5,8 @@ using namespace std;
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Personnage(dest, renderer, sprite) {
 
+    _stepCounter = 33;
+
     // Modulo to determinate the color of the ghost
     // 4 different colors
     // _zIndex % 4 => result = from 0 to 3
@@ -45,14 +47,30 @@ void Ghost::loadSpriteCoord() {}
 
 void Ghost::move() {
 
-    // If the ghost is centered in the square
-    if( isCenteredInTheSquare() ) {
+    cout << _stepCounter << endl;
 
-        // New direction
-        _goTo = newRandomDirection();
-        cout << _goTo << endl;
+    // Move Vertically
+    if( _goTo == UP || _goTo == DOWN ) {
+
+        bool direction = ( _goTo == UP ) ? true : false;
+        moveVertically(direction);
 
     }
+    // Move Horizontally
+    else if( _goTo == RIGHT || _goTo == LEFT ){
+
+        bool direction = ( _goTo == LEFT ) ? true : false;
+        moveHorizontally(direction);
+
+    }
+
+}
+
+void Ghost::resetValues() {
+
+    Personnage::resetValues();
+    _goTo = newRandomDirection();
+    cout << _goTo << endl;
 
 }
 
