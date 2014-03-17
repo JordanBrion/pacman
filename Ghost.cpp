@@ -42,7 +42,25 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
 }
 
 void Ghost::loadSpriteCoord() {}
-void Ghost::move() {}
+
+void Ghost::move() {
+
+    // If the ghost is centered in the square
+    if( isCenteredInTheSquare() ) {
+
+        // New direction
+        newRandomDirection();
+
+    }
+
+}
+
+bool Ghost::newRandomDirection() const {
+
+
+
+}
+
 void Ghost::stopMove() {}
 void Ghost::checkCollision() {}
 void Ghost::deadAnimation() {}
