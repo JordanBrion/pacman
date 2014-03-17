@@ -139,6 +139,7 @@ void Window::createCharacters() {
         dest["x"] = _areaGame->getCharacterCoordX(ss.str());
         dest["y"] = _areaGame->getCharacterCoordY(ss.str());
         _ghosts.push_back( new Ghost(dest, _renderer, _areaGame->getSpriteAnim()) );
+        _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
         ss.str(""); // Clear the string stream
 
     }

@@ -15,7 +15,6 @@ class Ghost : public Personnage {
     void checkCollision();
     void deadAnimation();
     void teleportation();
-    void calculateDirection(std::map<std::string, bool>);
     void returnToWarpZone();
     void setVulnerable( bool vulnerable );
 

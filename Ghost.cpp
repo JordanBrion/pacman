@@ -65,7 +65,6 @@ void Ghost::stopMove() {}
 void Ghost::checkCollision() {}
 void Ghost::deadAnimation() {}
 void Ghost::teleportation() {}
-void Ghost::calculateDirection(std::map<std::string, bool>) {}
 
 void Ghost::returnToWarpZone() {
 }
