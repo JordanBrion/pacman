@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Window::Window() throw(exception) : _screenWidth(900), _screenHeight(800) {
+Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeight(800) {
 
     try {
 
@@ -153,7 +153,6 @@ void Window::threadGhostsLoop() {
 
 void Window::loop() {
 
-    bool quit(false);
     SDL_Event e;
 
     // Variables to compare time left
@@ -163,7 +162,7 @@ void Window::loop() {
     // Flag for blocking of key up infinite loop
     bool stopKeyUp(false);
 
-    while( !quit ) {
+    while( !_quit ) {
 
         SDL_PollEvent(&e);
 
@@ -179,14 +178,14 @@ void Window::loop() {
             switch( e.type ) {
 
             case SDL_QUIT:
-                quit = true;
+                _quit = true;
                 break;
 
             // Key Down
             case SDL_KEYDOWN:
                 switch(e.key.keysym.sym) {
                 case SDLK_ESCAPE:
-                    quit = true;
+                    _quit = true;
                     break;
 
                 // Pacman controls

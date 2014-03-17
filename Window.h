@@ -35,6 +35,7 @@ public:
     void quitGame();
 
 private:
+    bool _quit;
     int _screenWidth;
     int _screenHeight;
     SDL_Window *_window;
