@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_thread.h>
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -24,6 +25,7 @@ public:
     void createAreaGame(char[]);
     void createHUD();
     void createCharacters();
+    void threadGhostsLoop();
     void loop();
     void quit();
     void startGame();
@@ -41,6 +43,7 @@ private:
     AreaGame *_areaGame;
     Pacman *_pacman;
     std::vector<Ghost*> _ghosts;
+    SDL_Thread *_threadGhosts;
 
 };
 #endif
