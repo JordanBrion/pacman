@@ -8,10 +8,10 @@ Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL
       _goTo(-1), _back(false), _spriteFlag(0), _vitesse(1), _dead(false) {
 
     // Init the possible directions for the character
-    _directionsPossible["up"] = false;
-    _directionsPossible["down"] = false;
-    _directionsPossible["right"] = false;
-    _directionsPossible["left"] = false;
+    _directionsPossible.push_back(false);
+    _directionsPossible.push_back(false);
+    _directionsPossible.push_back(false);
+    _directionsPossible.push_back(false);
 
 }
 
@@ -34,7 +34,7 @@ bool Personnage::moveVertically(bool up) {
 
             // If the character is centered in the square
             // AND can move up
-            else if( _stepCounter == 3 && _directionsPossible["up"] ) {
+            else if( _stepCounter == 3 && _directionsPossible[UP] ) {
 
                 _position.y -= 1;
                 _goTo = UP;
@@ -57,7 +57,7 @@ bool Personnage::moveVertically(bool up) {
 
             // If the character is centered in the square
             // AND can move down
-            else if( _stepCounter == 3 && _directionsPossible["down"] ) {
+            else if( _stepCounter == 3 && _directionsPossible[DOWN] ) {
 
                 _position.y += 1;
                 _goTo = DOWN;
@@ -95,7 +95,7 @@ bool Personnage::moveHorizontally(bool left) {
 
             // If the character is centered in the square
             // AND can move to the left
-            else if( _stepCounter == 3 && _directionsPossible["left"] ) {
+            else if( _stepCounter == 3 && _directionsPossible[LEFT] ) {
 
                 _position.x -= 1;
                 _goTo = LEFT;
@@ -118,7 +118,7 @@ bool Personnage::moveHorizontally(bool left) {
 
             // If the character is centered in the square
             // AND can move to the right
-            else if( _stepCounter == 3 && _directionsPossible["right"] ) {
+            else if( _stepCounter == 3 && _directionsPossible[RIGHT] ) {
 
                 _position.x += 1;
                 _goTo = RIGHT;
@@ -142,10 +142,10 @@ void Personnage::calculateDirection(vector<vector<int> > levelTable) {
     if(!_back) {
 
         // Check if the next positions are runnable by the character
-        _directionsPossible["up"] = ( levelTable[_y-1][_x] < 0 ) ? true : false;
-        _directionsPossible["down"] = ( levelTable[_y+1][_x] < 0 ) ? true : false;
-        _directionsPossible["right"] = ( levelTable[_y][_x+1] < 0 ) ? true : false;
-        _directionsPossible["left"] = ( levelTable[_y][_x-1] < 0 ) ? true : false;
+        _directionsPossible[UP] = ( levelTable[_y-1][_x] < 0 ) ? true : false;
+        _directionsPossible[DOWN] = ( levelTable[_y+1][_x] < 0 ) ? true : false;
+        _directionsPossible[RIGHT] = ( levelTable[_y][_x+1] < 0 ) ? true : false;
+        _directionsPossible[LEFT] = ( levelTable[_y][_x-1] < 0 ) ? true : false;
 
     }
 

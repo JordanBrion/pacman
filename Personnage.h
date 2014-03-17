@@ -33,7 +33,7 @@ protected:
     int _offsetH;
     int _goTo;
     bool _back;
-    std::map<std::string, bool> _directionsPossible;
+    std::vector<bool> _directionsPossible;
     int _spriteFlag;
     std::vector<std::vector<std::vector<int> > > _spriteCoord;
     int _vitesse;

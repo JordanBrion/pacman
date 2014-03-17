@@ -59,16 +59,13 @@ void Ghost::move() {
 int Ghost::newRandomDirection() const {
 
     vector<int> temp;
-    int i(0);
 
-    for( map<string, bool>::const_iterator it = _directionsPossible.begin(); it != _directionsPossible.end(); ++it ) {
+    for( int i(0); i < _directionsPossible.size(); i++ ) {
 
         // If the character can go to this direction
-        if( it->second )
+        if( _directionsPossible[i] )
             // We add to the temp array
             temp.push_back( i );
-
-        i++;
 
     }
 
