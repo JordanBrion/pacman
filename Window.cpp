@@ -158,6 +158,15 @@ int Window::createThread(void* data) {
 
 void Window::threadGhostsLoop() {
 
+    // The ghosts move while Pacman is not dead
+    while( !_pacman->isDead() ) {
+
+        _ghosts[0]->move();
+        SDL_Delay(250);
+
+
+    }
+
 }
 
 void Window::loop() {
