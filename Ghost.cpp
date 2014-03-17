@@ -49,15 +49,33 @@ void Ghost::move() {
     if( isCenteredInTheSquare() ) {
 
         // New direction
-        newRandomDirection();
+        _goTo = newRandomDirection();
+        cout << _goTo << endl;
 
     }
 
 }
 
-bool Ghost::newRandomDirection() const {
+int Ghost::newRandomDirection() const {
 
+    vector<int> temp;
+    int i(0);
 
+    for( map<string, bool>::const_iterator it = _directionsPossible.begin(); it != _directionsPossible.end(); ++it ) {
+
+        // If the character can go to this direction
+        if( it->second )
+            // We add to the temp array
+            temp.push_back( i );
+
+        i++;
+
+    }
+
+    // Random value
+    int direction = rand() % temp.size();
+
+    return temp[direction];
 
 }
 

@@ -2,6 +2,9 @@
 #define FANTOME_H
 
 #include <sstream>
+#include <iterator>
+#include <algorithm>
+#include <stdlib.h>
 #include "Personnage.h"
 
 class Ghost : public Personnage {
@@ -10,7 +13,7 @@ class Ghost : public Personnage {
     Ghost(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
     void loadSpriteCoord();
     void move();
-    bool newRandomDirection() const;
+    int newRandomDirection() const;
     void stopMove();
     void checkCollision();
     void deadAnimation();
