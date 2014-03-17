@@ -3,7 +3,7 @@
 using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Personnage(dest, renderer, sprite) {
+    : Personnage(dest, renderer, sprite), _previousDirection(-1) {
 
     _stepCounter = 33;
 
@@ -68,9 +68,18 @@ void Ghost::move() {
 
 void Ghost::resetValues() {
 
+    // Forbid the previous direction
+    // For examples: if the ghost moved to UP, forbid DOWN for the next move
+    //               if the ghost moved to RIGHT, forbid LEFT for the next move
+    if( _goTo == UP || _goTo == RIGHT ) {
+        _previousDirection = _goTo + 1;
+    }
+    else if( _goTo == DOWN || _goTo == LEFT ) {
+        _previousDirection = _goTo - 1;
+    }
+
     Personnage::resetValues();
     _goTo = newRandomDirection();
-    cout << _goTo << endl;
 
 }
 
@@ -81,9 +90,11 @@ int Ghost::newRandomDirection() const {
     for( int i(0); i < _directionsPossible.size(); i++ ) {
 
         // If the character can go to this direction
-        if( _directionsPossible[i] )
+        // AND if this direction is different from the previous one
+        if( _directionsPossible[i] && i != _previousDirection ) {
             // We add to the temp array
             temp.push_back( i );
+        }
 
     }
 

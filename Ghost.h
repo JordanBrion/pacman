@@ -22,6 +22,9 @@ class Ghost : public Personnage {
     void returnToWarpZone();
     void setVulnerable( bool vulnerable );
 
+private:
+    int _previousDirection;
+
 };
 
 #endif
