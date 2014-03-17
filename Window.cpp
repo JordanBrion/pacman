@@ -142,12 +142,21 @@ void Window::createCharacters() {
         ss.str(""); // Clear the string stream
 
     }
+    _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
+
+}
+
+int Window::createThread(void* data) {
+
+    Window w = *( Window *) data;
+
+    w.threadGhostsLoop();
+
+    return 0;
 
 }
 
 void Window::threadGhostsLoop() {
-
-
 
 }
 

@@ -25,6 +25,7 @@ public:
     void createAreaGame(char[]);
     void createHUD();
     void createCharacters();
+    static int createThread(void*);
     void threadGhostsLoop();
     void loop();
     void quit();
