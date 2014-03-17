@@ -255,3 +255,9 @@ void Personnage::nextSprite(int direction) {
     }
 
 }
+
+bool Personnage::isDead() {
+
+    return _dead;
+
+}

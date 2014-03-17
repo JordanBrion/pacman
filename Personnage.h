@@ -22,6 +22,7 @@ public:
     void updatePositionInTheGrid();
     void resetValues();
     void nextSprite(int);
+    bool isDead();
 
 protected:
     int _x;
