@@ -256,7 +256,7 @@ void Personnage::nextSprite(int direction) {
 
 }
 
-bool Personnage::isDead() {
+bool Personnage::isDead() const {
 
     return _dead;
 
