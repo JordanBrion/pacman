@@ -71,10 +71,10 @@ void Pacman::moveVertically(bool up) {
 
         int direction = ( up ) ? UP : DOWN;
 
-        if( _spriteFlag == _spriteCoord[direction].size() && _stepCounter % 5 == 0 ) {
+        if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
             _selection.x = 45;
             _selection.y = 3;
-            _spriteFlag = 0;
+            _spriteFlag = -1;
         }
         else {
             nextSprite(direction);
@@ -91,10 +91,10 @@ void Pacman::moveHorizontally(bool left) {
 
         int direction = ( left ) ? LEFT : RIGHT;
 
-        if( _spriteFlag == _spriteCoord[direction].size() && _stepCounter % 5 == 0 ) {
+        if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
             _selection.x = 45;
             _selection.y = 3;
-            _spriteFlag = 0;
+            _spriteFlag = -1;
         }
         else {
             nextSprite(direction);
