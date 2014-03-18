@@ -172,7 +172,7 @@ void Window::threadGhostsLoop() {
             }
             _ghosts[i]->move();
         }
-        SDL_Delay(20);
+        SDL_Delay(10);
 
     }
 
