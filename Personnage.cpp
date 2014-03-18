@@ -249,8 +249,8 @@ void Personnage::nextSprite(int direction) {
         // The character's animation has two parts
         // 0 = first part
         // 1 = second part
-        if( _spriteFlag >= _spriteCoord[direction].size() ) _spriteFlag = 0;
-        else _spriteFlag++;
+        if( _spriteFlag < _spriteCoord[direction].size() - 1 ) _spriteFlag++;
+        else _spriteFlag = 0;
 
     }
 

@@ -12,10 +12,6 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     // _zIndex % 4 => result = from 0 to 3
     int color = _zIndex % 4;
 
-    enum colors {
-        RED, PINK, BLUE, ORANGE
-    };
-
     switch(color) {
     case RED:
         _selection.x = 5;
@@ -39,11 +35,181 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     _selection.w = 17;
     _selection.h = 19;
 
+    // Initialize the sprite coord for the animations
+    loadSpriteCoord();
+
     show(renderer);
 
 }
 
-void Ghost::loadSpriteCoord() {}
+void Ghost::loadSpriteCoord() {
+
+    int color = _zIndex % 4;
+
+    vector<vector<int> > temp(2);
+    vector<int> coord(2);
+
+    switch(color) {
+
+    // Red ghost coord
+    case RED:
+        // UP
+        coord[0] = 5;
+        coord[1] = 84;
+        temp[0] = coord;
+        coord[0] = 25;
+        coord[1] = 84;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // DOWN
+        coord[0] = 45;
+        coord[1] = 84;
+        temp[0] = coord;
+        coord[0] = 65;
+        coord[1] = 84;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // RIGHT
+        coord[0] = 125;
+        coord[1] = 84;
+        temp[0] = coord;
+        coord[0] = 145;
+        coord[1] = 84;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // LEFT
+        coord[0] = 85;
+        coord[1] = 84;
+        temp[0] = coord;
+        coord[0] = 105;
+        coord[1] = 84;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+        break;
+
+    // Pink ghost coord
+    case PINK:
+        // UP
+        coord[0] = 5;
+        coord[1] = 104;
+        temp[0] = coord;
+        coord[0] = 25;
+        coord[1] = 104;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // DOWN
+        coord[0] = 45;
+        coord[1] = 104;
+        temp[0] = coord;
+        coord[0] = 65;
+        coord[1] = 104;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // RIGHT
+        coord[0] = 125;
+        coord[1] = 104;
+        temp[0] = coord;
+        coord[0] = 145;
+        coord[1] = 104;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // LEFT
+        coord[0] = 85;
+        coord[1] = 104;
+        temp[0] = coord;
+        coord[0] = 105;
+        coord[1] = 104;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+        break;
+
+    // Blue ghost coord
+    case BLUE:
+        // UP
+        coord[0] = 5;
+        coord[1] = 124;
+        temp[0] = coord;
+        coord[0] = 25;
+        coord[1] = 124;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // DOWN
+        coord[0] = 45;
+        coord[1] = 124;
+        temp[0] = coord;
+        coord[0] = 65;
+        coord[1] = 124;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // RIGHT
+        coord[0] = 125;
+        coord[1] = 124;
+        temp[0] = coord;
+        coord[0] = 145;
+        coord[1] = 124;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // LEFT
+        coord[0] = 85;
+        coord[1] = 124;
+        temp[0] = coord;
+        coord[0] = 105;
+        coord[1] = 124;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+        break;
+
+    // Orange ghost coord
+    case ORANGE:
+        // UP
+        coord[0] = 5;
+        coord[1] = 144;
+        temp[0] = coord;
+        coord[0] = 25;
+        coord[1] = 144;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // DOWN
+        coord[0] = 45;
+        coord[1] = 144;
+        temp[0] = coord;
+        coord[0] = 65;
+        coord[1] = 144;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // RIGHT
+        coord[0] = 125;
+        coord[1] = 144;
+        temp[0] = coord;
+        coord[0] = 145;
+        coord[1] = 144;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+
+        // LEFT
+        coord[0] = 85;
+        coord[1] = 144;
+        temp[0] = coord;
+        coord[0] = 105;
+        coord[1] = 144;
+        temp[1] = coord;
+        _spriteCoord.push_back(temp);
+        break;
+
+    }
+
+}
 
 void Ghost::move() {
 
@@ -51,14 +217,18 @@ void Ghost::move() {
     if( _goTo == UP || _goTo == DOWN ) {
 
         bool direction = ( _goTo == UP ) ? true : false;
-        moveVertically(direction);
+        if( moveVertically(direction) ) {
+            nextSprite(_goTo);
+        }
 
     }
     // Move Horizontally
     else if( _goTo == RIGHT || _goTo == LEFT ){
 
         bool direction = ( _goTo == LEFT ) ? true : false;
-        moveHorizontally(direction);
+        if( moveHorizontally(direction) ) {
+            nextSprite(_goTo);
+        }
 
     }
 
