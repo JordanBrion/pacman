@@ -18,7 +18,7 @@ protected:
     InteractiveElement(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
 public:
     void show(SDL_Renderer* const&);
-    SDL_Rect getPosition();
+    SDL_Rect getPosition() const;
 
 protected:
     int _x;

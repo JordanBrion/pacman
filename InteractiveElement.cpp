@@ -31,7 +31,7 @@ void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
 
 }
 
-SDL_Rect InteractiveElement::getPosition() {
+SDL_Rect InteractiveElement::getPosition() const {
 
     return _position;
 
