@@ -8,7 +8,7 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
 
         char _levelString[] =
                 "2;1;1;1;1;1;1;1;1;1;1;7;1;1;1;1;1;1;1;1;1;1;5;"
-                "0;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
+                "0;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;#;0;"
                 "0;-1;26;25;29;-1;26;25;25;29;-1;10;-1;26;25;25;29;-1;26;25;29;-1;0;"
                 "0;-1;27;25;28;-1;27;25;25;28;-1;14;-1;27;25;25;28;-1;27;25;28;-1;0;"
                 "0;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
@@ -17,7 +17,7 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
                 "3; 1; 1; 1; 5;-1;21;11;11;13;-1;14;-1;12;11;11;20;-1; 2; 1; 1; 1;4;"
                 "-1;-1;-1;-1;0;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1; 0;-1;-1;-1;-1;"
                 " 1; 1; 1; 1;4;-1;14;-1;36; 1;35;33;34; 1;39;-1;14;-1; 3; 1; 1; 1; 1;"
-                "-1;-1;-1;-1;-1;-1;-1;-1; 0;#;#;-1;#;#; 0;-1;-1;-1;-1;-1;-1;-1;-1;"
+                "-1;-1;-1;-1;0;-1;-1;-1; 0;-1;-1;-1;-1;-1; 0;-1;-1;-1;0;-1;-1;-1;-1;"
                 " 1; 1; 1; 1;5;-1;15;-1;37; 1; 1; 1; 1; 1;38;-1;15;-1; 2; 1; 1; 1; 1;"
                 "-1;-1;-1;-1;0;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1; 0;-1;-1;-1;-1;"
                 "2 ; 1; 1; 1;4;-1;14;-1;12;11;11;22;11;11;13;-1;14;-1; 3; 1; 1; 1; 5;"
@@ -27,7 +27,7 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
                 "9 ;11;13;-1;14;-1;15;-1;12;11;11;22;11;11;13;-1;15;-1;14;-1;12;11;6;"
                 "0 ;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;10;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;0;"
                 "0 ;-1;12;11;11;11;23;11;11;13;-1;14;-1;12;11;11;23;11;11;11;13;-1;0;"
-                "0 ;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
+                "0 ;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;#;0;"
                 "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
         int rows(22);
@@ -162,14 +162,16 @@ void Window::threadGhostsLoop() {
     // The ghosts move while Pacman is not dead
     while( !_pacman->isDead() ) {
 
-        if( _ghosts[0]->isCenteredInTheSquare() ) {
+        for( int i(0); i < _ghosts.size(); i++ ) {
+            if( _ghosts[i]->isCenteredInTheSquare() ) {
 
-            _ghosts[0]->updatePositionInTheGrid();
-            _ghosts[0]->calculateDirection(_areaGame->getLevelTable());
-            _ghosts[0]->calculateOffset(false);
-            _ghosts[0]->resetValues();
+                _ghosts[i]->updatePositionInTheGrid();
+                _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
+                _ghosts[i]->calculateOffset(false);
+                _ghosts[i]->resetValues();
+            }
+            _ghosts[i]->move();
         }
-        _ghosts[0]->move();
         SDL_Delay(20);
 
     }
@@ -331,7 +333,8 @@ void Window::loop() {
         }
 
         // Copy new ghosts positions in the renderer
-        _ghosts[0]->show(_renderer);
+        for( int i(0); i < _ghosts.size(); i++ )
+            _ghosts[i]->show(_renderer);
 
         // Render changes on the screen
         SDL_RenderPresent(_renderer);
