@@ -11,7 +11,6 @@ protected:
     bool moveVertically(bool);
     bool moveHorizontally(bool);
     virtual void stopMove() = 0;
-    virtual void checkCollision() = 0;
     virtual void deadAnimation() = 0;
     virtual void teleportation() = 0;
 public:
@@ -22,11 +21,11 @@ public:
     void updatePositionInTheGrid();
     void resetValues();
     void nextSprite(int);
+    bool checkCollision( InteractiveElement* const& ) const;
     bool isDead() const;
+    void setDead();
 
 protected:
-    int _x;
-    int _y;
     int _stepCounter;
     int _offset;
     int _offsetV;

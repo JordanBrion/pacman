@@ -4,7 +4,7 @@ using namespace std;
 
 Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
-      _x(dest["x"]), _y(dest["y"]), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
+      _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
       _goTo(-1), _back(false), _spriteFlag(-1), _vitesse(1), _dead(false) {
 
     // Init the possible directions for the character
@@ -256,8 +256,28 @@ void Personnage::nextSprite(int direction) {
 
 }
 
+bool Personnage::checkCollision( InteractiveElement* const& element ) const {
+
+    if( _position.x == element->getPosition().x
+            && _position.y == element->getPosition().y ) {
+
+        // Collision detected
+        return true;
+
+    }
+
+    return false;
+
+}
+
 bool Personnage::isDead() const {
 
     return _dead;
+
+}
+
+void Personnage::setDead() {
+
+    _dead = !_dead;
 
 }

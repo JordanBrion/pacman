@@ -274,7 +274,6 @@ int Ghost::newRandomDirection() const {
 }
 
 void Ghost::stopMove() {}
-void Ghost::checkCollision() {}
 void Ghost::deadAnimation() {}
 void Ghost::teleportation() {}
 

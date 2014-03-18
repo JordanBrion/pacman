@@ -333,8 +333,17 @@ void Window::loop() {
         }
 
         // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ )
+        for( int i(0); i < _ghosts.size(); i++ ) {
             _ghosts[i]->show(_renderer);
+            // Detect if there is a collision
+            if( _ghosts[i]->checkCollision(_pacman) ) {
+                // If collision detected, pacman is dead
+                if( !_pacman->isDead() ) {
+                    _pacman->setDead();
+                }
+
+            }
+        }
 
         // Render changes on the screen
         SDL_RenderPresent(_renderer);

@@ -18,8 +18,11 @@ protected:
     InteractiveElement(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
 public:
     void show(SDL_Renderer* const&);
+    SDL_Rect getPosition();
 
 protected:
+    int _x;
+    int _y;
     std::map<std::string, int> _initialStateSrc; // Initial coord on the sprite
     std::map<std::string, int> _initialStateDest; // Coord on the screen at the start of the game
     SDL_Texture* _element;

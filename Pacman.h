@@ -13,7 +13,6 @@ public:
     void moveHorizontally(bool);
     bool isCenteredInTheSquareWhenKeyUp();
     void stopMove();
-    void checkCollision();
     void deadAnimation();
     void teleportation();
 

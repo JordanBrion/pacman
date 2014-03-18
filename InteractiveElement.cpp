@@ -5,7 +5,8 @@ using namespace std;
 /* STATIC VARIABLES */
 int InteractiveElement::zIndexCounter = 0;
 
-InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) {
+InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
+        _x(dest["x"]), _y(dest["y"]) {
 
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
@@ -27,5 +28,11 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
 void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
 
     SDL_RenderCopy(pRenderer, _element, &_selection, &_position);
+
+}
+
+SDL_Rect InteractiveElement::getPosition() {
+
+    return _position;
 
 }

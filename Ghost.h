@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include "Personnage.h"
+#include "Pacman.h"
 
 class Ghost : public Personnage {
 
@@ -16,7 +17,6 @@ class Ghost : public Personnage {
     void resetValues();
     int newRandomDirection() const;
     void stopMove();
-    void checkCollision();
     void deadAnimation();
     void teleportation();
     void returnToWarpZone();
