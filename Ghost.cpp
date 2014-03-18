@@ -47,8 +47,6 @@ void Ghost::loadSpriteCoord() {}
 
 void Ghost::move() {
 
-    cout << _stepCounter << endl;
-
     // Move Vertically
     if( _goTo == UP || _goTo == DOWN ) {
 
