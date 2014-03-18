@@ -117,6 +117,5 @@ bool Pacman::isCenteredInTheSquareWhenKeyUp() {
 
 }
 
-void Pacman::stopMove() {}
 void Pacman::deadAnimation() {}
 void Pacman::teleportation() {}

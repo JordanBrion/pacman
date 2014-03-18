@@ -10,7 +10,6 @@ protected:
     virtual void loadSpriteCoord() = 0;
     bool moveVertically(bool);
     bool moveHorizontally(bool);
-    virtual void stopMove() = 0;
     virtual void deadAnimation() = 0;
     virtual void teleportation() = 0;
 public:

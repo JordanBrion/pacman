@@ -273,7 +273,6 @@ int Ghost::newRandomDirection() const {
 
 }
 
-void Ghost::stopMove() {}
 void Ghost::deadAnimation() {}
 void Ghost::teleportation() {}
 

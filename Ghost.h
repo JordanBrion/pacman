@@ -16,7 +16,6 @@ class Ghost : public Personnage {
     void move();
     void resetValues();
     int newRandomDirection() const;
-    void stopMove();
     void deadAnimation();
     void teleportation();
     void returnToWarpZone();
