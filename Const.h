@@ -35,4 +35,8 @@ enum directions {
 
 };
 
+enum colors {
+    RED, PINK, BLUE, ORANGE
+};
+
 #endif
