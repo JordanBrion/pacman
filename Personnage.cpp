@@ -258,8 +258,10 @@ void Personnage::nextSprite(int direction) {
 
 bool Personnage::checkCollision( InteractiveElement* const& element ) const {
 
-    if( _position.x == element->getPosition().x
-            && _position.y == element->getPosition().y ) {
+    if( (_position.x >= element->getPosition().x - 15
+            && _position.x <= element->getPosition().x + 15)
+         && (_position.y >= element->getPosition().y - 15
+                && _position.y <= element->getPosition().y + 15) )  {
 
         // Collision detected
         return true;
