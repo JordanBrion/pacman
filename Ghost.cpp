@@ -266,8 +266,16 @@ int Ghost::newRandomDirection() const {
 
     }
 
+    int direction = -1;
+
+    // If no direction found > choose the previous direction
+    if( temp.size() == 0 ) {
+        direction = _previousDirection;
+    }
     // Random value
-    int direction = rand() % temp.size();
+    else {
+        direction = rand() % temp.size();
+    }
 
     return temp[direction];
 
