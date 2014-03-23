@@ -353,7 +353,7 @@ void Window::loop() {
         if( _pacman->isDead() ) {
 
             // Load the pacman dead animation
-            _pacman->deadAnimation();
+            _pacman->deadAnimation(_renderer);
 
         }
         else {
