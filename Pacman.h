@@ -13,6 +13,7 @@ public:
     void moveHorizontally(bool);
     bool isCenteredInTheSquareWhenKeyUp();
     void deadAnimation(SDL_Renderer* const&);
+    int getDeadAnimationCounter() const;
     void teleportation();
     void defaultValues();
 

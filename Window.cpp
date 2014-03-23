@@ -352,7 +352,11 @@ void Window::loop() {
 
             // Load the pacman dead animation
             _pacman->deadAnimation(_renderer);
-            startNewLife();
+
+            // If the animation is ended
+            if( _pacman->getDeadAnimationCounter() > 11 ) {
+                startNewLife();
+            }
 
         }
         else {

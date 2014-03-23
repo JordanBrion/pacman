@@ -123,13 +123,18 @@ void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
     _selection.y = 244;
 
     _selection.x = ( _deadAnimationCounter * 20 ) + 4;
-    show(pRenderer);
-    if( _deadAnimationCounter < 10 ) {
-        _deadAnimationCounter++;
-    }
-    else _deadAnimationCounter = 0;
-    SDL_Delay(100);
 
+    _deadAnimationCounter++;
+
+    show(pRenderer);
+    SDL_Delay(150);
+
+
+}
+
+int Pacman::getDeadAnimationCounter() const {
+
+    return _deadAnimationCounter;
 
 }
 
@@ -138,5 +143,6 @@ void Pacman::teleportation() {}
 void Pacman::defaultValues() {
 
     Personnage::defaultValues();
+    _deadAnimationCounter = 0;
 
 }
