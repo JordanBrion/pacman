@@ -173,6 +173,17 @@ void Window::threadGhostsLoop() {
                 _ghosts[i]->resetValues();
             }
             _ghosts[i]->move();
+
+            // After the move, detect if there is a collision
+            if( _ghosts[i]->checkCollision(_pacman) ) {
+
+                // If collision detected, pacman is dead
+                if( !_pacman->isDead() ) {
+                    _pacman->setDead();
+                }
+
+            }
+
         }
         SDL_Delay(20);
 
@@ -337,23 +348,31 @@ void Window::loop() {
         SDL_RenderClear(_renderer);
 
         createAreaGame(_levelString);
-        _pacman->show(_renderer);
 
-        // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ ) {
-            _ghosts[i]->show(_renderer);
-            // Detect if there is a collision
-            if( _ghosts[i]->checkCollision(_pacman) ) {
-                // If collision detected, pacman is dead
-                if( !_pacman->isDead() ) {
-                    _pacman->setDead();
-                }
+        // If pacman is dead
+        if( _pacman->isDead() ) {
+
+            // Load the pacman dead animation
+            _pacman->deadAnimation();
+
+        }
+        else {
+
+            _pacman->show(_renderer);
+
+            // Copy new ghosts positions in the renderer
+            for( int i(0); i < _ghosts.size(); i++ ) {
+
+                _ghosts[i]->show(_renderer);
+
 
             }
+
+            // Render changes on the screen
+            SDL_RenderPresent(_renderer);
+
         }
 
-        // Render changes on the screen
-        SDL_RenderPresent(_renderer);
     }
 }
 
