@@ -38,8 +38,8 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
 
         SDL_RenderClear(_renderer);
 
-        createAreaGame(_levelString);
-        createCharacters();
+        drawAreaGame(_levelString);
+        drawCharacters();
 
     }
     catch(const exception &e) {
@@ -113,15 +113,13 @@ void Window::initSDL() {
 
 }
 
-void Window::createAreaGame(char pLevel[]) {
+void Window::drawAreaGame(char pLevel[]) {
 
     _areaGame->initArea(pLevel, _renderer);
 
 }
 
-void Window::createHUD() {}
-
-void Window::createCharacters() {
+void Window::drawCharacters() {
 
     SDL_SetColorKey( _areaGame->getSpriteAnim() , SDL_TRUE, SDL_MapRGB( _areaGame->getSpriteAnim()->format, 0, 0, 0) );
 
@@ -148,6 +146,9 @@ void Window::createCharacters() {
     _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
 
 }
+
+void Window::drawHudTop() {}
+void Window::drawHudBottom() {}
 
 int Window::createThread(void* data) {
 

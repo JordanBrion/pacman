@@ -22,9 +22,10 @@ public:
     Window() throw(std::exception);
     ~Window();
     void initSDL();
-    void createAreaGame(char[]);
-    void createHUD();
-    void createCharacters();
+    void drawAreaGame(char[]);
+    void drawCharacters();
+    void drawHudTop();
+    void drawHudBottom();
     static int createThread(void*);
     void threadGhostsLoop();
     void loop();
