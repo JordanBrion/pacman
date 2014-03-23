@@ -188,11 +188,8 @@ void AreaGame::initArea( char pLevel[], SDL_Renderer* const& pRenderer ) {
 
                 // Select new position on the sprite
                 selection.y = _levelSpriteCoord[ element ]["y"];
-
-            }
-
-            if( element > -1 ) {
                 SDL_RenderCopy( pRenderer, text, &selection, &position );
+
             }
 
             // Position on the window
