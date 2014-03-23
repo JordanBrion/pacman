@@ -225,9 +225,6 @@ void Window::loop() {
             // Key Down
             case SDL_KEYDOWN:
 
-                SDL_RenderClear(_renderer);
-                createAreaGame(_levelString);
-
                 switch(e.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     _quit = true;
@@ -348,7 +345,7 @@ void Window::loop() {
 
         SDL_RenderClear(_renderer);
 
-        createAreaGame(_levelString);
+        drawAreaGame(_levelString);
 
         // If pacman is dead
         if( _pacman->isDead() ) {
@@ -383,7 +380,14 @@ void Window::quit() {
 
 }
 
-void Window::startNewLife() {}
+
+void Window::startNewLife() {
+
+    drawAreaGame(_levelString);
+    drawHudBottom();
+
+}
+
 void Window::pauseGame() {}
 void Window::loadMenuPause() {}
 void Window::unpauseGame() {}
