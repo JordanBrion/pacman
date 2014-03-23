@@ -3,7 +3,7 @@
 using namespace std;
 
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Personnage(dest, renderer, sprite), _superPower(false) {
+    : Personnage(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -118,6 +118,18 @@ bool Pacman::isCenteredInTheSquareWhenKeyUp() {
 }
 
 void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
+
+    _selection.w = 19;
+    _selection.y = 244;
+
+    _selection.x = ( _deadAnimationCounter * 20 ) + 4;
+    show(pRenderer);
+    if( _deadAnimationCounter < 10 ) {
+        _deadAnimationCounter++;
+    }
+    else _deadAnimationCounter = 0;
+    SDL_Delay(100);
+
 
 }
 

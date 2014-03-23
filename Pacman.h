@@ -16,6 +16,7 @@ public:
     void teleportation();
 
 private:
+    int _deadAnimationCounter;
     bool _superPower;
 
 };

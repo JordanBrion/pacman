@@ -368,10 +368,10 @@ void Window::loop() {
 
             }
 
-            // Render changes on the screen
-            SDL_RenderPresent(_renderer);
-
         }
+
+        // Render changes on the screen
+        SDL_RenderPresent(_renderer);
 
     }
 }
