@@ -86,7 +86,7 @@ void Window::initSDL() {
             else {
 
                 //Initialize renderer color
-                SDL_SetRenderDrawColor( _renderer, 0, 0, 0, 0 );
+                SDL_SetRenderDrawColor( _renderer, 13, 13, 11, 0 );
 
                 // Disable mouse cursor
                 SDL_ShowCursor(SDL_DISABLE);
@@ -122,6 +122,8 @@ void Window::createAreaGame(char pLevel[]) {
 void Window::createHUD() {}
 
 void Window::createCharacters() {
+
+    SDL_SetColorKey( _areaGame->getSpriteAnim() , SDL_TRUE, SDL_MapRGB( _areaGame->getSpriteAnim()->format, 0, 0, 0) );
 
     map<string, int> dest;
 
