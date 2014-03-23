@@ -352,6 +352,7 @@ void Window::loop() {
 
             // Load the pacman dead animation
             _pacman->deadAnimation(_renderer);
+            startNewLife();
 
         }
         else {
@@ -385,6 +386,21 @@ void Window::startNewLife() {
 
     drawAreaGame(_levelString);
     drawHudBottom();
+
+    // Restore Pacman attributes to default
+    _pacman->defaultValues();
+    _pacman->calculateDirection(_areaGame->getLevelTable());
+    _pacman->show(_renderer);
+
+    // Restore ghosts attributes to default
+    for(int i(0); i < _ghosts.size(); i++) {
+        _ghosts[i]->defaultValues();
+        _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
+        _ghosts[i]->show(_renderer);
+    }
+
+    // Restart of the Ghosts thread
+    _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
 
 }
 

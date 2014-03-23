@@ -6,15 +6,16 @@ using namespace std;
 int InteractiveElement::zIndexCounter = 0;
 
 InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
-        _x(dest["x"]), _y(dest["y"]) {
+        _initialX(dest["x"]), _initialY(dest["y"]) {
 
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
     // Initialize positions on the screen
-    _initialStateDest = dest;
-    _position.x = _initialStateDest["x"] * 30;
-    _position.y = _initialStateDest["y"] * 30;
+    _initialStateDest["x"] = dest["x"] * 30;
+    _initialStateDest["y"] = dest["y"] * 30;
+    _position.x = _initialStateDest["x"];
+    _position.y = _initialStateDest["y"];
     _position.w = 30;
     _position.h = 30;
 

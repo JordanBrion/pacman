@@ -14,18 +14,26 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
 
     switch(color) {
     case RED:
+        _initialStateSrc["x"] = 5;
+        _initialStateSrc["y"] = 84;
         _selection.x = 5;
         _selection.y = 84;
         break;
     case PINK:
+        _initialStateSrc["x"] = 5;
+        _initialStateSrc["y"] = 104;
         _selection.x = 5;
         _selection.y = 104;
         break;
     case BLUE:
+        _initialStateSrc["x"] = 5;
+        _initialStateSrc["y"] = 124;
         _selection.x = 5;
         _selection.y = 124;
         break;
     case ORANGE:
+        _initialStateSrc["x"] = 5;
+        _initialStateSrc["y"] = 144;
         _selection.x = 5;
         _selection.y = 144;
         break;
@@ -283,7 +291,13 @@ int Ghost::newRandomDirection() const {
 
 void Ghost::deadAnimation(SDL_Renderer* const& pRenderer) {}
 void Ghost::teleportation() {}
-void Ghost::defaultValues() {}
+
+void Ghost::defaultValues() {
+
+    Personnage::defaultValues();
+    _stepCounter = 33;
+
+}
 
 void Ghost::returnToWarpZone() {
 }

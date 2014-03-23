@@ -4,7 +4,7 @@ using namespace std;
 
 Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
-      _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
+      _x( dest["x"] ), _y( dest["y"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
       _goTo(-1), _back(false), _spriteFlag(-1), _vitesse(1), _dead(false) {
 
     // Init the possible directions for the character
@@ -134,6 +134,29 @@ bool Personnage::moveHorizontally(bool left) {
     }
 
     return false;
+
+}
+
+void Personnage::defaultValues() {
+
+    resetValues();
+
+    _x = _initialX;
+    _y = _initialY;
+
+    _selection.x = _initialStateSrc["x"];
+    _selection.y = _initialStateSrc["y"];
+    _selection.w = 16;
+    _selection.h = 20;
+
+    _position.x = _initialStateDest["x"];
+    _position.y = _initialStateDest["y"];
+
+    _offset = 0;
+    _offsetV = 0;
+    _offsetH = 0;
+
+    _dead = false;
 
 }
 

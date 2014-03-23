@@ -134,4 +134,9 @@ void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
 }
 
 void Pacman::teleportation() {}
-void Pacman::defaultValues() {}
+
+void Pacman::defaultValues() {
+
+    Personnage::defaultValues();
+
+}
