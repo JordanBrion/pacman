@@ -29,9 +29,10 @@ public:
     void threadGhostsLoop();
     void loop();
     void quit();
-    void startGame();
     void startNewLife();
     void pauseGame();
+    void loadMenuPause();
+    void unpauseGame();
     void gameOver();
     void quitGame();
 
