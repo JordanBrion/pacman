@@ -117,5 +117,8 @@ bool Pacman::isCenteredInTheSquareWhenKeyUp() {
 
 }
 
-void Pacman::deadAnimation() {}
+void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
+
+}
+
 void Pacman::teleportation() {}

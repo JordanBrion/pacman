@@ -12,7 +12,7 @@ public:
     void moveVertically(bool);
     void moveHorizontally(bool);
     bool isCenteredInTheSquareWhenKeyUp();
-    void deadAnimation();
+    void deadAnimation(SDL_Renderer* const&);
     void teleportation();
 
 private:

@@ -10,7 +10,7 @@ protected:
     virtual void loadSpriteCoord() = 0;
     bool moveVertically(bool);
     bool moveHorizontally(bool);
-    virtual void deadAnimation() = 0;
+    virtual void deadAnimation(SDL_Renderer* const&) = 0;
     virtual void teleportation() = 0;
 public:
     void calculateDirection(std::vector<std::vector<int> >);
