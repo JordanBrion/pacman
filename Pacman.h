@@ -14,6 +14,7 @@ public:
     bool isCenteredInTheSquareWhenKeyUp();
     void deadAnimation(SDL_Renderer* const&);
     void teleportation();
+    void defaultValues();
 
 private:
     int _deadAnimationCounter;

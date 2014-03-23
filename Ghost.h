@@ -18,6 +18,7 @@ class Ghost : public Personnage {
     int newRandomDirection() const;
     void deadAnimation(SDL_Renderer* const&);
     void teleportation();
+    void defaultValues();
     void returnToWarpZone();
     void setVulnerable( bool vulnerable );
 

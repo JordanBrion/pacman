@@ -12,6 +12,7 @@ protected:
     bool moveHorizontally(bool);
     virtual void deadAnimation(SDL_Renderer* const&) = 0;
     virtual void teleportation() = 0;
+    virtual void defaultValues() = 0;
 public:
     void calculateDirection(std::vector<std::vector<int> >);
     bool isCenteredInTheSquare();

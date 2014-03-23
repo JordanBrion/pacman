@@ -283,6 +283,7 @@ int Ghost::newRandomDirection() const {
 
 void Ghost::deadAnimation(SDL_Renderer* const& pRenderer) {}
 void Ghost::teleportation() {}
+void Ghost::defaultValues() {}
 
 void Ghost::returnToWarpZone() {
 }
