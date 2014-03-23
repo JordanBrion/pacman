@@ -232,7 +232,6 @@ void Window::loop() {
 
                     }
                     _pacman->moveVertically(true);
-                    _pacman->show(_renderer);
                     stopKeyUp = false;
                     break;
 
@@ -245,7 +244,6 @@ void Window::loop() {
 
                     }
                     _pacman->moveVertically(false);
-                    _pacman->show(_renderer);
                     stopKeyUp = false;
                     break;
 
@@ -259,7 +257,6 @@ void Window::loop() {
 
                     }
                     _pacman->moveHorizontally(false);
-                    _pacman->show(_renderer);
                     stopKeyUp = false;
                     break;
 
@@ -273,7 +270,6 @@ void Window::loop() {
 
                     }
                     _pacman->moveHorizontally(true);
-                    _pacman->show(_renderer);
                     stopKeyUp = false;
                     break;
                 }
@@ -337,6 +333,11 @@ void Window::loop() {
 
             }
         }
+
+        SDL_RenderClear(_renderer);
+
+        createAreaGame(_levelString);
+        _pacman->show(_renderer);
 
         // Copy new ghosts positions in the renderer
         for( int i(0); i < _ghosts.size(); i++ ) {
