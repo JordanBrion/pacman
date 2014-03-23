@@ -39,7 +39,7 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
         SDL_RenderClear(_renderer);
 
         drawAreaGame(_levelString);
-        drawCharacters();
+        createCharacters();
 
     }
     catch(const exception &e) {
@@ -119,7 +119,7 @@ void Window::drawAreaGame(char pLevel[]) {
 
 }
 
-void Window::drawCharacters() {
+void Window::createCharacters() {
 
     SDL_SetColorKey( _areaGame->getSpriteAnim() , SDL_TRUE, SDL_MapRGB( _areaGame->getSpriteAnim()->format, 0, 0, 0) );
 

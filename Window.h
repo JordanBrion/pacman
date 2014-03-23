@@ -23,7 +23,7 @@ public:
     ~Window();
     void initSDL();
     void drawAreaGame(char[]);
-    void drawCharacters();
+    void createCharacters();
     void drawHudTop();
     void drawHudBottom();
     static int createThread(void*);
