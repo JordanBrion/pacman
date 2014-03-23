@@ -7,10 +7,10 @@
 using namespace std;
 
 int main( int argc, char* args[] ) {
-	
+
     Window *window = new Window();
     window->loop();
 
-	return 0;
+    return 0;
 
 }
