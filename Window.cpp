@@ -38,7 +38,7 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
 
         SDL_RenderClear(_renderer);
 
-        drawAreaGame(_levelString);
+        drawAreaGame();
         createCharacters();
 
     }
@@ -113,9 +113,9 @@ void Window::initSDL() {
 
 }
 
-void Window::drawAreaGame(char pLevel[]) {
+void Window::drawAreaGame() {
 
-    _areaGame->initArea(pLevel, _renderer);
+    _areaGame->initArea(_levelString, _renderer);
 
 }
 
@@ -345,7 +345,7 @@ void Window::loop() {
 
         SDL_RenderClear(_renderer);
 
-        drawAreaGame(_levelString);
+        drawAreaGame();
 
         // If pacman is dead
         if( _pacman->isDead() ) {
@@ -388,7 +388,7 @@ void Window::quit() {
 
 void Window::startNewLife() {
 
-    drawAreaGame(_levelString);
+    drawAreaGame();
     drawHudBottom();
 
     // Restore Pacman attributes to default
