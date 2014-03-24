@@ -1,8 +1,8 @@
-#include "Personnage.h"
+#include "Character.h"
 
 using namespace std;
 
-Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
+Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
       _x( dest["x"] ), _y( dest["y"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
       _goTo(-1), _back(false), _spriteFlag(-1), _velocity(1), _dead(false) {
@@ -15,7 +15,7 @@ Personnage::Personnage(map<string, int> dest, SDL_Renderer* const& renderer, SDL
 
 }
 
-bool Personnage::moveVertically(bool up) {
+bool Character::moveVertically(bool up) {
 
     // Check if the character doesn't move in this two directions
     // If he moves for just 1 only pixel (up or down) > block this two directions
@@ -76,7 +76,7 @@ bool Personnage::moveVertically(bool up) {
 
 }
 
-bool Personnage::moveHorizontally(bool left) {
+bool Character::moveHorizontally(bool left) {
 
     // Check if the character doesn't move in this two directions
     // If he moves for just 1 only pixel (left or right) > block this two directions
@@ -137,7 +137,7 @@ bool Personnage::moveHorizontally(bool left) {
 
 }
 
-void Personnage::defaultValues() {
+void Character::defaultValues() {
 
     resetValues();
 
@@ -160,7 +160,7 @@ void Personnage::defaultValues() {
 
 }
 
-void Personnage::calculateDirection(vector<vector<int> > levelTable) {
+void Character::calculateDirection(vector<vector<int> > levelTable) {
 
     if(!_back) {
 
@@ -174,7 +174,7 @@ void Personnage::calculateDirection(vector<vector<int> > levelTable) {
 
 }
 
-bool Personnage::isCenteredInTheSquare() {
+bool Character::isCenteredInTheSquare() {
 
     // If the character is centered
     if( _stepCounter == 33 - _offset || (_back && _stepCounter == 3 - _offset ) ) {
@@ -187,7 +187,7 @@ bool Personnage::isCenteredInTheSquare() {
 
 }
 
-void Personnage::setStepCounter(int direction1, int direction2) {
+void Character::setStepCounter(int direction1, int direction2) {
 
     if( _goTo == direction1 ) {
         _stepCounter++;
@@ -200,7 +200,7 @@ void Personnage::setStepCounter(int direction1, int direction2) {
 
 }
 
-void Personnage::calculateOffset(bool direction) {
+void Character::calculateOffset(bool direction) {
 
     int value = (_back) ? 3 : 33;
 
@@ -219,7 +219,7 @@ void Personnage::calculateOffset(bool direction) {
 
 }
 
-void Personnage::updatePositionInTheGrid() {
+void Character::updatePositionInTheGrid() {
 
     // If the character is not returned to his start point
     // If it is => no update for the coord
@@ -246,7 +246,7 @@ void Personnage::updatePositionInTheGrid() {
 
 }
 
-void Personnage::resetValues() {
+void Character::resetValues() {
 
     // If the character is returned to his start point
     if(_back) _back = false;
@@ -260,7 +260,7 @@ void Personnage::resetValues() {
 
 }
 
-void Personnage::nextSprite(int direction) {
+void Character::nextSprite(int direction) {
 
     if( _stepCounter % 5 == 0 ) {
 
@@ -279,7 +279,7 @@ void Personnage::nextSprite(int direction) {
 
 }
 
-bool Personnage::checkCollision( InteractiveElement* const& element ) const {
+bool Character::checkCollision( InteractiveElement* const& element ) const {
 
     if( (_position.x >= element->getPosition().x - 15
             && _position.x <= element->getPosition().x + 15)
@@ -295,13 +295,13 @@ bool Personnage::checkCollision( InteractiveElement* const& element ) const {
 
 }
 
-bool Personnage::isDead() const {
+bool Character::isDead() const {
 
     return _dead;
 
 }
 
-void Personnage::setDead() {
+void Character::setDead() {
 
     _dead = !_dead;
 

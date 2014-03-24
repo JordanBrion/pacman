@@ -1,9 +1,9 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
-#include "Personnage.h"
+#include "Character.h"
 
-class Pacman : public Personnage {
+class Pacman : public Character {
 
 public:
     Pacman(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);

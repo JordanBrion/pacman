@@ -3,7 +3,7 @@
 using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Personnage(dest, renderer, sprite), _previousDirection(-1) {
+    : Character(dest, renderer, sprite), _previousDirection(-1) {
 
     _stepCounter = 33;
 
@@ -254,7 +254,7 @@ void Ghost::resetValues() {
         _previousDirection = _goTo - 1;
     }
 
-    Personnage::resetValues();
+    Character::resetValues();
     _goTo = newRandomDirection();
 
 }
@@ -294,7 +294,7 @@ void Ghost::teleportation() {}
 
 void Ghost::defaultValues() {
 
-    Personnage::defaultValues();
+    Character::defaultValues();
     _stepCounter = 33;
 
 }

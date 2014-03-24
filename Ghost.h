@@ -5,10 +5,10 @@
 #include <iterator>
 #include <algorithm>
 #include <stdlib.h>
-#include "Personnage.h"
+#include "Character.h"
 #include "Pacman.h"
 
-class Ghost : public Personnage {
+class Ghost : public Character {
 
   public:
     Ghost(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);

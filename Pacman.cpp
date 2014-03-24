@@ -3,7 +3,7 @@
 using namespace std;
 
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Personnage(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false) {
+    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -67,7 +67,7 @@ void Pacman::loadSpriteCoord() {
 
 void Pacman::moveVertically(bool up) {
 
-    if( Personnage::moveVertically(up) ) {
+    if( Character::moveVertically(up) ) {
 
         int direction = ( up ) ? UP : DOWN;
 
@@ -87,7 +87,7 @@ void Pacman::moveVertically(bool up) {
 
 void Pacman::moveHorizontally(bool left) {
 
-    if( Personnage::moveHorizontally(left) ) {
+    if( Character::moveHorizontally(left) ) {
 
         int direction = ( left ) ? LEFT : RIGHT;
 
@@ -142,7 +142,7 @@ void Pacman::teleportation() {}
 
 void Pacman::defaultValues() {
 
-    Personnage::defaultValues();
+    Character::defaultValues();
     _deadAnimationCounter = 0;
 
 }

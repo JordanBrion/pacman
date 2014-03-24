@@ -1,12 +1,12 @@
-#ifndef PERSONNAGE_H
-#define PERSONNAGE_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
 #include "InteractiveElement.h"
 
-class Personnage: public InteractiveElement {
+class Character: public InteractiveElement {
 
 protected:
-    Personnage(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
+    Character(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
     virtual void loadSpriteCoord() = 0;
     bool moveVertically(bool);
     bool moveHorizontally(bool);
