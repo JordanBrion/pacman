@@ -28,8 +28,9 @@ protected:
     SDL_Texture* _element;
     SDL_Rect _position;
     SDL_Rect _selection;
-    static int zIndexCounter;
     int _zIndex;
+public:
+    static int zIndexCounter;
 
 };
 
