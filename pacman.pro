@@ -12,8 +12,8 @@ SOURCES += main.cpp \
     AreaGame.cpp \
     InteractiveElement.cpp \
     Pacman.cpp \
-    Personnage.cpp \
-    Ghost.cpp
+    Ghost.cpp \
+    Character.cpp
 
 HEADERS += \
     Window.h \
@@ -21,6 +21,6 @@ HEADERS += \
     AreaGame.h \
     InteractiveElement.h \
     Pacman.h \
-    Personnage.h \
-    Ghost.h
+    Ghost.h \
+    Character.h
 
