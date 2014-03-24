@@ -37,7 +37,7 @@ protected:
     std::vector<bool> _directionsPossible;
     int _spriteFlag;
     std::vector<std::vector<std::vector<int> > > _spriteCoord;
-    int _vitesse;
+    int _velocity;
     bool _dead;
     std::map<std::string, int> _positionForRespawn;
 
