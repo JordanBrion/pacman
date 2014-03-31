@@ -233,8 +233,6 @@ void Window::loop() {
 
             }
 
-            _pacman->handleEvent(e, _areaGame->getLevelTable());
-
             SDL_RenderClear(_renderer);
 
             drawAreaGame();
@@ -253,6 +251,7 @@ void Window::loop() {
             }
             else {
 
+                _pacman->handleEvent(e, _areaGame->getLevelTable());
                 _pacman->show(_renderer);
 
                 // Copy new ghosts positions in the renderer
