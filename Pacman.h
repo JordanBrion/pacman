@@ -9,6 +9,7 @@ public:
     Pacman(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
     ~Pacman();
     void loadSpriteCoord();
+    void handleEvent(SDL_Event const&, std::vector<std::vector<int> >);
     void moveVertically(bool);
     void moveHorizontally(bool);
     bool isCenteredInTheSquareWhenKeyUp();
@@ -20,6 +21,7 @@ public:
 private:
     int _deadAnimationCounter;
     bool _superPower;
+    bool stopKeyUp;
 
 };
 

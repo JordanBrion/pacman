@@ -3,7 +3,7 @@
 using namespace std;
 
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false) {
+    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false), stopKeyUp(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -62,6 +62,128 @@ void Pacman::loadSpriteCoord() {
     temp[1] = coord;
     _spriteCoord.push_back(temp);
 
+
+}
+
+void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
+
+    switch(e.type) {
+
+    // Key Down
+    case SDL_KEYDOWN:
+
+        switch(e.key.keysym.sym) {
+
+        // Pacman controls
+        case SDLK_UP:
+            if( isCenteredInTheSquare() ) {
+
+                updatePositionInTheGrid();
+                calculateDirection(levelTable);
+                calculateOffset(true);
+                resetValues();
+
+            }
+            moveVertically(true);
+            stopKeyUp = false;
+            break;
+
+        case SDLK_DOWN:
+            if( isCenteredInTheSquare() ) {
+                updatePositionInTheGrid();
+                calculateDirection(levelTable);
+                calculateOffset(true);
+                resetValues();
+            }
+            moveVertically(false);
+            stopKeyUp = false;
+            break;
+
+        case SDLK_RIGHT:
+            if( isCenteredInTheSquare() ) {
+
+                updatePositionInTheGrid();
+                calculateDirection(levelTable);
+                calculateOffset(false);
+                resetValues();
+
+            }
+            moveHorizontally(false);
+            stopKeyUp = false;
+            break;
+
+        case SDLK_LEFT:
+            if( isCenteredInTheSquare() ) {
+
+                updatePositionInTheGrid();
+                calculateDirection(levelTable);
+                calculateOffset(false);
+                resetValues();
+
+            }
+            moveHorizontally(true);
+            stopKeyUp = false;
+            break;
+        }
+        /* END Pacman controls */
+        break;
+
+    // Key Up
+    case SDL_KEYUP:
+
+        // Once the key is down and when the user releases this key,
+        // the programm goes through this case in an infinite loop
+        // So we freeze this loop with a flag
+        if( !stopKeyUp ) {
+
+            stopKeyUp = true;
+
+            switch(e.key.keysym.sym) {
+
+            case SDLK_UP:
+                if (isCenteredInTheSquareWhenKeyUp() ) {
+
+                    updatePositionInTheGrid();
+                    calculateDirection(levelTable);
+                    calculateOffset(true);
+                    resetValues();
+                }
+                break;
+
+            case SDLK_DOWN:
+                if (isCenteredInTheSquareWhenKeyUp() ) {
+
+                    updatePositionInTheGrid();
+                    calculateDirection(levelTable);
+                    calculateOffset(true);
+                    resetValues();
+                }
+                break;
+
+            case SDLK_RIGHT:
+                if (isCenteredInTheSquareWhenKeyUp() ) {
+
+                    updatePositionInTheGrid();
+                    calculateDirection(levelTable);
+                    calculateOffset(false);
+                    resetValues();
+                }
+                break;
+
+            case SDLK_LEFT:
+                if (isCenteredInTheSquareWhenKeyUp() ) {
+
+                    updatePositionInTheGrid();
+                    calculateDirection(levelTable);
+                    calculateOffset(false);
+                    resetValues();
+                }
+                break;
+            }
+        }
+        break;
+
+    }
 
 }
 

@@ -222,160 +222,53 @@ void Window::loop() {
                 _quit = true;
                 break;
 
-            // Key Down
             case SDL_KEYDOWN:
 
                 switch(e.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     _quit = true;
                     break;
-
-                // Pacman controls
-                case SDLK_UP:
-                    if( _pacman->isCenteredInTheSquare() ) {
-
-                        _pacman->updatePositionInTheGrid();
-                        _pacman->calculateDirection(_areaGame->getLevelTable());
-                        _pacman->calculateOffset(true);
-                        _pacman->resetValues();
-
-                    }
-                    _pacman->moveVertically(true);
-                    stopKeyUp = false;
-                    break;
-
-                case SDLK_DOWN:
-                    if( _pacman->isCenteredInTheSquare() ) {
-                        _pacman->updatePositionInTheGrid();
-                        _pacman->calculateDirection(_areaGame->getLevelTable());
-                        _pacman->calculateOffset(true);
-                        _pacman->resetValues();
-
-                    }
-                    _pacman->moveVertically(false);
-                    stopKeyUp = false;
-                    break;
-
-                case SDLK_RIGHT:
-                    if( _pacman->isCenteredInTheSquare() ) {
-
-                        _pacman->updatePositionInTheGrid();
-                        _pacman->calculateDirection(_areaGame->getLevelTable());
-                        _pacman->calculateOffset(false);
-                        _pacman->resetValues();
-
-                    }
-                    _pacman->moveHorizontally(false);
-                    stopKeyUp = false;
-                    break;
-
-                case SDLK_LEFT:
-                    if( _pacman->isCenteredInTheSquare() ) {
-
-                        _pacman->updatePositionInTheGrid();
-                        _pacman->calculateDirection(_areaGame->getLevelTable());
-                        _pacman->calculateOffset(false);
-                        _pacman->resetValues();
-
-                    }
-                    _pacman->moveHorizontally(true);
-                    stopKeyUp = false;
-                    break;
-                }
-                /* END Pacman controls */
-                break;
-
-            // Key Up
-            case SDL_KEYUP:
-
-                // Once the key is down and when the user releases this key,
-                // the programm goes through this case in an infinite loop
-                // So we freeze this loop with a flag
-                if( !stopKeyUp ) {
-
-                    stopKeyUp = true;
-
-                    switch(e.key.keysym.sym) {
-
-                    case SDLK_UP:
-                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
-
-                            _pacman->updatePositionInTheGrid();
-                            _pacman->calculateDirection(_areaGame->getLevelTable());
-                            _pacman->calculateOffset(true);
-                            _pacman->resetValues();
-                        }
-                        break;
-
-                    case SDLK_DOWN:
-                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
-
-                            _pacman->updatePositionInTheGrid();
-                            _pacman->calculateDirection(_areaGame->getLevelTable());
-                            _pacman->calculateOffset(true);
-                            _pacman->resetValues();
-                        }
-                        break;
-
-                    case SDLK_RIGHT:
-                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
-
-                            _pacman->updatePositionInTheGrid();
-                            _pacman->calculateDirection(_areaGame->getLevelTable());
-                            _pacman->calculateOffset(false);
-                            _pacman->resetValues();
-                        }
-                        break;
-
-                    case SDLK_LEFT:
-                        if (_pacman->isCenteredInTheSquareWhenKeyUp() ) {
-
-                            _pacman->updatePositionInTheGrid();
-                            _pacman->calculateDirection(_areaGame->getLevelTable());
-                            _pacman->calculateOffset(false);
-                            _pacman->resetValues();
-                        }
-                        break;
-                    }
                 }
                 break;
 
             }
-        }
 
-        SDL_RenderClear(_renderer);
+            _pacman->handleEvent(e, _areaGame->getLevelTable());
 
-        drawAreaGame();
+            SDL_RenderClear(_renderer);
 
-        // If pacman is dead
-        if( _pacman->isDead() ) {
+            drawAreaGame();
 
-            // Load the pacman dead animation
-            _pacman->deadAnimation(_renderer);
+            // If pacman is dead
+            if( _pacman->isDead() ) {
 
-            // If the animation is ended
-            if( _pacman->getDeadAnimationCounter() > 11 ) {
-                startNewLife();
-            }
+                // Load the pacman dead animation
+                _pacman->deadAnimation(_renderer);
 
-        }
-        else {
-
-            _pacman->show(_renderer);
-
-            // Copy new ghosts positions in the renderer
-            for( int i(0); i < _ghosts.size(); i++ ) {
-
-                _ghosts[i]->show(_renderer);
-
+                // If the animation is ended
+                if( _pacman->getDeadAnimationCounter() > 11 ) {
+                    startNewLife();
+                }
 
             }
+            else {
+
+                _pacman->show(_renderer);
+
+                // Copy new ghosts positions in the renderer
+                for( int i(0); i < _ghosts.size(); i++ ) {
+
+                    _ghosts[i]->show(_renderer);
+
+
+                }
+
+            }
+
+            // Render changes on the screen
+            SDL_RenderPresent(_renderer);
 
         }
-
-        // Render changes on the screen
-        SDL_RenderPresent(_renderer);
-
     }
 }
 
