@@ -3,7 +3,7 @@
 using namespace std;
 
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false), stopKeyUp(false) {
+    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -71,61 +71,39 @@ void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
 
     // Key Down
     case SDL_KEYDOWN:
+    {
+        SDL_Keycode code = e.key.keysym.sym;
 
-        switch(e.key.keysym.sym) {
+        if( code == SDLK_UP ||
+                code == SDLK_DOWN ||
+                code == SDLK_LEFT ||
+                code == SDLK_RIGHT ) {
 
-        // Pacman controls
-        case SDLK_UP:
+            bool vertical = ( code == SDLK_UP || code == SDLK_DOWN ) ? true : false;
+
             if( isCenteredInTheSquare() ) {
 
                 updatePositionInTheGrid();
                 calculateDirection(levelTable);
-                calculateOffset(true);
+                if( vertical ) calculateOffset(true);
+                else calculateOffset(false);
                 resetValues();
 
             }
-            moveVertically(true);
-            stopKeyUp = false;
-            break;
 
-        case SDLK_DOWN:
-            if( isCenteredInTheSquare() ) {
-                updatePositionInTheGrid();
-                calculateDirection(levelTable);
-                calculateOffset(true);
-                resetValues();
+            if( vertical) {
+                bool up = ( code == SDLK_UP ) ? true : false;
+                moveVertically(up);
             }
-            moveVertically(false);
-            stopKeyUp = false;
-            break;
-
-        case SDLK_RIGHT:
-            if( isCenteredInTheSquare() ) {
-
-                updatePositionInTheGrid();
-                calculateDirection(levelTable);
-                calculateOffset(false);
-                resetValues();
-
+            else {
+                bool left = ( code == SDLK_LEFT ) ? true : false;
+                moveHorizontally(left);
             }
-            moveHorizontally(false);
-            stopKeyUp = false;
-            break;
 
-        case SDLK_LEFT:
-            if( isCenteredInTheSquare() ) {
+            _stopKeyUp = false;
 
-                updatePositionInTheGrid();
-                calculateDirection(levelTable);
-                calculateOffset(false);
-                resetValues();
-
-            }
-            moveHorizontally(true);
-            stopKeyUp = false;
-            break;
         }
-        /* END Pacman controls */
+    }
         break;
 
     // Key Up
@@ -134,22 +112,13 @@ void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
         // Once the key is down and when the user releases this key,
         // the programm goes through this case in an infinite loop
         // So we freeze this loop with a flag
-        if( !stopKeyUp ) {
+        if( !_stopKeyUp ) {
 
-            stopKeyUp = true;
+            _stopKeyUp = true;
 
             switch(e.key.keysym.sym) {
 
             case SDLK_UP:
-                if (isCenteredInTheSquareWhenKeyUp() ) {
-
-                    updatePositionInTheGrid();
-                    calculateDirection(levelTable);
-                    calculateOffset(true);
-                    resetValues();
-                }
-                break;
-
             case SDLK_DOWN:
                 if (isCenteredInTheSquareWhenKeyUp() ) {
 
@@ -161,15 +130,6 @@ void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
                 break;
 
             case SDLK_RIGHT:
-                if (isCenteredInTheSquareWhenKeyUp() ) {
-
-                    updatePositionInTheGrid();
-                    calculateDirection(levelTable);
-                    calculateOffset(false);
-                    resetValues();
-                }
-                break;
-
             case SDLK_LEFT:
                 if (isCenteredInTheSquareWhenKeyUp() ) {
 
@@ -179,6 +139,7 @@ void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
                     resetValues();
                 }
                 break;
+
             }
         }
         break;

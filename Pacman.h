@@ -21,7 +21,7 @@ public:
 private:
     int _deadAnimationCounter;
     bool _superPower;
-    bool stopKeyUp;
+    bool _stopKeyUp;
 
 };
 
