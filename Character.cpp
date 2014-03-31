@@ -5,7 +5,7 @@ using namespace std;
 Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
       _x( dest["x"] ), _y( dest["y"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
-      _goTo(-1), _back(false), _spriteFlag(-1), _velocity(1), _dead(false) {
+      _goTo(-1), _back(false), _spriteFlag(-1), _velocity(5), _dead(false) {
 
     // Init the possible directions for the character
     _directionsPossible.push_back(false);
@@ -27,7 +27,7 @@ bool Character::moveVertically(bool up) {
             // If the character is not centered in the square
             if( _stepCounter > 3 ) {
 
-                _position.y -= 1;
+                _position.y -= _velocity;
                 setStepCounter(UP, DOWN);
 
             }
@@ -36,7 +36,7 @@ bool Character::moveVertically(bool up) {
             // AND can move up
             else if( _stepCounter == 3 && _directionsPossible[UP] ) {
 
-                _position.y -= 1;
+                _position.y -= _velocity;
                 _goTo = UP;
                 _stepCounter++;
                 _offset = _offsetV;
@@ -50,7 +50,7 @@ bool Character::moveVertically(bool up) {
             // If the character is not centered in the square
             if( _stepCounter > 3 ) {
 
-                _position.y += 1;
+                _position.y += _velocity;
                 setStepCounter(DOWN, UP);
 
             }
@@ -59,7 +59,7 @@ bool Character::moveVertically(bool up) {
             // AND can move down
             else if( _stepCounter == 3 && _directionsPossible[DOWN] ) {
 
-                _position.y += 1;
+                _position.y += _velocity;
                 _goTo = DOWN;
                 _stepCounter++;
                 _offset = _offsetV;
@@ -88,7 +88,7 @@ bool Character::moveHorizontally(bool left) {
             // If the character is not centered in the square
             if( _stepCounter > 3 ) {
 
-                _position.x -= 1;
+                _position.x -= _velocity;
                 setStepCounter(LEFT, RIGHT);
 
             }
@@ -97,7 +97,7 @@ bool Character::moveHorizontally(bool left) {
             // AND can move to the left
             else if( _stepCounter == 3 && _directionsPossible[LEFT] ) {
 
-                _position.x -= 1;
+                _position.x -= _velocity;
                 _goTo = LEFT;
                 _stepCounter++;
                 _offset = _offsetH;
@@ -111,7 +111,7 @@ bool Character::moveHorizontally(bool left) {
             // If the character is not centered in the square
             if( _stepCounter > 3 ) {
 
-                _position.x += 1;
+                _position.x += _velocity;
                 setStepCounter(RIGHT, LEFT);
 
             }
@@ -120,7 +120,7 @@ bool Character::moveHorizontally(bool left) {
             // AND can move to the right
             else if( _stepCounter == 3 && _directionsPossible[RIGHT] ) {
 
-                _position.x += 1;
+                _position.x += _velocity;
                 _goTo = RIGHT;
                 _stepCounter++;
                 _offset = _offsetH;
