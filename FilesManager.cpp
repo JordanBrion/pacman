@@ -2,10 +2,29 @@
 
 using namespace std;
 
-FilesManager::FilesManager(){
+FilesManager::FilesManager( char pLevel[] ) {
+
+    _rowsNbr = 22;
+    _colsNbr = 23;
+
+    initLevelTable( pLevel );
+    initLevelSpriteCoord();
+
 }
 
 FilesManager::~FilesManager(){
+}
+
+int FilesManager::getRowsNbr() const {
+
+    return _rowsNbr;
+
+}
+
+int FilesManager::getColsNbr() const {
+
+    return _colsNbr;
+
 }
 
 void FilesManager::loadFileXML(){

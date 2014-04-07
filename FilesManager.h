@@ -18,8 +18,10 @@
 class FilesManager {
 
 public:
-    FilesManager();
+    FilesManager( char pLevel[] );
     ~FilesManager();
+    int getRowsNbr() const;
+    int getColsNbr() const;
     void loadFileXML();
     void loadFileLevel();
     void initLevelTable(char pLevel[]);
