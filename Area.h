@@ -1,6 +1,10 @@
 #ifndef AREA_H
 #define AREA_H
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "Const.h"
+
 class Area {
 
 public:
