@@ -7,14 +7,15 @@
 
 class Area {
 
+protected:
+    Area();
 public:
     ~Area();
     void free();
-
 protected:
     virtual void drawArea (SDL_Renderer* const& pRenderer) = 0;
 
-private:
+protected:
     SDL_Texture* _texture;
     SDL_Rect _position;
     SDL_Rect _selection;

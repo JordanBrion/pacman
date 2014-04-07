@@ -1,6 +1,22 @@
 #include "Area.h"
 
-Area::~Area(){}
+Area::Area() {
 
-void Area::free(){}
+    // Initialize value
+    _texture = NULL;
+
+}
+
+Area::~Area() {
+
+    free();
+
+}
+
+void Area::free() {
+
+    SDL_DestroyTexture(_texture);
+    _texture = 0;
+
+}
 
