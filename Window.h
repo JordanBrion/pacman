@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <map>
 #include "Const.h"
+#include "FilesManager.h"
 #include "AreaGame.h"
 #include "Pacman.h"
 #include "Ghost.h"
@@ -44,7 +45,8 @@ private:
     SDL_Window *_window;
     SDL_Surface *_windowSurface;
     SDL_Renderer *_renderer;
-    AreaGame *_areaGame;
+    FilesManager* _fm;
+    AreaGame* _areaGame;
     Pacman *_pacman;
     std::vector<Ghost*> _ghosts;
     SDL_Thread *_threadGhosts;

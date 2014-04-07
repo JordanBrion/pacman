@@ -30,11 +30,11 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
 
     try {
 
-        int rows(22);
-        int cols(23);
-        _areaGame = new AreaGame(rows, cols);
+        _fm = new FilesManager( _levelString );
 
         initSDL();
+
+        _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
 
         SDL_RenderClear(_renderer);
 
@@ -100,7 +100,7 @@ void Window::initSDL() {
 
                     // Load the images
                     // If error when loading
-                    if( !_areaGame->imgLoad() ) {
+                    if( !_fm->loadIMG() ) {
                         throw exception();
                     }
 
@@ -115,31 +115,31 @@ void Window::initSDL() {
 
 void Window::drawAreaGame() {
 
-    _areaGame->initArea(_levelString, _renderer);
+    _areaGame->drawArea( _renderer, _fm->getRowsNbr(), _fm->getColsNbr(), _fm->getLevelTable(), _fm->getLevelSpriteCoord() );
 
 }
 
 void Window::createCharacters() {
 
-    SDL_SetColorKey( _areaGame->getSpriteAnim() , SDL_TRUE, SDL_MapRGB( _areaGame->getSpriteAnim()->format, 0, 0, 0) );
+    SDL_SetColorKey( _fm->getSpriteCharacters() , SDL_TRUE, SDL_MapRGB( _fm->getSpriteCharacters()->format, 0, 0, 0) );
 
     map<string, int> dest;
 
     // Pacman creation
-    dest["x"] = _areaGame->getCharacterCoordX("Pacman");
-    dest["y"] = _areaGame->getCharacterCoordY("Pacman");
-    _pacman = new Pacman( dest, _renderer, _areaGame->getSpriteAnim() );
-    _pacman->calculateDirection(_areaGame->getLevelTable());
+    dest["x"] = _fm->getCharacterCoordX("Pacman");
+    dest["y"] = _fm->getCharacterCoordY("Pacman");
+    _pacman = new Pacman( dest, _renderer, _fm->getSpriteCharacters() );
+    _pacman->calculateDirection(_fm->getLevelTable());
 
     // Ghosts creation
     stringstream ss;
     for(int i(0); i < 4; i++) {
 
         ss << "Ghost" << i+1;
-        dest["x"] = _areaGame->getCharacterCoordX(ss.str());
-        dest["y"] = _areaGame->getCharacterCoordY(ss.str());
-        _ghosts.push_back( new Ghost(dest, _renderer, _areaGame->getSpriteAnim()) );
-        _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
+        dest["x"] = _fm->getCharacterCoordX(ss.str());
+        dest["y"] = _fm->getCharacterCoordY(ss.str());
+        _ghosts.push_back( new Ghost(dest, _renderer, _fm->getSpriteCharacters()) );
+        _ghosts[i]->calculateDirection(_fm->getLevelTable());
         ss.str(""); // Clear the string stream
 
     }
@@ -169,7 +169,7 @@ void Window::threadGhostsLoop() {
             if( _ghosts[i]->isCenteredInTheSquare() ) {
 
                 _ghosts[i]->updatePositionInTheGrid();
-                _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
+                _ghosts[i]->calculateDirection(_fm->getLevelTable());
                 _ghosts[i]->calculateOffset(false);
                 _ghosts[i]->resetValues();
             }
@@ -251,7 +251,7 @@ void Window::loop() {
             }
             else {
 
-                _pacman->handleEvent(e, _areaGame->getLevelTable());
+                _pacman->handleEvent(e, _fm->getLevelTable());
                 _pacman->show(_renderer);
 
                 // Copy new ghosts positions in the renderer
@@ -285,13 +285,13 @@ void Window::startNewLife() {
 
     // Restore Pacman attributes to default
     _pacman->defaultValues();
-    _pacman->calculateDirection(_areaGame->getLevelTable());
+    _pacman->calculateDirection(_fm->getLevelTable());
     _pacman->show(_renderer);
 
     // Restore ghosts attributes to default
     for(int i(0); i < _ghosts.size(); i++) {
         _ghosts[i]->defaultValues();
-        _ghosts[i]->calculateDirection(_areaGame->getLevelTable());
+        _ghosts[i]->calculateDirection(_fm->getLevelTable());
         _ghosts[i]->show(_renderer);
     }
 
