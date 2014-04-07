@@ -4,8 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 # Include SDL
-INCLUDEPATH = usr/include
-LIBS += -L/usr/lib -lSDL2 -lSDL2_image
+INCLUDEPATH += usr/include
+INCLUDEPATH += usr/lib/include
+LIBS += -L/usr/lib -L/usr/local/lib -lSDL2 -lSDL2_image -lSDL2_ttf
 
 SOURCES += main.cpp \
     Window.cpp \
@@ -13,7 +14,10 @@ SOURCES += main.cpp \
     InteractiveElement.cpp \
     Pacman.cpp \
     Ghost.cpp \
-    Character.cpp
+    Character.cpp \
+    Area.cpp \
+    AreaBottom.cpp \
+    AreaTop.cpp
 
 HEADERS += \
     Window.h \
@@ -22,5 +26,8 @@ HEADERS += \
     InteractiveElement.h \
     Pacman.h \
     Ghost.h \
-    Character.h
+    Character.h \
+    Area.h \
+    AreaBottom.h \
+    AreaTop.h
 
