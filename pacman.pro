@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     Area.cpp \
     AreaBottom.cpp \
     AreaTop.cpp \
-    FilesManager.cpp
+    FilesManager.cpp \
+    Game.cpp
 
 HEADERS += \
     Window.h \
@@ -31,5 +32,6 @@ HEADERS += \
     Area.h \
     AreaBottom.h \
     AreaTop.h \
-    FilesManager.h
+    FilesManager.h \
+    Game.h
 
