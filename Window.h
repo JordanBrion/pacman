@@ -23,6 +23,7 @@ public:
     Window() throw(std::exception);
     ~Window();
     void initSDL();
+    void initRessources();
     void drawAreaGame();
     void createCharacters();
     void drawHudTop();

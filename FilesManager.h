@@ -18,7 +18,7 @@
 class FilesManager {
 
 public:
-    FilesManager( char pLevel[] );
+    FilesManager();
     ~FilesManager();
     int getRowsNbr() const;
     int getColsNbr() const;

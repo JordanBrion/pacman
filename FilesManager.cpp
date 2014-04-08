@@ -2,14 +2,13 @@
 
 using namespace std;
 
-FilesManager::FilesManager( char pLevel[] ) {
+FilesManager::FilesManager() {
 
     _rowsNbr = 22;
     _colsNbr = 23;
+    _spriteLevel = NULL;
+    _spriteCharacters = NULL;
     _font = NULL;
-
-    initLevelTable( pLevel );
-    initLevelSpriteCoord();
 
 }
 

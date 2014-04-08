@@ -30,15 +30,24 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
 
     try {
 
-        _fm = new FilesManager( _levelString );
-
+        // Initialize all the needed SDL libraries
         initSDL();
 
-        _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
+        // Initialize the ressources files
+        _fm = new FilesManager();
+        initRessources();
+
+        // Load the level
+        _fm->initLevelTable( _levelString );
+        _fm->initLevelSpriteCoord();
 
         SDL_RenderClear(_renderer);
 
+        // Draw the game area
+        _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
         drawAreaGame();
+
+        // Create and draw the characters
         createCharacters();
 
     }
@@ -98,14 +107,8 @@ void Window::initSDL() {
 
                 else {
 
-                    // Load the images
-                    // If error when loading
-                    if( !_fm->loadIMG() ) {
-                        throw exception();
-                    }
-
                     // Load SDL_ttf and the font
-                    if( TTF_Init() == -1 && !_fm->loadFont() ) {
+                    if( TTF_Init() == -1 ) {
                         throw exception();
                     }
 
@@ -114,6 +117,21 @@ void Window::initSDL() {
             }
         }
 
+    }
+
+}
+
+void Window::initRessources() {
+
+    // Load the images
+    // If error when loading
+    if( !_fm->loadIMG() ) {
+        throw exception();
+    }
+
+    // Load SDL_ttf and the font
+    if( !_fm->loadFont() ) {
+        throw exception();
     }
 
 }
@@ -278,7 +296,7 @@ void Window::loop() {
 
 void Window::quit() {
 
-    cout << SDL_GetError() << endl;
+    cout << "lol" << SDL_GetError() << endl;
 
 }
 
