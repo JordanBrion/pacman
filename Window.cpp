@@ -41,13 +41,8 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
         _fm->initLevelTable( _levelString );
         _fm->initLevelSpriteCoord();
 
-        SDL_RenderClear(_renderer);
-
-        // Draw the game area
+        // Initialize attributes
         _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
-        drawAreaGame();
-
-        // Create and draw the characters
         createCharacters();
 
     }

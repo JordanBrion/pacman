@@ -46,8 +46,6 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
 
-    show(renderer);
-
 }
 
 void Ghost::loadSpriteCoord() {

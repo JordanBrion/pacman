@@ -16,9 +16,6 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
     _selection.w = 16;
     _selection.h = 20;
 
-    // Render on the screen
-    show(renderer);
-
 }
 
 void Pacman::loadSpriteCoord() {
