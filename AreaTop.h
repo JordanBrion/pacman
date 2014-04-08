@@ -11,7 +11,7 @@ class AreaTop: public Area {
 
 public:
     AreaTop();
-    void drawArea ( SDL_Renderer* const pRenderer, TTF_Font* const& pFont );
+    void drawArea( SDL_Renderer* const pRenderer, TTF_Font* const& pFont, int const& pHightScore, int const& pScoreP1, int const& pScoreP2 );
     void drawHighScore ( int const& highscore );
     void drawPlayerOneScore ( int const& score );
     void drawPlayerTwoScore ( int const& score );
