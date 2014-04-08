@@ -12,8 +12,6 @@ protected:
 public:
     ~Area();
     void free();
-protected:
-    virtual void drawArea (SDL_Renderer* const& pRenderer) = 0;
 
 protected:
     SDL_Texture* _texture;
