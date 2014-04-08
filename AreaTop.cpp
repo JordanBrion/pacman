@@ -1,6 +1,6 @@
 #include "AreaTop.h"
 
-AreaTop::AreaTop ( SDL_Renderer* const& pRenderer, TTF_Font* const& pFont ) {}
+AreaTop::AreaTop() {}
 
 void AreaTop::drawArea ( SDL_Renderer* const pRenderer, TTF_Font* const& pFont ) {}
 
