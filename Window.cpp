@@ -291,10 +291,9 @@ void Window::loop() {
 
 void Window::quit() {
 
-    cout << "lol" << SDL_GetError() << endl;
+    cout << SDL_GetError() << endl;
 
 }
-
 
 void Window::startNewLife() {
 
