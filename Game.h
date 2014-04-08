@@ -11,8 +11,10 @@ public:
     int getNbrLifes() const;
     void incNbrLifes();
     void decNbrLifes();
-    int getScore() const;
-    void setScore();
+    int getScoreP1() const;
+    void setScoreP1();
+    int getScoreP2() const;
+    void setScoreP2();
     int getHighScore() const;
     void setHighScore();
     bool isTwoPlayersGame() const;

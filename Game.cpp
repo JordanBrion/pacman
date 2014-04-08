@@ -17,10 +17,16 @@ void Game::incNbrLifes() {
 void Game::decNbrLifes() {
 }
 
-int Game::getScore() const {
+int Game::getScoreP1() const {
 }
 
-void Game::setScore() {
+void Game::setScoreP1() {
+}
+
+int Game::getScoreP2() const {
+}
+
+void Game::setScoreP2() {
 }
 
 int Game::getHighScore() const {
