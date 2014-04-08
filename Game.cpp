@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Game::Game() {
+Game::Game() : _comboSuperPower(0), _score(0), _paused(false) {
 }
 
 Game::~Game() {
