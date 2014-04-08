@@ -104,6 +104,11 @@ void Window::initSDL() {
                         throw exception();
                     }
 
+                    // Load SDL_ttf and the font
+                    if( TTF_Init() == -1 && !_fm->loadFont() ) {
+                        throw exception();
+                    }
+
                 }
 
             }

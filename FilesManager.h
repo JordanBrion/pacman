@@ -36,7 +36,7 @@ public:
     std::map<std::string, std::map<std::string, int> > getCharactersCoord() const;
     int getCharacterCoordX( std::string key );
     int getCharacterCoordY( std::string key );
-    void loadFont();
+    bool loadFont();
     TTF_Font* getFont() const;
     void free();
 

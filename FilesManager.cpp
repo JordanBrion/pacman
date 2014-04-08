@@ -6,6 +6,7 @@ FilesManager::FilesManager( char pLevel[] ) {
 
     _rowsNbr = 22;
     _colsNbr = 23;
+    _font = NULL;
 
     initLevelTable( pLevel );
     initLevelSpriteCoord();
@@ -181,10 +182,22 @@ int FilesManager::getCharacterCoordY(string key) {
 
 }
 
-void FilesManager::loadFont(){
+bool FilesManager::loadFont() {
+
+    _font = TTF_OpenFont( "fonts/slkscre.ttf", 28 );
+
+    if( !_font ) {
+        return false;
+    }
+
+    return true;
+
 }
 
 TTF_Font* FilesManager::getFont() const {
+
+    return _font;
+
 }
 
 void FilesManager::free(){
