@@ -13,8 +13,8 @@ void AreaGame::drawArea( SDL_Renderer* const& pRenderer,
                          vector<vector<int> > pLevelTable, vector<map<string, int> > pLevelSpriteCoord ) {
 
     // Reinitialize values of position on the screen
-    _position.x = 0;
-    _position.y = 0;
+    _position.x = AREAGAME_MARGIN;
+    _position.y = AREATOP_HEIGHT;
     _position.w = 30;
     _position.h = 30;
 
@@ -47,7 +47,7 @@ void AreaGame::drawArea( SDL_Renderer* const& pRenderer,
 
         }
 
-        _position.x = 0;
+        _position.x = AREAGAME_MARGIN;
         _position.y += 30;
 
     }
