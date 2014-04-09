@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 const int WINDOW_WIDTH = 900;
-const int WINDOW_HEIGHT = 1000;
+const int WINDOW_HEIGHT = 850;
 const int AREATOP_HEIGHT = 100;
 const int AREAGAME_MARGIN = 100;
 
