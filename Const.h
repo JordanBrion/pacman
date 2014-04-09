@@ -1,6 +1,9 @@
 #ifndef CONST_H
 #define CONST_H
 
+const int WINDOW_WIDTH = 900;
+const int WINDOW_HEIGHT = 800;
+
 enum levelProperties {
 		
 		// Border
