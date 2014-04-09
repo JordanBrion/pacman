@@ -1,6 +1,8 @@
 #ifndef CONST_H
 #define CONST_H
 
+#include <SDL2/SDL.h>
+
 const int WINDOW_WIDTH = 900;
 const int WINDOW_HEIGHT = 800;
 
@@ -41,5 +43,8 @@ enum directions {
 enum colors {
     RED, PINK, BLUE, ORANGE
 };
+
+const SDL_Color SDL_WHITE = { 255, 255, 255, 0 };
+const SDL_Color SDL_RED = { 255, 0, 0, 0 };
 
 #endif
