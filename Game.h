@@ -15,6 +15,10 @@ public:
     int getLifesNbr() const;
     void incLifesNbr();
     void decLifesNbr();
+    std::vector<int> getCollectibles() const;
+    int getCollectible(int const& key) const;
+    void setCollectibles(int const& key, int const& nbr);
+    void resetCollectibles();
     int getScoreP1() const;
     void setScoreP1(int const& score);
     int getScoreP2() const;
@@ -28,7 +32,7 @@ private:
     int _bubblesNbrInit;
     int _bubblesNbr;
     int _lifesNbr;
-    std::vector<int> _fruits;
+    std::vector<int> _collectibles;
     int _comboSuperPower;
     int _scoreP1;
     int _scoreP2;

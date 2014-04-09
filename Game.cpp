@@ -50,6 +50,34 @@ void Game::decLifesNbr() {
 
 }
 
+std::vector<int> Game::getCollectibles() const {
+
+    return _collectibles;
+
+}
+
+int Game::getCollectible(int const& key) const {
+
+    return _collectibles[key];
+
+}
+
+void Game::setCollectibles(int const& key, int const& nbr) {
+
+    _collectibles[key] = nbr;
+
+}
+
+void Game::resetCollectibles() {
+
+    for(int i(0); i < _collectibles.size(); i++) {
+
+        _collectibles[i] = 0;
+
+    }
+
+}
+
 int Game::getScoreP1() const {
 
     return _scoreP1;
