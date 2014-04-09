@@ -12,8 +12,8 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
     // Initialize positions on the screen
-    _initialStateDest["x"] = dest["x"] * 30;
-    _initialStateDest["y"] = dest["y"] * 30;
+    _initialStateDest["x"] = dest["x"] * 30 + AREAGAME_MARGIN;
+    _initialStateDest["y"] = dest["y"] * 30 + AREATOP_HEIGHT;
     _position.x = _initialStateDest["x"];
     _position.y = _initialStateDest["y"];
     _position.w = 30;
