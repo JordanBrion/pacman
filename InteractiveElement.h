@@ -19,6 +19,7 @@ protected:
 public:
     void show(SDL_Renderer* const&);
     SDL_Rect getPosition() const;
+    SDL_Rect getSelection() const;
 
 protected:
     int _initialX;

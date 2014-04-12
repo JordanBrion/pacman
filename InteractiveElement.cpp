@@ -37,3 +37,9 @@ SDL_Rect InteractiveElement::getPosition() const {
     return _position;
 
 }
+
+SDL_Rect InteractiveElement::getSelection() const {
+
+    return _position;
+
+}
