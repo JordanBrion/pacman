@@ -6,6 +6,11 @@ Game::Game() : _comboSuperPower(0), _scoreP1(0), _scoreP2(0), _highScore(0), _pa
 
     _lifesNbr = 3;
 
+    // Initialize the collectibles value
+    for( int i(0); i < COLLECTIBLES_NBR; i++ ) {
+        _collectibles.push_back(0);
+    }
+
 }
 
 Game::~Game() {

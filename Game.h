@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <vector>
+#include "Const.h"
 
 class Game {
 
