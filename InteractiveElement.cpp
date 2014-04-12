@@ -5,7 +5,17 @@ using namespace std;
 /* STATIC VARIABLES */
 int InteractiveElement::zIndexCounter = 0;
 
-InteractiveElement::InteractiveElement() {}
+InteractiveElement::InteractiveElement(SDL_Renderer* const& renderer, SDL_Surface* const& sprite) {
+
+    // Initialize texture
+    _element = SDL_CreateTextureFromSurface(renderer, sprite);
+
+    // Inc counter for z-index
+    zIndexCounter++;
+    // z-index
+    _zIndex = zIndexCounter;
+
+}
 
 InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
         _initialX(dest["x"]), _initialY(dest["y"]) {
