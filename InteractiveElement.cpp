@@ -26,10 +26,7 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
     // Initialize positions on the screen
     _initialStateDest["x"] = dest["x"] * 30 + AREAGAME_MARGIN;
     _initialStateDest["y"] = dest["y"] * 30 + AREATOP_HEIGHT;
-    _position.x = _initialStateDest["x"];
-    _position.y = _initialStateDest["y"];
-    _position.w = 30;
-    _position.h = 30;
+    initRect(&_position, 30, 30, _initialStateDest["x"], _initialStateDest["y"]);
 
     // Inc counter for z-index
     zIndexCounter++;
@@ -44,12 +41,12 @@ void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
 
 }
 
-void InteractiveElement::initRect(SDL_Rect rect, int const& w, int const& h, int const& x, int const&  y) {
+void InteractiveElement::initRect(SDL_Rect* rect, int const& w, int const& h, int const& x, int const&  y) {
 
-    rect.w = w;
-    rect.h = h;
-    rect.x = x;
-    rect.y = y;
+    rect->w = w;
+    rect->h = h;
+    rect->x = x;
+    rect->y = y;
 
 }
 

@@ -19,7 +19,7 @@ protected:
     InteractiveElement(std::map<std::string, int>, SDL_Renderer* const&, SDL_Surface* const&);
 public:
     void show(SDL_Renderer* const&);
-    void initRect(SDL_Rect rect, int const& w, int const& h, int const& x, int const&  y);
+    void initRect(SDL_Rect* rect, int const& w, int const& h, int const& x, int const&  y);
     SDL_Rect getPosition() const;
     SDL_Rect getSelection() const;
 
