@@ -11,7 +11,7 @@
 class Collectible : public InteractiveElement {
 
 public:
-    Collectible( int const& name, std::map<std::string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    Collectible( int const& name, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
     ~Collectible();
     int getType() const;
     void setType( int const& type );
@@ -19,7 +19,6 @@ public:
     void setNbr( int const& nbr );
     void initPositionAreaGame();
     void initPositionAreaBottom();
-    void initRect(SDL_Rect rect, int const& w, int const& h, int const& x, int const&  y);
 
 private:
     int _type;
