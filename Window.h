@@ -13,9 +13,13 @@
 #include <map>
 #include "Const.h"
 #include "FilesManager.h"
+#include "AreaTop.h"
 #include "AreaGame.h"
+#include "AreaBottom.h"
 #include "Pacman.h"
 #include "Ghost.h"
+#include "Collectible.h"
+#include "Game.h"
 
 class Window {
 
@@ -24,9 +28,9 @@ public:
     ~Window();
     void initSDL();
     void initRessources();
-    void drawAreaGame();
     void createCharacters();
     void drawHudTop();
+    void drawAreaGame();
     void drawHudBottom();
     static int createThread(void*);
     void threadGhostsLoop();
@@ -47,9 +51,13 @@ private:
     SDL_Surface *_windowSurface;
     SDL_Renderer *_renderer;
     FilesManager* _fm;
+    Game* _game;
+    AreaTop* _areaTop;
     AreaGame* _areaGame;
+    AreaBottom* _areaBottom;
     Pacman *_pacman;
     std::vector<Ghost*> _ghosts;
+    std::vector<Collectible*> _collectibles;
     SDL_Thread *_threadGhosts;
 
 };

@@ -26,7 +26,7 @@ char _levelString[] =
         "0 ;#;-1;-1;-1;-1;-1;-1;-1;-1;@;1;-1;-1;-1;-1;-1;-1;-1;-1;-1;#;0;"
         "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
-Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeight(800) {
+Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeight(850) {
 
     try {
 
@@ -42,7 +42,17 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
         _fm->initLevelSpriteCoord();
 
         // Initialize attributes
+        _game = new Game();
+        _areaTop = new AreaTop();
         _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
+        _areaBottom = new AreaBottom();
+
+        for(int i(0); i < COLLECTIBLES_NBR; i++) {
+
+            _collectibles.push_back( new Collectible( i, _renderer, _fm->getSpriteCharacters()  ) );
+
+        }
+
         createCharacters();
 
     }
@@ -131,12 +141,6 @@ void Window::initRessources() {
 
 }
 
-void Window::drawAreaGame() {
-
-    _areaGame->drawArea( _renderer, _fm->getRowsNbr(), _fm->getColsNbr(), _fm->getLevelTable(), _fm->getLevelSpriteCoord() );
-
-}
-
 void Window::createCharacters() {
 
     SDL_SetColorKey( _fm->getSpriteCharacters() , SDL_TRUE, SDL_MapRGB( _fm->getSpriteCharacters()->format, 0, 0, 0) );
@@ -165,8 +169,24 @@ void Window::createCharacters() {
 
 }
 
-void Window::drawHudTop() {}
-void Window::drawHudBottom() {}
+void Window::drawHudTop() {
+
+    _areaTop->drawArea( _renderer, _fm->getFont(), _game->getHighScore(), _game->getScoreP1(), _game->getScoreP2()  );
+
+}
+
+void Window::drawAreaGame() {
+
+    _areaGame->drawArea( _renderer, _fm->getRowsNbr(), _fm->getColsNbr(), _fm->getLevelTable(), _fm->getLevelSpriteCoord() );
+
+}
+
+void Window::drawHudBottom() {
+
+    _areaBottom->drawLifesPanel(_renderer, _fm->getSpriteCharacters(), _fm->getFont(), _game->getLifesNbr() );
+    _areaBottom->drawCollectiblesPanel(_renderer, _fm->getSpriteCharacters(), _fm->getFont(), _collectibles );
+
+}
 
 int Window::createThread(void* data) {
 
@@ -253,7 +273,9 @@ void Window::loop() {
 
             SDL_RenderClear(_renderer);
 
+            drawHudTop();
             drawAreaGame();
+            drawHudBottom();
 
             // If pacman is dead
             if( _pacman->isDead() ) {
@@ -277,7 +299,6 @@ void Window::loop() {
 
                     _ghosts[i]->show(_renderer);
 
-
                 }
 
             }
@@ -296,9 +317,6 @@ void Window::quit() {
 }
 
 void Window::startNewLife() {
-
-    drawAreaGame();
-    drawHudBottom();
 
     // Restore Pacman attributes to default
     _pacman->defaultValues();
