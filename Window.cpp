@@ -318,6 +318,8 @@ void Window::quit() {
 
 void Window::startNewLife() {
 
+    _game->decLifesNbr();
+
     // Restore Pacman attributes to default
     _pacman->defaultValues();
     _pacman->calculateDirection(_fm->getLevelTable());
