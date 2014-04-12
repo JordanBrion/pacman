@@ -5,6 +5,8 @@ using namespace std;
 /* STATIC VARIABLES */
 int InteractiveElement::zIndexCounter = 0;
 
+InteractiveElement::InteractiveElement() {}
+
 InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
         _initialX(dest["x"]), _initialY(dest["y"]) {
 
