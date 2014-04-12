@@ -3,6 +3,9 @@
 using namespace std;
 
 Game::Game() : _comboSuperPower(0), _scoreP1(0), _scoreP2(0), _highScore(0), _paused(false) {
+
+    _lifesNbr = 3;
+
 }
 
 Game::~Game() {
