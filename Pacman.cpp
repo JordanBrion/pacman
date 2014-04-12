@@ -11,10 +11,7 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
     // Select image on the screen
     _initialStateSrc["x"] = 45;
     _initialStateSrc["y"] = 3;
-    _selection.x = 45;
-    _selection.y = 3;
-    _selection.w = 16;
-    _selection.h = 20;
+    initRect( &_selection, 16, 20, 45, 3 );
 
 }
 

@@ -16,32 +16,25 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     case RED:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 84;
-        _selection.x = 5;
-        _selection.y = 84;
+        initRect( &_selection, 17, 19, 5, 84 );
         break;
     case PINK:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 104;
-        _selection.x = 5;
-        _selection.y = 104;
+        initRect( &_selection, 17, 19, 5, 104 );
         break;
     case BLUE:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 124;
-        _selection.x = 5;
-        _selection.y = 124;
+        initRect( &_selection, 17, 19, 5, 124 );
         break;
     case ORANGE:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 144;
-        _selection.x = 5;
-        _selection.y = 144;
+        initRect( &_selection, 17, 19, 5, 4 );
         break;
 
     }
-
-    _selection.w = 17;
-    _selection.h = 19;
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();

@@ -144,13 +144,9 @@ void Character::defaultValues() {
     _x = _initialX;
     _y = _initialY;
 
-    _selection.x = _initialStateSrc["x"];
-    _selection.y = _initialStateSrc["y"];
-    _selection.w = 16;
-    _selection.h = 20;
+    initRect( &_selection, 16, 20, _initialStateSrc["x"], _initialStateSrc["y"] );
 
-    _position.x = _initialStateDest["x"];
-    _position.y = _initialStateDest["y"];
+    initRect( &_position, _position.w, _position.h, _initialStateDest["x"], _initialStateDest["y"] );
 
     _offset = 0;
     _offsetV = 0;
@@ -270,10 +266,8 @@ void Character::nextSprite(int direction) {
         if( _spriteFlag < _spriteCoord[direction].size() - 1 ) _spriteFlag++;
         else _spriteFlag = 0;
 
-        // Load new x
-        _selection.x = _spriteCoord[direction][_spriteFlag][0];
-        // Load new y
-        _selection.y = _spriteCoord[direction][_spriteFlag][1];
+        // Load new x and y
+        initRect( &_selection, _selection.w, _selection.h, _spriteCoord[direction][_spriteFlag][0], _spriteCoord[direction][_spriteFlag][1] );
 
     }
 
