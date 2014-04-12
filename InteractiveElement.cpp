@@ -32,6 +32,15 @@ void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
 
 }
 
+void InteractiveElement::initRect(SDL_Rect rect, int const& w, int const& h, int const& x, int const&  y) {
+
+    rect.w = w;
+    rect.h = h;
+    rect.x = x;
+    rect.y = y;
+
+}
+
 SDL_Rect InteractiveElement::getPosition() const {
 
     return _position;
