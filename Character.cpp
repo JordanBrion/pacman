@@ -161,10 +161,10 @@ void Character::calculateDirection(vector<vector<int> > levelTable) {
     if(!_back) {
 
         // Check if the next positions are runnable by the character
-        _directionsPossible[UP] = ( levelTable[_y-1][_x] < 0 ) ? true : false;
-        _directionsPossible[DOWN] = ( levelTable[_y+1][_x] < 0 ) ? true : false;
-        _directionsPossible[RIGHT] = ( levelTable[_y][_x+1] < 0 ) ? true : false;
-        _directionsPossible[LEFT] = ( levelTable[_y][_x-1] < 0 ) ? true : false;
+        _directionsPossible[UP] = ( levelTable[_y-1][_x] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[DOWN] = ( levelTable[_y+1][_x] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[RIGHT] = ( levelTable[_y][_x+1] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[LEFT] = ( levelTable[_y][_x-1] <= BUBBLES_PATH ) ? true : false;
 
     }
 
