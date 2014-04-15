@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     AreaTop.cpp \
     FilesManager.cpp \
     Game.cpp \
-    Collectible.cpp
+    Collectible.cpp \
+    Bubble.cpp
 
 HEADERS += \
     Window.h \
@@ -37,5 +38,6 @@ HEADERS += \
     AreaTop.h \
     FilesManager.h \
     Game.h \
-    Collectible.h
+    Collectible.h \
+    Bubble.h
 
