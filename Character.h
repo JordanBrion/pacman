@@ -26,8 +26,10 @@ public:
     void setDead();
 
 protected:
-    int _x;
-    int _y;
+    int _initialRow;
+    int _initialCol;
+    std::map<std::string, int> _initialStateSrc; // Initial coord on the sprite
+    std::map<std::string, int> _initialStateDest; // Coord on the screen at the start of the game
     int _stepCounter;
     int _offset;
     int _offsetV;

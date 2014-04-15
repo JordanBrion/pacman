@@ -20,14 +20,14 @@ protected:
 public:
     void show(SDL_Renderer* const&);
     void initRect(SDL_Rect* rect, int const& w, int const& h, int const& x, int const&  y);
+    int getRow() const;
+    int getCol() const;
     SDL_Rect getPosition() const;
     SDL_Rect getSelection() const;
 
 protected:
-    int _initialX;
-    int _initialY;
-    std::map<std::string, int> _initialStateSrc; // Initial coord on the sprite
-    std::map<std::string, int> _initialStateDest; // Coord on the screen at the start of the game
+    int _row;
+    int _col;
     SDL_Texture* _element;
     SDL_Rect _position;
     SDL_Rect _selection;

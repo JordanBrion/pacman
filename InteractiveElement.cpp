@@ -18,15 +18,15 @@ InteractiveElement::InteractiveElement(SDL_Renderer* const& renderer, SDL_Surfac
 }
 
 InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
-        _initialX(dest["x"]), _initialY(dest["y"]) {
+        _row(dest["row"]), _col(dest["col"]) {
 
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
     // Initialize positions on the screen
-    _initialStateDest["x"] = dest["x"] * 30 + AREAGAME_MARGIN;
-    _initialStateDest["y"] = dest["y"] * 30 + AREATOP_HEIGHT;
-    initRect(&_position, 30, 30, _initialStateDest["x"], _initialStateDest["y"]);
+    int x = dest["col"] * 30 + AREAGAME_MARGIN;
+    int y = dest["row"] * 30 + AREATOP_HEIGHT;
+    initRect(&_position, 30, 30, x, y);
 
     // Inc counter for z-index
     zIndexCounter++;
@@ -47,6 +47,18 @@ void InteractiveElement::initRect(SDL_Rect* rect, int const& w, int const& h, in
     rect->h = h;
     rect->x = x;
     rect->y = y;
+
+}
+
+int InteractiveElement::getRow() const {
+
+    return _row;
+
+}
+
+int InteractiveElement::getCol() const {
+
+    return _col;
 
 }
 

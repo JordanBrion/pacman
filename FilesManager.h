@@ -32,10 +32,10 @@ public:
     SDL_Surface* getSpriteCharacters() const;
     void initLevelSpriteCoord();
     std::vector<std::map<std::string, int> > getLevelSpriteCoord() const;
-    void addCharacterCoord ( std::string key, int x, int y );
+    void addCharacterCoord ( std::string key, int row, int col );
     std::map<std::string, std::map<std::string, int> > getCharactersCoord() const;
-    int getCharacterCoordX( std::string key );
-    int getCharacterCoordY( std::string key );
+    int getCharacterCoordRow( std::string key );
+    int getCharacterCoordCol( std::string key );
     bool loadFont();
     TTF_Font* getFont() const;
     void free();

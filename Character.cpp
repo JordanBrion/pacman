@@ -4,8 +4,11 @@ using namespace std;
 
 Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
-      _x( dest["x"] ), _y( dest["y"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
+      _initialRow( dest["row"] ), _initialCol( dest["col"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
       _goTo(-1), _back(false), _spriteFlag(-1), _velocity(1), _dead(false) {
+
+    _initialStateDest["x"] = dest["col"] * 30 + AREAGAME_MARGIN;
+    _initialStateDest["y"] = dest["row"] * 30 + AREATOP_HEIGHT;
 
     // Init the possible directions for the character
     _directionsPossible.push_back(false);
@@ -141,8 +144,8 @@ void Character::defaultValues() {
 
     resetValues();
 
-    _x = _initialX;
-    _y = _initialY;
+    _col = _initialCol;
+    _row = _initialRow;
 
     initRect( &_selection, 16, 20, _initialStateSrc["x"], _initialStateSrc["y"] );
 
@@ -161,10 +164,10 @@ void Character::calculateDirection(vector<vector<int> > levelTable) {
     if(!_back) {
 
         // Check if the next positions are runnable by the character
-        _directionsPossible[UP] = ( levelTable[_y-1][_x] <= BUBBLES_PATH ) ? true : false;
-        _directionsPossible[DOWN] = ( levelTable[_y+1][_x] <= BUBBLES_PATH ) ? true : false;
-        _directionsPossible[RIGHT] = ( levelTable[_y][_x+1] <= BUBBLES_PATH ) ? true : false;
-        _directionsPossible[LEFT] = ( levelTable[_y][_x-1] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[UP] = ( levelTable[_row-1][_col] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[DOWN] = ( levelTable[_row+1][_col] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[RIGHT] = ( levelTable[_row][_col+1] <= BUBBLES_PATH ) ? true : false;
+        _directionsPossible[LEFT] = ( levelTable[_row][_col-1] <= BUBBLES_PATH ) ? true : false;
 
     }
 
@@ -225,16 +228,16 @@ void Character::updatePositionInTheGrid() {
         switch(_goTo) {
 
         case UP:
-            _y--;
+            _row--;
             break;
         case DOWN:
-            _y++;
+            _row++;
             break;
         case RIGHT:
-            _x++;
+            _col++;
             break;
         case LEFT:
-            _x--;
+            _col--;
             break;
         }
 

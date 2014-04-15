@@ -66,7 +66,7 @@ void FilesManager::initLevelTable(char pLevel[]) {
         // Pacman => @
         if( *rows == '@' ) {
 
-            addCharacterCoord("Pacman", j, i);
+            addCharacterCoord("Pacman", i, j);
             _levelTable[i].push_back( -1 ); // Free space
 
         }
@@ -77,7 +77,7 @@ void FilesManager::initLevelTable(char pLevel[]) {
             // Convert ghostCounter to string
             stringstream ss;
             ss << "Ghost" << ghostCounter;
-            addCharacterCoord(ss.str(), j, i);
+            addCharacterCoord(ss.str(), i, j);
             _levelTable[i].push_back( -1 ); // Free space
 
         }
@@ -110,14 +110,13 @@ int FilesManager::getLevelTableCase(int i, int j) const {
 
 bool FilesManager::loadIMG(){
 
-        _spriteLevel = IMG_Load("../pacman/img/sprite-level.png");
-        _spriteCharacters = IMG_Load("../pacman/img/sprite-anim.png");
+    _spriteLevel = IMG_Load("../pacman/img/sprite-level.png");
+    _spriteCharacters = IMG_Load("../pacman/img/sprite-anim.png");
 
-        if( _spriteLevel == NULL || _spriteCharacters == NULL )
-            return false;
+    if( _spriteLevel == NULL || _spriteCharacters == NULL )
+        return false;
 
-        return true;
-
+    return true;
 
 }
 
@@ -155,11 +154,11 @@ vector<map<string, int> > FilesManager::getLevelSpriteCoord() const {
 
 }
 
-void FilesManager::addCharacterCoord(string key, int x, int y) {
+void FilesManager::addCharacterCoord(string key, int row, int col) {
 
     // Coordonates of the character on the screen
-    _charactersCoord[key]["x"] = x;
-    _charactersCoord[key]["y"] = y;
+    _charactersCoord[key]["row"] = row;
+    _charactersCoord[key]["col"] = col;
 
 }
 
@@ -169,15 +168,15 @@ map<string, map<string, int> > FilesManager::getCharactersCoord() const {
 
 }
 
-int FilesManager::getCharacterCoordX(string key) {
+int FilesManager::getCharacterCoordRow(string key) {
 
-    return _charactersCoord[key]["x"];
+    return _charactersCoord[key]["row"];
 
 }
 
-int FilesManager::getCharacterCoordY(string key) {
+int FilesManager::getCharacterCoordCol(string key) {
 
-    return _charactersCoord[key]["y"];
+    return _charactersCoord[key]["col"];
 
 }
 
