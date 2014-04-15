@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     FilesManager.cpp \
     Game.cpp \
     Collectible.cpp \
-    Bubble.cpp
+    Bubble.cpp \
+    BubblesCase.cpp
 
 HEADERS += \
     Window.h \
@@ -39,5 +40,6 @@ HEADERS += \
     FilesManager.h \
     Game.h \
     Collectible.h \
-    Bubble.h
+    Bubble.h \
+    BubblesCase.h
 
