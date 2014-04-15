@@ -37,6 +37,18 @@ enum levelProperties {
 
     };
 
+enum bubblesPath {
+
+    BUBBLES_PATH = -1,
+    BUBBLES_HOR = -2,
+    BUBBLES_VER = -3,
+    BUBBLES_TOP_LEFT = -4,
+    BUBBLES_TOP_RIGHT = -5,
+    BUBBLES_BOTTOM_LEFT = -6,
+    BUBBLES_BOTTOM_RIGHT = -7
+
+};
+
 enum directions {
 
     UP, DOWN, RIGHT, LEFT
