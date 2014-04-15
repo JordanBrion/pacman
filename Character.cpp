@@ -7,6 +7,11 @@ Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_S
       _initialRow( dest["row"] ), _initialCol( dest["col"] ), _stepCounter(3), _offset(0), _offsetV(0), _offsetH(0),
       _goTo(-1), _back(false), _spriteFlag(-1), _velocity(1), _dead(false) {
 
+    // Initialize positions on the screen
+    int x = dest["col"] * 30 + AREAGAME_MARGIN;
+    int y = dest["row"] * 30 + AREATOP_HEIGHT;
+    initRect(&_position, 30, 30, x, y);
+
     _initialStateDest["x"] = dest["col"] * 30 + AREAGAME_MARGIN;
     _initialStateDest["y"] = dest["row"] * 30 + AREATOP_HEIGHT;
 

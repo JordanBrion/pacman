@@ -23,11 +23,6 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
-    // Initialize positions on the screen
-    int x = dest["col"] * 30 + AREAGAME_MARGIN;
-    int y = dest["row"] * 30 + AREATOP_HEIGHT;
-    initRect(&_position, 30, 30, x, y);
-
     // Inc counter for z-index
     zIndexCounter++;
     // z-index
