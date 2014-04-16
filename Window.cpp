@@ -2,12 +2,29 @@
 
 using namespace std;
 
+
+/*
+ *     BUBBLES_PATH = -1,
+    BUBBLES_EMPTY = -2,
+    BUBBLES_HOR = -3,
+    BUBBLES_VER = -4,
+    BUBBLES_ANGLE_TOP_LEFT = -5,
+    BUBBLES_ANGLE_TOP_RIGHT = -6,
+    BUBBLES_ANGLE_BOTTOM_LEFT = -7,
+    BUBBLES_ANGLE_BOTTOM_RIGHT = -8,
+    BUBBLES_JUNCTION_3_TOTOP = -9,
+    BUBBLES_JUNCTION_3_TOBOTTOM = -10,
+    BUBBLES_JUNCTION_3_TORIGHT = -11,
+    BUBBLES_JUNCTION_3_TOLEFT = -12,
+    BUBBLES_JUNCTION_4 = -13,
+    */
+
 char _levelString[] =
         "2;1;1;1;1;1;1;1;1;1;1;7;1;1;1;1;1;1;1;1;1;1;5;"
-        "0;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;#;0;"
-        "0;-1;26;25;29;-1;26;25;25;29;-1;10;-1;26;25;25;29;-1;26;25;29;-1;0;"
-        "0;-1;27;25;28;-1;27;25;25;28;-1;14;-1;27;25;25;28;-1;27;25;28;-1;0;"
-        "0;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
+        "0;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
+        "0;#;26;25;29;-1;26;25;25;29;-1;10;-1;26;25;25;29;-1;26;25;29;-1;0;"
+        "0;#;27;25;28;-1;27;25;25;28;-1;14;-1;27;25;25;28;-1;27;25;28;-1;0;"
+        "0;#;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
         "0;-1;12;11;13;-1;15;-1;12;11;11;22;11;11;13;-1;15;-1;12;11;13;-1;0;"
         "0;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;10;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;0;"
         "3; 1; 1; 1; 5;-1;21;11;11;13;-1;14;-1;12;11;11;20;-1; 2; 1; 1; 1;4;"
@@ -21,9 +38,9 @@ char _levelString[] =
         "0 ;-1;12;11;19;-1;12;11;11;13;-1;14;-1;12;11;11;13;-1;16;11;13;-1;0;"
         "0 ;-1;-1;-1;10;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;0;"
         "9 ;1;1;1;1;1;1;1;1;1;1;22;11;11;13;-1;15;-1;14;-1;12;11;6;"
-        "0 ;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;10;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;0;"
-        "0 ;-1;12;11;11;11;23;11;11;13;-1;14;-1;12;11;11;23;11;11;11;13;-1;0;"
-        "0 ;#;-1;-1;-1;-1;-1;-1;-1;-1;@;1;-1;-1;-1;-1;-1;-1;-1;-1;-1;#;0;"
+        "0 ;-5;-3;-3;-3;-3;-3;-3;-3;-3;-6;10;-1;-1;-1;-1;10;-1;-1;-1;-1;-1;0;"
+        "0 ;-4;12;11;11;11;23;11;11;13;-4;14;-1;12;11;11;23;11;11;11;13;-1;0;"
+        "0 ;-7;-3;-3;-3;-3;-3;-3;-3;@;-8;1;-1;-1;-1;-1;-1;-1;-1;-1;-1;-1;0;"
         "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
 Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeight(850) {
@@ -148,8 +165,8 @@ void Window::createCharacters() {
     map<string, int> dest;
 
     // Pacman creation
-    dest["x"] = _fm->getCharacterCoordX("Pacman");
-    dest["y"] = _fm->getCharacterCoordY("Pacman");
+    dest["row"] = _fm->getCharacterCoordRow("Pacman");
+    dest["col"] = _fm->getCharacterCoordCol("Pacman");
     _pacman = new Pacman( dest, _renderer, _fm->getSpriteCharacters() );
     _pacman->calculateDirection(_fm->getLevelTable());
 
@@ -158,8 +175,8 @@ void Window::createCharacters() {
     for(int i(0); i < 4; i++) {
 
         ss << "Ghost" << i+1;
-        dest["x"] = _fm->getCharacterCoordX(ss.str());
-        dest["y"] = _fm->getCharacterCoordY(ss.str());
+        dest["row"] = _fm->getCharacterCoordRow(ss.str());
+        dest["col"] = _fm->getCharacterCoordCol(ss.str());
         _ghosts.push_back( new Ghost(dest, _renderer, _fm->getSpriteCharacters()) );
         _ghosts[i]->calculateDirection(_fm->getLevelTable());
         ss.str(""); // Clear the string stream
