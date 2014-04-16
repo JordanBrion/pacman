@@ -46,7 +46,11 @@ void BubblesManager::render( SDL_Renderer* const& renderer ) {
 
         for( int j(0); j < _bubblesCases[i].size(); j++ ) {
 
-            _bubblesCases[i][j]->render( renderer );
+            if( _bubblesCases[i][j] != NULL ) {
+
+                _bubblesCases[i][j]->render( renderer );
+
+            }
 
         }
 
