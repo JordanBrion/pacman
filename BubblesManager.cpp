@@ -40,11 +40,11 @@ void BubblesManager::addCase( int const& row, int const& type, SDL_Renderer* con
 
 }
 
-void BubblesManager::render( vector<vector<int> > level, SDL_Renderer* const& renderer ) {
+void BubblesManager::render( SDL_Renderer* const& renderer ) {
 
-    for( int i(0); i < level.size(); i++ ) {
+    for( int i(0); i < _bubblesCases.size(); i++ ) {
 
-        for( int j(0); j < level[i].size(); j++ ) {
+        for( int j(0); j < _bubblesCases[i].size(); j++ ) {
 
             _bubblesCases[i][j]->render( renderer );
 
