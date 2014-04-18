@@ -19,6 +19,7 @@
 #include "Pacman.h"
 #include "Ghost.h"
 #include "Collectible.h"
+#include "BubblesManager.h"
 #include "Game.h"
 
 class Window {
@@ -31,6 +32,7 @@ public:
     void createCharacters();
     void drawHudTop();
     void drawAreaGame();
+    void drawBubbles();
     void drawHudBottom();
     static int createThread(void*);
     void threadGhostsLoop();
@@ -58,6 +60,7 @@ private:
     Pacman *_pacman;
     std::vector<Ghost*> _ghosts;
     std::vector<Collectible*> _collectibles;
+    BubblesManager* _bm;
     SDL_Thread *_threadGhosts;
 
 };
