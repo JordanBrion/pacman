@@ -284,7 +284,6 @@ void Window::loop() {
 
             drawHudTop();
             drawAreaGame();
-            drawBubbles();
             drawHudBottom();
 
             // If pacman is dead
@@ -300,6 +299,8 @@ void Window::loop() {
 
             }
             else {
+
+                drawBubbles();
 
                 _pacman->handleEvent(e, _fm->getLevelTable());
                 _pacman->show(_renderer);
