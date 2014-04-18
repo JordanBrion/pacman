@@ -13,8 +13,6 @@ BubblesCase::BubblesCase( int const& row, int const& col, int const& type, SDL_R
         _empty = true;
         break;
     case BUBBLES_HOR:
-        initBubblesInLine( renderer, sprite );
-        break;
     case BUBBLES_VER:
         initBubblesInLine( renderer, sprite );
         break;
@@ -31,6 +29,7 @@ BubblesCase::BubblesCase( int const& row, int const& col, int const& type, SDL_R
         initBubblesWithThreeJunctions( renderer, sprite );
         break;
     case BUBBLES_JUNCTION_4:
+        initBubblesWithFourJunctions( renderer, sprite );
         break;
 
     }
@@ -119,16 +118,30 @@ void BubblesCase::initBubblesInLine( SDL_Renderer* const& renderer, SDL_Surface*
     dest["row"] = _row;
     dest["col"] = _col;
 
+    int x = 0;
+    int y = 0;
+
     if( _type == BUBBLES_HOR ) {
 
-        _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-        _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
+        // Bubble in the center of the case
+        x = _col*30 + AREAGAME_MARGIN + 30 + 8;
+        y = _row*30 + AREATOP_HEIGHT + 10;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+
+        // Bubble on the right corner of the case
+        x = _col*30 + AREAGAME_MARGIN + 30 + 22;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
 
     }
     else if( _type == BUBBLES_VER ) {
 
-        _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-        _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
+        x = _col*30 + AREAGAME_MARGIN + 30 + 9;
+        y = _row*30 + AREATOP_HEIGHT + 1;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+
+        y = _row*30 + AREATOP_HEIGHT + 17;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
 
     }
 
@@ -140,9 +153,25 @@ void BubblesCase::initBubblesInAngle( SDL_Renderer* const& renderer, SDL_Surface
     dest["row"] = _row;
     dest["col"] = _col;
 
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
+    int x = _col*30 + AREAGAME_MARGIN + 30 + 9;
+    int y = _row*30 + AREATOP_HEIGHT + 10;
+
+    switch( _type ) {
+
+    case BUBBLES_ANGLE_TOP_LEFT:
+    case BUBBLES_ANGLE_BOTTOM_LEFT:
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        x = _col*30 + AREAGAME_MARGIN + 30 + 23;
+        y = _row*30 + AREATOP_HEIGHT + 10;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        break;
+
+    case BUBBLES_ANGLE_TOP_RIGHT:
+    case BUBBLES_ANGLE_BOTTOM_RIGHT:
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        break;
+
+    }
 
 }
 
@@ -152,11 +181,24 @@ void BubblesCase::initBubblesWithThreeJunctions( SDL_Renderer* const& renderer, 
     dest["row"] = _row;
     dest["col"] = _col;
 
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
+    int x = _col*30 + AREAGAME_MARGIN + 30 + 9;
+    int y = _row*30 + AREATOP_HEIGHT + 10;
 
+    switch( _type ) {
+
+    case BUBBLES_JUNCTION_3_TOTOP:
+    case BUBBLES_JUNCTION_3_TOBOTTOM:
+    case BUBBLES_JUNCTION_3_TORIGHT:
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        x = _col*30 + AREAGAME_MARGIN + 30 + 23;
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        break;
+
+    case BUBBLES_JUNCTION_3_TOLEFT:
+        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+        break;
+
+    }
 
 }
 
@@ -166,11 +208,12 @@ void BubblesCase::initBubblesWithFourJunctions( SDL_Renderer* const& renderer, S
     dest["row"] = _row;
     dest["col"] = _col;
 
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
-    _bubbles.push_back( new Bubble( dest, _type, _col*30, _row*30, renderer, sprite ) );
+    int x = _col*30 + AREAGAME_MARGIN + 30 + 9;
+    int y = _row*30 + AREATOP_HEIGHT + 10;
+    _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
+
+    x = _col*30 + AREAGAME_MARGIN + 30 + 23;
+    _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
 
 
 }
