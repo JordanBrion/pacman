@@ -25,6 +25,7 @@ public:
     int getRowsNbr() const;
     int getColsNbr() const;
     int getLifesNbr() const;
+    int getBubblesNbr() const;
     int getGhostsNbr() const;
     void initLevelTable(char pLevel[]);
     std::vector<std::vector<int> > getLevelTable() const;
@@ -48,6 +49,7 @@ private:
     int _areaGameWidth;
     int _areaGameHeight;
     int _lifesNbr;
+    int _bubblesNbr;
     int _ghostsNbr;
     SDL_Surface* _spriteLevel;
     SDL_Surface* _spriteCharacters;

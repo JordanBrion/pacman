@@ -39,6 +39,12 @@ int FilesManager::getLifesNbr() const {
 
 }
 
+int FilesManager::getBubblesNbr() const {
+
+    return _bubblesNbr;
+
+}
+
 int FilesManager::getGhostsNbr() const {
 
     return _ghostsNbr;
