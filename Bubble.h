@@ -12,6 +12,7 @@ public:
     void setEaten( int const& state );
     int getCaseType() const;
     void setCaseType( int const& type );
+    void show( SDL_Renderer* const& renderer );
 
 private:
     bool _eaten;

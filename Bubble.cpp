@@ -37,3 +37,13 @@ void Bubble::setCaseType( int const& type ){
 
 }
 
+void Bubble::show( SDL_Renderer* const& renderer ) {
+
+    if( !_eaten ) {
+
+        InteractiveElement::show( renderer );
+
+    }
+
+}
+
