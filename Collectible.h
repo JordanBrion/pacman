@@ -17,12 +17,14 @@ public:
     void setType( int const& type );
     int getNbr() const;
     void setNbr( int const& nbr );
+    int getPoints() const;
     void initPositionAreaGame();
     void initPositionAreaBottom();
 
 private:
     int _type;
     int _nbr;
+    int _points;
 
 };
 

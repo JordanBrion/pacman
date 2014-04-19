@@ -9,27 +9,35 @@ Collectible::Collectible( int const& type, SDL_Renderer* const& renderer, SDL_Su
     switch( type ) {
 
     case CHERRY:
+        _points = 100;
         initRect( &_selection, 18, 18, 173, 164);
         break;
     case STRAWBERRY:
+        _points = 300;
         initRect( &_selection, 18, 18, 173, 184);
         break;
     case APRICOT:
+        _points = 500;
         initRect( &_selection, 18, 18, 173, 204);
         break;
     case APPLE:
+        _points = 700;
         initRect( &_selection, 18, 18, 173, 224);
         break;
     case MELON:
+        _points = 1000;
         initRect( &_selection, 18, 18, 213, 165);
         break;
     case GALXIAN_BOSS:
+        _points = 2000;
         initRect( &_selection, 18, 18, 213, 185);
         break;
     case BELL:
+        _points = 3000;
         initRect( &_selection, 18, 18, 213, 205);
         break;
     case KEY:
+        _points = 5000;
         initRect( &_selection, 18, 18, 213, 225);
         break;
 
@@ -63,6 +71,13 @@ void Collectible::setNbr( int const& nbr ) {
     _nbr = nbr;
 
 }
+
+int Collectible::getPoints() const {
+
+    return _points;
+
+}
+
 
 void Collectible::initPositionAreaGame() {
 
