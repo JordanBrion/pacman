@@ -71,6 +71,17 @@ enum collectibles {
 
 };
 
+enum points {
+
+    PAC_DOT = 10,
+    POWER_PELLET = 50,
+    ONE_GHOST_EATEN = 200,
+    TWO_GHOSTS_EATEN = 400,
+    THREE_GHOSTS_EATEN = 800,
+    FOUR_GHOSTS_EATEN = 1600
+
+};
+
 const SDL_Color SDL_WHITE = { 255, 255, 255, 0 };
 const SDL_Color SDL_RED = { 255, 0, 0, 0 };
 
