@@ -194,6 +194,12 @@ bool Pacman::isCenteredInTheSquareWhenKeyUp() {
 
 }
 
+void Pacman::checkCollisionWithBubbles( BubblesManager* bm ) {
+
+    bm->eatBubble( _row, _col, _position.x, _position.y );
+
+}
+
 void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
 
     _selection.w = 19;

@@ -2,6 +2,7 @@
 #define PACMAN_H
 
 #include "Character.h"
+#include "BubblesManager.h"
 
 class Pacman : public Character {
 
@@ -13,6 +14,7 @@ public:
     void moveVertically(bool);
     void moveHorizontally(bool);
     bool isCenteredInTheSquareWhenKeyUp();
+    void checkCollisionWithBubbles( BubblesManager* bm );
     void deadAnimation(SDL_Renderer* const&);
     int getDeadAnimationCounter() const;
     void teleportation();
