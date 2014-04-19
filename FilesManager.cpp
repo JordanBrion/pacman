@@ -6,6 +6,9 @@ FilesManager::FilesManager() {
 
     _rowsNbr = 22;
     _colsNbr = 23;
+    _lifesNbr = 3;
+    _bubblesNbr = 350;
+    _ghostsNbr = 4;
     _spriteLevel = NULL;
     _spriteCharacters = NULL;
     _font = NULL;
