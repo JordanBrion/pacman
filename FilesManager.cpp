@@ -33,6 +33,18 @@ int FilesManager::getColsNbr() const {
 
 }
 
+int FilesManager::getLifesNbr() const {
+
+    return _lifesNbr;
+
+}
+
+int FilesManager::getGhostsNbr() const {
+
+    return _ghostsNbr;
+
+}
+
 void FilesManager::initLevelTable(char pLevel[]) {
 
     char* context = NULL;

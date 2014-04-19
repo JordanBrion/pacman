@@ -24,6 +24,8 @@ public:
     void loadFileLevel();
     int getRowsNbr() const;
     int getColsNbr() const;
+    int getLifesNbr() const;
+    int getGhostsNbr() const;
     void initLevelTable(char pLevel[]);
     std::vector<std::vector<int> > getLevelTable() const;
     int getLevelTableCase( int i, int j ) const;
