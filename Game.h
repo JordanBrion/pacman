@@ -9,8 +9,6 @@ class Game {
 public:
     Game();
     ~Game();
-    int getBubblesNbrInit() const;
-    void setBubblesNbrInit(int const& nbr);
     int getBubblesNbr() const;
     void setBubblesNbr(int const& nbr);
     int getLifesNbr() const;
@@ -30,7 +28,6 @@ public:
     void setTwoPlayersGame(bool const& solo);
 
 private:
-    int _bubblesNbrInit;
     int _bubblesNbr;
     int _lifesNbr;
     std::vector<int> _collectibles;

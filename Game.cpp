@@ -16,18 +16,6 @@ Game::Game() : _comboSuperPower(0), _scoreP1(0), _scoreP2(0), _highScore(0), _pa
 Game::~Game() {
 }
 
-int Game::getBubblesNbrInit() const {
-
-    return _bubblesNbrInit;
-
-}
-
-void Game::setBubblesNbrInit(int const& nbr) {
-
-    _bubblesNbrInit = nbr;
-
-}
-
 int Game::getBubblesNbr() const {
 
     return _bubblesNbr;
