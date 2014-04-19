@@ -2,7 +2,9 @@
 
 using namespace std;
 
-Game::Game() : _comboSuperPower(0), _scoreP1(0), _scoreP2(0), _highScore(0), _paused(false) {
+Game::Game( int const& lifesNbr, int const& bubblesNbr, int const& highScore )
+    : _lifesNbr(lifesNbr), _bubblesNbr(bubblesNbr), _comboSuperPower(0),
+      _scoreP1(0), _scoreP2(0), _highScore(highScore), _paused(false) {
 
     _lifesNbr = 3;
 

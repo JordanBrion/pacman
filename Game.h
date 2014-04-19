@@ -7,7 +7,7 @@
 class Game {
 
 public:
-    Game();
+    Game( int const& lifesNbr, int const& bubblesNbr, int const& highScore );
     ~Game();
     int getBubblesNbr() const;
     void setBubblesNbr(int const& nbr);
@@ -28,8 +28,8 @@ public:
     void setTwoPlayersGame(bool const& solo);
 
 private:
-    int _bubblesNbr;
     int _lifesNbr;
+    int _bubblesNbr;
     std::vector<int> _collectibles;
     int _comboSuperPower;
     int _scoreP1;
