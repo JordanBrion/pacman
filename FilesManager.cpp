@@ -9,6 +9,7 @@ FilesManager::FilesManager() {
     _lifesNbr = 3;
     _bubblesNbr = 350;
     _ghostsNbr = 4;
+    _highScore = 0;
     _spriteLevel = NULL;
     _spriteCharacters = NULL;
     _font = NULL;
@@ -51,6 +52,12 @@ int FilesManager::getBubblesNbr() const {
 int FilesManager::getGhostsNbr() const {
 
     return _ghostsNbr;
+
+}
+
+int FilesManager::getHighScoreNbr() const {
+
+    return _highScore;
 
 }
 
