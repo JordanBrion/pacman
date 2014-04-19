@@ -184,9 +184,9 @@ void Window::drawAreaGame() {
 
 }
 
-void Window::drawBubbles() {
+int Window::drawBubbles() {
 
-    _bm->render( _renderer );
+    return _bm->render( _renderer );
 
 }
 
@@ -243,6 +243,8 @@ void Window::loop() {
 
     SDL_Event e;
 
+    int score(0);
+
     // Variables to compare time left
     int start = SDL_GetTicks();
     int later = 0;
@@ -282,10 +284,6 @@ void Window::loop() {
 
             SDL_RenderClear(_renderer);
 
-            drawHudTop();
-            drawAreaGame();
-            drawHudBottom();
-
             // If pacman is dead
             if( _pacman->isDead() ) {
 
@@ -303,7 +301,8 @@ void Window::loop() {
                 _pacman->handleEvent(e, _fm->getLevelTable());
 
                 _pacman->checkCollisionWithBubbles( _bm );
-                drawBubbles();
+                score = drawBubbles();
+                _game->setScoreP1( score );
 
                 _pacman->show(_renderer);
 
@@ -315,6 +314,10 @@ void Window::loop() {
                 }
 
             }
+
+            drawHudTop();
+            drawAreaGame();
+            drawHudBottom();
 
             // Render changes on the screen
             SDL_RenderPresent(_renderer);

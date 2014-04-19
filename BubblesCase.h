@@ -14,7 +14,7 @@ public:
     ~BubblesCase();
     int getType() const;
     void setType( int const& type );
-    void render( SDL_Renderer* const& renderer );
+    int render( SDL_Renderer* const& renderer );
     std::vector<Bubble*> getBubbles() const;
     Bubble* getBubble ( int const& x, int const& y ) const;
     void reinitBubblesEaten();

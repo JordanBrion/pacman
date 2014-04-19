@@ -11,7 +11,7 @@ public:
     ~BubblesManager();
     void addRow();
     void addCase( int const& row, int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
-    void render( SDL_Renderer* const& renderer );
+    int render( SDL_Renderer* const& renderer );
     Bubble* isThereABubble( int const& row, int const& col, int const& x, int const& y );
     void eatBubble( int const& row, int const& col, int const& x, int const& y );
 

@@ -32,7 +32,7 @@ public:
     void createCharacters();
     void drawHudTop();
     void drawAreaGame();
-    void drawBubbles();
+    int drawBubbles();
     void drawHudBottom();
     static int createThread(void*);
     void threadGhostsLoop();

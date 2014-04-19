@@ -37,13 +37,22 @@ void Bubble::setCaseType( int const& type ){
 
 }
 
-void Bubble::show( SDL_Renderer* const& renderer ) {
+int Bubble::show( SDL_Renderer* const& renderer ) {
+
+    int score(0);
 
     if( !_eaten ) {
 
         InteractiveElement::show( renderer );
 
     }
+    else {
+
+        score = PAC_DOT;
+
+    }
+
+    return score;
 
 }
 

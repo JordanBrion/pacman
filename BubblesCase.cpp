@@ -54,17 +54,21 @@ void BubblesCase::setType( int const& type ) {
 
 }
 
-void BubblesCase::render(SDL_Renderer* const& renderer) {
+int BubblesCase::render(SDL_Renderer* const& renderer) {
+
+    int score = 0;
 
     if( _type != BUBBLES_EMPTY ) {
 
         for( int i(0); i < _bubbles.size(); i++ ) {
 
-            _bubbles[i]->show( renderer );
+            score += _bubbles[i]->show( renderer );
 
         }
 
     }
+
+    return score;
 
 }
 

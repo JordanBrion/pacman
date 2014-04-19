@@ -40,7 +40,9 @@ void BubblesManager::addCase( int const& row, int const& type, SDL_Renderer* con
 
 }
 
-void BubblesManager::render( SDL_Renderer* const& renderer ) {
+int BubblesManager::render( SDL_Renderer* const& renderer ) {
+
+    int score(0);
 
     for( int i(0); i < _bubblesCases.size(); i++ ) {
 
@@ -48,13 +50,15 @@ void BubblesManager::render( SDL_Renderer* const& renderer ) {
 
             if( _bubblesCases[i][j] != NULL ) {
 
-                _bubblesCases[i][j]->render( renderer );
+                score += _bubblesCases[i][j]->render( renderer );
 
             }
 
         }
 
     }
+
+    return score;
 
 }
 
