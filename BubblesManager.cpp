@@ -83,8 +83,38 @@ Bubble* BubblesManager::isThereABubble( int const& row, int const& col, int cons
 
 void BubblesManager::eatBubble( int const& row, int const& col, int const& x, int const& y ) {
 
-    Bubble* b = isThereABubble( row, col, x, y );
-    b->setEaten( true );
+    int tempRow = row - 1;
+    int tempCol = col - 1;
+
+    Bubble* b(0);
+
+    while( tempRow <= row + 1 ) {
+
+        b = isThereABubble( tempRow, col, x, y );
+
+        if( b != NULL ) {
+
+            b->setEaten( true );
+
+        }
+
+        tempRow++;
+
+    }
+
+    while( tempCol <= col + 1 ) {
+
+        b = isThereABubble( row, tempCol, x, y );
+
+        if( b != NULL ) {
+
+            b->setEaten( true );
+
+        }
+
+        tempCol++;
+
+    }
 
 }
 
