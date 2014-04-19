@@ -158,7 +158,7 @@ void Window::createCharacters() {
 
     // Ghosts creation
     stringstream ss;
-    for(int i(0); i < 4; i++) {
+    for(int i(0); i < _fm->getGhostsNbr(); i++) {
 
         ss << "Ghost" << i+1;
         dest["row"] = _fm->getCharacterCoordRow(ss.str());
