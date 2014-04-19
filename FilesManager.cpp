@@ -15,6 +15,12 @@ FilesManager::FilesManager() {
 FilesManager::~FilesManager(){
 }
 
+void FilesManager::loadFileXML(){
+}
+
+void FilesManager::loadFileLevel(){
+}
+
 int FilesManager::getRowsNbr() const {
 
     return _rowsNbr;
@@ -26,13 +32,6 @@ int FilesManager::getColsNbr() const {
     return _colsNbr;
 
 }
-
-void FilesManager::loadFileXML(){
-}
-
-void FilesManager::loadFileLevel(){
-}
-
 
 void FilesManager::initLevelTable(char pLevel[]) {
 
