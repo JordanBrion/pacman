@@ -56,9 +56,13 @@ void BubblesCase::setType( int const& type ) {
 
 void BubblesCase::render(SDL_Renderer* const& renderer) {
 
-    for( int i(0); i < _bubbles.size(); i++ ) {
+    if( _type != BUBBLES_EMPTY ) {
 
-        _bubbles[i]->show( renderer );
+        for( int i(0); i < _bubbles.size(); i++ ) {
+
+            _bubbles[i]->show( renderer );
+
+        }
 
     }
 
@@ -76,7 +80,10 @@ Bubble* BubblesCase::getBubble( int const& x, int const& y ) const {
 
         for( int i(0); i < _bubbles.size(); i++ ) {
 
-            if( x == _bubbles[i]->getPosition().x && y == _bubbles[i]->getPosition().y ) {
+            if( (x >= _bubbles[i]->getPosition().x - 10
+                    && x <= _bubbles[i]->getPosition().x + 10)
+                 && (y >= _bubbles[i]->getPosition().y - 10
+                        && y <= _bubbles[i]->getPosition().y + 10) )  {
 
                 return _bubbles[i];
 
@@ -140,7 +147,6 @@ void BubblesCase::initBubblesInLine( SDL_Renderer* const& renderer, SDL_Surface*
         _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
 
         y = _row*30 + AREATOP_HEIGHT + 17;
-        _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
         _bubbles.push_back( new Bubble( dest, _type, x, y, renderer, sprite ) );
 
     }
