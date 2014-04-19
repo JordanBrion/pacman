@@ -27,7 +27,7 @@ public:
     int getLifesNbr() const;
     int getBubblesNbr() const;
     int getGhostsNbr() const;
-    int getHighScoreNbr() const;
+    int getHighScore() const;
     void initLevelTable(char pLevel[]);
     std::vector<std::vector<int> > getLevelTable() const;
     int getLevelTableCase( int i, int j ) const;

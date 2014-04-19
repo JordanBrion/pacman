@@ -55,7 +55,7 @@ int FilesManager::getGhostsNbr() const {
 
 }
 
-int FilesManager::getHighScoreNbr() const {
+int FilesManager::getHighScore() const {
 
     return _highScore;
 
