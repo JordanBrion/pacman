@@ -17,7 +17,6 @@ public:
     void calculateDirection(std::vector<std::vector<int> >);
     bool isCenteredInTheSquare();
     void setStepCounter(int, int);
-    void calculateOffset(bool);
     void updatePositionInTheGrid();
     void resetValues();
     void nextSprite(int);
@@ -31,15 +30,14 @@ protected:
     std::map<std::string, int> _initialStateSrc; // Initial coord on the sprite
     std::map<std::string, int> _initialStateDest; // Coord on the screen at the start of the game
     int _stepCounter;
-    int _offset;
-    int _offsetV;
-    int _offsetH;
     int _goTo;
     bool _back;
     std::vector<bool> _directionsPossible;
     int _spriteFlag;
     std::vector<std::vector<std::vector<int> > > _spriteCoord;
     int _velocity;
+    int _velocityX;
+    int _velocityY;
     bool _dead;
     std::map<std::string, int> _positionForRespawn;
 

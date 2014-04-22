@@ -19,7 +19,7 @@ char _levelString[] =
         "2 ; 1; 1; 1;4;-4;14;0;12;11;11;22;11;11;13;0;14;-4; 3; 1; 1; 1; 5;"
         "0 ;-5;-3;-3;-3;-13;-3;-3;-3;-3;-6;10;-5;-3;-3;-9;-3;-13;-3;-3;-3;-6;0;"
         "0 ;-4;12;11;19;-4;12;11;11;13;-4;14;-4;12;11;11;13;-4;16;11;13;-4;0;"
-        "0 ;-7;-3;-6;10;-5;-3;-10;-3;-3;-8;@;-7;-3;-3;-3;-3;-12;10;-5;-3;-8;0;"
+        "0 ;-7;-3;-6;10;-5;-3;-10;-3;-3;@;-2;-7;-3;-3;-3;-3;-12;10;-5;-3;-8;0;"
         "9 ;11;13;-4;14;-4;15;-4;12;11;11;22;11;11;13;-4;15;-4;14;-4;12;11;6;"
         "0 ;-5;-3;-9;-3;-8;10;-7;-3;-3;-6;10;-11;-3;-3;-8;10;-7;-3;-3;-3;-6;0;"
         "0 ;-4;12;11;11;11;23;11;11;13;-4;14;-4;12;11;11;23;11;11;11;13;-4;0;"
@@ -212,12 +212,11 @@ void Window::threadGhostsLoop() {
     // The ghosts move while Pacman is not dead
     while( !_pacman->isDead() ) {
 
-        for( int i(0); i < _ghosts.size(); i++ ) {
+        for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
             if( _ghosts[i]->isCenteredInTheSquare() ) {
 
                 _ghosts[i]->updatePositionInTheGrid();
                 _ghosts[i]->calculateDirection(_fm->getLevelTable());
-                _ghosts[i]->calculateOffset(false);
                 _ghosts[i]->resetValues();
             }
             _ghosts[i]->move();
@@ -254,34 +253,31 @@ void Window::loop() {
 
     while( !_quit ) {
 
-        SDL_PollEvent(&e);
 
-        later = SDL_GetTicks();
 
-        // If 10 ms down between the 2 keys pressed
-        // else > nothing to do
-        if( later - start >= 10 ) {
+            while( SDL_PollEvent(&e) != 0 ) {
 
-            start = later;
-            later = 0;
+                switch( e.type ) {
 
-            switch( e.type ) {
-
-            case SDL_QUIT:
-                _quit = true;
-                break;
-
-            case SDL_KEYDOWN:
-
-                switch(e.key.keysym.sym) {
-                case SDLK_ESCAPE:
+                case SDL_QUIT:
                     _quit = true;
                     break;
+
+                case SDL_KEYDOWN:
+
+                    switch(e.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        _quit = true;
+                        break;
+                    }
+                    break;
+
                 }
-                break;
+                _pacman->handleEvent(e);
 
             }
 
+            _pacman->move( _fm->getLevelTable() );
             SDL_RenderClear(_renderer);
 
             // If pacman is dead
@@ -297,8 +293,6 @@ void Window::loop() {
 
             }
             else {
-
-                _pacman->handleEvent(e, _fm->getLevelTable());
 
                 _pacman->checkCollisionWithBubbles( _bm );
                 score = drawBubbles();
@@ -322,7 +316,7 @@ void Window::loop() {
             // Render changes on the screen
             SDL_RenderPresent(_renderer);
 
-        }
+
     }
 }
 

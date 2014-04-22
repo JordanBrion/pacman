@@ -3,7 +3,8 @@
 using namespace std;
 
 Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite), _deadAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
+    : Character(dest, renderer, sprite),
+      _directionKey(-1), _deadAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -59,85 +60,111 @@ void Pacman::loadSpriteCoord() {
 
 }
 
-void Pacman::handleEvent(SDL_Event const& e, vector<vector<int> > levelTable) {
+void Pacman::handleEvent(SDL_Event& e ) {
 
-    switch(e.type) {
+    if( e.type == SDL_KEYDOWN && e.key.repeat == 0 ) {
 
-    // Key Down
-    case SDL_KEYDOWN:
-    {
-        SDL_Keycode code = e.key.keysym.sym;
-
-        if( code == SDLK_UP ||
-                code == SDLK_DOWN ||
-                code == SDLK_LEFT ||
-                code == SDLK_RIGHT ) {
-
-            bool vertical = ( code == SDLK_UP || code == SDLK_DOWN ) ? true : false;
-
-            if( isCenteredInTheSquare() ) {
-
-                updatePositionInTheGrid();
-                calculateDirection(levelTable);
-                if( vertical ) calculateOffset(true);
-                else calculateOffset(false);
-                resetValues();
-
-            }
-
-            if( vertical) {
-                bool up = ( code == SDLK_UP ) ? true : false;
-                moveVertically(up);
-            }
-            else {
-                bool left = ( code == SDLK_LEFT ) ? true : false;
-                moveHorizontally(left);
-            }
-
-            _stopKeyUp = false;
-
+        switch( e.key.keysym.sym ) {
+        case SDLK_UP:
+            _velocityY -= _velocity;
+            break;
+        case SDLK_DOWN :
+            _velocityY += _velocity;
+            break;
+        case SDLK_RIGHT :
+            _velocityX += _velocity;
+            break;
+        case SDLK_LEFT :
+            _velocityX -= _velocity;
+            break;
         }
+
     }
-        break;
 
-    // Key Up
-    case SDL_KEYUP:
+    else if( e.type == SDL_KEYUP && e.key.repeat == 0 ) {
 
-        // Once the key is down and when the user releases this key,
-        // the programm goes through this case in an infinite loop
-        // So we freeze this loop with a flag
-        if( !_stopKeyUp ) {
-
-            _stopKeyUp = true;
-
-            switch(e.key.keysym.sym) {
-
-            case SDLK_UP:
-            case SDLK_DOWN:
-                if (isCenteredInTheSquareWhenKeyUp() ) {
-
-                    updatePositionInTheGrid();
-                    calculateDirection(levelTable);
-                    calculateOffset(true);
-                    resetValues();
-                }
-                break;
-
-            case SDLK_RIGHT:
-            case SDLK_LEFT:
-                if (isCenteredInTheSquareWhenKeyUp() ) {
-
-                    updatePositionInTheGrid();
-                    calculateDirection(levelTable);
-                    calculateOffset(false);
-                    resetValues();
-                }
-                break;
-
-            }
+        switch( e.key.keysym.sym ) {
+        case SDLK_UP:
+            _velocityY += _velocity;
+            break;
+        case SDLK_DOWN :
+            _velocityY -= _velocity;
+            break;
+        case SDLK_RIGHT :
+            _velocityX -= _velocity;
+            break;
+        case SDLK_LEFT :
+            _velocityX += _velocity;
+            break;
         }
-        break;
 
+    }
+
+}
+
+void Pacman::move( vector<vector<int> > levelTable ) {
+
+    int temp = -1;
+
+    if( isCenteredInTheSquare() ) {
+
+        temp = _goTo;
+
+        updatePositionInTheGrid();
+        calculateDirection(levelTable);
+        resetValues();
+
+    }
+
+    bool vertical = ( _velocityY != 0 ) ? true : false;
+    bool horizontal = ( _velocityX != 0 ) ? true : false;
+
+    // Check if the previous direction ( before the reset ) is a vertical direction
+    if( temp == UP || temp == DOWN ) {
+
+        // First we check if the user is holding LEFT or RIGHT
+        // If yes, We move in one of these directions
+        if( horizontal ) {
+            bool left = ( _velocityX < 0 ) ? true : false;
+            moveHorizontally(left);
+        }
+        else if( vertical ) {
+            bool up = ( _velocityY < 0 ) ? true : false;
+            moveVertically(up);
+        }
+
+    }
+
+    // Check if the previous direction ( before the reset ) is an horizontal direction
+    else if( temp == LEFT || temp == RIGHT ) {
+
+        // First we check if the user is holding UP or DOWN
+        // If yes, We move in one of these directions
+        if( vertical ) {
+            bool up = ( _velocityY < 0 ) ? true : false;
+            moveVertically(up);
+        }
+        else if( horizontal ) {
+            bool left = ( _velocityX < 0 ) ? true : false;
+            moveHorizontally(left);
+        }
+
+    }
+    else {
+
+        // Default behavior
+        // Not else because the user can hold for example UP and LEFT, or DOWN and RIGHT
+        // So we need to move vertically AND horizontally !
+        // The authorized moves are checked in the methods
+
+        if( vertical ) {
+            bool up = ( _velocityY < 0 ) ? true : false;
+            moveVertically(up);
+        }
+        if( horizontal ) {
+            bool left = ( _velocityX < 0 ) ? true : false;
+            moveHorizontally(left);
+        }
     }
 
 }
@@ -149,14 +176,12 @@ void Pacman::moveVertically(bool up) {
         int direction = ( up ) ? UP : DOWN;
 
         if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
-            _selection.x = 45;
-            _selection.y = 3;
+            initRect(&_selection, _selection.w, _selection.h, 45, 3);
             _spriteFlag = -1;
         }
         else {
             nextSprite(direction);
         }
-
 
     }
 
@@ -169,8 +194,7 @@ void Pacman::moveHorizontally(bool left) {
         int direction = ( left ) ? LEFT : RIGHT;
 
         if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
-            _selection.x = 45;
-            _selection.y = 3;
+            initRect(&_selection, _selection.w, _selection.h, 45, 3);
             _spriteFlag = -1;
         }
         else {
@@ -178,19 +202,6 @@ void Pacman::moveHorizontally(bool left) {
         }
 
     }
-
-}
-
-bool Pacman::isCenteredInTheSquareWhenKeyUp() {
-
-    if( _stepCounter > 30 - _offset || (_back && _stepCounter < 6 - _offset ) ) {
-
-        return true;
-
-    }
-
-    return false;
-
 
 }
 

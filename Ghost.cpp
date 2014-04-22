@@ -5,7 +5,7 @@ using namespace std;
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite), _previousDirection(-1) {
 
-    _stepCounter = 33;
+    _stepCounter = 30;
 
     // Modulo to determinate the color of the ghost
     // 4 different colors
@@ -215,6 +215,8 @@ void Ghost::move() {
     // Move Vertically
     if( _goTo == UP || _goTo == DOWN ) {
 
+        _velocityY = ( _goTo == UP ) ? -_velocity : _velocity;
+
         bool direction = ( _goTo == UP ) ? true : false;
         if( moveVertically(direction) ) {
             nextSprite(_goTo);
@@ -223,6 +225,8 @@ void Ghost::move() {
     }
     // Move Horizontally
     else if( _goTo == RIGHT || _goTo == LEFT ){
+
+        _velocityX = ( _goTo == LEFT ) ? -_velocity : _velocity;
 
         bool direction = ( _goTo == LEFT ) ? true : false;
         if( moveHorizontally(direction) ) {
@@ -286,7 +290,7 @@ void Ghost::teleportation() {}
 void Ghost::defaultValues() {
 
     Character::defaultValues();
-    _stepCounter = 33;
+    _stepCounter = 30;
 
 }
 
