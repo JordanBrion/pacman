@@ -207,7 +207,7 @@ void Pacman::moveHorizontally(bool left) {
 
 void Pacman::checkCollisionWithBubbles( BubblesManager* bm ) {
 
-    bm->eatBubble( _row, _col, _position.x, _position.y );
+    bm->eatBubble( _row, _col, _position.x + 10, _position.y + 10 );
 
 }
 

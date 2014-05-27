@@ -84,10 +84,8 @@ Bubble* BubblesCase::getBubble( int const& x, int const& y ) const {
 
         for( int i(0); i < _bubbles.size(); i++ ) {
 
-            if( (x >= _bubbles[i]->getPosition().x - 10
-                    && x <= _bubbles[i]->getPosition().x + 10)
-                 && (y >= _bubbles[i]->getPosition().y - 10
-                        && y <= _bubbles[i]->getPosition().y + 10) )  {
+            if( x == _bubbles[i]->getPosition().x
+                    && y == _bubbles[i]->getPosition().y )  {
 
                 return _bubbles[i];
 
