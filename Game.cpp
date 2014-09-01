@@ -8,9 +8,9 @@ Game::Game( int const& lifesNbr, int const& bubblesNbr, int const& highScore )
 
     _lifesNbr = 3;
 
-    // Initialize the collectibles value
-    for( int i(0); i < COLLECTIBLES_NBR; i++ ) {
-        _collectibles.push_back(0);
+    // Initialize the fruit value
+    for( int i(0); i < FRUIT_NBR; i++ ) {
+        _fruit.push_back(0);
     }
 
 }
@@ -50,27 +50,27 @@ void Game::decLifesNbr() {
 
 std::vector<int> Game::getCollectibles() const {
 
-    return _collectibles;
+    return _fruit;
 
 }
 
 int Game::getCollectible(int const& key) const {
 
-    return _collectibles[key];
+    return _fruit[key];
 
 }
 
 void Game::setCollectibles(int const& key, int const& nbr) {
 
-    _collectibles[key] = nbr;
+    _fruit[key] = nbr;
 
 }
 
 void Game::resetCollectibles() {
 
-    for(int i(0); i < _collectibles.size(); i++) {
+    for(int i(0); i < _fruit.size(); i++) {
 
-        _collectibles[i] = 0;
+        _fruit[i] = 0;
 
     }
 

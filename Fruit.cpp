@@ -1,8 +1,8 @@
-#include "Collectible.h"
+#include "Fruit.h"
 
 using namespace std;
 
-Collectible::Collectible( int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite )
+Fruit::Fruit( int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite )
     : InteractiveElement( renderer, sprite ), _type( type ), _nbr(0) {
 
     // Initialization of sprite coord
@@ -45,47 +45,47 @@ Collectible::Collectible( int const& type, SDL_Renderer* const& renderer, SDL_Su
 
 }
 
-Collectible::~Collectible() {
+Fruit::~Fruit() {
 }
 
-int Collectible::getType() const {
+int Fruit::getType() const {
 
     return _type;
 
 }
 
-void Collectible::setType ( int const& type ) {
+void Fruit::setType ( int const& type ) {
 
     _type = type;
 
 }
 
-int Collectible::getNbr() const {
+int Fruit::getNbr() const {
 
     return _nbr;
 
 }
 
-void Collectible::setNbr( int const& nbr ) {
+void Fruit::setNbr( int const& nbr ) {
 
     _nbr = nbr;
 
 }
 
-int Collectible::getPoints() const {
+int Fruit::getPoints() const {
 
     return _points;
 
 }
 
 
-void Collectible::initPositionAreaGame() {
+void Fruit::initPositionAreaGame() {
 
     initRect( &_position, 0, 0, 0, 0);
 
 }
 
-void Collectible::initPositionAreaBottom() {
+void Fruit::initPositionAreaBottom() {
 
     int space = 270 + (65 * _type);
 

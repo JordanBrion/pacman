@@ -8,11 +8,11 @@
 #include "Const.h"
 #include <InteractiveElement.h>
 
-class Collectible : public InteractiveElement {
+class Fruit : public InteractiveElement {
 
 public:
-    Collectible( int const& name, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
-    ~Collectible();
+    Fruit( int const& name, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    ~Fruit();
     int getType() const;
     void setType( int const& type );
     int getNbr() const;

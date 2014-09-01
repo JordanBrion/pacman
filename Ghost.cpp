@@ -284,7 +284,7 @@ int Ghost::newRandomDirection() const {
 
 }
 
-void Ghost::deadAnimation(SDL_Renderer* const& pRenderer) {}
+void Ghost::deathAnimation(SDL_Renderer* const& pRenderer) {}
 void Ghost::teleportation() {}
 
 void Ghost::defaultValues() {

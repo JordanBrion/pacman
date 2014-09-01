@@ -10,7 +10,7 @@ protected:
     virtual void loadSpriteCoord() = 0;
     bool moveVertically(bool);
     bool moveHorizontally(bool);
-    virtual void deadAnimation(SDL_Renderer* const&) = 0;
+    virtual void deathAnimation(SDL_Renderer* const&) = 0;
     virtual void teleportation() = 0;
     void defaultValues();
 public:

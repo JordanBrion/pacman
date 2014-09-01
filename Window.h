@@ -16,10 +16,10 @@
 #include "AreaTop.h"
 #include "AreaGame.h"
 #include "AreaBottom.h"
-#include "Pacman.h"
+#include "PacMan.h"
 #include "Ghost.h"
-#include "Collectible.h"
-#include "BubblesManager.h"
+#include "Fruit.h"
+#include "PacDotsManager.h"
 #include "Game.h"
 
 class Window {
@@ -46,22 +46,24 @@ public:
     void quitGame();
 
 private:
-    bool _quit;
-    int _screenWidth;
-    int _screenHeight;
-    SDL_Window *_window;
-    SDL_Surface *_windowSurface;
-    SDL_Renderer *_renderer;
+    bool _quit;                                 // Flag for the SDL loop
+    int _screenWidth;                           // Width of the window
+    int _screenHeight;                          // Height of window
+    SDL_Window *_window;                        // Window
+    SDL_Surface *_windowSurface;                // SDL_Surface of the Window
+    SDL_Renderer *_renderer;                    // Renderer of the window
+    SDL_Thread *_threadGhosts;                  // Thread to manage the ghosts moves
+
+    /* Instances of the project classes */
     FilesManager* _fm;
     Game* _game;
     AreaTop* _areaTop;
     AreaGame* _areaGame;
     AreaBottom* _areaBottom;
-    Pacman *_pacman;
+    PacMan *_pacMan;
     std::vector<Ghost*> _ghosts;
-    std::vector<Collectible*> _collectibles;
-    BubblesManager* _bm;
-    SDL_Thread *_threadGhosts;
+    std::vector<Fruit*> _fruit;
+    PacDotsManager* _pdm;
 
 };
 #endif

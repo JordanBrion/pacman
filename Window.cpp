@@ -26,7 +26,10 @@ char _levelString[] =
         "0 ;-7;-3;-3;-3;-3;-3;-3;-3;-3;-9;-3;-7;-3;-3;-3;-3;-3;-3;-3;-3;-8;0;"
         "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
-Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeight(850) {
+Window::Window() throw(exception) :
+    _quit(false),
+    _screenWidth(900),
+    _screenHeight(850) {
 
     try {
 
@@ -47,14 +50,14 @@ Window::Window() throw(exception) : _quit(false), _screenWidth(900), _screenHeig
         _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
         _areaBottom = new AreaBottom();
 
-        for(int i(0); i < COLLECTIBLES_NBR; i++) {
+        for(int i(0); i < FRUIT_NBR; i++) {
 
-            _collectibles.push_back( new Collectible( i, _renderer, _fm->getSpriteCharacters()  ) );
+            _fruit.push_back( new Fruit( i, _renderer, _fm->getSpriteCharacters()  ) );
 
         }
 
         // Initialize the position of the bubbles
-        _bm = new BubblesManager( _fm->getLevelTable(), _renderer, _fm->getSpriteCharacters() );
+        _pdm = new PacDotsManager( _fm->getLevelTable(), _renderer, _fm->getSpriteCharacters() );
 
         createCharacters();
 
@@ -153,18 +156,18 @@ void Window::createCharacters() {
     // Pacman creation
     dest["row"] = _fm->getCharacterCoordRow("Pacman");
     dest["col"] = _fm->getCharacterCoordCol("Pacman");
-    _pacman = new Pacman( dest, _renderer, _fm->getSpriteCharacters() );
-    _pacman->calculateDirection(_fm->getLevelTable());
+    _pacMan = new PacMan( dest, _renderer, _fm->getSpriteCharacters() );
+    _pacMan->calculateDirection(_fm->getLevelTable());
 
     // Ghosts creation
     stringstream ss;
     for(int i(0); i < _fm->getGhostsNbr(); i++) {
 
         ss << "Ghost" << i+1;
-        dest["row"] = _fm->getCharacterCoordRow(ss.str());
-        dest["col"] = _fm->getCharacterCoordCol(ss.str());
+        dest["row"] = _fm->getCharacterCoordRow( ss.str() );
+        dest["col"] = _fm->getCharacterCoordCol( ss.str() );
         _ghosts.push_back( new Ghost(dest, _renderer, _fm->getSpriteCharacters()) );
-        _ghosts[i]->calculateDirection(_fm->getLevelTable());
+        _ghosts[i]->calculateDirection( _fm->getLevelTable() );
         ss.str(""); // Clear the string stream
 
     }
@@ -186,14 +189,14 @@ void Window::drawAreaGame() {
 
 int Window::drawBubbles() {
 
-    return _bm->render( _renderer );
+    return _pdm->render( _renderer );
 
 }
 
 void Window::drawHudBottom() {
 
     _areaBottom->drawLifesPanel(_renderer, _fm->getSpriteCharacters(), _fm->getFont(), _game->getLifesNbr() );
-    _areaBottom->drawCollectiblesPanel(_renderer, _fm->getSpriteCharacters(), _fm->getFont(), _collectibles );
+    _areaBottom->drawFruitPanel(_renderer, _fm->getSpriteCharacters(), _fm->getFont(), _fruit );
 
 }
 
@@ -210,7 +213,7 @@ int Window::createThread(void* data) {
 void Window::threadGhostsLoop() {
 
     // The ghosts move while Pacman is not dead
-    while( !_pacman->isDead() ) {
+    while( !_pacMan->isDead() ) {
 
         for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
             if( _ghosts[i]->isCenteredInTheSquare() ) {
@@ -222,11 +225,11 @@ void Window::threadGhostsLoop() {
             _ghosts[i]->move();
 
             // After the move, detect if there is a collision
-            if( _ghosts[i]->checkCollision(_pacman) ) {
+            if( _ghosts[i]->checkCollision(_pacMan) ) {
 
                 // If collision detected, pacman is dead
-                if( !_pacman->isDead() ) {
-                    _pacman->setDead();
+                if( !_pacMan->isDead() ) {
+                    _pacMan->setDead();
                 }
 
             }
@@ -253,8 +256,6 @@ void Window::loop() {
 
     while( !_quit ) {
 
-
-
             while( SDL_PollEvent(&e) != 0 ) {
 
                 switch( e.type ) {
@@ -273,32 +274,32 @@ void Window::loop() {
                     break;
 
                 }
-                _pacman->handleEvent(e);
+                _pacMan->handleEvent(e);
 
             }
 
-            _pacman->move( _fm->getLevelTable() );
+            _pacMan->move( _fm->getLevelTable() );
             SDL_RenderClear(_renderer);
 
             // If pacman is dead
-            if( _pacman->isDead() ) {
+            if( _pacMan->isDead() ) {
 
                 // Load the pacman dead animation
-                _pacman->deadAnimation(_renderer);
+                _pacMan->deathAnimation(_renderer);
 
                 // If the animation is ended
-                if( _pacman->getDeadAnimationCounter() > 11 ) {
+                if( _pacMan->getDeathAnimationCounter() > 11 ) {
                     startNewLife();
                 }
 
             }
             else {
 
-                _pacman->checkCollisionWithBubbles( _bm );
+                _pacMan->checkCollisionWithPacDots( _pdm );
                 score = drawBubbles();
                 _game->setScoreP1( score );
 
-                _pacman->show(_renderer);
+                _pacMan->show(_renderer);
 
                 // Copy new ghosts positions in the renderer
                 for( int i(0); i < _ghosts.size(); i++ ) {
@@ -331,9 +332,9 @@ void Window::startNewLife() {
     _game->decLifesNbr();
 
     // Restore Pacman attributes to default
-    _pacman->defaultValues();
-    _pacman->calculateDirection(_fm->getLevelTable());
-    _pacman->show(_renderer);
+    _pacMan->defaultValues();
+    _pacMan->calculateDirection(_fm->getLevelTable());
+    _pacMan->show(_renderer);
 
     // Restore ghosts attributes to default
     for(int i(0); i < _ghosts.size(); i++) {

@@ -1,10 +1,10 @@
-#include "Pacman.h"
+#include "PacMan.h"
 
 using namespace std;
 
-Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
+PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _directionKey(-1), _deadAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
+      _directionKey(-1), _deathAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -16,7 +16,9 @@ Pacman::Pacman(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
 
 }
 
-void Pacman::loadSpriteCoord() {
+PacMan::~PacMan() {}
+
+void PacMan::loadSpriteCoord() {
 
     vector<vector<int> > temp(2);
     vector<int> coord(2);
@@ -60,7 +62,7 @@ void Pacman::loadSpriteCoord() {
 
 }
 
-void Pacman::handleEvent(SDL_Event& e ) {
+void PacMan::handleEvent(SDL_Event& e ) {
 
     if( e.type == SDL_KEYDOWN && e.key.repeat == 0 ) {
 
@@ -102,7 +104,7 @@ void Pacman::handleEvent(SDL_Event& e ) {
 
 }
 
-void Pacman::move( vector<vector<int> > levelTable ) {
+void PacMan::move( vector<vector<int> > levelTable ) {
 
     int temp = -1;
 
@@ -169,7 +171,7 @@ void Pacman::move( vector<vector<int> > levelTable ) {
 
 }
 
-void Pacman::moveVertically(bool up) {
+void PacMan::moveVertically(bool up) {
 
     if( Character::moveVertically(up) ) {
 
@@ -187,7 +189,7 @@ void Pacman::moveVertically(bool up) {
 
 }
 
-void Pacman::moveHorizontally(bool left) {
+void PacMan::moveHorizontally(bool left) {
 
     if( Character::moveHorizontally(left) ) {
 
@@ -205,20 +207,20 @@ void Pacman::moveHorizontally(bool left) {
 
 }
 
-void Pacman::checkCollisionWithBubbles( BubblesManager* bm ) {
+void PacMan::checkCollisionWithPacDots(PacDotsManager *pdm) {
 
-    bm->eatBubble( _row, _col, _position.x + 10, _position.y + 10 );
+    pdm->eatPacDot( _row, _col, _position.x + 10, _position.y + 10 );
 
 }
 
-void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
+void PacMan::deathAnimation(SDL_Renderer* const& pRenderer) {
 
     _selection.w = 19;
     _selection.y = 244;
 
-    _selection.x = ( _deadAnimationCounter * 20 ) + 4;
+    _selection.x = ( _deathAnimationCounter * 20 ) + 4;
 
-    _deadAnimationCounter++;
+    _deathAnimationCounter++;
 
     show(pRenderer);
     SDL_Delay(150);
@@ -226,17 +228,17 @@ void Pacman::deadAnimation(SDL_Renderer* const& pRenderer) {
 
 }
 
-int Pacman::getDeadAnimationCounter() const {
+int PacMan::getDeathAnimationCounter() const {
 
-    return _deadAnimationCounter;
+    return _deathAnimationCounter;
 
 }
 
-void Pacman::teleportation() {}
+void PacMan::teleportation() {}
 
-void Pacman::defaultValues() {
+void PacMan::defaultValues() {
 
     Character::defaultValues();
-    _deadAnimationCounter = 0;
+    _deathAnimationCounter = 0;
 
 }

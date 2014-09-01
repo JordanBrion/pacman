@@ -3,11 +3,11 @@
 
 #include "InteractiveElement.h"
 
-class Bubble: public InteractiveElement {
+class PacDot: public InteractiveElement {
 
 public:
-    Bubble( std::map<std::string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite);
-    ~Bubble();
+    PacDot( std::map<std::string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite);
+    ~PacDot();
     bool isEaten() const;
     void setEaten( int const& state );
     int getCaseType() const;

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include "Character.h"
-#include "Pacman.h"
+#include "PacMan.h"
 
 class Ghost : public Character {
 
@@ -16,7 +16,7 @@ class Ghost : public Character {
     void move();
     void resetValues();
     int newRandomDirection() const;
-    void deadAnimation(SDL_Renderer* const&);
+    void deathAnimation(SDL_Renderer* const&);
     void teleportation();
     void defaultValues();
     void returnToWarpZone();

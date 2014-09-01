@@ -34,26 +34,26 @@ void AreaBottom::drawLifesPanel( SDL_Renderer* const& pRenderer, SDL_Surface* co
 
 }
 
-void AreaBottom::drawCollectiblesPanel( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteCharacters, TTF_Font* const& pFont, vector<Collectible*> pCollectibles ) {
+void AreaBottom::drawFruitPanel( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteCharacters, TTF_Font* const& pFont, vector<Fruit*> pFruit ) {
 
     _texture = SDL_CreateTextureFromSurface(pRenderer, pSpriteCharacters);
 
     SDL_Surface* textSurface = NULL;
 
-    for( int i(0); i < pCollectibles.size(); i++ ) {
+    for( int i(0); i < pFruit.size(); i++ ) {
 
-        // Show collectible image
-        pCollectibles[i]->initPositionAreaBottom();
-        _selection = pCollectibles[i]->getSelection();
-        _position = pCollectibles[i]->getPosition();
-        pCollectibles[i]->show( pRenderer );
+        // Show fruit image
+        pFruit[i]->initPositionAreaBottom();
+        _selection = pFruit[i]->getSelection();
+        _position = pFruit[i]->getPosition();
+        pFruit[i]->show( pRenderer );
 
-        // Show collectible number
-        string s = to_string( pCollectibles[i]->getNbr() );
+        // Show fruit number
+        string s = to_string( pFruit[i]->getNbr() );
         char const *c = s.c_str();
         textSurface = TTF_RenderText_Solid( pFont, c, SDL_WHITE );
         _texture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
-        _position.x = pCollectibles[i]->getPosition().x + 30;
+        _position.x = pFruit[i]->getPosition().x + 30;
 
         SDL_RenderCopy( pRenderer, _texture, NULL, &_position );
 

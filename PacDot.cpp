@@ -1,8 +1,8 @@
-#include "Bubble.h"
+#include "PacDot.h"
 
 using namespace std;
 
-Bubble::Bubble( map<string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
+PacDot::PacDot( map<string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement( dest, renderer, sprite ), _eaten( false ), _caseType( type ) {
 
     initRect(&_selection, 13, 13, 3, 183);
@@ -10,34 +10,34 @@ Bubble::Bubble( map<string, int> dest, int type, int x, int y, SDL_Renderer* con
 
 }
 
-Bubble::~Bubble() {
+PacDot::~PacDot() {
 }
 
-bool Bubble::isEaten() const {
+bool PacDot::isEaten() const {
 
     return _eaten;
 
 }
 
-void Bubble::setEaten( int const& state ) {
+void PacDot::setEaten( int const& state ) {
 
     _eaten = state;
 
 }
 
-int Bubble::getCaseType() const {
+int PacDot::getCaseType() const {
 
     return _caseType;
 
 }
 
-void Bubble::setCaseType( int const& type ){
+void PacDot::setCaseType( int const& type ){
 
     _caseType = type;
 
 }
 
-int Bubble::show( SDL_Renderer* const& renderer ) {
+int PacDot::show( SDL_Renderer* const& renderer ) {
 
     int score(0);
 

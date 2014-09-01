@@ -30,7 +30,7 @@ public:
 private:
     int _lifesNbr;
     int _bubblesNbr;
-    std::vector<int> _collectibles;
+    std::vector<int> _fruit;
     int _comboSuperPower;
     int _scoreP1;
     int _scoreP2;

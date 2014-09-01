@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 #include "Area.h"
-#include "Collectible.h"
+#include "Fruit.h"
 #include "Const.h"
 
 class AreaBottom: public Area {
@@ -15,7 +15,7 @@ class AreaBottom: public Area {
 public:
     AreaBottom();
     void drawLifesPanel( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteCharacters, TTF_Font* const& pFont, int const& pLifesNbr );
-    void drawCollectiblesPanel( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteCharacters, TTF_Font* const& pFont, std::vector<Collectible*> pCollectibles );
+    void drawFruitPanel( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteCharacters, TTF_Font* const& pFont, std::vector<Fruit*> pFruit );
 
 };
 
