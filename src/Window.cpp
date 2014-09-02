@@ -188,7 +188,7 @@ void Window::drawAreaGame() {
 
 }
 
-int Window::drawBubbles() {
+int Window::drawPacDots() {
 
     return _pdm->render( _renderer );
 
@@ -297,7 +297,7 @@ void Window::loop() {
         else {
 
             _pacMan->checkCollisionWithPacDots( _pdm );
-            score = drawBubbles();
+            score = drawPacDots();
             _game->setScoreP1( score );
 
             _pacMan->show(_renderer);
