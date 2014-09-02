@@ -4,7 +4,7 @@ using namespace std;
 
 PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _directionKey(-1), _deathAnimationCounter(0), _superPower(false), _stopKeyUp(false) {
+      _directionKey(-1), _deathAnimationCounter(0), _powerPellet(false), _stopKeyUp(false) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
