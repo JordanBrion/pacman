@@ -25,7 +25,7 @@ public:
     //!  \param x : The x coordonate of the pac-dot on the screen
     //!  \param y : The y coordonate of the pac-dot on the screen
     //!  \param renderer : SDL_Renderer* of the window
-    //!  \param surface : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
     //!
     PacDot( std::map<std::string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite);
     //!
