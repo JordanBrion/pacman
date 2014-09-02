@@ -32,11 +32,13 @@ protected:
     //!
     //!  \brief Method to move vertically
     //!  \param up : Move upwards
+    //!  \return True if the character has moved. Otherwise, false
     //!
     bool moveVertically( bool up );
     //!
     //!  \brief Method to move horizontally
     //!  \param left : Move left
+    //!  \return True if the character has moved. Otherwise, false
     //!
     bool moveHorizontally( bool left );
     //!
@@ -60,6 +62,7 @@ public:
     void calculateDirection( std::vector<std::vector<int> > levelTable );
     //!
     //!  \brief Method to check if the character is centered in the square (checkout needed for correct moves)
+    //!  \return True if the character is in the center of the square. Otherwise, false
     //!
     bool isCenteredInTheSquare();
     //!
@@ -84,10 +87,12 @@ public:
     //!
     //!  \brief Method to check the collisions with the other characters
     //!  \param element : The other character
+    //!  \return True if a collision is detected. Otherwise, false
     //!
     bool checkCollision( InteractiveElement* const& element ) const;
     //!
     //!  \brief Getter to know if the character is dead
+    //!  \return True if the character is dead. Otherwise, false
     //!
     bool isDead() const;
     //!

@@ -67,6 +67,7 @@ public:
     //!
     //!  \brief Method to convert int to char
     //!  \param pScore : The score to be converted
+    //!  \return The integer converted in char
     //!
     const char* convertIntToChar(int const& pScore);
     //!
