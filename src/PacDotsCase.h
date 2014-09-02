@@ -26,7 +26,7 @@ public:
     //!  \brief PacDotsCase constructor
     //!  \param row : The row number of the case in the grid
     //!  \param col : The column number of the case in the grid
-    //!  \param type : The type of the case where the pac-dot is located
+    //!  \param type : The type of the case
     //!  \param renderer : SDL_Renderer* of the window
     //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
     //!
