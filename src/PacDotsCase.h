@@ -100,11 +100,11 @@ public:
     void initPacDotsWithFourJunctions( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
 
 private:
-    int _row;                       /*!< Flag to check if the pac-dot is eaten */
-    int _col;                       /*!< Flag to check if the pac-dot is eaten */
-    bool _empty;                    /*!< Flag to check if the pac-dot is eaten */
-    int _type;                      /*!< Flag to check if the pac-dot is eaten */
-    std::vector<PacDot*> _pacDots;  /*!< Flag to check if the pac-dot is eaten */
+    int _row;                       /*!< The row number of the case in the grid */
+    int _col;                       /*!< The column number of the case in the grid */
+    bool _empty;                    /*!< Flag to check if the case is empty */
+    int _type;                      /*!< The type of the case */
+    std::vector<PacDot*> _pacDots;  /*!< The array containing the pac-dots in the case */
 
 };
 
