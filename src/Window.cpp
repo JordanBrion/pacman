@@ -91,9 +91,8 @@ void Window::initSDL() {
 
         // Create window
         _window = SDL_CreateWindow( "Pac-Man", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_BORDERLESS );
-        _windowSurface = SDL_GetWindowSurface(_window);
 
-        if( _window == NULL || _windowSurface == NULL)
+        if( _window == NULL )
             throw exception();
 
         else {
@@ -104,6 +103,8 @@ void Window::initSDL() {
                 throw exception();
 
             else {
+
+                _windowSurface = SDL_GetWindowSurface(_window);
 
                 //Initialize renderer color
                 SDL_SetRenderDrawColor( _renderer, 13, 13, 11, 0 );
@@ -256,66 +257,66 @@ void Window::loop() {
 
     while( !_quit ) {
 
-            while( SDL_PollEvent(&e) != 0 ) {
+        while( SDL_PollEvent(&e) != 0 ) {
 
-                switch( e.type ) {
+            switch( e.type ) {
 
-                case SDL_QUIT:
+            case SDL_QUIT:
+                _quit = true;
+                break;
+
+            case SDL_KEYDOWN:
+
+                switch(e.key.keysym.sym) {
+                case SDLK_ESCAPE:
                     _quit = true;
                     break;
-
-                case SDL_KEYDOWN:
-
-                    switch(e.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        _quit = true;
-                        break;
-                    }
-                    break;
-
                 }
-                _pacMan->handleEvent(e);
+                break;
+
+            }
+            _pacMan->handleEvent(e);
+
+        }
+
+        _pacMan->move( _fm->getLevelTable() );
+        SDL_RenderClear(_renderer);
+
+        // If pacman is dead
+        if( _pacMan->isDead() ) {
+
+            // Load the pacman dead animation
+            _pacMan->deathAnimation(_renderer);
+
+            // If the animation is ended
+            if( _pacMan->getDeathAnimationCounter() > 11 ) {
+                startNewLife();
+            }
+
+        }
+        else {
+
+            _pacMan->checkCollisionWithPacDots( _pdm );
+            score = drawBubbles();
+            _game->setScoreP1( score );
+
+            _pacMan->show(_renderer);
+
+            // Copy new ghosts positions in the renderer
+            for( int i(0); i < _ghosts.size(); i++ ) {
+
+                _ghosts[i]->show(_renderer);
 
             }
 
-            _pacMan->move( _fm->getLevelTable() );
-            SDL_RenderClear(_renderer);
+        }
 
-            // If pacman is dead
-            if( _pacMan->isDead() ) {
+        drawHudTop();
+        drawAreaGame();
+        drawHudBottom();
 
-                // Load the pacman dead animation
-                _pacMan->deathAnimation(_renderer);
-
-                // If the animation is ended
-                if( _pacMan->getDeathAnimationCounter() > 11 ) {
-                    startNewLife();
-                }
-
-            }
-            else {
-
-                _pacMan->checkCollisionWithPacDots( _pdm );
-                score = drawBubbles();
-                _game->setScoreP1( score );
-
-                _pacMan->show(_renderer);
-
-                // Copy new ghosts positions in the renderer
-                for( int i(0); i < _ghosts.size(); i++ ) {
-
-                    _ghosts[i]->show(_renderer);
-
-                }
-
-            }
-
-            drawHudTop();
-            drawAreaGame();
-            drawHudBottom();
-
-            // Render changes on the screen
-            SDL_RenderPresent(_renderer);
+        // Render changes on the screen
+        SDL_RenderPresent(_renderer);
 
 
     }

@@ -22,8 +22,6 @@
 
 # Qt-es
 
-*.pro.user
-*.pro.user.*
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
@@ -35,4 +33,8 @@ Makefile*
 *.autosave
 
 # Ignore dia backup
+*.dia
 *.dia~
+
+# Ignore build directory content
+build/*

@@ -137,8 +137,8 @@ int FilesManager::getLevelTableCase(int i, int j) const {
 
 bool FilesManager::loadIMG(){
 
-    _spriteLevel = IMG_Load("../pacman/img/sprite-level.png");
-    _spriteCharacters = IMG_Load("../pacman/img/sprite-anim.png");
+    _spriteLevel = IMG_Load("../media/img/sprite-level.png");
+    _spriteCharacters = IMG_Load("../media/img/sprite-anim.png");
 
     if( _spriteLevel == NULL || _spriteCharacters == NULL )
         return false;
@@ -209,7 +209,7 @@ int FilesManager::getCharacterCoordCol(string key) {
 
 bool FilesManager::loadFont() {
 
-    _font = TTF_OpenFont( "fonts/slkscre.ttf", 28 );
+    _font = TTF_OpenFont( "../media/fonts/slkscre.ttf", 28 );
 
     if( !_font ) {
         return false;
