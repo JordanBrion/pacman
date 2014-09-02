@@ -7,7 +7,7 @@ FilesManager::FilesManager() {
     _rowsNbr = 22;
     _colsNbr = 23;
     _lifesNbr = 3;
-    _bubblesNbr = 350;
+    _pacdotsNbr = 350;
     _ghostsNbr = 4;
     _highScore = 0;
     _spriteLevel = NULL;
@@ -43,9 +43,9 @@ int FilesManager::getLifesNbr() const {
 
 }
 
-int FilesManager::getBubblesNbr() const {
+int FilesManager::getPacDotsNbr() const {
 
-    return _bubblesNbr;
+    return _pacdotsNbr;
 
 }
 

@@ -45,7 +45,7 @@ Window::Window() throw(exception) :
         _fm->initLevelSpriteCoord();
 
         // Initialize attributes
-        _game = new Game( _fm->getLifesNbr(), _fm->getBubblesNbr(), _fm->getHighScore() );
+        _game = new Game( _fm->getLifesNbr(), _fm->getPacDotsNbr(), _fm->getHighScore() );
         _areaTop = new AreaTop();
         _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
         _areaBottom = new AreaBottom();

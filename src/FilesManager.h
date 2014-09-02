@@ -1,6 +1,14 @@
 #ifndef FILESMANAGER_H
 #define FILESMANAGER_H
 
+//!
+//! \file FilesManager.h
+//! \brief Class to manage all the media files (images, fonts...) .
+//! \author Jordan Brion
+//! \version 0.1
+//! \date 2 september 2014
+//!
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -15,50 +23,154 @@
 #include <sstream>
 #include "Const.h"
 
+//!
+//! \class FilesManager
+//! \brief Class to manage all the media files (images, fonts...) .
+//!
 class FilesManager {
 
 public:
+    //!
+    //!  \brief FilesManager constructor
+    //!
     FilesManager();
+    //!
+    //!  \brief FilesManager destructor
+    //!
     ~FilesManager();
+    //!
+    //!  \brief Method to load the XML file containing the data of the level
+    //!
     void loadFileXML();
+    //!
+    //!  \brief Method to load the file containing the level
+    //!
     void loadFileLevel();
+    //!
+    //!  \brief Getter for the number of rows
+    //!  \return The number of rows
+    //!
     int getRowsNbr() const;
+    //!
+    //!  \brief Getter for the number of columns
+    //!  \return The number of columns
+    //!
     int getColsNbr() const;
+    //!
+    //!  \brief Getter for the number of lifes
+    //!  \return The number of lifes
+    //!
     int getLifesNbr() const;
-    int getBubblesNbr() const;
+    //!
+    //!  \brief Getter for the number of pac-dots
+    //!  \return The number of pac-dots
+    //!
+    int getPacDotsNbr() const;
+    //!
+    //!  \brief Getter for the number of ghosts
+    //!  \return The number of ghosts
+    //!
     int getGhostsNbr() const;
+    //!
+    //!  \brief Getter for the highscore of the level
+    //!  \return The highscore of the level
+    //!
     int getHighScore() const;
+    //!
+    //!  \brief Method to load the array containing the level in form of caracters
+    //!  \param pLevel : The level in form of string
+    //!
     void initLevelTable(char pLevel[]);
+    //!
+    //!  \brief Getter for the array containing the level in form of caracters
+    //!  \return The array containing the level in form of caracters
+    //!
     std::vector<std::vector<int> > getLevelTable() const;
+    //!
+    //!  \brief Getter for an element of the array containing the level in form of caracters
+    //!  \param i : Row
+    //!  \param j : Column
+    //!  \return An element of the array containing the level in form of caracters
+    //!
     int getLevelTableCase( int i, int j ) const;
+    //!
+    //!  \brief Method to load the images with SDL2_image
+    //!  \return True if no error in the loading. Otherwise, false.
+    //!
     bool loadIMG();
+    //!
+    //!  \brief Getter for the sprite containing the level
+    //!  \return The sprite containing the level
+    //!
     SDL_Surface* getSpriteLevel() const;
+    //!
+    //!  \brief Getter for the sprite containing the characters
+    //!  \return The sprite containing the characters
+    //!
     SDL_Surface* getSpriteCharacters() const;
+    //!
+    //!  \brief Method to initialize the coordinates of the sprite level
+    //!
     void initLevelSpriteCoord();
+    //!
+    //!  \brief Getter for the array containing the coordinates of the sprite level
+    //!  \return The array containing the coordinates of the sprite level
+    //!
     std::vector<std::map<std::string, int> > getLevelSpriteCoord() const;
+    //!
+    //!  \brief Method to add the position of a character in the grid
+    //!  \param key : The key to identify the character
+    //!  \param row : The row
+    //!  \param col : The column
+    //!
     void addCharacterCoord ( std::string key, int row, int col );
+    //!
+    //!  \brief Getter for the position of the characters in the grid
+    //!  \return The position of the characters in the grid
+    //!
     std::map<std::string, std::map<std::string, int> > getCharactersCoord() const;
+    //!
+    //!  \brief Getter for the row of a character in the grid
+    //!  \param key : The key to identify the character
+    //!  \return The row of a character in the grid
+    //!
     int getCharacterCoordRow( std::string key );
+    //!
+    //!  \brief Getter for the column of a character in the grid
+    //!  \param key : The key to identify the character
+    //!  \return The column of a character in the grid
+    //!
     int getCharacterCoordCol( std::string key );
+    //!
+    //!  \brief Method to load the font files with SDL2_ttf
+    //!  \return True if no error in the loading. Otherwise, false.
+    //!
     bool loadFont();
+    //!
+    //!  \brief Getter for the game font
+    //!  \return The font of the game.
+    //!
     TTF_Font* getFont() const;
+    //!
+    //!  \brief Method to free all the variables in memory
+    //!
     void free();
 
 private:
-    int _rowsNbr;
-    int _colsNbr;
-    int _areaGameWidth;
-    int _areaGameHeight;
-    int _lifesNbr;
-    int _bubblesNbr;
-    int _ghostsNbr;
-    int _highScore;
-    SDL_Surface* _spriteLevel;
-    SDL_Surface* _spriteCharacters;
-    std::vector<std::vector<int> > _levelTable;
-    std::vector<std::map<std::string, int> > _levelSpriteCoord;
-    std::map<std::string, std::map<std::string, int> > _charactersCoord;
-    TTF_Font* _font;
+    int _rowsNbr;                               /*!< Number of rows in the level */
+    int _colsNbr;                               /*!< Number of columns in the level */
+    int _areaGameWidth;                         /*!< Width of the area game */
+    int _areaGameHeight;                        /*!< Height of the area game */
+    int _lifesNbr;                              /*!< Number of lifes */
+    int _pacdotsNbr;                            /*!< Number of pac-dots */
+    int _ghostsNbr;                             /*!< Number of ghosts */
+    int _highScore;                             /*!< Highscore of the level */
+    SDL_Surface* _spriteLevel;                  /*!< Sprite for the level */
+    SDL_Surface* _spriteCharacters;             /*!< Sprite for the characters */
+    std::vector<std::vector<int> > _levelTable; /*!< Array containing the level in form of caracters */
+    std::vector<std::map<std::string, int> > _levelSpriteCoord;             /*!< Array containing the coordinates of the sprite level */
+    std::map<std::string, std::map<std::string, int> > _charactersCoord;    /*!< Array containing the position of the characters in the level */
+    TTF_Font* _font;                            /*!< Font of the game */
 
 };
 
