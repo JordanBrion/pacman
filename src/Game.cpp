@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Game::Game( int const& lifesNbr, int const& bubblesNbr, int const& highScore )
-    : _lifesNbr(lifesNbr), _bubblesNbr(bubblesNbr), _comboSuperPower(0),
+Game::Game( int const& lifesNbr, int const& pacDotsNbr, int const& highScore )
+    : _lifesNbr(lifesNbr), _pacDotsNbr(pacDotsNbr), _comboPowerPellet(0),
       _scoreP1(0), _scoreP2(0), _highScore(highScore), _paused(false) {
 
     _lifesNbr = 3;
@@ -18,15 +18,15 @@ Game::Game( int const& lifesNbr, int const& bubblesNbr, int const& highScore )
 Game::~Game() {
 }
 
-int Game::getBubblesNbr() const {
+int Game::getPacDotsNbr() const {
 
-    return _bubblesNbr;
+    return _pacDotsNbr;
 
 }
 
-void Game::setBubblesNbr(int const& nbr) {
+void Game::setPacDotsNbr(int const& nbr) {
 
-    _bubblesNbr = nbr;
+    _pacDotsNbr = nbr;
 
 }
 
@@ -48,25 +48,25 @@ void Game::decLifesNbr() {
 
 }
 
-std::vector<int> Game::getCollectibles() const {
+std::vector<int> Game::getAllFruitNbr() const {
 
     return _fruit;
 
 }
 
-int Game::getCollectible(int const& key) const {
+int Game::getFruitNbr(int const& key) const {
 
     return _fruit[key];
 
 }
 
-void Game::setCollectibles(int const& key, int const& nbr) {
+void Game::setFruitNbr(int const& key, int const& nbr) {
 
     _fruit[key] = nbr;
 
 }
 
-void Game::resetCollectibles() {
+void Game::resetAllFruitNbr() {
 
     for(int i(0); i < _fruit.size(); i++) {
 
