@@ -9,6 +9,7 @@ using namespace std;
 int main( int argc, char* args[] ) {
 
     Window *window = new Window();
+    //window->drawSplashScreen();
     window->loop();
 
     return 0;

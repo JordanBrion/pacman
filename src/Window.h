@@ -58,6 +58,10 @@ public:
     //!
     void createCharacters();
     //!
+    //! \brief Method to render a splash screen at the start of the game
+    //!
+    void drawSplashScreen();
+    //!
     //! \brief Method to draw the top of the window (score panel)
     //!
     void drawHudTop();
