@@ -1,5 +1,7 @@
 #include "AreaTop.h"
 
+#include <pm/Color.h>
+
 using namespace std;
 
 AreaTop::AreaTop() {}
@@ -16,7 +18,7 @@ void AreaTop::drawArea( SDL_Renderer* const pRenderer, TTF_Font* const& pFont,
 void AreaTop::drawHighScore( SDL_Renderer* const& pRenderer, TTF_Font* const& pFont, int const& pHighScore ) {
 
     // Render text "High Score"
-    drawText(pRenderer, pFont, "High Score", SDL_WHITE);
+    drawText(pRenderer, pFont, "High Score", Color::SDL_WHITE);
 
     initPositionText(
                 150,
@@ -27,7 +29,7 @@ void AreaTop::drawHighScore( SDL_Renderer* const& pRenderer, TTF_Font* const& pF
     SDL_RenderCopy( pRenderer, _texture, NULL, &_position );
 
     // Render the High Score number
-    drawText(pRenderer, pFont, convertIntToChar(pHighScore), SDL_WHITE);
+    drawText(pRenderer, pFont, convertIntToChar(pHighScore), Color::SDL_WHITE);
 
     initPositionText(
                 20 + scoreTextureWidth(pHighScore),
@@ -42,7 +44,7 @@ void AreaTop::drawHighScore( SDL_Renderer* const& pRenderer, TTF_Font* const& pF
 void AreaTop::drawPlayerOneScore( SDL_Renderer* const& pRenderer, TTF_Font* const& pFont, int const& pScore ) {
 
     // Render text "1UP"
-    drawText(pRenderer, pFont, "1UP", SDL_WHITE);
+    drawText(pRenderer, pFont, "1UP", Color::SDL_WHITE);
 
     initPositionText(
                 60,
@@ -53,7 +55,7 @@ void AreaTop::drawPlayerOneScore( SDL_Renderer* const& pRenderer, TTF_Font* cons
     SDL_RenderCopy( pRenderer, _texture, NULL, &_position );
 
     // Render the Player 1 Score number
-    drawText(pRenderer, pFont, convertIntToChar(pScore), SDL_WHITE);
+    drawText(pRenderer, pFont, convertIntToChar(pScore), Color::SDL_WHITE);
 
     initPositionText(
                 20 + scoreTextureWidth(pScore),
@@ -68,7 +70,7 @@ void AreaTop::drawPlayerOneScore( SDL_Renderer* const& pRenderer, TTF_Font* cons
 void AreaTop::drawPlayerTwoScore( SDL_Renderer* const& pRenderer, TTF_Font* const& pFont, int const& pScore ) {
 
     // Render text "2UP"
-    drawText(pRenderer, pFont, "2UP", SDL_WHITE);
+    drawText(pRenderer, pFont, "2UP", Color::SDL_WHITE);
 
     initPositionText(
                 60,
@@ -79,7 +81,7 @@ void AreaTop::drawPlayerTwoScore( SDL_Renderer* const& pRenderer, TTF_Font* cons
     SDL_RenderCopy( pRenderer, _texture, NULL, &_position );
 
     // Render the Player 2 Score number
-    drawText(pRenderer, pFont, convertIntToChar(pScore), SDL_WHITE);
+    drawText(pRenderer, pFont, convertIntToChar(pScore), Color::SDL_WHITE);
 
     initPositionText(
                 20 + scoreTextureWidth(pScore),

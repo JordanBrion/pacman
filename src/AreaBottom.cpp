@@ -1,5 +1,7 @@
 #include "AreaBottom.h"
 
+#include <pm/Color.h>
+
 using namespace std;
 
 AreaBottom::AreaBottom() {}
@@ -24,7 +26,7 @@ void AreaBottom::drawLifesPanel( SDL_Renderer* const& pRenderer, SDL_Surface* co
     // Show lifes number
     string s = to_string(pLifesNbr);
     char const *c = s.c_str();
-    SDL_Surface* textSurface = TTF_RenderText_Solid( pFont, c, SDL_WHITE );
+    SDL_Surface* textSurface = TTF_RenderText_Solid( pFont, c, Color::SDL_WHITE );
     _texture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
     _position.x += 40;
 
@@ -51,7 +53,7 @@ void AreaBottom::drawFruitPanel( SDL_Renderer* const& pRenderer, SDL_Surface* co
         // Show fruit number
         string s = to_string( pFruit[i]->getNbr() );
         char const *c = s.c_str();
-        textSurface = TTF_RenderText_Solid( pFont, c, SDL_WHITE );
+        textSurface = TTF_RenderText_Solid( pFont, c, Color::SDL_WHITE );
         _texture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
         _position.x = pFruit[i]->getPosition().x + 30;
 
