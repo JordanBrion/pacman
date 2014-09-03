@@ -15,6 +15,11 @@ link_directories(
         ${SDL2_TTF_LIB}
 )
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/common
+)
+
 file(
     GLOB_RECURSE
     include
