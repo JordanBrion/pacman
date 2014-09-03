@@ -89,6 +89,13 @@ public:
     //!
     void loop();
     //!
+    //! \brief Method to run the game at the targetted number of FPS placed in parameter
+    //! \param fps : The number of FPS targetted for the game
+    //! \param startLoop : The time at the beginning of the loop
+    //! \param endLoop : The time at the end of the loop
+    //!
+    void calculateFPS( int const& fps, int const& startLoop, int const& endLoop );
+    //!
     //! \brief Method to exit the window
     //!
     void quit();

@@ -248,14 +248,16 @@ void Window::loop() {
 
     int score(0);
 
-    // Variables to compare time left
-    int start = SDL_GetTicks();
-    int later = 0;
+    // Variables to compare time left in the loop
+    int startLoop = 0;
+    int endLoop = 0;
 
     // Flag for blocking of key up infinite loop
     bool stopKeyUp(false);
 
     while( !_quit ) {
+
+        startLoop = SDL_GetTicks();
 
         while( SDL_PollEvent(&e) != 0 ) {
 
@@ -318,8 +320,32 @@ void Window::loop() {
         // Render changes on the screen
         SDL_RenderPresent(_renderer);
 
+        // Render the game at the targetted FPS
+        endLoop = SDL_GetTicks();
+        calculateFPS( 60, startLoop, endLoop );
+
 
     }
+}
+
+void Window::calculateFPS( int const& fps, int const& startLoop, int const& endLoop ) {
+
+    Uint32 oneIteration = 1000 / fps;
+    Uint32 timeLeft = endLoop - startLoop;
+
+    if( timeLeft < oneIteration ) {
+
+        Uint32 waiting = oneIteration - timeLeft;
+        SDL_Delay( waiting );
+
+    }
+    else {
+
+        Uint32 waiting = 0;
+        SDL_Delay( waiting );
+
+    }
+
 }
 
 void Window::quit() {
