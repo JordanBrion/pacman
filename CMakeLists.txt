@@ -17,18 +17,32 @@ link_directories(
 
 file(
     GLOB_RECURSE
+    include
+    ${CMAKE_SOURCE_DIR}/include/*
+)
+
+file(
+    GLOB_RECURSE
+    common
+    ${CMAKE_SOURCE_DIR}/common/*
+)
+
+file(
+    GLOB_RECURSE
     src_files
     ${CMAKE_SOURCE_DIR}/src/*
 )
 
 add_executable(
     ${PROJECT_NAME}
+    ${include}
+    ${common}
     ${src_files}
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
-        SDL2
-        SDL2_image
-        SDL2_ttf
+    SDL2
+    SDL2_image
+    SDL2_ttf
 )
