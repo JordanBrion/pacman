@@ -40,9 +40,14 @@ add_executable(
     ${src_files}
 )
 
-target_link_libraries(
-    ${PROJECT_NAME}
+set(
+    ALL_LIBS
     SDL2
     SDL2_image
     SDL2_ttf
+)
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    ${ALL_LIBS}
 )
