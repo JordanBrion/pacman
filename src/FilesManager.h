@@ -99,6 +99,11 @@ public:
     //!
     bool loadIMG();
     //!
+    //! \brief Getter for the logo of the game
+    //! \return The logo of the game
+    //!
+    SDL_Surface* getLogo() const;
+    //!
     //!  \brief Getter for the sprite containing the level
     //!  \return The sprite containing the level
     //!
@@ -165,6 +170,7 @@ private:
     int _pacdotsNbr;                            /*!< Number of pac-dots */
     int _ghostsNbr;                             /*!< Number of ghosts */
     int _highScore;                             /*!< Highscore of the level */
+    SDL_Surface* _logo;                         /*!< SDL_Surface containing the logo of the game */
     SDL_Surface* _spriteLevel;                  /*!< Sprite for the level */
     SDL_Surface* _spriteCharacters;             /*!< Sprite for the characters */
     std::vector<std::vector<int> > _levelTable; /*!< Array containing the level in form of caracters */

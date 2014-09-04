@@ -10,6 +10,7 @@ FilesManager::FilesManager() {
     _pacdotsNbr = 350;
     _ghostsNbr = 4;
     _highScore = 0;
+    _logo = NULL;
     _spriteLevel = NULL;
     _spriteCharacters = NULL;
     _font = NULL;
@@ -137,13 +138,20 @@ int FilesManager::getLevelTableCase(int i, int j) const {
 
 bool FilesManager::loadIMG(){
 
+    _logo = IMG_Load("../media/img/logo.bmp");
     _spriteLevel = IMG_Load("../media/img/sprite-level.png");
     _spriteCharacters = IMG_Load("../media/img/sprite-anim.png");
 
-    if( _spriteLevel == NULL || _spriteCharacters == NULL )
+    if( _logo == NULL || _spriteLevel == NULL || _spriteCharacters == NULL )
         return false;
 
     return true;
+
+}
+
+SDL_Surface* FilesManager::getLogo() const {
+
+    return _logo;
 
 }
 
