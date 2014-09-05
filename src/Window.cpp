@@ -46,6 +46,13 @@ Window::Window() throw(exception) :
         _fm->initLevelTable( _levelString );
         _fm->initLevelSpriteCoord();
         
+        // Instanciate the menu start
+        vector<string> v;
+        v.push_back( "New game" );
+        v.push_back( "Options" );
+        v.push_back( "Quit game" );
+        _ms = new MenuStart( "Start menu", v );
+
         // Initialize attributes
         _game = new Game( _fm->getLifesNbr(), _fm->getPacDotsNbr(), _fm->getHighScore() );
         _areaTop = new AreaTop();
@@ -218,6 +225,12 @@ void Window::drawSplashScreen() {
         SDL_Delay( 1 );
 
     }
+
+}
+
+void Window::drawMenuStart() {
+
+    _ms->render( _renderer, _screenWidth, _screenHeight, _fm->getFont(), _fm->getLogo() );
 
 }
 

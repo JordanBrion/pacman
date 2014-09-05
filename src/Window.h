@@ -12,6 +12,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_thread.h>
+
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -19,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
+
 #include "Const.h"
 #include "FilesManager.h"
 #include "AreaTop.h"
@@ -29,6 +31,7 @@
 #include "Fruit.h"
 #include "PacDotsManager.h"
 #include "Game.h"
+#include "MenuStart.h"
 
 //!
 //! \class Window
@@ -61,6 +64,10 @@ public:
     //! \brief Method to render a splash screen at the start of the game
     //!
     void drawSplashScreen();
+    //!
+    //! \brief Menu to render the start menu of the game
+    //!
+    void drawMenuStart();
     //!
     //! \brief Method to draw the top of the window (score panel)
     //!
@@ -139,6 +146,7 @@ private:
 
     /* Instances of the project classes */
     FilesManager* _fm;                          /*!<  Instance of FilesManager */
+    MenuStart* _ms;                             /*!<  Instance of MenuStart */
     Game* _game;                                /*!<  Instance of Game */
     AreaTop* _areaTop;                          /*!<  Instance of AreaTop */
     AreaGame* _areaGame;                        /*!<  Instance of AreaGame */
