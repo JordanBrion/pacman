@@ -190,8 +190,7 @@ void Window::drawSplashScreen() {
     SDL_Rect position;
     Uint8 opacity = 0xFF;
 
-    SDL_Surface* logo = IMG_Load( "../media/img/logo.bmp" );
-    SDL_SetColorKey( logo, SDL_TRUE, SDL_MapRGB( logo->format, 255, 255, 255) );
+    SDL_Surface* logo = _fm->getLogo();
     SDL_Texture* textureLogo = SDL_CreateTextureFromSurface( _renderer, logo );
     double ratio = logo->w / logo->h;
 

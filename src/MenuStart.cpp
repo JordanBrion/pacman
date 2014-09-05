@@ -26,7 +26,6 @@ void MenuStart::render( SDL_Renderer* renderer, int const& width, int const& hei
     SDL_RenderClear( renderer );
 
     // Render the logo
-    SDL_SetColorKey( logo, SDL_TRUE, SDL_MapRGB( logo->format, 255, 255, 255) );
     SDL_Texture* textureLogo = SDL_CreateTextureFromSurface( renderer, logo );
     double ratio = logo->w / logo->h;
     position.w = width * 0.5;

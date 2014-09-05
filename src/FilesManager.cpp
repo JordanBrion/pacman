@@ -139,6 +139,7 @@ int FilesManager::getLevelTableCase(int i, int j) const {
 bool FilesManager::loadIMG(){
 
     _logo = IMG_Load("../media/img/logo.bmp");
+    SDL_SetColorKey( _logo, SDL_TRUE, SDL_MapRGB( _logo->format, 255, 255, 255) );
     _spriteLevel = IMG_Load("../media/img/sprite-level.png");
     _spriteCharacters = IMG_Load("../media/img/sprite-anim.png");
 
