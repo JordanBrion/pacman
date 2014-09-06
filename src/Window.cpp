@@ -31,7 +31,8 @@ char _levelString[] =
 Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
-    _screenHeight(850) {
+    _screenHeight(850),
+    _gameState(0) {
     
     try {
         

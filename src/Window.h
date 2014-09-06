@@ -166,6 +166,7 @@ private:
     SDL_Surface *_windowSurface;                /*!< SDL_Surface of the Window */
     SDL_Renderer *_renderer;                    /*!< Renderer of the window */
     SDL_Thread *_threadGhosts;                  /*!< Thread to manage the ghosts moves */
+    Uint8 _gameState;                           /*!< Flag to know where the player is in the game */
 
     /* Instances of the project classes */
     FilesManager* _fm;                          /*!<  Instance of FilesManager */
