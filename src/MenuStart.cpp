@@ -1,6 +1,7 @@
 #include "MenuStart.h"
 #include <pm/Color.h>
 
+#include <iostream>
 using namespace std;
 
 MenuStart::MenuStart( string title, vector<string> elements ) :
@@ -40,9 +41,12 @@ void MenuStart::render( SDL_Renderer* renderer, int const& width, int const& hei
     position.x = width / 2 - position.w / 2;
     position.y += height * 0.20;
 
-    for( vector<string>::const_iterator it = _elements.begin(); it != _elements.end(); ++it  ) {
+    for( vector<string>::iterator it = _elements.begin(); it != _elements.end(); ++it  ) {
 
-        SDL_Surface* section = TTF_RenderText_Solid( font, (*it).c_str(), Color::SDL_WHITE );
+        SDL_Color color = ( distance( _elements.begin(), it ) == _state ) ?
+                    Color::SDL_BLUE : Color::SDL_WHITE;
+
+        SDL_Surface* section = TTF_RenderText_Solid( font, (*it).c_str(), color );
         SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer, section );
         position.y += height * 0.03;
         SDL_RenderCopy( renderer, texture, NULL, &position );
