@@ -245,6 +245,39 @@ void Window::drawAreaGame() {
     
 }
 
+void Window::drawCharacters() {
+
+    // If pacman is dead
+    if( _pacMan->isDead() ) {
+
+        // Load the pacman dead animation
+        _pacMan->deathAnimation(_renderer);
+
+        // If the animation is ended
+        if( _pacMan->getDeathAnimationCounter() > 11 ) {
+            startNewLife();
+        }
+
+    }
+    else {
+
+        _pacMan->checkCollisionWithPacDots( _pdm );
+        int score = drawPacDots();
+        _game->setScoreP1( score );
+
+        _pacMan->show(_renderer);
+
+        // Copy new ghosts positions in the renderer
+        for( int i(0); i < _ghosts.size(); i++ ) {
+
+            _ghosts[i]->show(_renderer);
+
+        }
+
+    }
+
+}
+
 int Window::drawPacDots() {
     
     return _pdm->render( _renderer );
@@ -302,9 +335,7 @@ void Window::threadGhostsLoop() {
 void Window::loop() {
 
     SDL_Event e;
-    
-    int score(0);
-    
+        
     // Variables to compare time left in the loop
     int startLoop = 0;
     int endLoop = 0;
@@ -341,34 +372,7 @@ void Window::loop() {
         _pacMan->move( _fm->getLevelTable() );
         SDL_RenderClear(_renderer);
 
-        // If pacman is dead
-        if( _pacMan->isDead() ) {
-        
-            // Load the pacman dead animation
-            _pacMan->deathAnimation(_renderer);
-            
-            // If the animation is ended
-            if( _pacMan->getDeathAnimationCounter() > 11 ) {
-                startNewLife();
-            }
-            
-        }
-        else {
-        
-            _pacMan->checkCollisionWithPacDots( _pdm );
-            score = drawPacDots();
-            _game->setScoreP1( score );
-            
-            _pacMan->show(_renderer);
-            
-            // Copy new ghosts positions in the renderer
-            for( int i(0); i < _ghosts.size(); i++ ) {
-            
-                _ghosts[i]->show(_renderer);
-                
-            }
-            
-        }
+        drawCharacters();
         
         drawHudTop();
         drawAreaGame();

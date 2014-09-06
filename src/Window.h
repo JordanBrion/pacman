@@ -77,6 +77,10 @@ public:
     //!
     void drawAreaGame();
     //!
+    //! \brief Method to render the characters
+    //!
+    void drawCharacters();
+    //!
     //! \brief Method to render all the pac-dots to the screen
     //! \return The cumulated points of all the non-eaten pac-dots
     //!
