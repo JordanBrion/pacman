@@ -33,6 +33,20 @@
 #include "Game.h"
 #include "MenuStart.h"
 
+///!
+//! \brief Enum to know where the player is in the game
+//!
+enum gameStates {
+
+    GAMESTATE_START,        /*!< The player is in the start menu */
+    GAMESTATE_INGAME,       /*!< The player is in the game  */
+    GAMESTATE_PAUSE,        /*!< THe player is in the pause menu */
+    GAMESTATE_OPTIONS,      /*!< The player is in the options menu */
+
+    GAMESTATE_NBR           /*!< The number of game states */
+
+};
+
 //!
 //! \class Window
 //! \brief Window and main class of the project.
