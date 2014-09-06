@@ -15,17 +15,6 @@
 #include <iostream>
 #include <vector>
 
-/*! Enum for the menu values */
-enum MENU_VALUES {
-    MENU_START,     /*!< Value for start menu */
-    MENU_PAUSE,     /*!< Value for pause menu */
-    MENU_OPTIONS,   /*!< Value for options menu */
-    MENU_QUIT,      /*!< Value for quit menu */
-
-    MENU_NBR        /*!< Number of menu values */
-
-};
-
 //!
 //! \class Menu
 //! \brief Abstract class to render a menu
@@ -49,14 +38,14 @@ protected:
     //!
     virtual void handleEvent( SDL_Event& e ) = 0;
     //!
-    //! \brief Virtual method to render the menu
+    //! \brief Method to render the menu
     //! \param renderer : SDL_Renderer of the window
     //! \param width : The width of the window
     //! \param height : The height of the window
     //! \param font : The font of the game
     //! \param logo : The SDL_Surface logo of the game
     //!
-    virtual void render( SDL_Renderer* renderer, int const& width, int const& height, TTF_Font* font, SDL_Surface* logo ) = 0;
+    void render( SDL_Renderer* renderer, int const& width, int const& height, TTF_Font* font, SDL_Surface* logo );
 
 protected:
     std::string _title;                     /*!< The title of the menu  */
