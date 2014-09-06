@@ -293,6 +293,12 @@ void Window::drawHudBottom() {
     
 }
 
+void Window::handleEvent( SDL_Event& e) {
+
+    _pacMan->handleEvent( e );
+
+}
+
 int Window::createThread(void* data) {
     
     Window w = *( Window *) data;
@@ -367,7 +373,8 @@ void Window::loop() {
                 break;
                 
             }
-            _pacMan->handleEvent(e);
+
+            handleEvent( e );
 
         }
 

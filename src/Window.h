@@ -90,6 +90,11 @@ public:
     //!
     void drawHudBottom();
     //!
+    //! \brief Method to handle all the events for each instance
+    //! \param e : SDL_Event
+    //!
+    void handleEvent( SDL_Event& e );
+    //!
     //! \brief Method to create a thread for the ghosts moves
     //! \param data : ???????
     //! \return 0
