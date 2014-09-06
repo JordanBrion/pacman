@@ -15,6 +15,17 @@
 #include <iostream>
 #include <vector>
 
+/*! Enum for the menu values */
+enum MENU_VALUES {
+    MENU_START,     /*!< Value for start menu */
+    MENU_PAUSE,     /*!< Value for pause menu */
+    MENU_OPTIONS,   /*!< Value for options menu */
+    MENU_QUIT,      /*!< Value for quit menu */
+
+    MENU_NBR        /*!< Number of menu values */
+
+};
+
 //!
 //! \class Menu
 //! \brief Abstract class to render a menu
@@ -47,6 +58,7 @@ protected:
     //!
     virtual void render( SDL_Renderer* renderer, int const& width, int const& height, TTF_Font* font, SDL_Surface* logo ) = 0;
 
+protected:
     std::string _title;                     /*!< The title of the menu  */
     std::vector<std::string> _elements;     /*!< The choices in the menu */
 
