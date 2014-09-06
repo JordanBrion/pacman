@@ -11,8 +11,11 @@
 
 #include "Menu.h"
 
-/*! Enum for the menu start values */
-enum menustart_values {
+///!
+//! \brief Enum for the menu start values
+//!
+enum menuStart_values {
+
     MENUSTART_START,     /*!< Value for start menu */
     MENUSTART_OPTIONS,   /*!< Value for options menu */
     MENUSTART_QUIT,      /*!< Value for quit menu */
