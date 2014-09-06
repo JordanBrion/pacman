@@ -48,9 +48,9 @@ protected:
     virtual void render( SDL_Renderer* renderer, int const& width, int const& height, TTF_Font* font, SDL_Surface* logo ) = 0;
 
 protected:
-    std::string _title;                     /*!< The title of the menu  */
-    std::vector<std::string> _elements;     /*!< The choices in the menu */
-    Uint8 _state;                           /*!< Flag to store the selected menu element */
+    std::string _title;                         /*!< The title of the menu  */
+    std::vector<std::string> _elements;         /*!< The choices in the menu */
+    Uint8 _elementID;                           /*!< Flag to store the selected menu element */
 
 };
 

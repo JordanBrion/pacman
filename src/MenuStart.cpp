@@ -43,7 +43,7 @@ void MenuStart::render( SDL_Renderer* renderer, int const& width, int const& hei
 
     for( vector<string>::iterator it = _elements.begin(); it != _elements.end(); ++it  ) {
 
-        SDL_Color color = ( distance( _elements.begin(), it ) == _state ) ?
+        SDL_Color color = ( distance( _elements.begin(), it ) ==  _elementID ) ?
                     Color::SDL_BLUE : Color::SDL_WHITE;
 
         SDL_Surface* section = TTF_RenderText_Solid( font, (*it).c_str(), color );
