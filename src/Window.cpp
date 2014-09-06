@@ -360,6 +360,34 @@ void Window::threadGhostsLoop() {
     
 }
 
+void Window::render() {
+
+    switch( _gameState ) {
+
+    case GAMESTATE_START:
+        _ms->render( _renderer, _screenWidth, _screenHeight, _fm->getFont(), _fm->getLogo() );
+        break;
+
+    case GAMESTATE_INGAME:
+        drawCharacters();
+        drawHudTop();
+        drawAreaGame();
+        drawHudBottom();
+        break;
+
+    case GAMESTATE_PAUSE:
+        break;
+
+    case GAMESTATE_OPTIONS:
+        break;
+
+    default:
+        break;
+
+    }
+
+}
+
 void Window::loop() {
 
     SDL_Event e;
@@ -400,11 +428,7 @@ void Window::loop() {
 
         SDL_RenderClear(_renderer);
 
-        drawCharacters();
-        
-        drawHudTop();
-        drawAreaGame();
-        drawHudBottom();
+        render();
 
         // Render changes on the screen
         SDL_RenderPresent(_renderer);

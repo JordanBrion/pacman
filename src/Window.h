@@ -118,6 +118,10 @@ public:
     //! \brief Method called by the thread and containing the loop for the ghosts actions
     //!
     void threadGhostsLoop();
+    ///!
+    //! \brief Method to render the inside window
+    //!
+    void render();
     //!
     //! \brief Method containing the main loop of the game
     //!
