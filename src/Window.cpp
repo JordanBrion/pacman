@@ -32,7 +32,7 @@ Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
-    _gameState(0) {
+    _gameState(1) {
     
     try {
         
@@ -294,9 +294,28 @@ void Window::drawHudBottom() {
     
 }
 
-void Window::handleEvent( SDL_Event& e) {
+void Window::handleEvent( SDL_Event& e ) {
 
-    _pacMan->handleEvent( e );
+    switch( _gameState ) {
+
+    case GAMESTATE_START:
+        _ms->handleEvent( e );
+        break;
+
+    case GAMESTATE_INGAME:
+        _pacMan->handleEvent( e );
+        break;
+
+    case GAMESTATE_PAUSE:
+        break;
+
+    case GAMESTATE_OPTIONS:
+        break;
+
+    default:
+        break;
+
+    }
 
 }
 
@@ -344,7 +363,7 @@ void Window::threadGhostsLoop() {
 void Window::loop() {
 
     SDL_Event e;
-        
+
     // Variables to compare time left in the loop
     int startLoop = 0;
     int endLoop = 0;
