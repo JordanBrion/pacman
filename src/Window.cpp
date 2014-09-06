@@ -247,6 +247,8 @@ void Window::drawAreaGame() {
 
 void Window::drawCharacters() {
 
+    _pacMan->move( _fm->getLevelTable() );
+
     // If pacman is dead
     if( _pacMan->isDead() ) {
 
@@ -366,10 +368,9 @@ void Window::loop() {
                 
             }
             _pacMan->handleEvent(e);
-            
+
         }
 
-        _pacMan->move( _fm->getLevelTable() );
         SDL_RenderClear(_renderer);
 
         drawCharacters();
