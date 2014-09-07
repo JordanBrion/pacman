@@ -14,9 +14,44 @@ MenuStart::~MenuStart() {
 
 }
 
-void MenuStart::handleEvent( SDL_Event& e ) {
+Uint8 MenuStart::handleEvent( SDL_Event& e ) {
 
+    switch( e.type ) {
 
+    case SDL_KEYDOWN:
+        switch( e.key.keysym.sym ) {
+
+        case SDLK_DOWN:
+            if( _elementID == MENUSTART_NBR - 1 )
+                _elementID = 1;
+            else
+                _elementID++;
+            break;
+
+        case SDLK_UP:
+            if( _elementID == 1 )
+                _elementID = MENUSTART_NBR - 1;
+            else
+                _elementID--;
+            break;
+
+        case SDLK_RETURN:
+        case SDLK_SPACE:
+            return _elementID;
+
+        default:
+            break;
+
+        }
+
+        break;
+
+    default:
+        break;
+
+    }
+
+    return 0;
 
 }
 
@@ -43,7 +78,7 @@ void MenuStart::render( SDL_Renderer* renderer, int const& width, int const& hei
 
     for( vector<string>::iterator it = _elements.begin(); it != _elements.end(); ++it  ) {
 
-        SDL_Color color = ( distance( _elements.begin(), it ) ==  _elementID ) ?
+        SDL_Color color = ( distance( _elements.begin(), it ) ==  _elementID - 1 ) ?
                     Color::SDL_BLUE : Color::SDL_WHITE;
 
         SDL_Surface* section = TTF_RenderText_Solid( font, (*it).c_str(), color );

@@ -35,8 +35,9 @@ protected:
     //!
     //! \brief Virtual method to handle a key pressed by the player
     //! \param key : The key pressed by the player
+    //! \return 0 if no element selected. Otherwise, the element selected ( by pressing enter or space bar ).
     //!
-    virtual void handleEvent( SDL_Event& e ) = 0;
+    virtual Uint8 handleEvent( SDL_Event& e ) = 0;
     //!
     //! \brief Virtual method to render the menu
     //! \param renderer : SDL_Renderer of the window

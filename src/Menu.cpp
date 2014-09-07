@@ -4,7 +4,7 @@
 using namespace std;
 
 Menu::Menu( string title, vector<string> elements ) :
-    _title( title ),  _elementID(0) {
+    _title( title ),  _elementID( 1 ) {
 
     vector<string>::iterator it;
 

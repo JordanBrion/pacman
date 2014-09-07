@@ -16,11 +16,11 @@
 //!
 enum menuStart_values {
 
-    MENUSTART_START,     /*!< Value for start menu */
-    MENUSTART_OPTIONS,   /*!< Value for options menu */
-    MENUSTART_QUIT,      /*!< Value for quit menu */
+    MENUSTART_START = 1,     /*!< Value for start menu */
+    MENUSTART_OPTIONS,       /*!< Value for options menu */
+    MENUSTART_QUIT,          /*!< Value for quit menu */
 
-    MENUSTART_NBR        /*!< Number of menu values */
+    MENUSTART_NBR            /*!< Number of menu values */
 
 };
 
@@ -44,8 +44,9 @@ public:
     //!
     //! \brief Method to handle a key pressed by the player
     //! \param key : The key pressed by the player
+    //! \return 0 if no element selected. Otherwise, the element selected ( by pressing enter or space bar ).
     //!
-    void handleEvent( SDL_Event& e );
+    Uint8 handleEvent( SDL_Event& e );
     //!
     //! \brief Method to render the start menu of the game
     //! \param renderer : SDL_Renderer of the window
