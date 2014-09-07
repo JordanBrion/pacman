@@ -298,8 +298,27 @@ void Window::handleEvent( SDL_Event& e ) {
 
     switch( _gameState ) {
 
-    case GAMESTATE_START:
-        _ms->handleEvent( e );
+    case GAMESTATE_START:        
+
+        switch( _ms->handleEvent( e ) ) {
+
+        case MENUSTART_START:
+            _gameState = GAMESTATE_INGAME;
+            break;
+
+        case MENUSTART_OPTIONS:
+            _gameState = GAMESTATE_OPTIONS;
+            break;
+
+        case MENUSTART_QUIT:
+            _quit = true;
+            break;
+
+        default:
+            break;
+
+        }
+
         break;
 
     case GAMESTATE_INGAME:
