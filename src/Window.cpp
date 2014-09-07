@@ -54,6 +54,14 @@ Window::Window() throw(exception) :
         v.push_back( "Quit game" );
         _ms = new MenuStart( "Start menu", v );
 
+        // Instanciate the menu pause
+        v.clear();
+        v.push_back( "Resume the game" );
+        v.push_back( "Restart the game" );
+        v.push_back( "Options" );
+        v.push_back( "Return to start menu" );
+        _mp = new MenuPause( "Pause", v );
+
         // Initialize attributes
         _game = new Game( _fm->getLifesNbr(), _fm->getPacDotsNbr(), _fm->getHighScore() );
         _areaTop = new AreaTop();
@@ -322,10 +330,43 @@ void Window::handleEvent( SDL_Event& e ) {
         break;
 
     case GAMESTATE_INGAME:
-        _pacMan->handleEvent( e );
+
+        if( e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_a ) {
+
+            _gameState = GAMESTATE_PAUSE;
+
+        }
+
+        else
+            _pacMan->handleEvent( e );
+
         break;
 
     case GAMESTATE_PAUSE:
+
+        switch( _mp->handleEvent( e ) ) {
+
+        case MENUPAUSE_RESUME:
+            _gameState = GAMESTATE_INGAME;
+            break;
+
+        case MENUPAUSE_RESTART:
+            _gameState = GAMESTATE_INGAME;
+            break;
+
+        case MENUPAUSE_OPTIONS:
+            _gameState = GAMESTATE_OPTIONS;
+            break;
+
+        case MENUPAUSE_QUIT:
+            _gameState = GAMESTATE_START;
+            break;
+
+        default:
+            break;
+
+        }
+
         break;
 
     case GAMESTATE_OPTIONS:
@@ -395,6 +436,7 @@ void Window::render() {
         break;
 
     case GAMESTATE_PAUSE:
+        _mp->render( _renderer, _screenWidth, _screenHeight, _fm->getFont(), _fm->getLogo() );
         break;
 
     case GAMESTATE_OPTIONS:

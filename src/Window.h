@@ -32,6 +32,7 @@
 #include "PacDotsManager.h"
 #include "Game.h"
 #include "MenuStart.h"
+#include "MenuPause.h"
 
 ///!
 //! \brief Enum to know where the player is in the game
@@ -175,6 +176,7 @@ private:
     /* Instances of the project classes */
     FilesManager* _fm;                          /*!<  Instance of FilesManager */
     MenuStart* _ms;                             /*!<  Instance of MenuStart */
+    MenuPause* _mp;                             /*!<  Instance of MenuPause */
     Game* _game;                                /*!<  Instance of Game */
     AreaTop* _areaTop;                          /*!<  Instance of AreaTop */
     AreaGame* _areaGame;                        /*!<  Instance of AreaGame */
