@@ -549,6 +549,26 @@ void Window::startNewLife() {
     
 }
 
+void Window::resetData() {
+
+    // Reset HUD top
+    _game->setScoreP1(0);
+    _game->setScoreP2(0);
+
+    // Reset pac-dots
+    _pdm->reinitAllPacDotsEaten();
+
+    // Reset HUD bottom
+    _game->setLifesNbr( _fm->getLifesNbr() );
+    _game->resetAllFruitNbr();
+
+    // Reset characters positions in the grid
+    _pacMan->defaultValues();
+    for( int i(0); i < _ghosts.size(); i++ )
+        _ghosts[i]->defaultValues();
+
+}
+
 void Window::pauseGame() {}
 void Window::loadMenuPause() {}
 void Window::unpauseGame() {}

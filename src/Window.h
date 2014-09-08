@@ -143,6 +143,10 @@ public:
     //!
     void startNewLife();
     //!
+    //! \brief Method to reset the data (after a new/restart game)
+    //!
+    void resetData();
+    //!
     //! \brief Method to pause the game
     //!
     void pauseGame();
