@@ -48,6 +48,12 @@ void Game::decLifesNbr() {
 
 }
 
+void Game::setLifesNbr( int const& nbr ) {
+
+    _lifesNbr = nbr;
+
+}
+
 std::vector<int> Game::getAllFruitNbr() const {
 
     return _fruit;

@@ -54,6 +54,11 @@ public:
     //!
     void decLifesNbr();
     //!
+    //! \brief Setter the the number of lifes
+    //! \param nbr : The new number of lifes
+    //!
+    void setLifesNbr( int const& nbr );
+    //!
     //!  \brief Getter for the array of fruit
     //!  \return The array of fruit
     //!
