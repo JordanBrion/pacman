@@ -4,7 +4,7 @@ using namespace std;
 
 Game::Game( int const& lifesNbr, int const& pacDotsNbr, int const& highScore )
     : _lifesNbr(lifesNbr), _pacDotsNbr(pacDotsNbr), _comboPowerPellet(0),
-      _scoreP1(0), _scoreP2(0), _highScore(highScore), _paused(false) {
+      _scoreP1(0), _scoreP2(0), _highScore(highScore) {
 
     _lifesNbr = 3;
 

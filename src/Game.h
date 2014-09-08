@@ -128,7 +128,6 @@ private:
     int _scoreP1;                   /*!< The score of player 1 */
     int _scoreP2;                   /*!< The score of player 2 */
     int _highScore;                 /*!< The highscore of the level */
-    bool _paused;                   /*!< Flag for game in pause */
     bool _twoPlayersGame;           /*!< Flag for a 2-player game */
 
 };
