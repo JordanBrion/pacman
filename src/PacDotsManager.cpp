@@ -122,3 +122,21 @@ void PacDotsManager::eatPacDot( int const& row, int const& col, int const& x, in
 
 }
 
+void PacDotsManager::reinitAllPacDotsEaten() {
+
+    for( int i(0); i < _pacDotsCases.size(); i++ ) {
+
+        for( int j(0); j < _pacDotsCases[i].size(); j++ ) {
+
+            if( _pacDotsCases[i][j] != NULL ) {
+
+                _pacDotsCases[i][j]->reinitPacDotsEaten();
+
+            }
+
+        }
+
+    }
+
+}
+

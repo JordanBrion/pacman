@@ -65,6 +65,10 @@ public:
     //!  \param y : The y position on the screen
     //!
     void eatPacDot( int const& row, int const& col, int const& x, int const& y );
+    //!
+    //! \brief Method to reinitialize all the pac-dots
+    //!
+    void reinitAllPacDotsEaten();
 
 private:
     std::vector<std::vector<PacDotsCase*> > _pacDotsCases;      /*!< Array containing all the pac-dots cases */
