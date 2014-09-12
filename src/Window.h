@@ -155,7 +155,9 @@ private:
     SDL_Surface *_windowSurface;                /*!< SDL_Surface of the Window */
     SDL_Renderer *_renderer;                    /*!< Renderer of the window */
     SDL_Thread *_threadGhosts;                  /*!< Thread to manage the ghosts moves */
-    Uint8 _gameState;                           /*!< Flag to know where the player is in the game */
+    SDL_mutex *_ghostsLock;                     /*!< Mutex to pause the ghosts thread */
+    SDL_cond *_ghostsCanMove;                   /*!< Condition to (un)pause the ghosts thread */
+    int _gameState;                             /*!< Flag to know where the player is in the game */
     bool _loaded;                               /*!< Flag to know if the level has already been loaded */
 
     /* Instances of the project classes */

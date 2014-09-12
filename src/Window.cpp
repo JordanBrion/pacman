@@ -32,7 +32,7 @@ Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
-    _gameState(0),
+    _gameState( GAMESTATE_START ),
     _loaded(false) {
 
     try {
@@ -89,7 +89,12 @@ Window::Window() throw(exception) :
 
 }
 
-Window::~Window() {}
+Window::~Window() {
+
+    SDL_DestroyMutex( _ghostsLock );
+    SDL_DestroyCond( _ghostsCanMove );
+
+}
 
 void Window::initSDL() {
 
@@ -191,6 +196,13 @@ void Window::createCharacters() {
         ss.str(""); // Clear the string stream
 
     }
+
+    //The mutex
+    _ghostsLock = SDL_CreateMutex();
+    //The conditions
+    _ghostsCanMove = SDL_CreateCond();
+
+    // At the start of the game, creation of the thread for the ghosts
     _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
 
 }
@@ -320,6 +332,10 @@ void Window::handleEvent( SDL_Event& e ) {
                 _loaded = false;
             }
             _gameState = GAMESTATE_INGAME;
+            // Send the signal to the ghosts thread to unpause it
+            SDL_mutexP( _ghostsLock );
+            SDL_CondSignal( _ghostsCanMove );
+            SDL_mutexV( _ghostsLock );
             break;
 
         case MENUSTART_OPTIONS:
@@ -359,11 +375,19 @@ void Window::handleEvent( SDL_Event& e ) {
 
         case MENUPAUSE_RESUME:
             _gameState = GAMESTATE_INGAME;
+            // Send the signal to the ghosts thread to unpause it
+            SDL_mutexP( _ghostsLock );
+            SDL_CondSignal( _ghostsCanMove );
+            SDL_mutexV( _ghostsLock );
             break;
 
         case MENUPAUSE_RESTART:
             resetData();
             _gameState = GAMESTATE_INGAME;
+            // Send the signal to the ghosts thread to unpause it
+            SDL_mutexP( _ghostsLock );
+            SDL_CondSignal( _ghostsCanMove );
+            SDL_mutexV( _ghostsLock );
             break;
 
         case MENUPAUSE_OPTIONS:
@@ -394,9 +418,8 @@ void Window::handleEvent( SDL_Event& e ) {
 
 int Window::createThread(void* data) {
 
-    Window w = *( Window *) data;
-
-    w.threadGhostsLoop();
+    Window *w = (Window*) data;
+    w->threadGhostsLoop();
 
     return 0;
 
@@ -406,6 +429,18 @@ void Window::threadGhostsLoop() {
 
     // The ghosts move while Pacman is not dead
     while( !_pacMan->isDead() ) {
+
+        // Condition to pause the ghosts thread if the player is in the menus
+        if( _gameState != GAMESTATE_INGAME ) {
+
+            cout << "Waiting... Ghosts thread is in pause because the player is in the menus." << endl;
+
+            // Pause the thread
+            SDL_mutexP( _ghostsLock );
+            SDL_CondWait( _ghostsCanMove, _ghostsLock );
+            SDL_mutexV( _ghostsLock );
+
+        }
 
         for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
             if( _ghosts[i]->isCenteredInTheSquare() ) {
@@ -427,6 +462,7 @@ void Window::threadGhostsLoop() {
             }
 
         }
+
         SDL_Delay(20);
 
     }
