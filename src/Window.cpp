@@ -311,6 +311,9 @@ void Window::handleEvent( SDL_Event& e ) {
 
         switch( _ms->handleEvent( e ) ) {
 
+        case 0:
+            break;
+
         case MENUSTART_START:
             if( _loaded ) {
                 resetData();
@@ -350,6 +353,9 @@ void Window::handleEvent( SDL_Event& e ) {
     case GAMESTATE_PAUSE:
 
         switch( _mp->handleEvent( e ) ) {
+
+        case 0:
+            break;
 
         case MENUPAUSE_RESUME:
             _gameState = GAMESTATE_INGAME;
