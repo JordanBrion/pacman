@@ -384,6 +384,7 @@ void Window::handleEvent( SDL_Event& e ) {
         case MENUPAUSE_RESTART:
             resetData();
             _gameState = GAMESTATE_INGAME;
+            _mp->setElementID( MENUPAUSE_RESUME );
             // Send the signal to the ghosts thread to unpause it
             SDL_mutexP( _ghostsLock );
             SDL_CondSignal( _ghostsCanMove );
@@ -397,6 +398,7 @@ void Window::handleEvent( SDL_Event& e ) {
         case MENUPAUSE_QUIT:
             _gameState = GAMESTATE_START;
             _loaded = true;
+            _mp->setElementID( MENUPAUSE_RESUME );
             break;
 
         default:

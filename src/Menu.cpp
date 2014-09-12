@@ -18,3 +18,9 @@ Menu::~Menu() {
 
 
 }
+
+void Menu::setElementID( Uint8 const& value ) {
+
+    _elementID = value;
+
+}
