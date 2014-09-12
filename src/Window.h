@@ -146,26 +146,6 @@ public:
     //! \brief Method to reset the data (after a new/restart game)
     //!
     void resetData();
-    //!
-    //! \brief Method to pause the game
-    //!
-    void pauseGame();
-    //!
-    //! \brief Method to load the pause menu
-    //!
-    void loadMenuPause();
-    //!
-    //! \brief Method to unpause the game
-    //!
-    void unpauseGame();
-    //!
-    //! \brief Method for game over
-    //!
-    void gameOver();
-    //!
-    //! \brief Method to quit the game
-    //!
-    void quitGame();
 
 private:
     bool _quit;                                 /*!< Flag for the SDL loop */

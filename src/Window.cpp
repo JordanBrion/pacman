@@ -569,9 +569,3 @@ void Window::resetData() {
         _ghosts[i]->defaultValues();
 
 }
-
-void Window::pauseGame() {}
-void Window::loadMenuPause() {}
-void Window::unpauseGame() {}
-void Window::gameOver() {}
-void Window::quitGame() {}
