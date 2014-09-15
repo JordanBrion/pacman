@@ -99,7 +99,7 @@ public:
     //!
     void initPacDotsWithFourJunctions( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
     //!
-    //! \brief Initialize a case containing a power pellet
+    //!  \brief Initialize a case containing a power pellet
     //!  \param renderer : SDL_Renderer* of the window
     //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
     //!

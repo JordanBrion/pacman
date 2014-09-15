@@ -63,8 +63,9 @@ public:
     //!  \param col : The column in _pacDotsCases
     //!  \param x : The x position on the screen
     //!  \param y : The y position on the screen
+    //!  \return True if the pacman ate a power pellet. Otherwise, false.
     //!
-    void eatPacDot( int const& row, int const& col, int const& x, int const& y );
+    bool eatPacDot( int const& row, int const& col, int const& x, int const& y );
     //!
     //! \brief Method to reinitialize all the pac-dots
     //!
