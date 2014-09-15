@@ -1,5 +1,8 @@
 #include "PacDotsCase.h"
 
+#include <pm/PacDots.h>
+using namespace PacDots;
+
 using namespace std;
 
 PacDotsCase::PacDotsCase( int const& row, int const& col, int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) :

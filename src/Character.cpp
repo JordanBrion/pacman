@@ -1,5 +1,8 @@
 #include "Character.h"
 
+#include <pm/PacDots.h>
+using namespace PacDots;
+
 using namespace std;
 
 Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)

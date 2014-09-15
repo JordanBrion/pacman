@@ -1,5 +1,8 @@
 #include "PacDotsManager.h"
 
+#include <pm/PacDots.h>
+using namespace PacDots;
+
 using namespace std;
 
 PacDotsManager::PacDotsManager( vector<vector<int> > level, SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) {

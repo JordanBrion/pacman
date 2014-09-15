@@ -32,7 +32,7 @@ Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
-    _gameState( GAMESTATE_START ),
+    _gameState( GAMESTATE_INGAME ),
     _loaded(false) {
 
     try {
