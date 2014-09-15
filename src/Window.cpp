@@ -286,6 +286,8 @@ void Window::drawCharacters() {
     else {
 
         _pacMan->checkCollisionWithPacDots( _pdm );
+        _pacMan->checkPowerPelletChrono();
+
         int score = drawPacDots();
         _game->setScoreP1( score );
 

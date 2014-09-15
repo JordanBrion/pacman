@@ -60,6 +60,23 @@ public:
     //!
     void checkCollisionWithPacDots( PacDotsManager* pdm );
     //!
+    //! \brief Getter for the power pellet chronometer
+    //! \return The power pellet chronometer
+    //!
+    Uint32 getPowerPelletChrono() const;
+    //!
+    //! \brief Method to start the power pellet chronometer
+    //!
+    void startPowerPelletChrono();
+    //!
+    //! \brief Method to check if the power pellet chronometer is exceeded
+    //!
+    void checkPowerPelletChrono();
+    //!
+    //! \brief Method to reset the power pellet chronometer
+    //!
+    void resetPowerPelletChrono();
+    //!
     //! \brief Method to render the Pac-Man death animation
     //! \param pRenderer : SDL_Renderer* of the window
     //!
@@ -81,7 +98,7 @@ public:
 private:
     int _directionKey;              /*!< ???? */
     int _deathAnimationCounter;     /*!< Counter of the death animation */
-    bool _powerPellet;              /*!< Flag when pac-man eat a */
+    Uint32 _powerPelletChrono;      /*!< Flag when pac-man eat a */
     bool _stopKeyUp;                /*!< ???? */
 
 };

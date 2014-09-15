@@ -1,10 +1,16 @@
 #include "PacMan.h"
 
+#include <pm/PacDots.h>
+using namespace PacDots;
+
 using namespace std;
 
 PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _directionKey(-1), _deathAnimationCounter(0), _powerPellet(false), _stopKeyUp(false) {
+      _directionKey( -1 ),
+      _deathAnimationCounter( 0 ),
+      _powerPelletChrono( 0 ),
+      _stopKeyUp( false ) {
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -209,7 +215,36 @@ void PacMan::moveHorizontally(bool left) {
 
 void PacMan::checkCollisionWithPacDots(PacDotsManager *pdm) {
 
-    pdm->eatPacDot( _row, _col, _position.x + 10, _position.y + 10 );
+    if( pdm->eatPacDot( _row, _col, _position.x + 10, _position.y + 10 ) ) {
+
+        startPowerPelletChrono();
+
+    }
+
+}
+
+Uint32 PacMan::getPowerPelletChrono() const {
+
+    return _powerPelletChrono;
+
+}
+
+void PacMan::startPowerPelletChrono() {
+
+    _powerPelletChrono = SDL_GetTicks();
+
+}
+
+void PacMan::checkPowerPelletChrono() {
+
+    if( SDL_GetTicks() - _powerPelletChrono >= POWERPELLET_DURATION  )
+        resetPowerPelletChrono();
+
+}
+
+void PacMan::resetPowerPelletChrono() {
+
+    _powerPelletChrono = 0;
 
 }
 

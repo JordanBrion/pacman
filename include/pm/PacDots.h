@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+
 namespace PacDots {
 
     ///!
@@ -21,5 +23,7 @@ namespace PacDots {
         PACDOTS_POWERPELLET = -14
 
     };
+
+    static const Uint16 POWERPELLET_DURATION = 10000;   /*!< The duration of the power pellet chronometer */
 
 }
