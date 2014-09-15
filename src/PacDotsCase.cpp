@@ -34,6 +34,9 @@ PacDotsCase::PacDotsCase( int const& row, int const& col, int const& type, SDL_R
     case PACDOTS_JUNCTION_4:
         initPacDotsWithFourJunctions( renderer, sprite );
         break;
+    case PACDOTS_POWERPELLET:
+        initPacDotPowerPellet( renderer, sprite );
+        break;
 
     }
 
@@ -87,8 +90,14 @@ PacDot* PacDotsCase::getPacDot( int const& x, int const& y ) const {
 
         for( int i(0); i < _pacDots.size(); i++ ) {
 
-            if( x == _pacDots[i]->getPosition().x
+            if( _type != PACDOTS_POWERPELLET && x == _pacDots[i]->getPosition().x
                     && y == _pacDots[i]->getPosition().y )  {
+
+                return _pacDots[i];
+
+            }
+            else if( _type == PACDOTS_POWERPELLET && x-5 == _pacDots[i]->getPosition().x
+                        && y-5 == _pacDots[i]->getPosition().y )  {
 
                 return _pacDots[i];
 
@@ -226,5 +235,18 @@ void PacDotsCase::initPacDotsWithFourJunctions( SDL_Renderer* const& renderer, S
     x = _col*30 + AREAGAME_MARGIN + 30 + 23;
     _pacDots.push_back( new PacDot( dest, _type, x, y, renderer, sprite ) );
 
+
+}
+
+void PacDotsCase::initPacDotPowerPellet( SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) {
+
+    map<string, int> dest;
+    dest["row"] = _row;
+    dest["col"] = _col;
+
+    int x = _col*30 + AREAGAME_MARGIN + 30 + 5;
+    int y = _row*30 + AREATOP_HEIGHT + 30/2 - 10;
+
+    _pacDots.push_back( new PacDot( dest, _type, x, y, renderer, sprite ) );
 
 }

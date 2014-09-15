@@ -98,6 +98,12 @@ public:
     //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
     //!
     void initPacDotsWithFourJunctions( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    //!
+    //! \brief Initialize a case containing a power pellet
+    //!  \param renderer : SDL_Renderer* of the window
+    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!
+    void initPacDotPowerPellet( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
 
 private:
     int _row;                       /*!< The row number of the case in the grid */

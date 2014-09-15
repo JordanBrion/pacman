@@ -1,12 +1,21 @@
 #include "PacDot.h"
 
+#include <pm/PacDots.h>
+using namespace PacDots;
+
 using namespace std;
 
 PacDot::PacDot( map<string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement( dest, renderer, sprite ), _eaten( false ), _caseType( type ) {
 
     initRect(&_selection, 13, 13, 3, 183);
-    initRect(&_position, 8, 8, x, y);
+
+    if( _caseType == PACDOTS_POWERPELLET ) {
+        initRect(&_position, 20, 20, x, y);
+    }
+    else {
+        initRect(&_position, 8, 8, x, y);
+    }
 
 }
 
