@@ -64,11 +64,6 @@ class Ghost : public Character {
     //!  \brief Method to return the ghost to the warp zone after his death
     //!
     void returnToWarpZone();
-    //!
-    //!  \brief Setter to make ghost vulnerable to pac-man
-    //!  \param True to make a ghost vulnerable to pac-man
-    //!
-    void setVulnerable( bool vulnerable );
 
 private:
     int _previousDirection;     /*!< Flag to save the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */

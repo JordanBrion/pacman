@@ -300,6 +300,3 @@ void Ghost::defaultValues() {
 void Ghost::returnToWarpZone() {
 }
 
-void Ghost::setVulnerable( bool vulnerable ) {
-}
-
