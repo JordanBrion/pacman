@@ -61,7 +61,7 @@ public:
     void checkCollisionWithPacDots( PacDotsManager* pdm );
     //!
     //! \brief Getter for the power pellet chronometer
-    //! \return The power pellet chronometer
+    //! \return The power pellet chronometer. 0 if the chrono is not started.
     //!
     Uint32 getPowerPelletChrono() const;
     //!
