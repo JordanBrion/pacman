@@ -123,7 +123,7 @@ protected:
     int _goTo;                                                  /*!< Direction of the character */
     bool _back;                                                 /*!< Flag to check if the character retrace his steps */
     std::vector<bool> _directionsPossible;                      /*!< Calculate the possible directions where the character can go */
-    int _spriteFlag;                                            /*!< Flag to know which flag to select */
+    Uint8 _spriteFlag;                                          /*!< Flag to know which sprite to select */
     std::vector<std::vector<std::vector<int> > > _spriteCoord;  /*!< Coordinates of the sprite */
     int _velocity;                                              /*!< The velocity of the character */
     int _velocityX;                                             /*!< The velocity X of the character */
