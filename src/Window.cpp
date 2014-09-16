@@ -285,33 +285,55 @@ void Window::drawCharacters() {
     }
     else {
 
-        _pacMan->checkCollisionWithPacDots( _pdm );
-
         int score = drawPacDots();
         _game->setScoreP1( score );
 
+        _pacMan->checkCollisionWithPacDots( _pdm );
         _pacMan->show(_renderer);
 
-        if( _pacMan->checkPowerPelletChrono() ) {
+        drawGhosts();
 
-            // Copy new ghosts positions in the renderer
-            for( int i(0); i < _ghosts.size(); i++ ) {
+    }
 
-                _ghosts[i]->setEatable();
-                _ghosts[i]->show(_renderer);
+}
 
-            }
+void Window::drawGhosts() {
+
+    // The power pellet duration is now over
+    // Ghosts can't be eaten
+    if( _pacMan->checkPowerPelletChrono() ) {
+
+        // Copy new ghosts positions in the renderer
+        for( int i(0); i < _ghosts.size(); i++ ) {
+
+            _ghosts[i]->setEatable(false);
+            _ghosts[i]->show(_renderer);
 
         }
 
-        else {
+    }
 
-            // Copy new ghosts positions in the renderer
-            for( int i(0); i < _ghosts.size(); i++ ) {
+    // The power pellet duration is not over
+    // Pacman can't be eaten
+    else if( !_pacMan->isEatable() ) {
 
-                _ghosts[i]->show(_renderer);
+        // Copy new ghosts positions in the renderer
+        for( int i(0); i < _ghosts.size(); i++ ) {
 
-            }
+            _ghosts[i]->setEatable(true);
+            _ghosts[i]->show(_renderer);
+
+        }
+
+    }
+
+    // Otherwise, we go in this condition
+    else {
+
+        // Copy new ghosts positions in the renderer
+        for( int i(0); i < _ghosts.size(); i++ ) {
+
+            _ghosts[i]->show(_renderer);
 
         }
 
