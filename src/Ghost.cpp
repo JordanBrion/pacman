@@ -42,6 +42,9 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
 
+    // Initialize the sprite coord for the eatable animations
+    loadSpriteCoordEatable();
+
 }
 
 void Ghost::loadSpriteCoord() {
@@ -92,7 +95,7 @@ void Ghost::loadSpriteCoord() {
         _spriteCoord.push_back(temp);
         break;
 
-    // Pink ghost coord
+        // Pink ghost coord
     case PINK:
         // UP
         coord[0] = 5;
@@ -131,7 +134,7 @@ void Ghost::loadSpriteCoord() {
         _spriteCoord.push_back(temp);
         break;
 
-    // Blue ghost coord
+        // Blue ghost coord
     case BLUE:
         // UP
         coord[0] = 5;
@@ -170,7 +173,7 @@ void Ghost::loadSpriteCoord() {
         _spriteCoord.push_back(temp);
         break;
 
-    // Orange ghost coord
+        // Orange ghost coord
     case ORANGE:
         // UP
         coord[0] = 5;
@@ -213,6 +216,23 @@ void Ghost::loadSpriteCoord() {
 
 }
 
+void Ghost::loadSpriteCoordEatable() {
+
+    int x = 5;
+    int y = 164;
+
+    vector<int> temp = { 5, 164 };
+    _spriteCoordEatable.push_back( temp );
+
+    for( Uint8 i = 0; i < 3; i++ ) {
+
+        temp[0] += 20;
+        _spriteCoordEatable.push_back( temp );
+
+    }
+
+}
+
 void Ghost::move() {
 
     // Move Vertically
@@ -237,6 +257,28 @@ void Ghost::move() {
         }
 
     }
+
+}
+
+void Ghost::nextSprite(int direction) {
+
+    // If the ghost can be eaten by the pacman
+    if( _eatable && _stepCounter % 5 == 0) {
+
+        // The ghost's eatable animation has 4 parts
+        if( _spriteFlag < _spriteCoordEatable.size() - 1 ) _spriteFlag++;
+        else _spriteFlag = 0;
+
+        initRect( &_selection,
+                  _selection.w,
+                  _selection.h,
+                  _spriteCoordEatable[_spriteFlag][0],
+                  _spriteCoordEatable[_spriteFlag][1]);
+
+    }
+    // Otherwise, rendering the normal sprites
+    else
+        Character::nextSprite( direction );
 
 }
 
@@ -299,4 +341,3 @@ void Ghost::defaultValues() {
 
 void Ghost::returnToWarpZone() {
 }
-

@@ -35,9 +35,18 @@ class Ghost : public Character {
     //!
     void loadSpriteCoord();
     //!
+    //!  \brief Method to load the sprite coordonates of the ghost when he is eatable
+    //!
+    void loadSpriteCoordEatable();
+    //!
     //!  \brief Method to move the ghost
     //!
     void move();
+    //!
+    //!  \brief Method to load the next sprite for the ghost animation
+    //!  \param direction : The direction towards the ghost is going
+    //!
+    void nextSprite( int direction );
     //!
     //!  \brief Method to reset the move variables of the character
     //!
@@ -66,7 +75,8 @@ class Ghost : public Character {
     void returnToWarpZone();
 
 private:
-    int _previousDirection;     /*!< Flag to save the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
+    int _previousDirection;                                     /*!< Flag to save the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
+    std::vector<std::vector<int> > _spriteCoordEatable;        /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
 
 };
 
