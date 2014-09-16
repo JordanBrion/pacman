@@ -263,7 +263,11 @@ void Character::nextSprite(int direction) {
         else _spriteFlag = 0;
 
         // Load new x and y
-        initRect( &_selection, _selection.w, _selection.h, _spriteCoord[direction][_spriteFlag][0], _spriteCoord[direction][_spriteFlag][1] );
+        initRect( &_selection,
+                  _selection.w,
+                  _selection.h,
+                  _spriteCoord[direction][_spriteFlag][0],
+                  _spriteCoord[direction][_spriteFlag][1] );
 
     }
 
