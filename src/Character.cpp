@@ -296,3 +296,21 @@ void Character::setDead() {
     _dead = !_dead;
 
 }
+
+bool Character::isEatable() const {
+
+    return _eatable;
+
+}
+
+void Character::setEatable() {
+
+    _eatable = !_eatable;
+
+}
+
+void Character::setEatable( bool eatable ) {
+
+    _eatable = eatable;
+
+}

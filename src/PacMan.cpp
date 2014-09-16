@@ -12,6 +12,8 @@ PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
       _powerPelletChrono( 0 ),
       _stopKeyUp( false ) {
 
+    _eatable = true;
+
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
 
@@ -232,19 +234,25 @@ Uint32 PacMan::getPowerPelletChrono() const {
 void PacMan::startPowerPelletChrono() {
 
     _powerPelletChrono = SDL_GetTicks();
+    _eatable = false;
 
 }
 
-void PacMan::checkPowerPelletChrono() {
+bool PacMan::checkPowerPelletChrono() {
 
-    if( SDL_GetTicks() - _powerPelletChrono >= POWERPELLET_DURATION  )
+    if( SDL_GetTicks() - _powerPelletChrono >= POWERPELLET_DURATION  ) {
         resetPowerPelletChrono();
+        return true;
+    }
+
+    return false;
 
 }
 
 void PacMan::resetPowerPelletChrono() {
 
     _powerPelletChrono = 0;
+    _eatable = true;
 
 }
 

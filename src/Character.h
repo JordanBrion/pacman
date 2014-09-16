@@ -99,6 +99,20 @@ public:
     //!  \brief Setter to bring alive the character or kill him
     //!
     void setDead();
+    //!
+    //!  \brief Getter to know if the character is eatable
+    //!  \return True if the character is eatable. Otherwise, false
+    //!
+    bool isEatable() const;
+    //!
+    //!  \brief Setter to put the character as eatable
+    //!
+    void setEatable();
+    //!
+    //!  \brief Setter to put the character as eatable
+    //!  \param True if the character is eatable. Otherwise, false
+    //!
+    void setEatable( bool eatable );
 
 protected:
     int _initialRow;                                            /*!< Initial row position of character at the start of the life  */
@@ -115,6 +129,7 @@ protected:
     int _velocityX;                                             /*!< The velocity X of the character */
     int _velocityY;                                             /*!< The velocity Y of the character */
     bool _dead;                                                 /*!< Flag to know if a character is dead or not */
+    bool _eatable;                                              /*!< Flag to know if a character is eatable */
     std::map<std::string, int> _positionForRespawn;             /*!< The respawn position of the character  */
 
 };

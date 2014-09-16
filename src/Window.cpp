@@ -13,7 +13,7 @@ char _levelString[] =
         "0;-4;12;11;13;-4;15;-4;12;11;11;22;11;11;13;-4;15;-4;12;11;13;-4;0;"
         "0;-14;-3;-3;-3;-12;10;-7;-3;-3;-6;10;-5;-3;-3;-8;10;-11;-3;-3;-3;-14;0;"
         "3; 1; 1; 1; 5;-4;21;11;11;13;0;14;0;12;11;11;20;-4; 2; 1; 1; 1;4;"
-        "-2;-2;-2;-2;0;-4;10;-2;-2;-2;-2;-2;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
+        "-2;-2;-2;-2;0;-4;10;-2;-2;-14;@;-14;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
         " 1; 1; 1; 1;4;-4;14;-2;36; 1;35;33;34; 1;39;-2;14;-4; 3; 1; 1; 1; 1;"
         "-2;-2;-2;-2;0;-4;0;-2; 0;-2;-2;-2;-2;-2; 0;-2;0;-4;0;-2;-2;-2;-2;"
         " 1; 1; 1; 1;5;-4;15;-2;37; 1; 1; 1; 1; 1;38;-2;15;-4; 2; 1; 1; 1; 1;"
@@ -21,7 +21,7 @@ char _levelString[] =
         "2 ; 1; 1; 1;4;-4;14;0;12;11;11;22;11;11;13;0;14;-4; 3; 1; 1; 1; 5;"
         "0 ;-14;-3;-3;-3;-13;-3;-3;-3;-3;-6;10;-5;-3;-3;-9;-3;-13;-3;-3;-3;-14;0;"
         "0 ;-4;12;11;19;-4;12;11;11;13;-4;14;-4;12;11;11;13;-4;16;11;13;-4;0;"
-        "0 ;-7;-3;-6;10;-5;-3;-10;-3;-3;-8;@;-7;-3;-3;-3;-3;-12;10;-5;-3;-8;0;"
+        "0 ;-7;-3;-6;10;-5;-3;-10;-3;-3;-8;-2;-7;-3;-3;-3;-3;-12;10;-5;-3;-8;0;"
         "9 ;11;13;-4;14;-4;15;-4;12;11;11;22;11;11;13;-4;15;-4;14;-4;12;11;6;"
         "0 ;-5;-3;-9;-3;-8;10;-7;-3;-3;-6;10;-11;-3;-3;-8;10;-7;-3;-3;-3;-6;0;"
         "0 ;-4;12;11;11;11;23;11;11;13;-4;14;-4;12;11;11;23;11;11;11;13;-4;0;"
@@ -286,17 +286,32 @@ void Window::drawCharacters() {
     else {
 
         _pacMan->checkCollisionWithPacDots( _pdm );
-        _pacMan->checkPowerPelletChrono();
 
         int score = drawPacDots();
         _game->setScoreP1( score );
 
         _pacMan->show(_renderer);
 
-        // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ ) {
+        if( _pacMan->checkPowerPelletChrono() ) {
 
-            _ghosts[i]->show(_renderer);
+            // Copy new ghosts positions in the renderer
+            for( int i(0); i < _ghosts.size(); i++ ) {
+
+                _ghosts[i]->setEatable();
+                _ghosts[i]->show(_renderer);
+
+            }
+
+        }
+
+        else {
+
+            // Copy new ghosts positions in the renderer
+            for( int i(0); i < _ghosts.size(); i++ ) {
+
+                _ghosts[i]->show(_renderer);
+
+            }
 
         }
 
@@ -458,9 +473,19 @@ void Window::threadGhostsLoop() {
             // After the move, detect if there is a collision
             if( _ghosts[i]->checkCollision(_pacMan) ) {
 
-                // If collision detected, pacman is dead
-                if( !_pacMan->isDead() ) {
+                // If the pacman ate a power pellet, he is not eatable
+                // AND if the ghost is not dead yet
+                if( !_pacMan->isEatable() && !_ghosts[i]->isDead() ) {
+
+                    _ghosts[i]->setDead();
+
+                }
+
+                // Otherwise, pacman is dead
+                else if( _pacMan->isEatable() && !_pacMan->isDead() ) {
+
                     _pacMan->setDead();
+
                 }
 
             }

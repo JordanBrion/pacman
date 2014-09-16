@@ -3,7 +3,10 @@
 using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite), _previousDirection(-1) {
+    : Character(dest, renderer, sprite),
+      _previousDirection( -1 ) {
+
+    _eatable = false;
 
     _stepCounter = 30;
 

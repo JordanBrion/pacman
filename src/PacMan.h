@@ -70,8 +70,9 @@ public:
     void startPowerPelletChrono();
     //!
     //! \brief Method to check if the power pellet chronometer is exceeded
+    //! \return True if the power pellet chrono is resetted. Otherwise, false
     //!
-    void checkPowerPelletChrono();
+    bool checkPowerPelletChrono();
     //!
     //! \brief Method to reset the power pellet chronometer
     //!
