@@ -2,6 +2,7 @@
 
 #include <pm/PacDots.h>
 using namespace PacDots;
+#include <pm/Points.h>
 
 using namespace std;
 
@@ -57,7 +58,7 @@ int PacDot::show( SDL_Renderer* const& renderer ) {
     }
     else {
 
-        score = PAC_DOT;
+        score = Points::PAC_DOT;
 
     }
 
