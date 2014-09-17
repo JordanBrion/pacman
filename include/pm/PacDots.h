@@ -1,3 +1,6 @@
+#ifndef PACDOTS_H
+#define PACDOTS_H
+
 #include <SDL2/SDL.h>
 
 namespace PacDots {
@@ -27,3 +30,5 @@ namespace PacDots {
     static const Uint16 POWERPELLET_DURATION = 10000;   /*!< The duration of the power pellet chronometer */
 
 }
+
+#endif /* PACDOTS_H */
