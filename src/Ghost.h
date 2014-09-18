@@ -39,14 +39,15 @@ class Ghost : public Character {
     //!
     void loadSpriteCoordEatable();
     //!
-    //!  \brief Method to move the ghost
+    //! \brief Method to update the data ( position of the ghost in the grid, possible directions, etc.  )
+    //! \param levelTable: Array containing the level in form of caracters
     //!
-    void move();
+    void updateAll( std::vector<std::vector<int> > levelTable );
     //!
     //!  \brief Method to load the next sprite for the ghost animation
     //!  \param direction : The direction towards the ghost is going
     //!
-    void nextSprite( int direction );
+    void nextSprite();
     //!
     //!  \brief Method to reset the move variables of the character
     //!
@@ -57,6 +58,10 @@ class Ghost : public Character {
     //!
     int newRandomDirection() const;
     //!
+    //! \brief Method to define the velocity of the ghost
+    //!
+    void defineVelocity();
+    //!
     //!  \brief Method to load the death animation of the ghost
     //!  \param pRenderer : SDL_Renderer* of the window
     //!
@@ -66,17 +71,17 @@ class Ghost : public Character {
     //!
     void teleportation();
     //!
-    //!  \brief Reset the values of the ghost to the default ones
+    //!  \brief Reset the values of the ghost to the start ones
     //!
-    void defaultValues();
+    void startValues();
     //!
     //!  \brief Method to return the ghost to the warp zone after his death
     //!
     void returnToWarpZone();
 
 private:
-    int _previousDirection;                                     /*!< Flag to save the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
-    std::vector<std::vector<int> > _spriteCoordEatable;        /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
+    int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
+    std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
 
 };
 

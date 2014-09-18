@@ -7,10 +7,8 @@ using namespace std;
 
 PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _directionKey( -1 ),
       _deathAnimationCounter( 0 ),
-      _powerPelletChrono( 0 ),
-      _stopKeyUp( false ) {
+      _powerPelletChrono( 0 ) {
 
     _eatable = true;
 
@@ -78,13 +76,13 @@ void PacMan::handleEvent(SDL_Event& e ) {
         case SDLK_UP:
             _velocityY -= _velocity;
             break;
-        case SDLK_DOWN :
+        case SDLK_DOWN:
             _velocityY += _velocity;
             break;
-        case SDLK_RIGHT :
+        case SDLK_RIGHT:
             _velocityX += _velocity;
             break;
-        case SDLK_LEFT :
+        case SDLK_LEFT:
             _velocityX -= _velocity;
             break;
         }
@@ -97,13 +95,13 @@ void PacMan::handleEvent(SDL_Event& e ) {
         case SDLK_UP:
             _velocityY += _velocity;
             break;
-        case SDLK_DOWN :
+        case SDLK_DOWN:
             _velocityY -= _velocity;
             break;
-        case SDLK_RIGHT :
+        case SDLK_RIGHT:
             _velocityX -= _velocity;
             break;
-        case SDLK_LEFT :
+        case SDLK_LEFT:
             _velocityX += _velocity;
             break;
         }
@@ -112,103 +110,35 @@ void PacMan::handleEvent(SDL_Event& e ) {
 
 }
 
-void PacMan::move( vector<vector<int> > levelTable ) {
-
-    int temp = -1;
+void PacMan::updateAll( std::vector<std::vector<int> > levelTable ) {
 
     if( isCenteredInTheSquare() ) {
 
-        temp = _goTo;
-
         updatePositionInTheGrid();
-        calculateDirection(levelTable);
+        calculateDirection( levelTable );
         resetValues();
 
     }
 
-    bool vertical = ( _velocityY != 0 ) ? true : false;
-    bool horizontal = ( _velocityX != 0 ) ? true : false;
-
-    // Check if the previous direction ( before the reset ) is a vertical direction
-    if( temp == UP || temp == DOWN ) {
-
-        // First we check if the user is holding LEFT or RIGHT
-        // If yes, We move in one of these directions
-        if( horizontal ) {
-            bool left = ( _velocityX < 0 ) ? true : false;
-            moveHorizontally(left);
-        }
-        else if( vertical ) {
-            bool up = ( _velocityY < 0 ) ? true : false;
-            moveVertically(up);
-        }
-
-    }
-
-    // Check if the previous direction ( before the reset ) is an horizontal direction
-    else if( temp == LEFT || temp == RIGHT ) {
-
-        // First we check if the user is holding UP or DOWN
-        // If yes, We move in one of these directions
-        if( vertical ) {
-            bool up = ( _velocityY < 0 ) ? true : false;
-            moveVertically(up);
-        }
-        else if( horizontal ) {
-            bool left = ( _velocityX < 0 ) ? true : false;
-            moveHorizontally(left);
-        }
-
-    }
-    else {
-
-        // Default behavior
-        // Not else because the user can hold for example UP and LEFT, or DOWN and RIGHT
-        // So we need to move vertically AND horizontally !
-        // The authorized moves are checked in the methods
-
-        if( vertical ) {
-            bool up = ( _velocityY < 0 ) ? true : false;
-            moveVertically(up);
-        }
-        if( horizontal ) {
-            bool left = ( _velocityX < 0 ) ? true : false;
-            moveHorizontally(left);
-        }
-    }
+    _step = -1;
 
 }
 
-void PacMan::moveVertically(bool up) {
+void PacMan::nextSprite() {
 
-    if( Character::moveVertically(up) ) {
+    if( _step != -1 ) {
 
-        int direction = ( up ) ? UP : DOWN;
+        if( _spriteFlag+1 == _spriteCoord[ _step ].size() && _stepCounter % 5 == 0 ) {
 
-        if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
             initRect(&_selection, _selection.w, _selection.h, 45, 3);
             _spriteFlag = -1;
+
         }
+
         else {
-            nextSprite(direction);
-        }
 
-    }
+            Character::nextSprite();
 
-}
-
-void PacMan::moveHorizontally(bool left) {
-
-    if( Character::moveHorizontally(left) ) {
-
-        int direction = ( left ) ? LEFT : RIGHT;
-
-        if( _spriteFlag == _spriteCoord[direction].size() - 1 && _stepCounter % 5 == 0 ) {
-            initRect(&_selection, _selection.w, _selection.h, 45, 3);
-            _spriteFlag = -1;
-        }
-        else {
-            nextSprite(direction);
         }
 
     }
@@ -268,7 +198,6 @@ void PacMan::deathAnimation(SDL_Renderer* const& pRenderer) {
     show(pRenderer);
     SDL_Delay(150);
 
-
 }
 
 int PacMan::getDeathAnimationCounter() const {
@@ -279,9 +208,9 @@ int PacMan::getDeathAnimationCounter() const {
 
 void PacMan::teleportation() {}
 
-void PacMan::defaultValues() {
+void PacMan::startValues() {
 
-    Character::defaultValues();
+    Character::startValues();
     _deathAnimationCounter = 0;
 
 }

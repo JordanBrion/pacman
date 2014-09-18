@@ -7,9 +7,18 @@ using namespace std;
 
 Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement(dest, renderer, sprite),
-      _initialRow( dest["row"] ), _initialCol( dest["col"] ), _stepCounter(0),
-      _goTo(-1), _back(false), _spriteFlag(-1),
-      _velocity(1), _velocityX(0), _velocityY(0), _dead(false) {
+      _initialRow( dest["row"] ),
+      _initialCol( dest["col"] ),
+      _step( -1 ),
+      _stepCounter( 0 ),
+      _goTo( -1 ),
+      _goToBackUp( -1 ),
+      _back( false ),
+      _spriteFlag( 1 ),
+      _velocity( 1 ),
+      _velocityX( 0 ),
+      _velocityY( 0 ),
+      _dead( false ) {
 
     // Initialize positions on the screen
     int x = dest["col"] * 30 + AREAGAME_MARGIN;
@@ -27,66 +36,78 @@ Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_S
 
 }
 
-bool Character::moveVertically(bool up) {
+bool Character::moveVertically( bool up ) {
 
     // Check if the character doesn't move in this two directions
-    // If he moves for just 1 only pixel (up or down) > block this two directions
+    // If he moves for just 1 only pixel (up or down) > block these two directions
     if( _goTo != LEFT && _goTo != RIGHT ) {
 
         // If move up
-        // AND can move to up
-        if( up && _directionsPossible[UP] ) {
-
-            // Update position
-            _position.y += _velocityY;
+        if( up ) {
 
             // If the character is not centered in the square
             if( _stepCounter > 0 ) {
 
+                // Update position
+                _position.y += _velocityY;
+
                 setStepCounter(UP, DOWN);
+
+                return true;
 
             }
 
             // If the character is centered in the square
             // AND can move up
-            else if( _stepCounter == 0 ) {
+            else if( _stepCounter == 0 && _directionsPossible[UP] ) {
+
+                // Update position
+                _position.y += _velocityY;
 
                 _goTo = UP;
                 _stepCounter++;
 
+                return true;
+
             }
 
-            return true;
-
         }
-        // Else if move down
-        // AND can move to down
-        else if( !up && _directionsPossible[DOWN] ) {
 
-            // Update position
-            _position.y += _velocityY;
+        // Else if move down
+        else if( !up ) {
 
             // If the character is not centered in the square
             if( _stepCounter > 0 ) {
 
+                // Update position
+                _position.y += _velocityY;
+
                 setStepCounter(DOWN, UP);
+
+                return true;
 
             }
 
             // If the character is centered in the square
             // AND can move down
-            else if( _stepCounter == 0 ) {
+            else if( _stepCounter == 0 && _directionsPossible[DOWN] ) {
+
+                // Update position
+                _position.y += _velocityY;
 
                 _goTo = DOWN;
                 _stepCounter++;
 
-            }
+                return true;
 
-            return true;
+            }
 
         }
 
     }
+
+    else
+        cout << "Impossible move: the character is already moving to LEFT or RIGHT " << endl;
 
     return false;
 
@@ -99,64 +120,77 @@ bool Character::moveHorizontally(bool left) {
     if( _goTo != UP && _goTo != DOWN ) {
 
         // If move left
-        // AND can move to the left
-        if( left && _directionsPossible[LEFT] ) {
-
-            // Update position
-            _position.x += _velocityX;
+        if( left ) {
 
             // If the character is not centered in the square
             if( _stepCounter > 0 ) {
 
+                // Update position
+                _position.x += _velocityX;
+
                 setStepCounter(LEFT, RIGHT);
+
+                return true;
 
             }
 
             // If the character is centered in the square
-            else if( _stepCounter == 0 ) {
+            // AND can move to the left
+            else if( _stepCounter == 0 && _directionsPossible[LEFT] ) {
+
+                // Update position
+                _position.x += _velocityX;
 
                 _goTo = LEFT;
                 _stepCounter++;
 
+                return true;
+
             }
 
-            return true;
-
         }
-        // Else if move right
-        // AND can move to the right
-        else if( !left && _directionsPossible[RIGHT] ) {
 
-            // Update position
-            _position.x += _velocityX;
+        // Else if move right
+        else if( !left  ) {
 
             // If the character is not centered in the square
             if( _stepCounter > 0 ) {
 
+                // Update position
+                _position.x += _velocityX;
+
                 setStepCounter(RIGHT, LEFT);
+
+                return true;
 
             }
 
             // If the character is centered in the square
             // AND can move to the right
-            else if( _stepCounter == 0 ) {
+            else if( _stepCounter == 0 && _directionsPossible[RIGHT] ) {
+
+                // Update position
+                _position.x += _velocityX;
 
                 _goTo = RIGHT;
                 _stepCounter++;
 
-            }
+                return true;
 
-            return true;
+            }
 
         }
 
     }
 
+    else
+        cout << "Impossible move: the character is already moving to UP or DOWN" << endl;
+
     return false;
 
 }
 
-void Character::defaultValues() {
+void Character::startValues() {
 
     resetValues();
 
@@ -248,26 +282,134 @@ void Character::resetValues() {
     _stepCounter = 0;
 
     // Reset goTo because the user has not choose a direction yet
+    _goToBackUp = _goTo;
     _goTo = -1;
 
 }
 
-void Character::nextSprite(int direction) {
+int Character::move() {
 
-    if( _stepCounter % 5 == 0 ) {
+    bool vertical = isStepVertical();
+    bool horizontal = isStepHorizontal();
+
+    // Check if the previous direction ( before the reset ) is a vertical direction
+    if( _goToBackUp == UP || _goToBackUp == DOWN ) {
+
+        // First we check if the user is holding LEFT or RIGHT
+        // If yes, We move in one of these directions first
+        // => That way the player can press two key together
+        if( horizontal && moveHorizontally( isStepLeft() ) ) {
+
+            _goToBackUp = -1;
+            return _step = ( isStepLeft() ) ? LEFT : RIGHT;
+
+        }
+
+        else if( vertical && moveVertically( isStepUp() ) ) {
+
+            _goToBackUp = -1;
+            return _step = ( isStepUp() ) ? UP : DOWN;
+
+        }
+
+    }
+
+    // Check if the previous direction ( before the reset ) is an horizontal direction
+    else if( _goToBackUp == LEFT || _goToBackUp == RIGHT ) {
+
+        // First we check if the user is holding UP or DOWN
+        // If yes, We move in one of these directions first
+        // => That way the player can press two key together
+        if( vertical && moveVertically( isStepUp() ) ) {
+
+            _goToBackUp = -1;
+            return _step = ( isStepUp() ) ? UP : DOWN;
+
+        }
+
+        else if( horizontal && moveHorizontally( isStepLeft() ) ) {
+
+            _goToBackUp = -1;
+            return _step = ( isStepLeft() ) ? LEFT : RIGHT;
+
+        }
+
+    }
+
+    // Default behavior
+    else {
+
+        // Not else because the user can hold for example UP and LEFT, or DOWN and RIGHT
+        // So we need to move vertically AND horizontally !
+        // The authorized moves are checked in the methods
+
+        if( vertical && moveVertically( isStepUp() )) {
+            return _step = ( isStepUp() ) ? UP : DOWN;
+        }
+
+        if( horizontal && moveHorizontally( isStepLeft() ) ) {
+            return _step = ( isStepLeft() ) ? LEFT : RIGHT;
+        }
+
+    }
+
+    // No move
+    return -1;
+
+}
+
+bool Character::isStepVertical() const {
+
+    return ( _velocityY != 0 );
+
+}
+
+bool Character::isStepHorizontal() const {
+
+    return ( _velocityX != 0 );
+
+}
+
+bool Character::isStepUp() const {
+
+    return ( _velocityY < 0 );
+
+}
+
+bool Character::isStepDown() const {
+
+    return ( _velocityY > 0 );
+
+}
+
+bool Character::isStepLeft() const {
+
+    return ( _velocityX < 0 );
+
+}
+
+bool Character::isStepRight() const {
+
+    return ( _velocityX > 0 );
+
+}
+
+void Character::nextSprite() {
+
+    if( _step != -1 && _stepCounter % 5 == 0 ) {
 
         // The character's animation has two parts
         // 0 = first part
         // 1 = second part
-        if( _spriteFlag < _spriteCoord[direction].size() - 1 ) _spriteFlag++;
+        if( _spriteFlag < _spriteCoord[ _step ].size() - 1 ) _spriteFlag++;
         else _spriteFlag = 0;
 
         // Load new x and y
         initRect( &_selection,
                   _selection.w,
                   _selection.h,
-                  _spriteCoord[direction][_spriteFlag][0],
-                  _spriteCoord[direction][_spriteFlag][1] );
+                  _spriteCoord[_step][_spriteFlag][0],
+                  _spriteCoord[_step][_spriteFlag][1] );
 
     }
 
@@ -276,8 +418,8 @@ void Character::nextSprite(int direction) {
 bool Character::checkCollision( InteractiveElement* const& element ) const {
 
     if( (_position.x >= element->getPosition().x - 15
-            && _position.x <= element->getPosition().x + 15)
-         && (_position.y >= element->getPosition().y - 15
+         && _position.x <= element->getPosition().x + 15)
+            && (_position.y >= element->getPosition().y - 15
                 && _position.y <= element->getPosition().y + 15) )  {
 
         // Collision detected

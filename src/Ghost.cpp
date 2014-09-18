@@ -4,7 +4,7 @@ using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _previousDirection( -1 ) {
+      _forbiddenDirection( -1 ) {
 
     _eatable = false;
 
@@ -233,34 +233,24 @@ void Ghost::loadSpriteCoordEatable() {
 
 }
 
-void Ghost::move() {
+void Ghost::updateAll( vector<vector<int> > levelTable ) {
 
-    // Move Vertically
-    if( _goTo == UP || _goTo == DOWN ) {
+    if( isCenteredInTheSquare() ) {
 
-        _velocityY = ( _goTo == UP ) ? -_velocity : _velocity;
-
-        bool direction = ( _goTo == UP ) ? true : false;
-        if( moveVertically(direction) ) {
-            nextSprite(_goTo);
-        }
-
-    }
-    // Move Horizontally
-    else if( _goTo == RIGHT || _goTo == LEFT ){
-
-        _velocityX = ( _goTo == LEFT ) ? -_velocity : _velocity;
-
-        bool direction = ( _goTo == LEFT ) ? true : false;
-        if( moveHorizontally(direction) ) {
-            nextSprite(_goTo);
-        }
+        updatePositionInTheGrid();
+        calculateDirection(levelTable);
+        resetValues();
+        _goTo = newRandomDirection();
+        _step = _goTo;
+        defineVelocity();
 
     }
+
+    _step = -1;
 
 }
 
-void Ghost::nextSprite(int direction) {
+void Ghost::nextSprite() {
 
     // If the ghost can be eaten by the pacman
     if( _eatable && _stepCounter % 5 == 0) {
@@ -277,8 +267,11 @@ void Ghost::nextSprite(int direction) {
 
     }
     // Otherwise, rendering the normal sprites
-    else
-        Character::nextSprite( direction );
+    else {
+
+        Character::nextSprite();
+
+    }
 
 }
 
@@ -288,14 +281,17 @@ void Ghost::resetValues() {
     // For examples: if the ghost moved to UP, forbid DOWN for the next move
     //               if the ghost moved to RIGHT, forbid LEFT for the next move
     if( _goTo == UP || _goTo == RIGHT ) {
-        _previousDirection = _goTo + 1;
+        _forbiddenDirection = _goTo + 1;
     }
     else if( _goTo == DOWN || _goTo == LEFT ) {
-        _previousDirection = _goTo - 1;
+        _forbiddenDirection = _goTo - 1;
     }
 
+    // Reset the velocities
+    _velocityX = 0;
+    _velocityY = 0;
+
     Character::resetValues();
-    _goTo = newRandomDirection();
 
 }
 
@@ -307,7 +303,7 @@ int Ghost::newRandomDirection() const {
 
         // If the character can go to this direction
         // AND if this direction is different from the previous one
-        if( _directionsPossible[i] && i != _previousDirection ) {
+        if( _directionsPossible[i] && i != _forbiddenDirection ) {
             // We add to the temp array
             temp.push_back( i );
         }
@@ -318,7 +314,7 @@ int Ghost::newRandomDirection() const {
 
     // If no direction found > choose the previous direction
     if( temp.size() == 0 ) {
-        direction = _previousDirection;
+        direction = _forbiddenDirection;
     }
     // Random value
     else {
@@ -329,12 +325,33 @@ int Ghost::newRandomDirection() const {
 
 }
 
+void Ghost::defineVelocity() {
+
+    switch( _step ) {
+
+    case UP:
+        _velocityY = -_velocity;
+        break;
+    case DOWN:
+        _velocityY = _velocity;
+        break;
+    case RIGHT:
+        _velocityX = _velocity;
+        break;
+    case LEFT:
+        _velocityX = -_velocity;
+        break;
+
+    }
+
+}
+
 void Ghost::deathAnimation(SDL_Renderer* const& pRenderer) {}
 void Ghost::teleportation() {}
 
-void Ghost::defaultValues() {
+void Ghost::startValues() {
 
-    Character::defaultValues();
+    Character::startValues();
     _stepCounter = 30;
 
 }

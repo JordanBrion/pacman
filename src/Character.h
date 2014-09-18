@@ -51,9 +51,15 @@ protected:
     //!
     virtual void teleportation() = 0;
     //!
-    //!  \brief Reset the values of the character to the default ones
+    //!  \brief Reset the values of the character to the start ones
     //!
-    void defaultValues();
+    void startValues();
+    //!
+    //! \brief Virtual method to update the data ( position of the character in the grid, possible directions, etc.  )
+    //! \param levelTable: Array containing the level in form of caracters
+    //!
+    virtual void updateAll( std::vector<std::vector<int> > levelTable ) = 0;
+
 public:
     //!
     //!  \brief Method to calculate the next possible directions for the characters
@@ -80,10 +86,45 @@ public:
     //!
     void resetValues();
     //!
+    //!  \brief Method to move the character
+    //!  \return -1 if the character is not moving. Otherwise, a direction value (cfr. "pm/Directions.h")
+    //!
+    int move();
+    //!
+    //!  \brief Method to know if the player presses the key to move vertically.
+    //!  \return True if the player presses the key to move vertically. Otherwise, false
+    //!
+    bool isStepVertical() const;
+    //!
+    //!  \brief Method to know if the player presses the key to move horizontally.
+    //!  \return True if the player presses the key to move horizontally. Otherwise, false
+    //!
+    bool isStepHorizontal() const;
+    //!
+    //!  \brief Method to know if the player presses the key to move upwards.
+    //!  \return True if the player presses the key to move upwards. Otherwise, false
+    //!
+    bool isStepUp() const;
+    //!
+    //!  \brief Method to know if the player presses the key to move downwards.
+    //!  \return True if the player presses the key to move downwards. Otherwise, false
+    //!
+    bool isStepDown() const;
+    //!
+    //!  \brief Method to know if the player presses the key to move left.
+    //!  \return True if the player presses the key to move left. Otherwise, false
+    //!
+    bool isStepLeft() const;
+    //!
+    //!  \brief Method to know if the player presses the key to move right.
+    //!  \return True if the player presses the key to move right. Otherwise, false
+    //!
+    bool isStepRight() const;
+    //!
     //!  \brief Method to load the next sprite for the character animation
     //!  \param direction : The direction towards the character is going
     //!
-    void nextSprite( int direction );
+    void nextSprite();
     //!
     //!  \brief Method to check the collisions with the other characters
     //!  \param element : The other character
@@ -119,8 +160,10 @@ protected:
     int _initialCol;                                            /*!< Initial column position of character at the start of the life */
     std::map<std::string, int> _initialStateSrc;                /*!< Initial coord on the sprite */
     std::map<std::string, int> _initialStateDest;               /*!< Coord on the screen at the start of the game */
+    int _step;                                                  /*!< The direction towards the character just moved */
     int _stepCounter;                                           /*!< Counter for the steps of the character */
-    int _goTo;                                                  /*!< Direction of the character */
+    int _goTo;                                                  /*!< Global direction of the character */
+    int _goToBackUp;                                            /*!< Backup of the global direction of the character */
     bool _back;                                                 /*!< Flag to check if the character retrace his steps */
     std::vector<bool> _directionsPossible;                      /*!< Calculate the possible directions where the character can go */
     Uint8 _spriteFlag;                                          /*!< Flag to know which sprite to select */

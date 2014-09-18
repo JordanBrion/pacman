@@ -40,20 +40,15 @@ public:
     //!
     void handleEvent( SDL_Event& e );
     //!
-    //! \brief Method to move the Pac-Man
-    //! \param levelTable : The structure of the level
+    //! \brief Method to update the data ( position of the pacman in the grid, possible directions, etc.  )
+    //! \param levelTable: Array containing the level in form of caracters
     //!
-    void move( std::vector<std::vector<int> > levelTable );
+    void updateAll( std::vector<std::vector<int> > levelTable );
     //!
-    //! \brief Method to move the Pac-Man vertically
-    //! \param up : The direction. True = UP ; False = DOWN
+    //!  \brief Method to load the next sprite for the pacman animation
+    //!  \param direction : The direction towards the pacman is going
     //!
-    void moveVertically( bool up );
-    //!
-    //! \brief Method to move the Pac-Man horizontally
-    //! \param left : The direction. True = LEFT ; False = RIGHT
-    //!
-    void moveHorizontally( bool left );
+    void nextSprite();
     //!
     //! \brief Method to check the collision with the Pac-Dots
     //! \param pdm : The Pac-Dots Manager which contains all the bubbles
@@ -92,15 +87,13 @@ public:
     //!
     void teleportation();
     //!
-    //! \brief Method to reset the attributes of the Pac-Man
+    //! \brief Method to reset the attributes of the Pac-Man to the start ones
     //!
-    void defaultValues();
+    void startValues();
 
 private:
-    int _directionKey;              /*!< ???? */
     int _deathAnimationCounter;     /*!< Counter of the death animation */
     Uint32 _powerPelletChrono;      /*!< Flag when pac-man eat a */
-    bool _stopKeyUp;                /*!< ???? */
 
 };
 

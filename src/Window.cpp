@@ -269,8 +269,6 @@ void Window::drawAreaGame() {
 
 void Window::drawCharacters() {
 
-    _pacMan->move( _fm->getLevelTable() );
-
     // If pacman is dead
     if( _pacMan->isDead() ) {
 
@@ -284,6 +282,10 @@ void Window::drawCharacters() {
 
     }
     else {
+
+        _pacMan->updateAll( _fm->getLevelTable() );
+        if( _pacMan->move() != -1 )
+            _pacMan->nextSprite();
 
         int score = drawPacDots();
         _game->setScoreP1( score );
@@ -484,16 +486,15 @@ void Window::threadGhostsLoop() {
         }
 
         for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
-            if( _ghosts[i]->isCenteredInTheSquare() ) {
 
-                _ghosts[i]->updatePositionInTheGrid();
-                _ghosts[i]->calculateDirection(_fm->getLevelTable());
-                _ghosts[i]->resetValues();
+            _ghosts[i]->updateAll( _fm->getLevelTable() );
+
+            if( _ghosts[i]->move() != -1 ) {
+                _ghosts[i]->nextSprite();
             }
-            _ghosts[i]->move();
 
             // After the move, detect if there is a collision
-            if( _ghosts[i]->checkCollision(_pacMan) ) {
+            if( _ghosts[i]->checkCollision( _pacMan ) ) {
 
                 // If the pacman ate a power pellet, he is not eatable
                 // AND if the ghost is not dead yet
@@ -633,13 +634,13 @@ void Window::startNewLife() {
     _game->decLifesNbr();
 
     // Restore Pacman attributes to default
-    _pacMan->defaultValues();
+    _pacMan->startValues();
     _pacMan->calculateDirection(_fm->getLevelTable());
     _pacMan->show(_renderer);
 
     // Restore ghosts attributes to default
     for(int i(0); i < _ghosts.size(); i++) {
-        _ghosts[i]->defaultValues();
+        _ghosts[i]->startValues();
         _ghosts[i]->calculateDirection(_fm->getLevelTable());
         _ghosts[i]->show(_renderer);
     }
@@ -663,8 +664,8 @@ void Window::resetData() {
     _game->resetAllFruitNbr();
 
     // Reset characters positions in the grid
-    _pacMan->defaultValues();
+    _pacMan->startValues();
     for( int i(0); i < _ghosts.size(); i++ )
-        _ghosts[i]->defaultValues();
+        _ghosts[i]->startValues();
 
 }
