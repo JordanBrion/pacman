@@ -17,6 +17,24 @@
 #include "InteractiveElement.h"
 
 //!
+//! \brief Enum for the fruit values
+//!
+enum fruit {
+
+    CHERRY,
+    STRAWBERRY,
+    APRICOT,
+    APPLE,
+    MELON,
+    GALXIAN_BOSS,
+    BELL,
+    KEY,
+
+    FRUIT_NBR
+
+};
+
+//!
 //! \class Fruit
 //! \brief Class of a fruit that can be picked up by pac-man
 //!

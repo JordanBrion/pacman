@@ -41,10 +41,4 @@ enum colors {
     RED, PINK, BLUE, ORANGE
 };
 
-enum fruit {
-
-    CHERRY, STRAWBERRY, APRICOT, APPLE, MELON, GALXIAN_BOSS, BELL, KEY, FRUIT_NBR
-
-};
-
 #endif

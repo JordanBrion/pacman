@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Fruit.h"
 
 using namespace std;
 
