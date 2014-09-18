@@ -37,12 +37,6 @@ enum levelProperties {
 
     };
 
-enum directions {
-
-    UP, DOWN, RIGHT, LEFT
-
-};
-
 enum colors {
     RED, PINK, BLUE, ORANGE
 };
@@ -50,17 +44,6 @@ enum colors {
 enum fruit {
 
     CHERRY, STRAWBERRY, APRICOT, APPLE, MELON, GALXIAN_BOSS, BELL, KEY, FRUIT_NBR
-
-};
-
-enum points {
-
-    PAC_DOT = 10,
-    POWER_PELLET = 50,
-    ONE_GHOST_EATEN = 200,
-    TWO_GHOSTS_EATEN = 400,
-    THREE_GHOSTS_EATEN = 800,
-    FOUR_GHOSTS_EATEN = 1600
 
 };
 

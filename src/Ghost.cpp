@@ -1,5 +1,8 @@
 #include "Ghost.h"
 
+#include <pm/Directions.h>
+using namespace Directions;
+
 using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)

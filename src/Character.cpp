@@ -2,6 +2,8 @@
 
 #include <pm/PacDots.h>
 using namespace PacDots;
+#include <pm/Directions.h>
+using namespace Directions;
 
 using namespace std;
 
