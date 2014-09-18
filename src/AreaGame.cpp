@@ -1,5 +1,7 @@
 #include "AreaGame.h"
 
+#include <pm/Level.h>
+
 using namespace std;
 
 AreaGame::AreaGame( SDL_Renderer* const& pRenderer, SDL_Surface* const& pSpriteLevel ) {
@@ -34,7 +36,7 @@ void AreaGame::drawArea( SDL_Renderer* const& pRenderer,
             element = pLevelTable[i][j];
 
             // If this is not a free space
-            if( element > -1 ) {
+            if( element > Level::EMPTY_CASE ) {
 
                 // Select new position on the sprite
                 _selection.y = pLevelSpriteCoord[ element ]["y"];

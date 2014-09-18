@@ -1,5 +1,8 @@
 #include "FilesManager.h"
 
+#include <pm/Level.h>
+using namespace Level;
+
 using namespace std;
 
 FilesManager::FilesManager() {
@@ -173,7 +176,7 @@ void FilesManager::initLevelSpriteCoord() {
     map<string, int> temp;
     int y(0);
 
-    for (int i = 0; i < COUNT; i++) {
+    for (int i = 0; i < LEVELPROPERTIES_COUNT; i++) {
 
         // Insert the pictures coord of the sprite image in an array
         temp["y"] = y;
