@@ -37,8 +37,4 @@ enum levelProperties {
 
     };
 
-enum colors {
-    RED, PINK, BLUE, ORANGE
-};
-
 #endif

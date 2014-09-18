@@ -17,6 +17,18 @@
 #include "PacMan.h"
 
 //!
+//! \brief Enum for the ghost colors
+//!
+enum colors {
+
+    RED,
+    PINK,
+    BLUE,
+    ORANGE
+
+};
+
+//!
 //! \class Ghost
 //! \brief Class to manage a ghost character
 //!
