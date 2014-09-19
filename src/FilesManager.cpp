@@ -109,7 +109,7 @@ void FilesManager::initLevelTable(char pLevel[]) {
             stringstream ss;
             ss << "Ghost" << ghostCounter;
             addCharacterCoord(ss.str(), i, j);
-            _levelTable[i].push_back( -1 ); // Free space
+            _levelTable[i].push_back( EMPTY_CASE ); // Free space
 
         }
         // Others cases
