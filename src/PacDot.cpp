@@ -58,7 +58,10 @@ int PacDot::show( SDL_Renderer* const& renderer ) {
     }
     else {
 
-        score = Points::PAC_DOT;
+        if( _caseType != PACDOTS_POWERPELLET )
+            score = Points::PAC_DOT;
+        else
+            score = Points::POWER_PELLET;
 
     }
 
