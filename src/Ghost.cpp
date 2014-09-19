@@ -243,8 +243,21 @@ void Ghost::updateAll( vector<vector<int> > levelTable ) {
 
         updatePositionInTheGrid();
         calculateDirection(levelTable);
+
         resetValues();
+
         _goTo = newRandomDirection();
+
+        // Forbid the previous direction
+        // For examples: if the ghost moved to UP, forbid DOWN for the next move
+        //               if the ghost moved to RIGHT, forbid LEFT for the next move
+        if( _goTo == UP || _goTo == RIGHT ) {
+            _forbiddenDirection = _goTo + 1;
+        }
+        else if( _goTo == DOWN || _goTo == LEFT ) {
+            _forbiddenDirection = _goTo - 1;
+        }
+
         _step = _goTo;
         defineVelocity();
 
@@ -301,16 +314,6 @@ void Ghost::nextSprite() {
 
 void Ghost::resetValues() {
 
-    // Forbid the previous direction
-    // For examples: if the ghost moved to UP, forbid DOWN for the next move
-    //               if the ghost moved to RIGHT, forbid LEFT for the next move
-    if( _goTo == UP || _goTo == RIGHT ) {
-        _forbiddenDirection = _goTo + 1;
-    }
-    else if( _goTo == DOWN || _goTo == LEFT ) {
-        _forbiddenDirection = _goTo - 1;
-    }
-
     // Reset the velocities
     _velocityX = 0;
     _velocityY = 0;
@@ -328,24 +331,22 @@ int Ghost::newRandomDirection() const {
         // If the character can go to this direction
         // AND if this direction is different from the previous one
         if( _directionsPossible[i] && i != _forbiddenDirection ) {
+
             // We add to the temp array
             temp.push_back( i );
+
         }
 
     }
 
-    int direction = -1;
-
     // If no direction found > choose the previous direction
     if( temp.size() == 0 ) {
-        direction = _forbiddenDirection;
+        return  _forbiddenDirection;
     }
     // Random value
     else {
-        direction = rand() % temp.size();
+        return temp[ rand() % temp.size() ];
     }
-
-    return temp[direction];
 
 }
 
