@@ -170,7 +170,7 @@ void PacMan::startPowerPelletChrono() {
 
 bool PacMan::checkPowerPelletChrono() {
 
-    if( SDL_GetTicks() - _powerPelletChrono >= POWERPELLET_DURATION  ) {
+    if( timeLeftPowerPellet() >= POWERPELLET_DURATION  ) {
         resetPowerPelletChrono();
         return true;
     }
@@ -183,6 +183,12 @@ void PacMan::resetPowerPelletChrono() {
 
     _powerPelletChrono = 0;
     _eatable = true;
+
+}
+
+Uint32 PacMan::timeLeftPowerPellet() {
+
+    return SDL_GetTicks() - _powerPelletChrono;
 
 }
 

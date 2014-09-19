@@ -73,6 +73,11 @@ public:
     //!
     void resetPowerPelletChrono();
     //!
+    //! \brief Method to calculate the time left for the power pellet duration
+    //! \return The time left
+    //!
+    Uint32 timeLeftPowerPellet();
+    //!
     //! \brief Method to render the Pac-Man death animation
     //! \param pRenderer : SDL_Renderer* of the window
     //!
