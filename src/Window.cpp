@@ -1,6 +1,9 @@
 #include "Window.h"
 
 #include <pm/Color.h>
+#include <pm/PacDots.h>
+using namespace PacDots;
+#include <pm/Arithmetic.h>
 
 using namespace std;
 
@@ -309,6 +312,7 @@ void Window::drawGhosts() {
         for( int i(0); i < _ghosts.size(); i++ ) {
 
             _ghosts[i]->setEatable(false);
+            _ghosts[i]->setPowerPelletAlmostOver(false);
             _ghosts[i]->show(_renderer);
 
         }
@@ -323,6 +327,14 @@ void Window::drawGhosts() {
         for( int i(0); i < _ghosts.size(); i++ ) {
 
             _ghosts[i]->setEatable(true);
+
+            // If the power pellet duration is equal or over 50%
+            if( Arithmetic::valueInPercent( _pacMan->timeLeftPowerPellet(), POWERPELLET_DURATION ) >= 50 )
+                _ghosts[i]->setPowerPelletAlmostOver(true);
+            // Otherwise, ghosts are only blue
+            else
+                _ghosts[i]->setPowerPelletAlmostOver(false);
+
             _ghosts[i]->show(_renderer);
 
         }
@@ -335,6 +347,7 @@ void Window::drawGhosts() {
         // Copy new ghosts positions in the renderer
         for( int i(0); i < _ghosts.size(); i++ ) {
 
+            _ghosts[i]->setPowerPelletAlmostOver(false);
             _ghosts[i]->show(_renderer);
 
         }

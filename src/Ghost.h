@@ -74,6 +74,11 @@ class Ghost : public Character {
     //!
     void defineVelocity();
     //!
+    //! \brief Setter if the power pellet duration is 50% over
+    //! \param powerPelletAlmostOver: True if the power pellet duration is 50% over. Otherwise, false
+    //!
+    void setPowerPelletAlmostOver( bool powerPelletAlmostOver );
+    //!
     //!  \brief Method to load the death animation of the ghost
     //!  \param pRenderer : SDL_Renderer* of the window
     //!
@@ -94,6 +99,7 @@ class Ghost : public Character {
 private:
     int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
     std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
+    bool _powerPelletAlmostOver;                                /*!< Flag to know if the power pellet duration is 50% over */
 
 };
 

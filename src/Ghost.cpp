@@ -7,7 +7,8 @@ using namespace std;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
-      _forbiddenDirection( -1 ) {
+      _forbiddenDirection( -1 ),
+      _powerPelletAlmostOver( false ) {
 
     _eatable = false;
 
@@ -258,15 +259,35 @@ void Ghost::nextSprite() {
     // If the ghost can be eaten by the pacman
     if( _eatable && _stepCounter % 5 == 0) {
 
-        // The ghost's eatable animation has 4 parts
-        if( _spriteFlag < _spriteCoordEatable.size() - 1 ) _spriteFlag++;
-        else _spriteFlag = 0;
+        // When the power pellet is 50% over, the ghost alternates his color between blue and white
+        if( _powerPelletAlmostOver ) {
 
-        initRect( &_selection,
-                  _selection.w,
-                  _selection.h,
-                  _spriteCoordEatable[_spriteFlag][0],
-                  _spriteCoordEatable[_spriteFlag][1]);
+            // The ghost's eatable animation has 4 parts
+            if( _spriteFlag < _spriteCoordEatable.size() -1 ) _spriteFlag++;
+            else _spriteFlag = 0;
+
+            initRect( &_selection,
+                      _selection.w,
+                      _selection.h,
+                      _spriteCoordEatable[_spriteFlag][0],
+                    _spriteCoordEatable[_spriteFlag][1]);
+
+        }
+
+        else {
+
+            // The ghost's eatable animation has 4 parts
+            if( _spriteFlag < 1 ) _spriteFlag++;
+            else _spriteFlag = 0;
+
+            initRect( &_selection,
+                      _selection.w,
+                      _selection.h,
+                      _spriteCoordEatable[_spriteFlag][0],
+                    _spriteCoordEatable[_spriteFlag][1]);
+
+        }
+
 
     }
     // Otherwise, rendering the normal sprites
@@ -346,6 +367,12 @@ void Ghost::defineVelocity() {
         break;
 
     }
+
+}
+
+void Ghost::setPowerPelletAlmostOver( bool powerPelletAlmostOver ) {
+
+    _powerPelletAlmostOver = powerPelletAlmostOver;
 
 }
 
