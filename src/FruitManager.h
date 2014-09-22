@@ -67,8 +67,17 @@ public:
     //! \return The number of points earned for fruit specified by the type parameter
     //!
     int getFruitPoints( int type ) const;
+    //!
+    //! \brief Method to initialize the coordonates where the fruit appears in the grid
+    //! \param fruitLocationCoord: Address of the array
+    //! \param size: Size of the array containing the fruit location coordonates
+    //!
+    void initFruitLocationCoord( int* fruitLocationCoord, int const& size );
+
+
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
+    std::vector<std::vector<int> > _fruitLocationCoord; /*!< Array for the fruit locations in the grid */
 
 };
 

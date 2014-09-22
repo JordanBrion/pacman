@@ -75,6 +75,7 @@ Window::Window() throw(exception) :
         // Initialize the fruit
         _frm = new FruitManager();
         _frm->initFruit( _renderer, _fm->getSpriteCharacters() );
+        _frm->initFruitLocationCoord( &(_fm->getFruitLocationCoord())[0][0], _fm->getFruitLocationCoord().size() );
 
         // Initialize the position of the bubbles
         _pdm = new PacDotsManager( _fm->getLevelTable(), _renderer, _fm->getSpriteCharacters() );
