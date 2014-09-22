@@ -112,6 +112,14 @@ void FilesManager::initLevelTable(char pLevel[]) {
             _levelTable[i].push_back( EMPTY_CASE ); // Free space
 
         }
+        // Fruit => =
+        else if( *rows == '=' ) {
+
+            // Add fruit location
+            addFruitLocationCoord( { i, j } );
+            _levelTable[i].push_back( EMPTY_CASE ); // Free space
+
+        }
         // Others cases
         else {
 
@@ -216,6 +224,26 @@ int FilesManager::getCharacterCoordRow(string key) {
 int FilesManager::getCharacterCoordCol(string key) {
 
     return _charactersCoord[key]["col"];
+
+}
+
+void FilesManager::addFruitLocationCoord( vector<int> coord ) {
+
+    // Coordonates of the fruit on the screen
+    // Fruit can pop at multiple places. So, save all this places
+    _fruitLocationCoord.push_back( coord );
+
+}
+
+vector<vector<int> > FilesManager::getFruitLocationCoord() const {
+
+    return _fruitLocationCoord;
+
+}
+
+vector<int> FilesManager::getOneFruitLocationCoord( int index ) const {
+
+    return _fruitLocationCoord[ index ];
 
 }
 

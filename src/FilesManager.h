@@ -147,6 +147,22 @@ public:
     //!
     int getCharacterCoordCol( std::string key );
     //!
+    //!  \brief Method to add the position of a fruit in the grid
+    //!  \param coord : Row and col of the fruit
+    //!
+    void addFruitLocationCoord( std::vector<int> coord );
+    //!
+    //! \brief Getter for the coord of all the fruit
+    //! \return Vector for all the fruit locations
+    //!
+    std::vector<std::vector<int> > getFruitLocationCoord() const;
+    //!
+    //! \brief Getter for the coord of the desired fruit (specified by the index)
+    //! \param index: The desired fruit
+    //! \return Vector for the coord of the desired fruit (specified by the index)
+    //!
+    std::vector<int> getOneFruitLocationCoord( int index ) const;
+    //!
     //!  \brief Method to load the font files with SDL2_ttf
     //!  \return True if no error in the loading. Otherwise, false.
     //!
@@ -176,6 +192,7 @@ private:
     std::vector<std::vector<int> > _levelTable; /*!< Array containing the level in form of caracters */
     std::vector<std::map<std::string, int> > _levelSpriteCoord;             /*!< Array containing the coordinates of the sprite level */
     std::map<std::string, std::map<std::string, int> > _charactersCoord;    /*!< Array containing the position of the characters in the level */
+    std::vector<std::vector<int> > _fruitLocationCoord;                     /*!< Array containing the position of the fruit in the level */
     TTF_Font* _font;                            /*!< Font of the game */
 
 };
