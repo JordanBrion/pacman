@@ -29,3 +29,27 @@ Fruit* FruitManager::getOneFruit( int type ) const {
     return _fruit[ type ];
 
 }
+
+int FruitManager::getFruitNbr( int type ) const {
+
+    _fruit[ type ]->getNbr();
+
+}
+
+void FruitManager::incFruitNbr( int type ) {
+
+    _fruit[ type ]->setNbr( _fruit[ type ]->getNbr() +1 );
+
+}
+
+void FruitManager::decFruitNbr( int type ) {
+
+    _fruit[ type ]->setNbr( _fruit[ type ]->getNbr() -1 );
+
+}
+
+int FruitManager::getFruitPoints( int type ) const {
+
+    _fruit[ type ]->getPoints();
+
+}
