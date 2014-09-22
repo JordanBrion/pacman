@@ -73,12 +73,41 @@ public:
     //! \param size: Size of the array containing the fruit location coordonates
     //!
     void initFruitLocationCoord( int* fruitLocationCoord, int const& size );
+    //!
+    //! \brief Method to start the value to know details about the rendered fruit (location and chrono)
+    //!
+    void startCurrentFruit();
+    //!
+    //! \brief Method to randomize a location for the future rendered fruit
+    //!
+    bool randomFruitLocation();
+    //!
+    //! \brief Method to reset the value to know details about the rendered fruit (location and chrono)
+    //!
+    void resetCurrentFruit();
+    //!
+    //! \brief Method to start the chronometer to know since when no fruit was rendered
+    //!
+    void startBetweenFruitChrono();
+    //!
+    //! \brief Method to reset the chronometer to know since when no fruit was rendered
+    //!
+    void resetBetweenFruitChrono();
+    //!
+    //! \brief Method to check the chronometers values
+    //!
+    void checkFruitChronos();
 
+    /* STATIC ATTRIBUTES */
+    static const Uint32 FRUIT_BETWEEN_DURATION = 3000;  /*!< Static attribute for duration between fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 2000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
     std::vector<std::vector<int> > _fruitLocationCoord; /*!< Array for the fruit locations in the grid */
-
+    int8_t _currentFruitLocation;                       /*!< Index of the current position where a fruit is rendered */
+    Uint32 _currentFruitChrono;                         /*!< Chronometer to know when the fruit was rendered */
+    Uint32 _betweenFruitChrono;                         /*!< Chronometer to know since when no fruit was rendered */
 };
 
 #endif /* FRUITMANAGER_H */

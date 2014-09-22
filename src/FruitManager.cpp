@@ -1,8 +1,12 @@
 #include "FruitManager.h"
 
+#include <iostream>
 using namespace std;
 
-FruitManager::FruitManager() {
+FruitManager::FruitManager() :
+    _currentFruitLocation( -1 ),
+    _betweenFruitChrono( 0 ),
+    _currentFruitChrono( 0 ) {
 
 }
 
@@ -54,7 +58,6 @@ int FruitManager::getFruitPoints( int type ) const {
 
 }
 
-
 void FruitManager::initFruitLocationCoord( int* fruitLocationCoord, int const& size ) {
 
     int *row = new int();
@@ -71,5 +74,78 @@ void FruitManager::initFruitLocationCoord( int* fruitLocationCoord, int const& s
                                        } );
 
     }
+
+}
+
+void FruitManager::startCurrentFruit() {
+
+    if( randomFruitLocation() )
+        _currentFruitChrono = SDL_GetTicks();
+    else
+        cout << "Impossible to randomize the next fruit location. Fruit is already in the grid !" << endl;
+
+
+}
+
+bool FruitManager::randomFruitLocation() {
+
+    if( _currentFruitLocation == -1 ) {
+
+        _currentFruitLocation = rand() % _fruitLocationCoord.size();
+        return true;
+
+    }
+
+    else {
+
+        return false;
+
+    }
+
+}
+
+void FruitManager::resetCurrentFruit() {
+
+    _currentFruitLocation = -1;
+    _currentFruitChrono = 0;
+
+}
+
+void FruitManager::startBetweenFruitChrono() {
+
+    _betweenFruitChrono = SDL_GetTicks();
+
+}
+
+void FruitManager::resetBetweenFruitChrono() {
+
+    _betweenFruitChrono = 0;
+
+}
+
+void FruitManager::checkFruitChronos() {
+
+    if( _betweenFruitChrono > 0 ) {
+
+        if( SDL_GetTicks() - _betweenFruitChrono >= FRUIT_BETWEEN_DURATION ) {
+
+            resetBetweenFruitChrono();
+            startCurrentFruit();
+
+        }
+
+    }
+    else if( _currentFruitChrono > 0 ) {
+
+        if( SDL_GetTicks() - _currentFruitChrono >= FRUIT_SHOWN_DURATION ) {
+
+            resetCurrentFruit();
+            startBetweenFruitChrono();
+
+        }
+
+    }
+    else
+        startBetweenFruitChrono();
 
 }

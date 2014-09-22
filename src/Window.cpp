@@ -542,6 +542,9 @@ void Window::render() {
         break;
 
     case GAMESTATE_INGAME:
+
+        _frm->checkFruitChronos();
+
         drawCharacters();
         drawHudTop();
         drawAreaGame();
