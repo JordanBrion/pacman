@@ -123,7 +123,7 @@ void FruitManager::resetBetweenFruitChrono() {
 
 }
 
-void FruitManager::checkFruitChronos() {
+bool FruitManager::checkFruitChronos() {
 
     if( _betweenFruitChrono > 0 ) {
 
@@ -143,9 +143,52 @@ void FruitManager::checkFruitChronos() {
             startBetweenFruitChrono();
 
         }
+        else
+            return true;
 
     }
     else
         startBetweenFruitChrono();
 
+    return false;
+
 }
+
+bool FruitManager::eatFruit( int const& row, int const& col ) {
+
+    // If a fruit rendered
+    if( _currentFruitLocation != -1 ) {
+
+        // If a collision is detected
+        if( isThereAFruit( row, col )  ) {
+
+            return true;
+
+        }
+    }
+
+    return false;
+
+}
+
+bool FruitManager::isThereAFruit( int const& row, int const& col ) {
+
+    if( _fruitLocationCoord[ _currentFruitLocation ][0] == row
+            && _fruitLocationCoord[ _currentFruitLocation ][1] == col )
+        return true;
+
+    return false;
+
+}
+
+void FruitManager::renderFruit( SDL_Renderer *renderer ) {
+
+    _fruit[0]->initPositionAreaGame(
+                _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + 30 + AREAGAME_MARGIN,
+                _fruitLocationCoord[ _currentFruitLocation ][1] * 30 - 30 + AREATOP_HEIGHT
+                );
+
+    _fruit[0]->show( renderer );
+
+}
+

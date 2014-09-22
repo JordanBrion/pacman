@@ -286,13 +286,19 @@ void Window::drawCharacters() {
     else {
 
         _pacMan->updateAll( _fm->getLevelTable() );
-        if( _pacMan->move() != -1 )
+        if( _pacMan->move() != -1 ) {
+
             _pacMan->nextSprite();
+
+        }
+
+        // If there is a collision with a fruit > no collision with a pacdots
+        if( !_pacMan->checkCollisionWithFruit( _frm ) )
+            _pacMan->checkCollisionWithPacDots( _pdm );
 
         int score = drawPacDots();
         _game->setScoreP1( score );
 
-        _pacMan->checkCollisionWithPacDots( _pdm );
         _pacMan->show(_renderer);
 
         drawGhosts();
@@ -543,7 +549,8 @@ void Window::render() {
 
     case GAMESTATE_INGAME:
 
-        _frm->checkFruitChronos();
+        if( _frm->checkFruitChronos() )
+            _frm->renderFruit( _renderer );
 
         drawCharacters();
         drawHudTop();

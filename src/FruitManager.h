@@ -95,12 +95,32 @@ public:
     void resetBetweenFruitChrono();
     //!
     //! \brief Method to check the chronometers values
+    //! \return True if _currentFruitChrono is started. Otherwise, false
     //!
-    void checkFruitChronos();
+    bool checkFruitChronos();
+    //!
+    //! \brief Method to eat the rendered fruit if the pacman is at the correct location
+    //! \param row: The row where the pacman is located
+    //! \param col: The col where the pacman is located
+    //! \return True if the fruit is eaten. Otherwise, false
+    //!
+    bool eatFruit( int const& row, int const& col );
+    //!
+    //! \brief Method to located the rendered fruit if the pacman is at the correct location
+    //! \param row: The row where the pacman is located
+    //! \param col: The col where the pacman is located
+    //! \return True if the fruit is located. Otherwise, false
+    //!
+    bool isThereAFruit( int const& row, int const& col );
+    //!
+    //! \brief Method to render the fruit
+    //! \param renderer: SDL_Renderer* of the window
+    //!
+    void renderFruit( SDL_Renderer* renderer );
 
     /* STATIC ATTRIBUTES */
-    static const Uint32 FRUIT_BETWEEN_DURATION = 3000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 2000;    /*!< Static attribute for duration of fruit appearance */
+    static const Uint32 FRUIT_BETWEEN_DURATION = 1000;  /*!< Static attribute for duration between fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 10000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */

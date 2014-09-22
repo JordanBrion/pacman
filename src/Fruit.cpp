@@ -79,9 +79,9 @@ int Fruit::getPoints() const {
 }
 
 
-void Fruit::initPositionAreaGame() {
+void Fruit::initPositionAreaGame( int const& x, int const& y ) {
 
-    initRect( &_position, 0, 0, 0, 0);
+    initRect( &_position, 30, 30, x, y);
 
 }
 

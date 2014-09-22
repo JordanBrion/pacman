@@ -192,6 +192,19 @@ Uint32 PacMan::timeLeftPowerPellet() {
 
 }
 
+bool PacMan::checkCollisionWithFruit( FruitManager* frm ) {
+
+    if( frm->eatFruit( _row, _col ) ) {
+
+        frm->resetCurrentFruit();
+        return true;
+
+    }
+
+    return false;
+
+}
+
 void PacMan::deathAnimation(SDL_Renderer* const& pRenderer) {
 
     _selection.w = 19;

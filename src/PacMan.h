@@ -11,6 +11,7 @@
 
 #include "Character.h"
 #include "PacDotsManager.h"
+#include "FruitManager.h"
 
 //!
 //! \class PacMan
@@ -77,6 +78,12 @@ public:
     //! \return The time left
     //!
     Uint32 timeLeftPowerPellet();
+    //!
+    //! \brief Method to check the collision with the fruit
+    //! \param pdm : The fruit manager which contains all the fruit
+    //! \return True if a collision is detected. Otherwise, false
+    //!
+    bool checkCollisionWithFruit( FruitManager* frm );
     //!
     //! \brief Method to render the Pac-Man death animation
     //! \param pRenderer : SDL_Renderer* of the window
