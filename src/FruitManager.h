@@ -45,7 +45,28 @@ public:
     //! \return The instance of fruit specified by the type parameter
     //!
     Fruit* getOneFruit( int type ) const;
-
+    //!
+    //! \brief Getter for the number of fruit eaten specified by the type parameter
+    //! \param type: Type of fruit to increment
+    //! \return The number of fruit eaten specified by the type parameter
+    //!
+    int getFruitNbr( int type ) const;
+    //!
+    //! \brief Setter to increment the number of fruit eaten specified by the type parameter
+    //! \param type: Type of fruit to increment
+    //!
+    void incFruitNbr( int type );
+    //!
+    //! \brief Setter to decrement the number of fruit eaten specified by the type parameter
+    //! \param type: Type of fruit to decrement
+    //!
+    void decFruitNbr( int type );
+    //!
+    //! \brief Getter for the number of points earned for fruit specified by the type parameter
+    //! \param type: Type of fruit
+    //! \return The number of points earned for fruit specified by the type parameter
+    //!
+    int getFruitPoints( int type ) const;
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
 
