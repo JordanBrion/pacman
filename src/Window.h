@@ -28,7 +28,7 @@
 #include "AreaBottom.h"
 #include "PacMan.h"
 #include "Ghost.h"
-#include "Fruit.h"
+#include "FruitManager.h"
 #include "PacDotsManager.h"
 #include "Game.h"
 #include "MenuStart.h"
@@ -174,7 +174,11 @@ private:
     AreaBottom* _areaBottom;                    /*!<  Instance of AreaBottom */
     PacMan *_pacMan;                            /*!<  Instance of PacMan */
     std::vector<Ghost*> _ghosts;                /*!<  Array containing instances of Ghost */
-    std::vector<Fruit*> _fruit;                 /*!<  Array containing instances of Fruit */
+
+
+    FruitManager* _frm;
+
+
     PacDotsManager* _pdm;                       /*!<  Instance of PacDotsManager */
 
 };
