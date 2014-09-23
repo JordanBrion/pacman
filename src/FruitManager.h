@@ -77,9 +77,9 @@ public:
     //!
     void startCurrentFruit();
     //!
-    //! \brief Method to randomize a location for the future rendered fruit
+    //! \brief Method to randomize a location and a type for the future rendered fruit
     //!
-    bool randomFruitLocation();
+    bool randomFruit();
     //!
     //! \brief Method to reset the value to know details about the rendered fruit (location and chrono)
     //!
@@ -125,8 +125,10 @@ private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
     std::vector<std::vector<int> > _fruitLocationCoord; /*!< Array for the fruit locations in the grid */
     int8_t _currentFruitLocation;                       /*!< Index of the current position where a fruit is rendered */
+    int8_t _currentFruitType;                            /*!< Flag to know which type of fruit is rendered */
     Uint32 _currentFruitChrono;                         /*!< Chronometer to know when the fruit was rendered */
     Uint32 _betweenFruitChrono;                         /*!< Chronometer to know since when no fruit was rendered */
+
 };
 
 #endif /* FRUITMANAGER_H */

@@ -5,6 +5,7 @@ using namespace std;
 
 FruitManager::FruitManager() :
     _currentFruitLocation( -1 ),
+    _currentFruitType( -1 ),
     _betweenFruitChrono( 0 ),
     _currentFruitChrono( 0 ) {
 
@@ -66,7 +67,7 @@ void FruitManager::initFruitLocationCoord( vector<vector<int> > fruitLocationCoo
 
 void FruitManager::startCurrentFruit() {
 
-    if( randomFruitLocation() )
+    if( randomFruit() )
         _currentFruitChrono = SDL_GetTicks();
     else
         cout << "Impossible to randomize the next fruit location. Fruit is already in the grid !" << endl;
@@ -74,11 +75,16 @@ void FruitManager::startCurrentFruit() {
 
 }
 
-bool FruitManager::randomFruitLocation() {
+bool FruitManager::randomFruit() {
 
     if( _currentFruitLocation == -1 ) {
 
+        // Random a fruit location
         _currentFruitLocation = rand() % _fruitLocationCoord.size();
+
+        // Random a fruit type
+        _currentFruitType = rand() % _fruit.size();
+
         return true;
 
     }
@@ -94,6 +100,7 @@ bool FruitManager::randomFruitLocation() {
 void FruitManager::resetCurrentFruit() {
 
     _currentFruitLocation = -1;
+    _currentFruitType = -1;
     _currentFruitChrono = 0;
 
 }
@@ -170,12 +177,12 @@ bool FruitManager::isThereAFruit( int const& row, int const& col ) {
 
 void FruitManager::renderFruit( SDL_Renderer *renderer ) {
 
-    _fruit[0]->initPositionAreaGame(
+    _fruit[ _currentFruitType ]->initPositionAreaGame(
                 _fruitLocationCoord[ _currentFruitLocation ][1] * 30 + AREAGAME_MARGIN,
                 _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + AREATOP_HEIGHT
                 );
 
-    _fruit[0]->show( renderer );
+    _fruit[ _currentFruitType ]->show( renderer );
 
 }
 
