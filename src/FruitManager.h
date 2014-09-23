@@ -44,29 +44,29 @@ public:
     //! \param type: Type of fruit to return
     //! \return The instance of fruit specified by the type parameter
     //!
-    Fruit* getOneFruit( int type ) const;
+    Fruit* getOneFruit( int const& type ) const;
     //!
     //! \brief Getter for the number of fruit eaten specified by the type parameter
     //! \param type: Type of fruit to increment
     //! \return The number of fruit eaten specified by the type parameter
     //!
-    int getFruitNbr( int type ) const;
+    int getFruitNbr( int const& type ) const;
     //!
     //! \brief Setter to increment the number of fruit eaten specified by the type parameter
     //! \param type: Type of fruit to increment
     //!
-    void incFruitNbr( int type );
+    void incFruitNbr( int const& type );
     //!
     //! \brief Setter to decrement the number of fruit eaten specified by the type parameter
     //! \param type: Type of fruit to decrement
     //!
-    void decFruitNbr( int type );
+    void decFruitNbr( int const& type );
     //!
     //! \brief Getter for the number of points earned for fruit specified by the type parameter
     //! \param type: Type of fruit
     //! \return The number of points earned for fruit specified by the type parameter
     //!
-    int getFruitPoints( int type ) const;
+    int getFruitPoints( int const& type ) const;
     //!
     //! \brief Method to initialize the coordonates where the fruit appears in the grid
     //! \param fruitLocationCoord: Array containing the places where the fruit appear in the grid

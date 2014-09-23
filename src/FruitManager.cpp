@@ -30,31 +30,31 @@ vector<Fruit*> FruitManager::getFruit() const {
 
 }
 
-Fruit* FruitManager::getOneFruit( int type ) const {
+Fruit* FruitManager::getOneFruit( int const& type ) const {
 
     return _fruits[ type ];
 
 }
 
-int FruitManager::getFruitNbr( int type ) const {
+int FruitManager::getFruitNbr( int const& type ) const {
 
     _fruits[ type ]->getNbr();
 
 }
 
-void FruitManager::incFruitNbr( int type ) {
+void FruitManager::incFruitNbr( int const& type ) {
 
     _fruits[ type ]->setNbr( _fruits[ type ]->getNbr() +1 );
 
 }
 
-void FruitManager::decFruitNbr( int type ) {
+void FruitManager::decFruitNbr( int const& type ) {
 
     _fruits[ type ]->setNbr( _fruits[ type ]->getNbr() -1 );
 
 }
 
-int FruitManager::getFruitPoints( int type ) const {
+int FruitManager::getFruitPoints( int const& type ) const {
 
     _fruits[ type ]->getPoints();
 
