@@ -81,9 +81,9 @@ public:
     //!
     //! \brief Method to check the collision with the fruit
     //! \param pdm : The fruit manager which contains all the fruit
-    //! \return The points earned if the fruit is eaten. Otherwise, 0
+    //! \return True if a collision is detected. Otherwise, false
     //!
-    Uint16 checkCollisionWithFruit( FruitManager* frm );
+    bool checkCollisionWithFruit( FruitManager* frm );
     //!
     //! \brief Method to render the Pac-Man death animation
     //! \param pRenderer : SDL_Renderer* of the window

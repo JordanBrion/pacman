@@ -192,18 +192,16 @@ Uint32 PacMan::timeLeftPowerPellet() {
 
 }
 
-Uint16 PacMan::checkCollisionWithFruit( FruitManager* frm ) {
+bool PacMan::checkCollisionWithFruit( FruitManager* frm ) {
 
-    Uint16 points = frm->eatFruit( _row, _col );
-
-    if( points != 0 ) {
+    if( frm->eatFruit( _row, _col ) ) {
 
         frm->resetCurrentFruit();
-        return points;
+        return true;
 
     }
 
-    return 0;
+    return false;
 
 }
 

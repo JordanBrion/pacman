@@ -101,9 +101,9 @@ public:
     //! \brief Method to eat the rendered fruit if the pacman is at the correct location
     //! \param row: The row where the pacman is located
     //! \param col: The col where the pacman is located
-    //! \return The points earned if the fruit is eaten. Otherwise, 0
+    //! \return True if the fruit is eaten. Otherwise, false
     //!
-    Uint16 eatFruit( int const& row, int const& col );
+    bool eatFruit( int const& row, int const& col );
     //!
     //! \brief Method to located the rendered fruit if the pacman is at the correct location
     //! \param row: The row where the pacman is located
@@ -112,22 +112,28 @@ public:
     //!
     bool isThereAFruit( int const& row, int const& col );
     //!
+    //! \brief Getter for the points of eaten fruit
+    //! \return The points of eaten fruit
+    //!
+    Uint16 getTotalFruitScore();
+    //!
     //! \brief Method to render the fruit
     //! \param renderer: SDL_Renderer* of the window
     //!
     void renderFruit( SDL_Renderer* renderer );
 
     /* STATIC ATTRIBUTES */
-    static const Uint32 FRUIT_BETWEEN_DURATION = 25000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 15000;    /*!< Static attribute for duration of fruit appearance */
+    static const Uint32 FRUIT_BETWEEN_DURATION = 1000;  /*!< Static attribute for duration between fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 2000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
-    std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
+    std::vector<Fruit*> _fruits;                         /*!< Array containing instances of Fruit */
     std::vector<std::vector<int> > _fruitLocationCoord; /*!< Array for the fruit locations in the grid */
     int8_t _currentFruitLocation;                       /*!< Index of the current position where a fruit is rendered */
     int8_t _currentFruitType;                            /*!< Flag to know which type of fruit is rendered */
     Uint32 _currentFruitChrono;                         /*!< Chronometer to know when the fruit was rendered */
     Uint32 _betweenFruitChrono;                         /*!< Chronometer to know since when no fruit was rendered */
+    Uint64 _totalFruitScore;                            /*!< The points of eaten fruit */
 
 };
 

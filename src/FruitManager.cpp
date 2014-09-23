@@ -7,7 +7,8 @@ FruitManager::FruitManager() :
     _currentFruitLocation( -1 ),
     _currentFruitType( -1 ),
     _betweenFruitChrono( 0 ),
-    _currentFruitChrono( 0 ) {
+    _currentFruitChrono( 0 ),
+    _totalFruitScore( 0 ) {
 
 }
 
@@ -17,7 +18,7 @@ void FruitManager::initFruit( SDL_Renderer* const& renderer, SDL_Surface* const&
 
     for(int i(0); i < FRUIT_NBR; i++) {
 
-        _fruit.push_back( new Fruit( i, renderer, sprite ) );
+        _fruits.push_back( new Fruit( i, renderer, sprite ) );
 
     }
 
@@ -25,37 +26,37 @@ void FruitManager::initFruit( SDL_Renderer* const& renderer, SDL_Surface* const&
 
 vector<Fruit*> FruitManager::getFruit() const {
 
-    return _fruit;
+    return _fruits;
 
 }
 
 Fruit* FruitManager::getOneFruit( int type ) const {
 
-    return _fruit[ type ];
+    return _fruits[ type ];
 
 }
 
 int FruitManager::getFruitNbr( int type ) const {
 
-    _fruit[ type ]->getNbr();
+    _fruits[ type ]->getNbr();
 
 }
 
 void FruitManager::incFruitNbr( int type ) {
 
-    _fruit[ type ]->setNbr( _fruit[ type ]->getNbr() +1 );
+    _fruits[ type ]->setNbr( _fruits[ type ]->getNbr() +1 );
 
 }
 
 void FruitManager::decFruitNbr( int type ) {
 
-    _fruit[ type ]->setNbr( _fruit[ type ]->getNbr() -1 );
+    _fruits[ type ]->setNbr( _fruits[ type ]->getNbr() -1 );
 
 }
 
 int FruitManager::getFruitPoints( int type ) const {
 
-    _fruit[ type ]->getPoints();
+    _fruits[ type ]->getPoints();
 
 }
 
@@ -83,7 +84,7 @@ bool FruitManager::randomFruit() {
         _currentFruitLocation = rand() % _fruitLocationCoord.size();
 
         // Random a fruit type
-        _currentFruitType = rand() % _fruit.size();
+        _currentFruitType = rand() % _fruits.size();
 
         return true;
 
@@ -148,7 +149,7 @@ bool FruitManager::checkFruitChronos() {
 
 }
 
-Uint16 FruitManager::eatFruit( int const& row, int const& col ) {
+bool FruitManager::eatFruit( int const& row, int const& col ) {
 
     // If a fruit rendered
     if( _currentFruitLocation != -1 ) {
@@ -156,12 +157,13 @@ Uint16 FruitManager::eatFruit( int const& row, int const& col ) {
         // If a collision is detected
         if( isThereAFruit( row, col )  ) {
 
-            return _fruit[ _currentFruitType ]->getPoints();
+            _totalFruitScore += _fruits[ _currentFruitType ]->getPoints();
+            return true;
 
         }
     }
 
-    return 0;
+    return false;
 
 }
 
@@ -175,14 +177,20 @@ bool FruitManager::isThereAFruit( int const& row, int const& col ) {
 
 }
 
+Uint16 FruitManager::getTotalFruitScore() {
+
+    return _totalFruitScore;
+
+}
+
 void FruitManager::renderFruit( SDL_Renderer *renderer ) {
 
-    _fruit[ _currentFruitType ]->initPositionAreaGame(
+    _fruits[ _currentFruitType ]->initPositionAreaGame(
                 _fruitLocationCoord[ _currentFruitLocation ][1] * 30 + AREAGAME_MARGIN,
                 _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + AREATOP_HEIGHT
                 );
 
-    _fruit[ _currentFruitType ]->show( renderer );
+    _fruits[ _currentFruitType ]->show( renderer );
 
 }
 
