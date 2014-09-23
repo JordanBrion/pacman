@@ -292,7 +292,7 @@ void Window::drawCharacters() {
 
         }
 
-        Uint8 score = _pacMan->checkCollisionWithFruit( _frm );
+        Uint16 score = _pacMan->checkCollisionWithFruit( _frm );
 
         // If there is a collision with a fruit (score != 0) > no collision with a pacdots
         if( score == 0 )
