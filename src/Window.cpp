@@ -16,11 +16,11 @@ char _levelString[] =
         "0;-4;12;11;13;#;15;-4;12;11;11;22;11;11;13;-4;15;-4;12;11;13;-4;0;"
         "0;-14;-3;-3;-3;-12;10;-7;-3;-3;-6;10;-5;-3;-3;-8;10;-11;-3;-3;-3;-14;0;"
         "3; 1; 1; 1; 5;#;21;11;11;13;0;14;0;12;11;11;20;-4; 2; 1; 1; 1;4;"
-        "-2;-2;-2;-2;0;-4;10;-2;-2;=;@;-2;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
-        " 1; 1; 1; 1;4;-4;14;-2;36; 1;35;33;34; 1;39;-2;14;-4; 3; 1; 1; 1; 1;"
-        "-2;-2;-2;-2;0;-4;0;-2; 0;-2;-2;-2;-2;-2; 0;-2;0;-4;0;-2;-2;-2;-2;"
-        " 1; 1; 1; 1;5;-4;15;-2;37; 1; 1; 1; 1; 1;38;-2;15;-4; 2; 1; 1; 1; 1;"
-        "-2;-2;-2;-2;0;-4;10;-2;-2;-2;-2;-2;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
+        "-2;-2;-2;-2;0;-4;10;=;-2;-2;@;-2;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
+        " 1; 1; 1; 1;4;-4;14;=;36; 1;35;33;34; 1;39;-2;14;-4; 3; 1; 1; 1; 1;"
+        "-2;-2;-2;-2;0;-4;0;=; 0;-2;-2;-2;-2;-2; 0;-2;0;-4;0;-2;-2;-2;-2;"
+        " 1; 1; 1; 1;5;-4;15;=;37; 1; 1; 1; 1; 1;38;-2;15;-4; 2; 1; 1; 1; 1;"
+        "-2;-2;-2;-2;0;-4;10;=;-2;-2;-2;-2;-2;-2;-2;-2;10;-4; 0;-2;-2;-2;-2;"
         "2 ; 1; 1; 1;4;-4;14;0;12;11;11;22;11;11;13;0;14;-4; 3; 1; 1; 1; 5;"
         "0 ;-14;-3;-3;-3;-13;-3;-3;-3;-3;-6;10;-5;-3;-3;-9;-3;-13;-3;-3;-3;-14;0;"
         "0 ;-4;12;11;19;-4;12;11;11;13;-4;14;-4;12;11;11;13;-4;16;11;13;-4;0;"
@@ -75,7 +75,7 @@ Window::Window() throw(exception) :
         // Initialize the fruit
         _frm = new FruitManager();
         _frm->initFruit( _renderer, _fm->getSpriteCharacters() );
-        _frm->initFruitLocationCoord( &(_fm->getFruitLocationCoord())[0][0], _fm->getFruitLocationCoord().size() );
+        _frm->initFruitLocationCoord( _fm->getFruitLocationCoord() );
 
         // Initialize the position of the bubbles
         _pdm = new PacDotsManager( _fm->getLevelTable(), _renderer, _fm->getSpriteCharacters() );
@@ -292,12 +292,15 @@ void Window::drawCharacters() {
 
         }
 
-        // If there is a collision with a fruit > no collision with a pacdots
-        if( !_pacMan->checkCollisionWithFruit( _frm ) )
+        Uint8 score = _pacMan->checkCollisionWithFruit( _frm );
+
+        // If there is a collision with a fruit (score != 0) > no collision with a pacdots
+        if( score == 0 )
             _pacMan->checkCollisionWithPacDots( _pdm );
 
-        int score = drawPacDots();
-        _game->setScoreP1( score );
+        score += drawPacDots();
+
+        _game->setScoreP1( _game->getScoreP1() + score );
 
         _pacMan->show(_renderer);
 
@@ -556,6 +559,7 @@ void Window::render() {
         drawHudTop();
         drawAreaGame();
         drawHudBottom();
+
         break;
 
     case GAMESTATE_PAUSE:

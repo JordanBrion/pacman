@@ -101,9 +101,9 @@ public:
     //! \brief Method to eat the rendered fruit if the pacman is at the correct location
     //! \param row: The row where the pacman is located
     //! \param col: The col where the pacman is located
-    //! \return True if the fruit is eaten. Otherwise, false
+    //! \return The points earned if the fruit is eaten. Otherwise, 0
     //!
-    bool eatFruit( int const& row, int const& col );
+    Uint16 eatFruit( int const& row, int const& col );
     //!
     //! \brief Method to located the rendered fruit if the pacman is at the correct location
     //! \param row: The row where the pacman is located
@@ -119,7 +119,7 @@ public:
 
     /* STATIC ATTRIBUTES */
     static const Uint32 FRUIT_BETWEEN_DURATION = 1000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 1000;    /*!< Static attribute for duration of fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 4000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */

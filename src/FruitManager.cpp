@@ -148,7 +148,7 @@ bool FruitManager::checkFruitChronos() {
 
 }
 
-bool FruitManager::eatFruit( int const& row, int const& col ) {
+Uint16 FruitManager::eatFruit( int const& row, int const& col ) {
 
     // If a fruit rendered
     if( _currentFruitLocation != -1 ) {
@@ -156,12 +156,12 @@ bool FruitManager::eatFruit( int const& row, int const& col ) {
         // If a collision is detected
         if( isThereAFruit( row, col )  ) {
 
-            return true;
+            return _fruit[ _currentFruitType ]->getPoints();
 
         }
     }
 
-    return false;
+    return 0;
 
 }
 
