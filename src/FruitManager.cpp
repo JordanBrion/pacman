@@ -171,8 +171,8 @@ bool FruitManager::isThereAFruit( int const& row, int const& col ) {
 void FruitManager::renderFruit( SDL_Renderer *renderer ) {
 
     _fruit[0]->initPositionAreaGame(
-                _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + 30 + AREAGAME_MARGIN,
-                _fruitLocationCoord[ _currentFruitLocation ][1] * 30 - 30 + AREATOP_HEIGHT
+                _fruitLocationCoord[ _currentFruitLocation ][1] * 30 + AREAGAME_MARGIN,
+                _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + AREATOP_HEIGHT
                 );
 
     _fruit[0]->show( renderer );
