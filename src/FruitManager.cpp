@@ -58,22 +58,9 @@ int FruitManager::getFruitPoints( int type ) const {
 
 }
 
-void FruitManager::initFruitLocationCoord( int* fruitLocationCoord, int const& size ) {
+void FruitManager::initFruitLocationCoord( vector<vector<int> > fruitLocationCoord ) {
 
-    int *row = new int();
-    int *col = new int();
-
-    for( int i(0); i < size; i++ ) {
-
-        row = fruitLocationCoord + (i*2);
-        col = fruitLocationCoord + (i*2) + 1;
-
-        _fruitLocationCoord.push_back( {
-                                           *row,
-                                           *col
-                                       } );
-
-    }
+    _fruitLocationCoord = fruitLocationCoord;
 
 }
 

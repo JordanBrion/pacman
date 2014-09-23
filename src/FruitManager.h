@@ -69,10 +69,9 @@ public:
     int getFruitPoints( int type ) const;
     //!
     //! \brief Method to initialize the coordonates where the fruit appears in the grid
-    //! \param fruitLocationCoord: Address of the array
-    //! \param size: Size of the array containing the fruit location coordonates
+    //! \param fruitLocationCoord: Array containing the places where the fruit appear in the grid
     //!
-    void initFruitLocationCoord( int* fruitLocationCoord, int const& size );
+    void initFruitLocationCoord( std::vector<std::vector<int> > fruitLocationCoord );
     //!
     //! \brief Method to start the value to know details about the rendered fruit (location and chrono)
     //!
@@ -120,7 +119,7 @@ public:
 
     /* STATIC ATTRIBUTES */
     static const Uint32 FRUIT_BETWEEN_DURATION = 1000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 10000;    /*!< Static attribute for duration of fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 1000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
