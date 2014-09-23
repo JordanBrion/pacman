@@ -193,4 +193,3 @@ void FruitManager::renderFruit( SDL_Renderer *renderer ) {
     _fruits[ _currentFruitType ]->show( renderer );
 
 }
-
