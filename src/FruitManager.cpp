@@ -158,6 +158,7 @@ bool FruitManager::eatFruit( int const& row, int const& col ) {
         if( isThereAFruit( row, col )  ) {
 
             _totalFruitScore += _fruits[ _currentFruitType ]->getPoints();
+            incFruitNbr( _currentFruitType );
             return true;
 
         }
