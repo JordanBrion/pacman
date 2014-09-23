@@ -118,8 +118,8 @@ public:
     void renderFruit( SDL_Renderer* renderer );
 
     /* STATIC ATTRIBUTES */
-    static const Uint32 FRUIT_BETWEEN_DURATION = 1000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 4000;    /*!< Static attribute for duration of fruit appearance */
+    static const Uint32 FRUIT_BETWEEN_DURATION = 25000;  /*!< Static attribute for duration between fruit appearance */
+    static const Uint32 FRUIT_SHOWN_DURATION = 15000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruit;                         /*!< Array containing instances of Fruit */
