@@ -77,23 +77,12 @@ public:
     //!  \return The number of points earned for this fruit
     //!
     int getPoints() const;
-
-
-
-
-
     //!
     //!  \brief Method to initialize the position where the fruit appears in the grid
+    //!  \param x : The x position
+    //!  \param y : The y position
     //!
     void initPositionAreaGame( int const& x, int const& y );
-
-
-
-
-
-
-
-
     //!
     //!  \brief Method to initialize the position of the fruit in the area bottom
     //!
