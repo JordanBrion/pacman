@@ -90,15 +90,18 @@ PacDot* PacDotsManager::isThereAPacDot( int const& row, int const& col, int cons
 
 bool PacDotsManager::eatPacDot( int const& row, int const& col, int const& x, int const& y ) {
 
-    int tempRow = row - 1;
-    int tempCol = col - 1;
+    int startRow = ( row-1 > -1 ) ? row-1 : row;
+    int startCol = ( col-1 > -1 ) ? col-1 : col;
+
+    int endRow = ( row+1 < _pacDotsCases.size() ) ? row+1 : row;
+    int endCol = ( col+1 < _pacDotsCases[0].size() ) ? col+1 : col;
 
     PacDot* p(0);
     bool powerPellet( false );
 
-    while( tempRow <= row + 1 ) {
+    while( startRow <= endRow ) {
 
-        p = isThereAPacDot( tempRow, col, x, y );
+        p = isThereAPacDot( startRow, col, x, y );
 
         if( p != NULL ) {
 
@@ -108,13 +111,13 @@ bool PacDotsManager::eatPacDot( int const& row, int const& col, int const& x, in
 
         }
 
-        tempRow++;
+        startRow++;
 
     }
 
-    while( tempCol <= col + 1 ) {
+    while( startCol <= endCol ) {
 
-        p = isThereAPacDot( row, tempCol, x, y );
+        p = isThereAPacDot( row, startCol, x, y );
 
         if( p != NULL ) {
 
@@ -124,7 +127,7 @@ bool PacDotsManager::eatPacDot( int const& row, int const& col, int const& x, in
 
         }
 
-        tempCol++;
+        startCol++;
 
     }
 
