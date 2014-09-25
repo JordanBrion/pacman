@@ -47,10 +47,6 @@ protected:
     //!
     virtual void deathAnimation( SDL_Renderer* const& pRenderer ) = 0;
     //!
-    //!  \brief Virtual method to teleport the character in an other part of the level
-    //!
-    virtual void teleportation() = 0;
-    //!
     //!  \brief Reset the values of the character to the start ones
     //!
     void startValues();
@@ -161,6 +157,11 @@ public:
     //!  \param True if the character is eatable. Otherwise, false
     //!
     void setEatable( bool eatable );
+    //!
+    //!  \brief Method to teleport the character to an other part of the level
+    //!  \param to: Teleportation coordinates
+    //!
+    void teleport( std::vector<int> to );
 
 protected:
     int _initialRow;                                            /*!< Initial row position of character at the start of the life  */

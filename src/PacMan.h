@@ -96,10 +96,6 @@ public:
     //!
     int getDeathAnimationCounter() const;
     //!
-    //! \brief Method to render the teleportation
-    //!
-    void teleportation();
-    //!
     //! \brief Method to reset the attributes of the Pac-Man to the start ones
     //!
     void startValues();

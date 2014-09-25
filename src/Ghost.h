@@ -85,10 +85,6 @@ class Ghost : public Character {
     //!
     void deathAnimation( SDL_Renderer* const& );
     //!
-    //!  \brief Method to teleport the ghost in an other part of the level
-    //!
-    void teleportation();
-    //!
     //!  \brief Reset the values of the ghost to the start ones
     //!
     void startValues();

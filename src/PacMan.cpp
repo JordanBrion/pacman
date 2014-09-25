@@ -115,12 +115,16 @@ void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int>
     if( isCenteredInTheSquare() ) {
 
         updatePositionInTheGrid();
+
+        // Check if the updated position is a teleportation position
         vector<int> teleportationTo = checkTeleportation( teleportationLocationsCoord );
 
-        // If the 2 coordinates are here
+        // If the updated position is a teleportation position
         if( teleportationTo.size() == 2 ) {
 
             cout << "teleport" << endl;
+            teleport( teleportationTo );
+            _back = false; // In case pacman turns around after a teleportation
 
         }
 
@@ -233,8 +237,6 @@ int PacMan::getDeathAnimationCounter() const {
     return _deathAnimationCounter;
 
 }
-
-void PacMan::teleportation() {}
 
 void PacMan::startValues() {
 

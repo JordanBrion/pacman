@@ -491,3 +491,17 @@ void Character::setEatable( bool eatable ) {
     _eatable = eatable;
 
 }
+
+void Character::teleport( vector<int> to ) {
+
+    _row = to[0];
+    _col = to[1];
+
+    cout << _row << _col << endl;
+
+    // Initialize positions on the screen
+    int x = _col * 30 + AREAGAME_MARGIN;
+    int y = _row * 30 + AREATOP_HEIGHT;
+    initRect( &_position, 30, 30, x, y );
+
+}
