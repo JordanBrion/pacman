@@ -152,6 +152,11 @@ public:
     //!
     void addFruitLocationCoord( std::vector<int> coord );
     //!
+    //! \brief Method to sort in a std::map the teleporation locations coordinates
+    //! \param locations: The locations coordinates
+    //!
+    void sortTeleportationLocationsCoord( std::map<char, std::vector<std::vector<int> > > locations );
+    //!
     //! \brief Getter for the coord of all the fruit
     //! \return Vector for all the fruit locations
     //!
@@ -193,6 +198,7 @@ private:
     std::vector<std::map<std::string, int> > _levelSpriteCoord;             /*!< Array containing the coordinates of the sprite level */
     std::map<std::string, std::map<std::string, int> > _charactersCoord;    /*!< Array containing the position of the characters in the level */
     std::vector<std::vector<int> > _fruitLocationCoord;                     /*!< Array containing the position of the fruit in the level */
+    std::map<std::string, std::vector<int> > _teleportationLocationsCoord;  /*!< Array containing all the teleporation locations */
     TTF_Font* _font;                            /*!< Font of the game */
 
 };

@@ -81,6 +81,9 @@ void FilesManager::initLevelTable(char pLevel[]) {
     int temp;
     _levelTable.push_back(subarray);
 
+    // Temp array to store the teleporation locations
+    map<char, vector<vector<int> > > tempTeleportationLocations;
+
     // In the loop while there is something to split
     while (rows != NULL) {
 
@@ -101,6 +104,7 @@ void FilesManager::initLevelTable(char pLevel[]) {
             _levelTable[i].push_back( -1 ); // Free space
 
         }
+
         // Ghost => #
         else if( *rows == '#' ) {
 
@@ -112,6 +116,7 @@ void FilesManager::initLevelTable(char pLevel[]) {
             _levelTable[i].push_back( EMPTY_CASE ); // Free space
 
         }
+
         // Fruit => =
         else if( *rows == '=' ) {
 
@@ -120,6 +125,32 @@ void FilesManager::initLevelTable(char pLevel[]) {
             _levelTable[i].push_back( EMPTY_CASE ); // Free space
 
         }
+
+        // Alphabetic caracters => teleportation to another part of the level
+        else if( isalpha( *rows ) ) {
+
+            // Calculate if the letter is the source or destination
+
+            // If the key is not found => this letter is the source
+            if ( tempTeleportationLocations.find( *rows ) == tempTeleportationLocations.end() ) {
+
+                vector<vector<int> > temp;
+                temp.push_back( { i, j } );
+                tempTeleportationLocations.insert( pair<char, vector<vector<int> > >( *rows, temp ) );
+
+            }
+
+            // If the key is found, this letter is the destination
+            else {
+
+                tempTeleportationLocations[ *rows ].push_back( { i, j } );
+
+            }
+
+            _levelTable[i].push_back( EMPTY_CASE ); // Free space
+
+        }
+
         // Others cases
         else {
 
@@ -131,6 +162,12 @@ void FilesManager::initLevelTable(char pLevel[]) {
 
         rows = strtok_r( NULL, ";", &context );
 
+    }
+
+    // Now all the teleportation locations are stored in an array
+    // => Sort the values
+    if( tempTeleportationLocations.size() > 0 ) {
+        sortTeleportationLocationsCoord( tempTeleportationLocations );
     }
 
 }
@@ -232,6 +269,47 @@ void FilesManager::addFruitLocationCoord( vector<int> coord ) {
     // Coordonates of the fruit on the screen
     // Fruit can pop at multiple places. So, save all this places
     _fruitLocationCoord.push_back( coord );
+
+}
+
+void FilesManager::sortTeleportationLocationsCoord( map<char, vector<vector<int> > > locations ) {
+
+    /*
+     *
+     * Param locations content => how the array is organized ?
+     * Example:
+     * locations["letter"] => where "letter" is an alphabetic letter
+     * locations["letter"][0] => source
+     * locations["letter"][1] => destination
+     * locations["letter"][X][0] and locations["letter"][X][1] => row and col coordinates
+     *
+     */
+
+    /*
+     *
+     * Now we have to sort this locations array
+     * _teleportationLocationsCoord["x_y"] => "x_y" is a string with x = current row position
+     *                                                          and y = current col position
+     * _teleportationLocationsCoord["x_y"][0]
+     * _teleportationLocationsCoord["x_y"][1]
+     * => the destination ( indexes: 0=row; 1=col ) where the character has to be teleported
+     *
+     */
+
+    for( map<char, vector<vector<int> > >::iterator it = locations.begin(); it != locations.end(); ++it ) {
+
+        // Array containing source and destination
+        vector<vector<int> > array = it->second;
+
+        // If we are at the source => go to the destination
+        string key = to_string( array[0][0] ) + "_" + to_string( array[0][1] );
+        _teleportationLocationsCoord[ key ] = { array[1][0], array[1][1] };
+
+        // If we are at the destination => go to the source
+        key = to_string( array[1][0] ) + "_" + to_string( array[1][1] );
+        _teleportationLocationsCoord[ key ] = { array[0][0], array[0][1] };
+
+    }
 
 }
 
