@@ -214,10 +214,10 @@ void Character::calculateDirection(vector<vector<int> > levelTable) {
         // Check if the next positions are runnable by the character
         // AND check if we are not at out of range of the grid
 
-        _directionsPossible[UP] = ( levelTable[_row-1][_col] <= PACDOTS_PATH && _row-1 > -1 ) ? true : false;
-        _directionsPossible[DOWN] = ( levelTable[_row+1][_col] <= PACDOTS_PATH && _row+1 < levelTable.size() ) ? true : false;
-        _directionsPossible[RIGHT] = ( levelTable[_row][_col+1] <= PACDOTS_PATH && _col+1 < levelTable[0].size() ) ? true : false;
-        _directionsPossible[LEFT] = ( levelTable[_row][_col-1] <= PACDOTS_PATH && _col-1 > -1 ) ? true : false;
+        _directionsPossible[UP] = ( _row-1 > -1 && levelTable[_row-1][_col] <= PACDOTS_PATH  ) ? true : false;
+        _directionsPossible[DOWN] = ( _row+1 < levelTable.size() && levelTable[_row+1][_col] <= PACDOTS_PATH ) ? true : false;
+        _directionsPossible[RIGHT] = ( _col+1 < levelTable[0].size() && levelTable[_row][_col+1] <= PACDOTS_PATH ) ? true : false;
+        _directionsPossible[LEFT] = ( _col-1 > -1 && levelTable[_row][_col-1] <= PACDOTS_PATH ) ? true : false;
 
 
     }
