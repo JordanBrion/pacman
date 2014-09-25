@@ -152,11 +152,6 @@ public:
     //!
     void addFruitLocationCoord( std::vector<int> coord );
     //!
-    //! \brief Method to sort in a std::map the teleporation locations coordinates
-    //! \param locations: The locations coordinates
-    //!
-    void sortTeleportationLocationsCoord( std::map<char, std::vector<std::vector<int> > > locations );
-    //!
     //! \brief Getter for the coord of all the fruit
     //! \return Vector for all the fruit locations
     //!
@@ -167,6 +162,16 @@ public:
     //! \return Vector for the coord of the desired fruit (specified by the index)
     //!
     std::vector<int> getOneFruitLocationCoord( int index ) const;
+    //!
+    //! \brief Method to sort in a std::map the teleporation locations coordinates
+    //! \param locations: The locations coordinates
+    //!
+    void sortTeleportationLocationsCoord( std::map<char, std::vector<std::vector<int> > > locations );
+    //!
+    //! \brief Getter for the teleportation locations coordinates
+    //! \return The teleportation locations coordinates
+    //!
+    std::map<std::string, std::vector<int> > getTeleportationLocationsCoord();
     //!
     //!  \brief Method to load the font files with SDL2_ttf
     //!  \return True if no error in the loading. Otherwise, false.

@@ -272,6 +272,18 @@ void FilesManager::addFruitLocationCoord( vector<int> coord ) {
 
 }
 
+vector<vector<int> > FilesManager::getFruitLocationCoord() const {
+
+    return _fruitLocationCoord;
+
+}
+
+vector<int> FilesManager::getOneFruitLocationCoord( int index ) const {
+
+    return _fruitLocationCoord[ index ];
+
+}
+
 void FilesManager::sortTeleportationLocationsCoord( map<char, vector<vector<int> > > locations ) {
 
     /*
@@ -313,15 +325,9 @@ void FilesManager::sortTeleportationLocationsCoord( map<char, vector<vector<int>
 
 }
 
-vector<vector<int> > FilesManager::getFruitLocationCoord() const {
+map<string, vector<int> > FilesManager::getTeleportationLocationsCoord() {
 
-    return _fruitLocationCoord;
-
-}
-
-vector<int> FilesManager::getOneFruitLocationCoord( int index ) const {
-
-    return _fruitLocationCoord[ index ];
+    return _teleportationLocationsCoord;
 
 }
 
