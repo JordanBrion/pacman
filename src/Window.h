@@ -174,11 +174,7 @@ private:
     AreaBottom* _areaBottom;                    /*!<  Instance of AreaBottom */
     PacMan *_pacMan;                            /*!<  Instance of PacMan */
     std::vector<Ghost*> _ghosts;                /*!<  Array containing instances of Ghost */
-
-
-    FruitManager* _frm;
-
-
+    FruitManager* _frm;                         /*!<  Instance of FruitManager */
     PacDotsManager* _pdm;                       /*!<  Instance of PacDotsManager */
 
 };
