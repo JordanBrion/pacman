@@ -53,8 +53,9 @@ class Ghost : public Character {
     //!
     //! \brief Method to update the data ( position of the ghost in the grid, possible directions, etc.  )
     //! \param levelTable: Array containing the level in form of caracters
+    //! \param teleportationLocationsCoord: The cases which are able to teleport the ghost
     //!
-    void updateAll( std::vector<std::vector<int> > levelTable );
+    void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord );
     //!
     //!  \brief Method to load the next sprite for the ghost animation
     //!  \param direction : The direction towards the ghost is going

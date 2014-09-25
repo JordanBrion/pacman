@@ -237,7 +237,7 @@ void Ghost::loadSpriteCoordEatable() {
 
 }
 
-void Ghost::updateAll( vector<vector<int> > levelTable ) {
+void Ghost::updateAll( vector<vector<int> > levelTable, map<string, vector<int> > teleportationLocationsCoord ) {
 
     if( isCenteredInTheSquare() ) {
 

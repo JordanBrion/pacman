@@ -43,8 +43,9 @@ public:
     //!
     //! \brief Method to update the data ( position of the pacman in the grid, possible directions, etc.  )
     //! \param levelTable: Array containing the level in form of caracters
+    //! \param teleportationLocationsCoord: The cases which are able to teleport the pacman
     //!
-    void updateAll( std::vector<std::vector<int> > levelTable );
+    void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord );
     //!
     //!  \brief Method to load the next sprite for the pacman animation
     //!  \param direction : The direction towards the pacman is going

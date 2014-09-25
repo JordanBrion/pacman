@@ -57,8 +57,9 @@ protected:
     //!
     //! \brief Virtual method to update the data ( position of the character in the grid, possible directions, etc.  )
     //! \param levelTable: Array containing the level in form of caracters
+    //! \param teleportationLocationsCoord: The cases which are able to teleport the character
     //!
-    virtual void updateAll( std::vector<std::vector<int> > levelTable ) = 0;
+    virtual void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord ) = 0;
 
 public:
     //!
@@ -77,6 +78,12 @@ public:
     //!  \param direction2 : The opposite direction to the character is moving
     //!
     void setStepCounter( int direction1, int direction2 );
+    //!
+    //! \brief Method to check if the character is in a case which is able to teleport him
+    //! \param teleportationLocationsCoord: The cases which are able to teleport the character
+    //! \return The coordinates in a vector. Otherwise, false
+    //!
+    std::vector<int> checkTeleportation( std::map<std::string, std::vector<int> > teleportationLocationsCoord );
     //!
     //!  \brief Method to update the position where the character is in the grid
     //!

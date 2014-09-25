@@ -250,6 +250,32 @@ void Character::setStepCounter(int direction1, int direction2) {
 
 }
 
+vector<int> Character::checkTeleportation( map<string, vector<int> > teleportationLocationsCoord ) {
+
+    vector<int> location;
+
+    for( map<string, vector<int> >::iterator it = teleportationLocationsCoord.begin();
+         it != teleportationLocationsCoord.end();
+         ++it ) {
+
+        location = it->second;
+
+        if( location[0] == _row && location[1] == _col ) {
+
+            string key = to_string( _row ) + "_" + to_string( _col );
+            return teleportationLocationsCoord[ key ];
+
+        }
+
+        // Clear the vector for the return value
+        location.clear();
+
+    }
+
+    return location;
+
+}
+
 void Character::updatePositionInTheGrid() {
 
     // If the character is not returned to his start point

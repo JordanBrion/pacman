@@ -110,11 +110,20 @@ void PacMan::handleEvent(SDL_Event& e ) {
 
 }
 
-void PacMan::updateAll( std::vector<std::vector<int> > levelTable ) {
+void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int> > teleportationLocationsCoord ) {
 
     if( isCenteredInTheSquare() ) {
 
         updatePositionInTheGrid();
+        vector<int> teleportationTo = checkTeleportation( teleportationLocationsCoord );
+
+        // If the 2 coordinates are here
+        if( teleportationTo.size() == 2 ) {
+
+            cout << "teleport" << endl;
+
+        }
+
         calculateDirection( levelTable );
         resetValues();
 
