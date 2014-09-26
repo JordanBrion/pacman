@@ -446,22 +446,6 @@ void Character::nextSprite() {
 
 }
 
-bool Character::checkCollision( InteractiveElement* const& element ) const {
-
-    if( (_position.x >= element->getPosition().x - 15
-         && _position.x <= element->getPosition().x + 15)
-            && (_position.y >= element->getPosition().y - 15
-                && _position.y <= element->getPosition().y + 15) )  {
-
-        // Collision detected
-        return true;
-
-    }
-
-    return false;
-
-}
-
 bool Character::isDead() const {
 
     return _dead;

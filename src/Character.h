@@ -129,12 +129,6 @@ public:
     //!
     void nextSprite();
     //!
-    //!  \brief Method to check the collisions with the other characters
-    //!  \param element : The other character
-    //!  \return True if a collision is detected. Otherwise, false
-    //!
-    bool checkCollision( InteractiveElement* const& element ) const;
-    //!
     //!  \brief Getter to know if the character is dead
     //!  \return True if the character is dead. Otherwise, false
     //!

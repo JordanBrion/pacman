@@ -75,6 +75,12 @@ class Ghost : public Character {
     //!
     void defineVelocity();
     //!
+    //!  \brief Method to check the collisions with the pacman
+    //!  \param pacman : The pacman
+    //!  \return True if a collision is detected. Otherwise, false
+    //!
+    bool checkCollision( PacMan* const& pacman ) const;
+    //!
     //! \brief Setter if the power pellet duration is 50% over
     //! \param powerPelletAlmostOver: True if the power pellet duration is 50% over. Otherwise, false
     //!

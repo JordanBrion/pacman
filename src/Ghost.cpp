@@ -387,6 +387,22 @@ void Ghost::defineVelocity() {
 
 }
 
+bool Ghost::checkCollision( PacMan* const& pacman ) const {
+
+    if( (_position.x >= pacman->getPosition().x - 15
+         && _position.x <= pacman->getPosition().x + 15)
+            && (_position.y >= pacman->getPosition().y - 15
+                && _position.y <= pacman->getPosition().y + 15) )  {
+
+        // Collision detected
+        return true;
+
+    }
+
+    return false;
+
+}
+
 void Ghost::setPowerPelletAlmostOver( bool powerPelletAlmostOver ) {
 
     _powerPelletAlmostOver = powerPelletAlmostOver;
