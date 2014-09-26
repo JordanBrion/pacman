@@ -249,15 +249,17 @@ void Ghost::updateAll( vector<vector<int> > levelTable, map<string, vector<int> 
         // If the updated position is a teleportation position
         if( teleportationTo.size() == 2 ) {
 
-            cout << "teleport" << endl;
-            teleport( teleportationTo );
-            _back = false; // In case pacman turns around after a teleportation
+            teleport( teleportationTo, levelTable );
 
         }
 
-        calculateDirection(levelTable);
+        // No teleportation
+        else {
 
-        resetValues();
+            calculateDirection( levelTable );
+            resetValues();
+
+        }
 
         _goTo = newRandomDirection();
 

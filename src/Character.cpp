@@ -492,16 +492,65 @@ void Character::setEatable( bool eatable ) {
 
 }
 
-void Character::teleport( vector<int> to ) {
+void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
 
+    // Position in the grid
     _row = to[0];
     _col = to[1];
 
-    cout << _row << _col << endl;
+    // In case pacman turns back after a teleportation
+    // Without this, impossible to calculate the new possible direction in Character::calculateDirection()
+    _back = false;
+
+    // Put stepCounter to 1 => Character is not centered in the square after the teleportation. We consider he made a 1-pixel move
+    // If we had put the value 0 => impossible to turn around in the opposite direction after the teleportation
+    _stepCounter = 1;
+
+    // Calculate the possible directions
+    calculateDirection( levelTable );
+
+    // Coordinates on the screen
+    int x( 0);
+    int y( 0 );
 
     // Initialize positions on the screen
-    int x = _col * 30 + AREAGAME_MARGIN;
-    int y = _row * 30 + AREATOP_HEIGHT;
+    // And initialize _goTo direction because _stepCounter values 1 now
+    if( _directionsPossible[ UP ] ) {
+
+        x = _col * 30 + AREAGAME_MARGIN;
+        y = _row * 30 + AREATOP_HEIGHT - 1;
+        _goTo = UP;
+
+    }
+
+    else if( _directionsPossible[ DOWN ] ) {
+
+        x = _col * 30 + AREAGAME_MARGIN;
+        y = _row * 30 + AREATOP_HEIGHT + 1;
+        _goTo = DOWN;
+
+    }
+
+    else if( _directionsPossible[ LEFT ] ) {
+
+        x = _col * 30 + AREAGAME_MARGIN - 1;
+        y = _row * 30 + AREATOP_HEIGHT;
+        _goTo = LEFT;
+
+    }
+
+    else if( _directionsPossible[ RIGHT ] ) {
+
+        x = _col * 30 + AREAGAME_MARGIN + 1;
+        y = _row * 30 + AREATOP_HEIGHT;
+        _goTo = RIGHT;
+
+    }
+
+    // Initialize SDL_Rect position
     initRect( &_position, 30, 30, x, y );
+
+    // We made a 1-pixel move => _gotoToBackUp is useless => -1
+    _goToBackUp = -1;
 
 }

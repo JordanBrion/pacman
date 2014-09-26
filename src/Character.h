@@ -160,8 +160,9 @@ public:
     //!
     //!  \brief Method to teleport the character to an other part of the level
     //!  \param to: Teleportation coordinates
+    //!  \param levelTable: The array containing the level in form of caracters
     //!
-    void teleport( std::vector<int> to );
+    void teleport( std::vector<int> to, std::vector<std::vector<int> > levelTable );
 
 protected:
     int _initialRow;                                            /*!< Initial row position of character at the start of the life  */
