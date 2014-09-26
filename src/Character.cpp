@@ -502,9 +502,10 @@ void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
     // Without this, impossible to calculate the new possible direction in Character::calculateDirection()
     _back = false;
 
-    // Put stepCounter to 1 => Character is not centered in the square after the teleportation. We consider he made a 1-pixel move
+    // Put stepCounter to 5 => Character is not centered in the square after the teleportation. We consider he made a 5-pixel move
     // If we had put the value 0 => impossible to turn around in the opposite direction after the teleportation
-    _stepCounter = 1;
+    // And _stepCounter % 5 has to be 0 => Otherwise, impossible to load the sprite
+    _stepCounter = 5;
 
     // Calculate the possible directions
     calculateDirection( levelTable );
@@ -518,32 +519,36 @@ void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
     if( _directionsPossible[ UP ] ) {
 
         x = _col * 30 + AREAGAME_MARGIN;
-        y = _row * 30 + AREATOP_HEIGHT - 1;
+        y = _row * 30 + AREATOP_HEIGHT - _stepCounter;
         _goTo = UP;
+        _step = UP;
 
     }
 
     else if( _directionsPossible[ DOWN ] ) {
 
         x = _col * 30 + AREAGAME_MARGIN;
-        y = _row * 30 + AREATOP_HEIGHT + 1;
+        y = _row * 30 + AREATOP_HEIGHT + _stepCounter;
         _goTo = DOWN;
+        _step = DOWN;
 
     }
 
     else if( _directionsPossible[ LEFT ] ) {
 
-        x = _col * 30 + AREAGAME_MARGIN - 1;
+        x = _col * 30 + AREAGAME_MARGIN - _stepCounter;
         y = _row * 30 + AREATOP_HEIGHT;
         _goTo = LEFT;
+        _step = LEFT;
 
     }
 
     else if( _directionsPossible[ RIGHT ] ) {
 
-        x = _col * 30 + AREAGAME_MARGIN + 1;
+        x = _col * 30 + AREAGAME_MARGIN + _stepCounter;
         y = _row * 30 + AREATOP_HEIGHT;
         _goTo = RIGHT;
+        _step = RIGHT;
 
     }
 

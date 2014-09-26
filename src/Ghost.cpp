@@ -250,6 +250,7 @@ void Ghost::updateAll( vector<vector<int> > levelTable, map<string, vector<int> 
         if( teleportationTo.size() == 2 ) {
 
             teleport( teleportationTo, levelTable );
+            nextSprite(); // Load the sprite
 
         }
 

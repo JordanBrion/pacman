@@ -122,8 +122,8 @@ void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int>
         // If the updated position is a teleportation position
         if( teleportationTo.size() == 2 ) {
 
-            cout << "hello" << endl;
             teleport( teleportationTo, levelTable );
+            nextSprite(); // Load the sprite
 
         }
 
@@ -142,6 +142,8 @@ void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int>
 }
 
 void PacMan::nextSprite() {
+
+    cout << _step << endl;
 
     if( _step != -1 ) {
 
