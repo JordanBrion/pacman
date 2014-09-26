@@ -403,6 +403,25 @@ bool Ghost::checkCollision( PacMan* const& pacman ) const {
 
 }
 
+void Ghost::eat( PacMan* pacman ) {
+
+    // If the pacman ate a power pellet, he is not eatable
+    // AND if the ghost is not dead yet
+    if( !pacman->isEatable() && !_dead ) {
+
+        _dead = true;
+
+    }
+
+    // Otherwise, pacman is dead
+    else if( pacman->isEatable() && !pacman->isDead() ) {
+
+        pacman->setDead();
+
+    }
+
+}
+
 void Ghost::setPowerPelletAlmostOver( bool powerPelletAlmostOver ) {
 
     _powerPelletAlmostOver = powerPelletAlmostOver;

@@ -81,6 +81,11 @@ class Ghost : public Character {
     //!
     bool checkCollision( PacMan* const& pacman ) const;
     //!
+    //! \brief Method to eat the pacman
+    //! \param pacman: An instance of pacman
+    //!
+    void eat( PacMan* pacman );
+    //!
     //! \brief Setter if the power pellet duration is 50% over
     //! \param powerPelletAlmostOver: True if the power pellet duration is 50% over. Otherwise, false
     //!
