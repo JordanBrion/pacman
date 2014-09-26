@@ -86,6 +86,11 @@ class Ghost : public Character {
     //!
     void eat( PacMan* pacman );
     //!
+    //! \brief Method to change the ghost attributes depending the power-pellet chronometer
+    //! \param pacman: An instance of pacman
+    //!
+    void handlePowerPellet( PacMan* pacman );
+    //!
     //! \brief Setter if the power pellet duration is 50% over
     //! \param powerPelletAlmostOver: True if the power pellet duration is 50% over. Otherwise, false
     //!

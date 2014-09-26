@@ -3,20 +3,19 @@
 #include <pm/Color.h>
 #include <pm/PacDots.h>
 using namespace PacDots;
-#include <pm/Arithmetic.h>
 
 using namespace std;
 
 char _levelString[] =
         "2;1;1;1;1;1;1;1;1;1;1;7;1;1;1;1;1;1;1;1;1;1;5;"
-        "0;-14;-3;-3;-3;-10;-3;-3;-3;-3;-6;10;-5;-3;-3;-3;-3;-3;-10;-3;-3;-14;0;"
+        "0;-14;-14;-14;-14;@;-3;-3;-3;-3;-6;10;-5;-3;-3;-3;-3;-3;-10;-3;-3;-14;0;"
         "0;-4;26;25;29;-4;26;25;25;29;-4;10;-4;26;25;25;29;-4;26;25;29;-4;0;"
         "0;-4;27;25;28;-4;27;25;25;28;-4;14;-4;27;25;25;28;-4;27;25;28;-4;0;"
         "0;-11;-3;-3;-3;-13;-3;-10;-3;-3;-9;-3;-9;-3;-10;-3;-3;-13;-3;-3;-3;-12;0;"
         "0;-4;12;11;13;-4;15;-4;12;11;11;22;11;11;13;-4;15;-4;12;11;13;-4;0;"
         "0;-14;-3;-3;-3;-12;10;-7;-3;-3;-6;10;-5;-3;-3;-8;10;-11;-3;-3;-3;-14;0;"
         "3; 1; 1; 1; 5;-4;21;11;11;13;0;14;0;12;11;11;20;-4; 2; 1; 1; 1;4;"
-        "-2;-2;-2;-2;0;-4;10;#;#;#;#;-2;-2;-2;-14;@;10;-4; 0;-2;-2;-2;-2;"
+        "-2;-2;-2;-2;0;-4;10;#;#;#;#;-2;-2;-2;-14;-2;10;-4; 0;-2;-2;-2;-2;"
         " 1; 1; 1; 1;4;-4;14;2;36; 1;35;33;34; 1;39;2;14;-4; 3; 1; 1; 1; 1;"
         "a;-2;-2;-2;0;-4;0;-2; 0;-2;-2;-2;-2;-2; 0;-2;0;-4;0;-2;-2;-2;a;"
         " 1; 1; 1; 1;5;-4;15;-2;37; 1; 1; 1; 1; 1;38;-2;15;-4; 2; 1; 1; 1; 1;"
@@ -305,68 +304,15 @@ void Window::drawCharacters() {
 
         _pacMan->show(_renderer);
 
-        drawGhosts();
-
     }
 
 }
 
 void Window::drawGhosts() {
 
-    // The power pellet duration is now over
-    // Ghosts can't be eaten
-    if( _pacMan->checkPowerPelletChrono() ) {
-
-        // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ ) {
-
-            _ghosts[i]->setEatable(false);
-            _ghosts[i]->setPowerPelletAlmostOver(false);
-            _ghosts[i]->show(_renderer);
-
-        }
-
-    }
-
-    // The power pellet duration is not over
-    // Pacman can't be eaten
-    else if( !_pacMan->isEatable() ) {
-
-        // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ ) {
-
-            _ghosts[i]->setEatable(true);
-
-            // If the ghost is not dead, render him
-            if( !_ghosts[i]->isDead() ) {
-
-                // If the power pellet duration is equal or over 50%
-                if( Arithmetic::valueInPercent( _pacMan->timeLeftPowerPellet(), POWERPELLET_DURATION ) >= 50 )
-                    _ghosts[i]->setPowerPelletAlmostOver(true);
-                // Otherwise, ghosts are only blue
-                else
-                    _ghosts[i]->setPowerPelletAlmostOver(false);
-
-            }
-
-            _ghosts[i]->show(_renderer);
-
-        }
-
-    }
-
-    // Otherwise, we go in this condition
-    else {
-
-        // Copy new ghosts positions in the renderer
-        for( int i(0); i < _ghosts.size(); i++ ) {
-
-            _ghosts[i]->setPowerPelletAlmostOver(false);
-            _ghosts[i]->show(_renderer);
-
-        }
-
-    }
+    // Render the ghosts
+    for( int i(0); i < _ghosts.size(); i++ )
+        _ghosts[i]->show(_renderer);
 
 }
 
@@ -514,27 +460,25 @@ void Window::threadGhostsLoop() {
 
         for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
 
-            /***********************/
-            /*        MOVES        */
-            /***********************/
-
+            // Update the ghost attributes
             _ghosts[i]->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
 
-            if( _ghosts[i]->move() != -1 ) {
+            // Move the ghost
+            if( _ghosts[i]->move() != -1 ) {               
+
+                // After the move, detect if there is a collision
+                if( _ghosts[i]->checkCollision( _pacMan ) ) {
+
+                    // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
+                    _ghosts[i]->eat( _pacMan );
+
+                }
                 _ghosts[i]->nextSprite();
-            }
-
-            /***********************/
-            /* COLLISION DETECTION */
-            /***********************/
-
-            // After the move, detect if there is a collision
-            if( _ghosts[i]->checkCollision( _pacMan ) ) {
-
-                // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
-                _ghosts[i]->eat( _pacMan );
 
             }
+
+            // Power pellet behavior
+            _ghosts[i]->handlePowerPellet( _pacMan );
 
         }
 

@@ -2,6 +2,9 @@
 
 #include <pm/Directions.h>
 using namespace Directions;
+#include <pm/Arithmetic.h>
+#include <pm/PacDots.h>
+using namespace PacDots;
 
 using namespace std;
 
@@ -417,6 +420,40 @@ void Ghost::eat( PacMan* pacman ) {
     else if( pacman->isEatable() && !pacman->isDead() ) {
 
         pacman->setDead();
+
+    }
+
+}
+
+void Ghost::handlePowerPellet( PacMan* pacman ) {
+
+    // The power pellet duration is now over
+    // Ghosts can't be eaten
+    if( pacman->checkPowerPelletChrono() && _eatable ) {
+
+        _eatable = false;
+        _powerPelletAlmostOver = false;
+
+    }
+
+    // The power pellet duration is not over
+    // Pacman can't be eaten
+    else if( !pacman->isEatable() ) {
+
+        _eatable = true;
+
+        // If the ghost is not dead, render him
+        if( !_dead ) {
+
+            // If the power pellet duration is equal or over 50%
+            if( Arithmetic::valueInPercent( pacman->timeLeftPowerPellet(), POWERPELLET_DURATION ) >= 50 )
+                _powerPelletAlmostOver = true;
+
+            // Set the value to false in case pacman pick up another power-pellet before the chronometer is finished
+            else
+                _powerPelletAlmostOver = false;
+
+        }
 
     }
 
