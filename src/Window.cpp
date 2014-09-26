@@ -304,15 +304,11 @@ void Window::drawCharacters() {
 
         _pacMan->show(_renderer);
 
+        // Render the ghosts
+        for( int i(0); i < _ghosts.size(); i++ )
+            _ghosts[i]->show(_renderer);
+
     }
-
-}
-
-void Window::drawGhosts() {
-
-    // Render the ghosts
-    for( int i(0); i < _ghosts.size(); i++ )
-        _ghosts[i]->show(_renderer);
 
 }
 
