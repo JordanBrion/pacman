@@ -59,7 +59,7 @@ public:
     //!
     int show( SDL_Renderer* const& renderer );
 
-private:
+protected:
     bool _eaten;         /*!< Flag to check if the pac-dot is eaten */
     int _caseType;       /*!< Type of the case where the pac-dot is located (cf. enum pacDotsPath) */
 
