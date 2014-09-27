@@ -10,13 +10,7 @@ PacDot::PacDot( map<string, int> dest, int type, int x, int y, SDL_Renderer* con
     : InteractiveElement( dest, renderer, sprite ), _eaten( false ), _caseType( type ) {
 
     initRect(&_selection, 13, 13, 3, 183);
-
-    if( _caseType == PACDOTS_POWERPELLET ) {
-        initRect(&_position, 20, 20, x, y);
-    }
-    else {
-        initRect(&_position, 8, 8, x, y);
-    }
+    initRect(&_position, 8, 8, x, y);
 
 }
 
@@ -58,10 +52,7 @@ int PacDot::show( SDL_Renderer* const& renderer ) {
     }
     else {
 
-        if( _caseType != PACDOTS_POWERPELLET )
-            score = Points::PAC_DOT;
-        else
-            score = Points::POWER_PELLET;
+        score = Points::PAC_DOT;
 
     }
 

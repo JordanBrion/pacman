@@ -57,7 +57,7 @@ public:
     //!  \param renderer : SDL_Renderer* of the window
     //!  \return The points of the pac-dot if the pac-dot has not been eaten
     //!
-    int show( SDL_Renderer* const& renderer );
+    virtual int show( SDL_Renderer* const& renderer );
 
 protected:
     bool _eaten;         /*!< Flag to check if the pac-dot is eaten */

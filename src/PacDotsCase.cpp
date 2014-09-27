@@ -1,4 +1,5 @@
 #include "PacDotsCase.h"
+#include "PowerPellet.h"
 
 #include <pm/PacDots.h>
 using namespace PacDots;
@@ -247,6 +248,6 @@ void PacDotsCase::initPacDotPowerPellet( SDL_Renderer* const& renderer, SDL_Surf
     int x = _col*30 + AREAGAME_MARGIN + 30 + 5;
     int y = _row*30 + AREATOP_HEIGHT + 30/2 - 10;
 
-    _pacDots.push_back( new PacDot( dest, _type, x, y, renderer, sprite ) );
+    _pacDots.push_back( new PowerPellet( dest, _type, x, y, renderer, sprite ) );
 
 }

@@ -1,5 +1,7 @@
 #include "PowerPellet.h"
 
+#include <pm/Points.h>
+
 using namespace std;
 
 PowerPellet::PowerPellet( map<string, int> dest,
@@ -11,7 +13,7 @@ PowerPellet::PowerPellet( map<string, int> dest,
     PacDot( dest, type, x, y, renderer, sprite ),
     _blinkChrono( 0 ) {
 
-
+    initRect(&_position, 20, 20, x, y);
 
 }
 
@@ -21,4 +23,21 @@ bool PowerPellet::blink() {}
 
 void PowerPellet::resetBlinkChrono() {}
 
-void show( SDL_Renderer * const &renderer ) {}
+int PowerPellet::show( SDL_Renderer * const &renderer ) {
+
+    int score(0);
+
+    if( !_eaten ) {
+
+        InteractiveElement::show( renderer );
+
+    }
+    else {
+
+        score = Points::POWER_PELLET;
+
+    }
+
+    return score;
+
+}

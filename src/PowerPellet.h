@@ -49,8 +49,7 @@ public:
     //!  \param renderer : SDL_Renderer* of the window
     //!  \return The points of the power-pellet if the power-pellet has not been eaten
     //!
-    int show( SDL_Renderer * const &renderer );
-
+    virtual int show( SDL_Renderer * const &renderer );
 
     /* ATTRIBUTES */
 private:
