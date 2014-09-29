@@ -33,6 +33,7 @@
 #include "Game.h"
 #include "MenuStart.h"
 #include "MenuPause.h"
+#include "MenuGameOver.h"
 
 ///!
 //! \brief Enum to know where the player is in the game
@@ -43,6 +44,7 @@ enum gameStates {
     GAMESTATE_INGAME,       /*!< The player is in the game  */
     GAMESTATE_PAUSE,        /*!< THe player is in the pause menu */
     GAMESTATE_OPTIONS,      /*!< The player is in the options menu */
+    GAMESTATE_GAMEOVER,     /*!< The game is over */
 
     GAMESTATE_NBR           /*!< The number of game states */
 
@@ -164,6 +166,7 @@ private:
     FilesManager* _fm;                          /*!<  Instance of FilesManager */
     MenuStart* _ms;                             /*!<  Instance of MenuStart */
     MenuPause* _mp;                             /*!<  Instance of MenuPause */
+    MenuGameOver* _mgo;                         /*!<  Instance of MenuGameOver */
     Game* _game;                                /*!<  Instance of Game */
     AreaTop* _areaTop;                          /*!<  Instance of AreaTop */
     AreaGame* _areaGame;                        /*!<  Instance of AreaGame */

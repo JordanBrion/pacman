@@ -34,7 +34,7 @@ Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
-    _gameState( GAMESTATE_INGAME ),
+    _gameState( GAMESTATE_GAMEOVER ),
     _loaded(false) {
 
     try {
@@ -64,6 +64,12 @@ Window::Window() throw(exception) :
         v.push_back( "Options" );
         v.push_back( "Return to start menu" );
         _mp = new MenuPause( "Pause", v );
+
+        // Instanciate the game over menu
+        v.clear();
+        v.push_back( "Yes" );
+        v.push_back( "No" );
+        _mgo = new MenuGameOver( "Game Over", v );
 
         // Initialize attributes
         _game = new Game( _fm->getLifesNbr(), _fm->getPacDotsNbr(), _fm->getHighScore() );
@@ -511,6 +517,10 @@ void Window::render() {
     case GAMESTATE_OPTIONS:
         break;
 
+    case GAMESTATE_GAMEOVER:
+        _mgo->render( _renderer, _screenWidth, _screenHeight, _fm->getFont(), _fm->getLogo() );
+        break;
+
     default:
         break;
 
@@ -601,20 +611,29 @@ void Window::startNewLife() {
 
     _game->decLifesNbr();
 
-    // Restore Pacman attributes to default
-    _pacMan->startValues();
-    _pacMan->calculateDirection(_fm->getLevelTable());
-    _pacMan->show(_renderer);
+    // If there is still one life
+    if( _game->getLifesNbr() > 0 ) {
 
-    // Restore ghosts attributes to default
-    for(int i(0); i < _ghosts.size(); i++) {
-        _ghosts[i]->startValues();
-        _ghosts[i]->calculateDirection(_fm->getLevelTable());
-        _ghosts[i]->show(_renderer);
+        // Restore Pacman attributes to default
+        _pacMan->startValues();
+        _pacMan->calculateDirection(_fm->getLevelTable());
+        _pacMan->show(_renderer);
+
+        // Restore ghosts attributes to default
+        for(int i(0); i < _ghosts.size(); i++) {
+            _ghosts[i]->startValues();
+            _ghosts[i]->calculateDirection(_fm->getLevelTable());
+            _ghosts[i]->show(_renderer);
+        }
+
+        // Restart of the Ghosts thread
+        _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
+
     }
 
-    // Restart of the Ghosts thread
-    _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
+    // Otherwise, the game is over
+    else
+        _gameState = GAMESTATE_GAMEOVER;
 
 }
 
