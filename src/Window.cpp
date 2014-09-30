@@ -427,6 +427,32 @@ void Window::handleEvent( SDL_Event& e ) {
     case GAMESTATE_OPTIONS:
         break;
 
+    case GAMESTATE_GAMEOVER:
+
+        switch( _mgo->handleEvent( e ) ) {
+
+        case MENUGAMEOVER_YES:
+            resetData();
+            _gameState = GAMESTATE_INGAME;
+            // Send the signal to the ghosts thread to unpause it
+            SDL_mutexP( _ghostsLock );
+            SDL_CondSignal( _ghostsCanMove );
+            SDL_mutexV( _ghostsLock );
+            break;
+
+        case MENUGAMEOVER_NO:
+            _gameState = GAMESTATE_START;
+            _loaded = true;
+            _mgo->setElementID( MENUGAMEOVER_YES );
+            break;
+
+        default:
+            break;
+
+        }
+
+        break;
+
     default:
         break;
 
