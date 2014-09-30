@@ -652,9 +652,6 @@ void Window::startNewLife() {
             _ghosts[i]->show(_renderer);
         }
 
-        // Restart of the Ghosts thread
-        _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
-
     }
 
     // Otherwise, the game is over
