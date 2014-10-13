@@ -83,6 +83,18 @@ void Game::resetAllFruitNbr() {
 
 }
 
+int Game::getComboPowerPellet() const {
+
+    return _comboPowerPellet;
+
+}
+
+void Game::setComboPowerPellet( int const& score ) {
+
+    _comboPowerPellet = score;
+
+}
+
 int Game::getScoreP1() const {
 
     return _scoreP1;

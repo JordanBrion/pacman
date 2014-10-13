@@ -80,6 +80,16 @@ public:
     //!
     void resetAllFruitNbr();
     //!
+    //! \brief Getter for the power-pellet combo score
+    //! \return the power-pellet combo score
+    //!
+    int getComboPowerPellet() const;
+    //!
+    //! \brief Setter for the power-pellet combo score
+    //! \param score: The power-pellet combo score
+    //!
+    void setComboPowerPellet( int const& score );
+    //!
     //!  \brief Getter for score of player 1
     //!  \return The score of player 1
     //!
