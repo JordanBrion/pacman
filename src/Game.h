@@ -85,10 +85,13 @@ public:
     //!
     int getComboPowerPellet() const;
     //!
-    //! \brief Setter for the power-pellet combo score
-    //! \param score: The power-pellet combo score
+    //! \brief Increment the power-pellet combo score
     //!
-    void setComboPowerPellet( int const& score );
+    void incComboPowerPellet();
+    //!
+    //! \brief Resetter for the power-pellet combo score
+    //!
+    void resetComboPowerPellet();
     //!
     //!  \brief Getter for score of player 1
     //!  \return The score of player 1

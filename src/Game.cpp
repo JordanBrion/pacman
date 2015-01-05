@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Fruit.h"
+#include "PowerPellet.h"
 
 using namespace std;
 
@@ -89,9 +90,25 @@ int Game::getComboPowerPellet() const {
 
 }
 
-void Game::setComboPowerPellet( int const& score ) {
+void Game::incComboPowerPellet() {
 
-    _comboPowerPellet = score;
+    switch( _comboPowerPellet ) {
+
+    case 0:
+        _comboPowerPellet = 200;
+        break;
+
+    default:
+        _comboPowerPellet *= PowerPellet::POWER_PELLET_MULTIPLICATOR;
+        break;
+
+    }
+
+}
+
+void Game::resetComboPowerPellet() {
+
+    _comboPowerPellet = 0;
 
 }
 
