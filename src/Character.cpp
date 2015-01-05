@@ -219,7 +219,6 @@ void Character::calculateDirection(vector<vector<int> > levelTable) {
         _directionsPossible[RIGHT] = ( _col+1 < levelTable[0].size() && levelTable[_row][_col+1] <= PACDOTS_PATH ) ? true : false;
         _directionsPossible[LEFT] = ( _col-1 > -1 && levelTable[_row][_col-1] <= PACDOTS_PATH ) ? true : false;
 
-
     }
 
 }
