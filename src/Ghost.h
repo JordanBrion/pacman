@@ -83,8 +83,9 @@ class Ghost : public Character {
     //!
     //! \brief Method to eat the pacman
     //! \param pacman: An instance of pacman
+    //! \return True if the pacman is eaten. Otherwise, false.
     //!
-    void eat( PacMan* pacman );
+    bool eat( PacMan* pacman );
     //!
     //! \brief Method to change the ghost attributes depending the power-pellet chronometer
     //! \param pacman: An instance of pacman
@@ -96,6 +97,18 @@ class Ghost : public Character {
     //!
     void setPowerPelletAlmostOver( bool powerPelletAlmostOver );
     //!
+    //! \brief Method to start the power pellet score chronometer
+    //!
+    void startPowerPelletScoreChrono();
+    //!
+    //! \brief Method to reset the power pellet score chronometer
+    //!
+    void resetPowerPelletScoreChrono();
+    //!
+    //! \brief Method to know if the power pellet score chronometer is over
+    //!
+    bool isPowerPelletScoreChronoOver();
+    //!
     //!  \brief Method to load the death animation of the ghost
     //!  \param pRenderer : SDL_Renderer* of the window
     //!
@@ -105,11 +118,22 @@ class Ghost : public Character {
     //!
     void startValues();
     //!
+    //! \brief Method to select the score of a eaten ghost on the sprite
+    //! \param renderer: SDL_Renderer* of the window
+    //! \param score: The current score
+    //!
+    void drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score );
+    //!
     //!  \brief Method to return the ghost to the warp zone after his death
     //!
     void returnToWarpZone();
 
+    /* STATIC VARIABLES */
+    static int8_t eatenBrother;                             /*!< Flag to know if a ghost was eaten */
+    static const Uint32 POWERPELLET_SCORE_DURATION = 2000;  /*!< Duration of the chronometer to render the power-pellet score chrono */
+
 private:
+    Uint32 _powerPelletScoreChrono;                             /*!< Chronometer to render the power-pellet score chrono */
     int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
     std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
     bool _powerPelletAlmostOver;                                /*!< Flag to know if the power pellet duration is 50% over */

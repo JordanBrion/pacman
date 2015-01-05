@@ -8,14 +8,14 @@ using namespace std;
 
 char _levelString[] =
         "2;1;1;1;1;1;1;1;1;1;1;7;1;1;1;1;1;1;1;1;1;1;5;"
-        "0;-14;-14;-14;-14;@;-3;-3;-3;-3;-6;10;-5;-3;-3;-3;-3;-3;-10;-3;-3;-14;0;"
+        "0;-14;-14;-14;-14;-3;-3;-3;-3;-3;-6;10;-5;-3;-3;-3;-3;-3;-10;-3;-3;-14;0;"
         "0;-4;26;25;29;-4;26;25;25;29;-4;10;-4;26;25;25;29;-4;26;25;29;-4;0;"
         "0;-4;27;25;28;-4;27;25;25;28;-4;14;-4;27;25;25;28;-4;27;25;28;-4;0;"
         "0;-11;-3;-3;-3;-13;-3;-10;-3;-3;-9;-3;-9;-3;-10;-3;-3;-13;-3;-3;-3;-12;0;"
         "0;-4;12;11;13;-4;15;-4;12;11;11;22;11;11;13;-4;15;-4;12;11;13;-4;0;"
         "0;-14;-3;-3;-3;-12;10;-7;-3;-3;-6;10;-5;-3;-3;-8;10;-11;-3;-3;-3;-14;0;"
         "3; 1; 1; 1; 5;-4;21;11;11;13;0;14;0;12;11;11;20;-4; 2; 1; 1; 1;4;"
-        "-2;-2;-2;-2;0;-4;10;#;#;#;#;-2;-2;-2;-14;-2;10;-4; 0;-2;-2;-2;-2;"
+        "-2;-2;-2;-2;0;-4;10;#;#;#;#;-2;-2;-2;-14;@;10;-4; 0;-2;-2;-2;-2;"
         " 1; 1; 1; 1;4;-4;14;2;36; 1;35;33;34; 1;39;2;14;-4; 3; 1; 1; 1; 1;"
         "a;-2;-2;-2;0;-4;0;-2; 0;-2;-2;-2;-2;-2; 0;-2;0;-4;0;-2;-2;-2;a;"
         " 1; 1; 1; 1;5;-4;15;-2;37; 1; 1; 1; 1; 1;38;-2;15;-4; 2; 1; 1; 1; 1;"
@@ -34,7 +34,7 @@ Window::Window() throw(exception) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
-    _gameState( GAMESTATE_GAMEOVER ),
+    _gameState( GAMESTATE_INGAME ),
     _loaded(false) {
 
     try {
@@ -291,7 +291,7 @@ void Window::drawCharacters() {
     else {
 
         _pacMan->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
-        if( _pacMan->move() != -1 ) {
+        if( Ghost::eatenBrother == -1 && _pacMan->move() != -1 ) {
 
             _pacMan->nextSprite();
 
@@ -308,11 +308,23 @@ void Window::drawCharacters() {
 
         _game->setScoreP1( score );
 
-        _pacMan->show(_renderer);
+        // If a ghost has been eaten, don't render the pacman => because the score is rendered
+        if( Ghost::eatenBrother == -1 )
+            _pacMan->show(_renderer);
 
         // Render the ghosts
-        for( int i(0); i < _ghosts.size(); i++ )
-            _ghosts[i]->show(_renderer);
+        for( int i(0); i < _ghosts.size(); i++ ) {
+
+            // If the ghost has recently been eaten, draw the score
+            if( Ghost::eatenBrother == i ) {
+                _ghosts[i]->drawScorePowerPellet( _renderer, _game->getComboPowerPellet() );
+            }
+
+            // Otherwise, draw the ghost
+            else
+                _ghosts[i]->show(_renderer);
+
+        }
 
     }
 
@@ -471,8 +483,7 @@ int Window::createThread(void* data) {
 
 void Window::threadGhostsLoop() {
 
-    // The ghosts move while Pacman is not dead
-    while( !_pacMan->isDead() ) {
+    while( 1 ) {
 
         // Condition to pause the ghosts thread if the player is in the menus
         if( _gameState != GAMESTATE_INGAME ) {
@@ -486,27 +497,65 @@ void Window::threadGhostsLoop() {
 
         }
 
-        for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
+        // If the pacman didn't ate eat a ghost recently => don't move the ghosts
+        else if( Ghost::eatenBrother == -1 ) {
 
-            // Update the ghost attributes
-            _ghosts[i]->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
+            for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
 
-            // Move the ghost
-            if( _ghosts[i]->move() != -1 ) {               
+                // Update the ghost attributes
+                _ghosts[i]->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
 
-                // After the move, detect if there is a collision
-                if( _ghosts[i]->checkCollision( _pacMan ) ) {
+                // Move the ghost
+                if( _ghosts[i]->move() != -1 ) {
 
-                    // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
-                    _ghosts[i]->eat( _pacMan );
+                    // After the move, detect if there is a collision
+                    if( _ghosts[i]->checkCollision( _pacMan ) ) {
+
+                        // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
+                        if( !_ghosts[i]->eat( _pacMan ) ) {
+
+                            // If the pacman eat the ghost
+                            Ghost::eatenBrother = i;
+                            _ghosts[ i ]->startPowerPelletScoreChrono();
+
+                            // Change the combo power-pellet score
+                            _game->incComboPowerPellet();
+
+                        }
+
+                    }
+
+                    _ghosts[i]->nextSprite();
 
                 }
-                _ghosts[i]->nextSprite();
+
+                // Power pellet behavior
+                _ghosts[i]->handlePowerPellet( _pacMan );
 
             }
 
-            // Power pellet behavior
-            _ghosts[i]->handlePowerPellet( _pacMan );
+        }
+
+        // If the pacman eat a ghost recently => don't move the ghosts and render the score
+        else if( Ghost::eatenBrother > -1 ) {
+
+            // If the chrono is over
+            if( _ghosts[ Ghost::eatenBrother ]->isPowerPelletScoreChronoOver() ) {
+
+                _ghosts[ Ghost::eatenBrother ]->resetPowerPelletScoreChrono();
+
+                // The power-pellet score chrono is over
+                // The eaten ghost has to return to the warpzone
+                _ghosts[ Ghost::eatenBrother ]->returnToWarpZone();
+
+                _ghosts[ Ghost::eatenBrother ]->resetPowerPelletScoreChrono();
+
+                Ghost::eatenBrother = -1;
+
+                // Set the power-pellet multiplicator value to 0
+                _game->resetComboPowerPellet();
+
+            }
 
         }
 

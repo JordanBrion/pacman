@@ -3,10 +3,14 @@
 #include <pm/Directions.h>
 using namespace Directions;
 #include <pm/Arithmetic.h>
+#include <pm/Points.h>
 #include <pm/PacDots.h>
 using namespace PacDots;
 
 using namespace std;
+
+/* STATIC MEMBERS */
+int8_t Ghost::eatenBrother = -1;
 
 Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : Character(dest, renderer, sprite),
@@ -406,13 +410,14 @@ bool Ghost::checkCollision( PacMan* const& pacman ) const {
 
 }
 
-void Ghost::eat( PacMan* pacman ) {
+bool Ghost::eat( PacMan* pacman ) {
 
     // If the pacman ate a power pellet, he is not eatable
     // AND if the ghost is not dead yet
     if( !pacman->isEatable() && !_dead ) {
 
         _dead = true;
+        return false;
 
     }
 
@@ -420,8 +425,11 @@ void Ghost::eat( PacMan* pacman ) {
     else if( pacman->isEatable() && !pacman->isDead() ) {
 
         pacman->setDead();
+        return true;
 
     }
+
+    return false;
 
 }
 
@@ -465,6 +473,31 @@ void Ghost::setPowerPelletAlmostOver( bool powerPelletAlmostOver ) {
 
 }
 
+void Ghost::startPowerPelletScoreChrono() {
+
+    _powerPelletScoreChrono = SDL_GetTicks();
+
+}
+
+void Ghost::resetPowerPelletScoreChrono() {
+
+    _powerPelletScoreChrono = 0;
+
+}
+
+bool Ghost::isPowerPelletScoreChronoOver() {
+
+    if( _powerPelletScoreChrono > 0
+            && SDL_GetTicks() - POWERPELLET_SCORE_DURATION >= _powerPelletScoreChrono ) {
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
 void Ghost::deathAnimation(SDL_Renderer* const& pRenderer) {}
 
 void Ghost::startValues() {
@@ -474,5 +507,34 @@ void Ghost::startValues() {
 
 }
 
+void Ghost::drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score ) {
+
+    switch( score ) {
+
+    case Points::ONE_GHOST_EATEN:
+        initRect( &_selection, 17, 19, 184, 0 );
+        break;
+
+    case Points::TWO_GHOSTS_EATEN:
+        initRect( &_selection, 17, 19, 184, 0 );
+        break;
+
+    case Points::THREE_GHOSTS_EATEN:
+        initRect( &_selection, 17, 19, 184, 0 );
+        break;
+
+    case Points::FOUR_GHOSTS_EATEN:
+        initRect( &_selection, 17, 19, 184, 0 );
+        break;
+
+    }
+
+    SDL_RenderCopy( renderer, _element, &_selection, &_position );
+
+}
+
 void Ghost::returnToWarpZone() {
+
+    startValues();
+
 }
