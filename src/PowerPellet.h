@@ -49,12 +49,16 @@ public:
     //!
     static void checkBlink();
 
-    /* ATTRIBUTES */
-private:
+    /* STATIC ATTRIBUTES */
+public:
     static const Uint16 POWERPOWER_BLINK_DURATION = 1000;           /*!< Static attribute for the blink duration */
     static const Uint16 POWERPOWER_BLINK_BETWEEN_DURATION = 1000;   /*!< Static attribute for the duration between blink */
     static Uint32 blinkChrono;                                      /*!< Static attribute for blink chronometer */
     static Uint32 betweenBlinkChrono;                               /*!< Static attribute for between blink chronometer */
+    static const Uint8 POWER_PELLET_MULTIPLICATOR = 2;              /*!< Static attribute for power-pellet multiplicator */
+
+    /* ATTRIBUTES */
+private:
 
 };
 
