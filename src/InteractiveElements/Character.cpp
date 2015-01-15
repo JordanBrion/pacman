@@ -1,9 +1,10 @@
-#include "Character.h"
-
 #include <pm/PacDots.h>
 using namespace PacDots;
 #include <pm/Directions.h>
 using namespace Directions;
+
+#include "Character.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_S
     // Initialize positions on the screen
     int x = dest["col"] * 30 + AREAGAME_MARGIN;
     int y = dest["row"] * 30 + AREATOP_HEIGHT;
-    initRect(&_position, 30, 30, x, y);
+    Surface::initRect(&_position, 30, 30, x, y);
 
     _initialStateDest["x"] = dest["col"] * 30 + AREAGAME_MARGIN;
     _initialStateDest["y"] = dest["row"] * 30 + AREATOP_HEIGHT;
@@ -199,9 +200,9 @@ void Character::startValues() {
     _col = _initialCol;
     _row = _initialRow;
 
-    initRect( &_selection, 16, 20, _initialStateSrc["x"], _initialStateSrc["y"] );
+    Surface::initRect( &_selection, 16, 20, _initialStateSrc["x"], _initialStateSrc["y"] );
 
-    initRect( &_position, _position.w, _position.h, _initialStateDest["x"], _initialStateDest["y"] );
+    Surface::initRect( &_position, _position.w, _position.h, _initialStateDest["x"], _initialStateDest["y"] );
 
     _dead = false;
 
@@ -435,11 +436,11 @@ void Character::nextSprite() {
         else _spriteFlag = 0;
 
         // Load new x and y
-        initRect( &_selection,
-                  _selection.w,
-                  _selection.h,
-                  _spriteCoord[_step][_spriteFlag][0],
-                  _spriteCoord[_step][_spriteFlag][1] );
+        Surface::initRect( &_selection,
+                           _selection.w,
+                           _selection.h,
+                           _spriteCoord[_step][_spriteFlag][0],
+                _spriteCoord[_step][_spriteFlag][1] );
 
     }
 
@@ -536,7 +537,7 @@ void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
     }
 
     // Initialize SDL_Rect position
-    initRect( &_position, 30, 30, x, y );
+    Surface::initRect( &_position, 30, 30, x, y );
 
     // We made a 1-pixel move => _gotoToBackUp is useless => -1
     _goToBackUp = -1;

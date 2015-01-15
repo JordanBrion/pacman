@@ -1,16 +1,17 @@
-#include "PacDot.h"
-
 #include <pm/PacDots.h>
 using namespace PacDots;
 #include <pm/Points.h>
+
+#include "PacDot.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
 PacDot::PacDot( map<string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
     : InteractiveElement( dest, renderer, sprite ), _eaten( false ), _caseType( type ) {
 
-    initRect(&_selection, 13, 13, 3, 183);
-    initRect(&_position, 8, 8, x, y);
+    Surface::initRect(&_selection, 13, 13, 3, 183);
+    Surface::initRect(&_position, 8, 8, x, y);
 
 }
 

@@ -1,7 +1,8 @@
-#include "PacMan.h"
-
 #include <pm/PacDots.h>
 using namespace PacDots;
+
+#include "PacMan.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface
     // Select image on the screen
     _initialStateSrc["x"] = 45;
     _initialStateSrc["y"] = 3;
-    initRect( &_selection, 16, 20, 45, 3 );
+    Surface::initRect( &_selection, 16, 20, 45, 3 );
 
 }
 
@@ -149,7 +150,7 @@ void PacMan::nextSprite() {
 
         if( _spriteFlag+1 == _spriteCoord[ _step ].size() && _stepCounter % 5 == 0 ) {
 
-            initRect(&_selection, _selection.w, _selection.h, 45, 3);
+            Surface::initRect(&_selection, _selection.w, _selection.h, 45, 3);
             _spriteFlag = -1;
 
         }

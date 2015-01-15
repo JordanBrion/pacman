@@ -11,6 +11,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -18,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <map>
+
 #include "../Const.h"
 
 //!
@@ -46,14 +48,6 @@ public:
     //!  \param pRenderer : SDL_Renderer* of the window
     //!
     void show(SDL_Renderer* const& pRenderer);
-    //!
-    //!  \brief Method to select the element on the sprite
-    //!  \param w : The width
-    //!  \param h : The height
-    //!  \param x : The x position
-    //!  \param y : The y position
-    //!
-    void initRect(SDL_Rect* rect, int const& w, int const& h, int const& x, int const&  y);
     //!
     //!  \brief Getter for the row of the element in the grid
     //!  \return The row of the element in the grid

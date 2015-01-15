@@ -1,4 +1,5 @@
 #include "Fruit.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
@@ -10,35 +11,35 @@ Fruit::Fruit( int const& type, SDL_Renderer* const& renderer, SDL_Surface* const
 
     case CHERRY:
         _points = 100;
-        initRect( &_selection, 18, 18, 173, 164);
+        Surface::initRect( &_selection, 18, 18, 173, 164);
         break;
     case STRAWBERRY:
         _points = 300;
-        initRect( &_selection, 18, 18, 173, 184);
+        Surface::initRect( &_selection, 18, 18, 173, 184);
         break;
     case APRICOT:
         _points = 500;
-        initRect( &_selection, 18, 18, 173, 204);
+        Surface::initRect( &_selection, 18, 18, 173, 204);
         break;
     case APPLE:
         _points = 700;
-        initRect( &_selection, 18, 18, 173, 224);
+        Surface::initRect( &_selection, 18, 18, 173, 224);
         break;
     case MELON:
         _points = 1000;
-        initRect( &_selection, 18, 18, 213, 165);
+        Surface::initRect( &_selection, 18, 18, 213, 165);
         break;
     case GALXIAN_BOSS:
         _points = 2000;
-        initRect( &_selection, 18, 18, 213, 185);
+        Surface::initRect( &_selection, 18, 18, 213, 185);
         break;
     case BELL:
         _points = 3000;
-        initRect( &_selection, 18, 18, 213, 205);
+        Surface::initRect( &_selection, 18, 18, 213, 205);
         break;
     case KEY:
         _points = 5000;
-        initRect( &_selection, 18, 18, 213, 225);
+        Surface::initRect( &_selection, 18, 18, 213, 225);
         break;
 
     }
@@ -81,7 +82,7 @@ int Fruit::getPoints() const {
 
 void Fruit::initPositionAreaGame( int const& x, int const& y ) {
 
-    initRect( &_position, 30, 30, x, y);
+    Surface::initRect( &_position, 30, 30, x, y);
 
 }
 
@@ -92,28 +93,28 @@ void Fruit::initPositionAreaBottom() {
     switch( _type ) {
 
     case CHERRY:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case STRAWBERRY:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case APRICOT:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case APPLE:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case MELON:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case GALXIAN_BOSS:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case BELL:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
     case KEY:
-        initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
+        Surface::initRect( &_position,  30, 30, space, AREAGAME_HEIGHT);
         break;
 
     }

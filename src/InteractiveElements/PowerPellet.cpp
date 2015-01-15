@@ -1,6 +1,7 @@
-#include "PowerPellet.h"
-
 #include <pm/Points.h>
+
+#include "PowerPellet.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ PowerPellet::PowerPellet( map<string, int> dest,
                           SDL_Surface* const& sprite ) :
     PacDot( dest, type, x, y, renderer, sprite ) {
 
-    initRect(&_position, 20, 20, x, y);
+    Surface::initRect(&_position, 20, 20, x, y);
 
 }
 

@@ -1,11 +1,12 @@
-#include "Ghost.h"
-
 #include <pm/Directions.h>
 using namespace Directions;
 #include <pm/Arithmetic.h>
 #include <pm/Points.h>
 #include <pm/PacDots.h>
 using namespace PacDots;
+
+#include "Ghost.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
@@ -30,22 +31,22 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
     case RED:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 84;
-        initRect( &_selection, 17, 19, 5, 84 );
+        Surface::initRect( &_selection, 17, 19, 5, 84 );
         break;
     case PINK:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 104;
-        initRect( &_selection, 17, 19, 5, 104 );
+        Surface::initRect( &_selection, 17, 19, 5, 104 );
         break;
     case BLUE:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 124;
-        initRect( &_selection, 17, 19, 5, 124 );
+        Surface::initRect( &_selection, 17, 19, 5, 124 );
         break;
     case ORANGE:
         _initialStateSrc["x"] = 5;
         _initialStateSrc["y"] = 144;
-        initRect( &_selection, 17, 19, 5, 4 );
+        Surface::initRect( &_selection, 17, 19, 5, 4 );
         break;
 
     }
@@ -302,7 +303,7 @@ void Ghost::nextSprite() {
             if( _spriteFlag < _spriteCoordEatable.size() -1 ) _spriteFlag++;
             else _spriteFlag = 0;
 
-            initRect( &_selection,
+            Surface::initRect( &_selection,
                       _selection.w,
                       _selection.h,
                       _spriteCoordEatable[_spriteFlag][0],
@@ -316,7 +317,7 @@ void Ghost::nextSprite() {
             if( _spriteFlag < 1 ) _spriteFlag++;
             else _spriteFlag = 0;
 
-            initRect( &_selection,
+            Surface::initRect( &_selection,
                       _selection.w,
                       _selection.h,
                       _spriteCoordEatable[_spriteFlag][0],
@@ -512,19 +513,19 @@ void Ghost::drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score ) 
     switch( score ) {
 
     case Points::ONE_GHOST_EATEN:
-        initRect( &_selection, 17, 19, 184, 0 );
+        Surface::initRect( &_selection, 17, 19, 184, 0 );
         break;
 
     case Points::TWO_GHOSTS_EATEN:
-        initRect( &_selection, 17, 19, 184, 0 );
+        Surface::initRect( &_selection, 17, 19, 184, 0 );
         break;
 
     case Points::THREE_GHOSTS_EATEN:
-        initRect( &_selection, 17, 19, 184, 0 );
+        Surface::initRect( &_selection, 17, 19, 184, 0 );
         break;
 
     case Points::FOUR_GHOSTS_EATEN:
-        initRect( &_selection, 17, 19, 184, 0 );
+        Surface::initRect( &_selection, 17, 19, 184, 0 );
         break;
 
     }
