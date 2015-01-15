@@ -3,17 +3,16 @@
 using namespace std;
 
 /* STATIC VARIABLES */
-int InteractiveElement::zIndexCounter = 0;
+Uint16 InteractiveElement::instancesCounter = 0;
 
 InteractiveElement::InteractiveElement(SDL_Renderer* const& renderer, SDL_Surface* const& sprite) {
 
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
-    // Inc counter for z-index
-    zIndexCounter++;
-    // z-index
-    _zIndex = zIndexCounter;
+    // Inc counter for new instance ID
+    instancesCounter++;
+    _instanceID = instancesCounter;
 
 }
 
@@ -23,10 +22,9 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
     // Initialize texture
     _element = SDL_CreateTextureFromSurface(renderer, sprite);
 
-    // Inc counter for z-index
-    zIndexCounter++;
-    // z-index
-    _zIndex = zIndexCounter;
+    // Inc counter for new instance ID
+    instancesCounter++;
+    _instanceID = instancesCounter;
 
 }
 

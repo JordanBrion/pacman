@@ -81,9 +81,9 @@ protected:
     SDL_Texture* _element;          /*!< Texture of the element */
     SDL_Rect _position;             /*!< Position of the element in the area game */
     SDL_Rect _selection;            /*!< Selection of the element in the sprite */
-    int _zIndex;                    /*!< z-index of the element */
+    Uint16 _instanceID;                /*!< ID of the element */
 public:
-    static int zIndexCounter;       /*!< Static varible to count the number of elements */
+    static Uint16 instancesCounter;       /*!< Static varible to count the number of elements */
 
 };
 

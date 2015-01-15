@@ -23,8 +23,8 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
 
     // Modulo to determinate the color of the ghost
     // 4 different colors
-    // _zIndex % 4 => result = from 0 to 3
-    int color = _zIndex % 4;
+    // _instanceID % 4 => result = from 0 to 3
+    Uint8 color = _instanceID % 4;
 
     switch(color) {
     case RED:
@@ -60,7 +60,7 @@ Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* 
 
 void Ghost::loadSpriteCoord() {
 
-    int color = _zIndex % 4;
+    Uint8 color = _instanceID % 4;
 
     vector<vector<int> > temp(2);
     vector<int> coord(2);
