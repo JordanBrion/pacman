@@ -10,8 +10,8 @@
 #define PACMAN_H
 
 #include "Character.h"
-#include "PacDotsManager.h"
-#include "FruitManager.h"
+#include "../PacDotsManager.h"
+#include "../FruitManager.h"
 
 //!
 //! \class PacMan

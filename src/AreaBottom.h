@@ -15,7 +15,7 @@
 #include <vector>
 #include <string>
 #include "Area.h"
-#include "Fruit.h"
+#include "InteractiveElements/Fruit.h"
 #include "Const.h"
 
 //!

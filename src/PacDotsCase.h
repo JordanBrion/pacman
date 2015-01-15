@@ -13,7 +13,7 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
 #include <iostream>
-#include "PacDot.h"
+#include "InteractiveElements/PacDot.h"
 
 //!
 //! \class PacDotsCase

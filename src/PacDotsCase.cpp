@@ -1,5 +1,5 @@
 #include "PacDotsCase.h"
-#include "PowerPellet.h"
+#include "InteractiveElements/PowerPellet.h"
 
 #include <pm/PacDots.h>
 using namespace PacDots;

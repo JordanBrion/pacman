@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "Fruit.h"
-#include "PowerPellet.h"
+#include "InteractiveElements/Fruit.h"
+#include "InteractiveElements/PowerPellet.h"
 
 using namespace std;
 

@@ -9,7 +9,7 @@
 //! \date 22 september 2014
 //!
 
-#include "Fruit.h"
+#include "InteractiveElements/Fruit.h"
 
 #include <SDL2/SDL.h>
 
