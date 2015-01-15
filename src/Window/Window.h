@@ -21,19 +21,19 @@
 #include <stdlib.h>
 #include <map>
 
-#include "Const.h"
-#include "FilesManager.h"
-#include "AreaTop.h"
-#include "AreaGame.h"
-#include "AreaBottom.h"
-#include "PacMan.h"
-#include "Ghost.h"
-#include "FruitManager.h"
-#include "PacDotsManager.h"
-#include "Game.h"
-#include "MenuStart.h"
-#include "MenuPause.h"
-#include "MenuGameOver.h"
+#include "../Const.h"
+#include "../FilesManager.h"
+#include "../AreaTop.h"
+#include "../AreaGame.h"
+#include "../AreaBottom.h"
+#include "../PacMan.h"
+#include "../Ghost.h"
+#include "../FruitManager.h"
+#include "../PacDotsManager.h"
+#include "../Game.h"
+#include "../MenuStart.h"
+#include "../MenuPause.h"
+#include "../MenuGameOver.h"
 
 ///!
 //! \brief Enum to know where the player is in the game

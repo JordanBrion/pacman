@@ -7,16 +7,13 @@ include_directories(
         ${SDL2_DIR}
         ${SDL2_IMAGE_DIR}
         ${SDL2_TTF_DIR}
+        ${CMAKE_SOURCE_DIR}/include/
 )
 
 link_directories(
         ${SDL2_LIB}
         ${SDL2_IMAGE_LIB}
         ${SDL2_TTF_LIB}
-)
-
-include_directories(
-    ${CMAKE_SOURCE_DIR}/include
 )
 
 file(
