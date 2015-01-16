@@ -38,6 +38,40 @@ public:
     //!  \brief Getter for the surface position and size
     //!
     SDL_Rect getSelection() const;
+    //!
+    //! \brief Setter for the surface Selection and size
+    //!  \param w : The width
+    //!  \param h : The height
+    //!  \param x : The x Selection
+    //!  \param y : The y Selection
+    //!
+    void setSelection( const int& w, const int& h,
+                       const int& x, const int& y );
+    //!
+    //! \brief Setter for the surface selection and size
+    //! \param rect : An other SDL_Rect
+    //!
+    void setSelection( const SDL_Rect& rect );
+    //!
+    //! \brief Setter for the w attr of the surface selection and size
+    //! \param w : The width
+    //!
+    void setSelectionW( const int& w );
+    //!
+    //! \brief Setter for the h attr of the surface selection and size
+    //! \param h : The height
+    //!
+    void setSelectionH( const int& h );
+    //!
+    //! \brief Setter for the x attr of the surface selection and size
+    //! \param x : The x Selection
+    //!
+    void setSelectionX( const int& x );
+    //!
+    //! \brief Setter for the y attr of the surface selection and size
+    //! \param y : The y Selection
+    //!
+    void setSelectionY( const int& y );
 
     /* ATTRIBUTES */
 private:
