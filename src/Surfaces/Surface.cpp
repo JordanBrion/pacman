@@ -23,6 +23,25 @@ SDL_Rect Surface::getPosition() const {
 
 }
 
+void Surface::setPosition( const int& w, const int& h,
+                           const int& x, const int& y ) {
+
+    _position.w = w;
+    _position.h = h;
+    _position.x = x;
+    _position.y = y;
+}
+
+void Surface::setPosition( const SDL_Rect& rect ) { _position = rect; }
+
+void Surface::setPositionW( const int& w ) { _position.w = w; }
+
+void Surface::setPositionH( const int& h ) { _position.h = h; }
+
+void Surface::setPositionX( const int& x ) { _position.x = x; }
+
+void Surface::setPositionY( const int& y ) { _position.y = y; }
+
 void Surface::initRect( SDL_Rect* rect,
                         const int& w, const int& h,
                         const int& x, const int& y ) {

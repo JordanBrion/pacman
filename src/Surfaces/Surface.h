@@ -39,6 +39,40 @@ public:
     //!  \brief Getter for the surface position and size
     //!
     SDL_Rect getPosition() const;
+    //!
+    //! \brief Setter for the surface position and size
+    //!  \param w : The width
+    //!  \param h : The height
+    //!  \param x : The x position
+    //!  \param y : The y position
+    //!
+    void setPosition( const int& w, const int& h,
+                      const int& x, const int& y );
+    //!
+    //! \brief Setter for the surface position and size
+    //! \param rect : An other SDL_Rect
+    //!
+    void setPosition( const SDL_Rect& rect );
+    //!
+    //! \brief Setter for the w attr of the surface position and size
+    //! \param w : The width
+    //!
+    void setPositionW( const int& w );
+    //!
+    //! \brief Setter for the h attr of the surface position and size
+    //! \param h : The height
+    //!
+    void setPositionH( const int& h );
+    //!
+    //! \brief Setter for the x attr of the surface position and size
+    //! \param x : The x position
+    //!
+    void setPositionX( const int& x );
+    //!
+    //! \brief Setter for the y attr of the surface position and size
+    //! \param y : The y position
+    //!
+    void setPositionY( const int& y );
 
     /* STATIC */
     //!
