@@ -74,7 +74,7 @@ public:
     void setSelectionY( const int& y );
 
     /* ATTRIBUTES */
-private:
+protected:
     SDL_Rect _selection;         /*!< Position and size of the surface */
 
 };

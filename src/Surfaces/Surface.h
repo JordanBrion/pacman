@@ -87,7 +87,7 @@ public:
                           const int& x, const int& y );
 
     /* ATTRIBUTES */
-private:
+protected:
     SDL_Texture* _texture;      /*!< Texture used for the content of the surface */
     SDL_Rect _position;         /*!< Position and size of the surface */
 
