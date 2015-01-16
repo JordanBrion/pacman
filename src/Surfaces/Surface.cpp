@@ -11,6 +11,12 @@ Surface::~Surface() {
 
 }
 
+SDL_Texture* Surface::getTexture() const {
+
+    return _texture;
+
+}
+
 SDL_Rect Surface::getPosition() const {
 
     return _position;

@@ -31,6 +31,11 @@ public:
     //!
     ~Surface();
     //!
+    //! \brief Getter for the texture pointer
+    //! \return A pointer to the texture
+    //!
+    SDL_Texture* getTexture() const;
+    //!
     //!  \brief Getter for the surface position and size
     //!
     SDL_Rect getPosition() const;
