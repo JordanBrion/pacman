@@ -27,7 +27,7 @@ public:
     //!  \param selection : Selection of a texture part
     //!  \param position : Position and size of the surface
     //!
-    SurfaceSelection( SDL_Texture* texture,
+    SurfaceSelection( SDL_Texture* const& texture,
                       const SDL_Rect& selection,
                       const SDL_Rect& position );
     //!

@@ -1,6 +1,6 @@
 #include "SurfaceSelection.h"
 
-SurfaceSelection::SurfaceSelection( SDL_Texture* texture,
+SurfaceSelection::SurfaceSelection( SDL_Texture* const& texture,
                                     const SDL_Rect& selection,
                                     const SDL_Rect& position ) :
     Surface( texture, position ),
