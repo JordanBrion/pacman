@@ -23,10 +23,14 @@ public:
     //!
     //! \brief PacMan constructor
     //! \param dest : The coordonates of the character ( row and col )
-    //! \param renderer : The renderer of the SDL window
-    //! \param sprite : The SDL_Surface of the sprites
+    //! \param sprite : The SDL_Texture of the sprites
+    //! \param selection : Selection on the sprite
+    //! \param position : Position on the screen
     //!
-    PacMan( std::map<std::string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    PacMan( std::map<std::string, int>& dest,
+            SDL_Texture* const& texture,
+            const SDL_Rect& selection,
+            const SDL_Rect& position );
     //!
     //! \brief PacMan destructor
     //!

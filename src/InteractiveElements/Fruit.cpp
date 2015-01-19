@@ -3,43 +3,40 @@
 
 using namespace std;
 
-Fruit::Fruit( int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite )
-    : InteractiveElement( renderer, sprite ), _type( type ), _nbr(0) {
+Fruit::Fruit( const int& type,
+              SDL_Texture* const& sprite,
+              const SDL_Rect& selection ) :
+    _type( type ),
+    _nbr(0) {
+
+    _surface = new SurfaceSelection( sprite, selection, { 0, 0, 0, 0 } );
 
     // Initialization of sprite coord
     switch( type ) {
 
     case CHERRY:
         _points = 100;
-        Surface::initRect( &_selection, 18, 18, 173, 164);
         break;
     case STRAWBERRY:
         _points = 300;
-        Surface::initRect( &_selection, 18, 18, 173, 184);
         break;
     case APRICOT:
         _points = 500;
-        Surface::initRect( &_selection, 18, 18, 173, 204);
         break;
     case APPLE:
         _points = 700;
-        Surface::initRect( &_selection, 18, 18, 173, 224);
         break;
     case MELON:
         _points = 1000;
-        Surface::initRect( &_selection, 18, 18, 213, 165);
         break;
     case GALXIAN_BOSS:
         _points = 2000;
-        Surface::initRect( &_selection, 18, 18, 213, 185);
         break;
     case BELL:
         _points = 3000;
-        Surface::initRect( &_selection, 18, 18, 213, 205);
         break;
     case KEY:
         _points = 5000;
-        Surface::initRect( &_selection, 18, 18, 213, 225);
         break;
 
     }
@@ -80,14 +77,15 @@ int Fruit::getPoints() const {
 }
 
 
-void Fruit::initPositionAreaGame( int const& x, int const& y ) {
+void Fruit::initPositionAreaGame( const SDL_Rect& position ) {
 
+    /*
+     *
+     * // MAZE
     Surface::initRect( &_position, 30, 30, x, y);
 
-}
 
-void Fruit::initPositionAreaBottom() {
-
+// AREA BOTTOM
     int space = 270 + (65 * _type);
 
     switch( _type ) {
@@ -118,6 +116,14 @@ void Fruit::initPositionAreaBottom() {
         break;
 
     }
+
+    */
+
+}
+
+void Fruit::initPositionAreaBottom() {
+
+
 
 }
 

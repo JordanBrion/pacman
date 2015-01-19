@@ -23,12 +23,15 @@ public:
     //!  \brief PowerPellet constructor
     //!  \param dest : The location where the pac-dot has to be rendered to the screen
     //!  \param type : The type of the case where the pac-dot is located
-    //!  \param x : The x coordonate of the pac-dot on the screen
-    //!  \param y : The y coordonate of the pac-dot on the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param selection : Selection on the sprite
+    //!  \param position : Position on the screen
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    PowerPellet( std::map<std::string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    PowerPellet( std::map<std::string, int>& dest,
+                 const int& type,
+                 const SDL_Rect& selection,
+                 const SDL_Rect& position,
+                 SDL_Texture* const& sprite );
     //!
     //!  \brief PowerPellet destructor
     //!
@@ -38,7 +41,7 @@ public:
     //!  \param renderer : SDL_Renderer* of the window
     //!  \return The points of the power-pellet if the power-pellet has not been eaten
     //!
-    virtual int show( SDL_Renderer * const &renderer );
+    virtual int show( SDL_Renderer* const& renderer );
     //!
     //! \brief Static method to blink to power-pellet to the screen
     //! \return True if the power-pellet has to blink. Otherwise, false

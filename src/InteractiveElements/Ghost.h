@@ -38,10 +38,14 @@ class Ghost : public Character {
     //!
     //!  \brief Ghost constructor
     //!  \param dest : The position where the ghost has to be rendered on the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters
+    //!  \param selection : Selection on the sprite
+    //!  \param position : Position on the screen
     //!
-    Ghost( std::map<std::string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    Ghost( std::map<std::string, int>& dest,
+           SDL_Texture* const& sprite,
+           const SDL_Rect& selection,
+           const SDL_Rect& position );
     //!
     //!  \brief Method to load the sprite coordonates of the ghost
     //!
@@ -75,22 +79,22 @@ class Ghost : public Character {
     //!
     void defineVelocity();
     //!
-    //!  \brief Method to check the collisions with the pacman
-    //!  \param pacman : The pacman
+    //!  \brief Method to check the collisions with the The Pac-Man
+    //!  \param pacMan : The Pac-Man
     //!  \return True if a collision is detected. Otherwise, false
     //!
-    bool checkCollision( PacMan* const& pacman ) const;
+    bool checkCollision( PacMan* const& pacMan ) const;
     //!
-    //! \brief Method to eat the pacman
-    //! \param pacman: An instance of pacman
+    //! \brief Method to eat the The Pac-Man
+    //! \param pacMan: An instance of The Pac-Man
     //! \return True if the pacman is eaten. Otherwise, false.
     //!
-    bool eat( PacMan* pacman );
+    bool eat( PacMan* pacMan );
     //!
     //! \brief Method to change the ghost attributes depending the power-pellet chronometer
-    //! \param pacman: An instance of pacman
+    //! \param pacMan: An instance of The Pac-Man
     //!
-    void handlePowerPellet( PacMan* pacman );
+    void handlePowerPellet( PacMan* pacMan );
     //!
     //! \brief Setter if the power pellet duration is 50% over
     //! \param powerPelletAlmostOver: True if the power pellet duration is 50% over. Otherwise, false

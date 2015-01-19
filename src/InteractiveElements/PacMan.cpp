@@ -6,20 +6,23 @@ using namespace PacDots;
 
 using namespace std;
 
-PacMan::PacMan(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite),
-      _deathAnimationCounter( 0 ),
-      _powerPelletChrono( 0 ) {
+PacMan::PacMan( std::map<std::string, int>& dest,
+                SDL_Texture* const& texture,
+                const SDL_Rect& selection,
+                const SDL_Rect& position ) :
+    Character( dest ),
+    _deathAnimationCounter( 0 ),
+    _powerPelletChrono( 0 ) {
 
     _eatable = true;
 
+    // Default coord on the characters sprite
+    _initialStateSrc["x"] = selection.x;
+    _initialStateSrc["y"] = selection.y;
+    _surface = new SurfaceSelection( texture, selection, position );
+
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
-
-    // Select image on the screen
-    _initialStateSrc["x"] = 45;
-    _initialStateSrc["y"] = 3;
-    Surface::initRect( &_selection, 16, 20, 45, 3 );
 
 }
 
@@ -150,7 +153,8 @@ void PacMan::nextSprite() {
 
         if( _spriteFlag+1 == _spriteCoord[ _step ].size() && _stepCounter % 5 == 0 ) {
 
-            Surface::initRect(&_selection, _selection.w, _selection.h, 45, 3);
+            _surface->setSelection( _surface->getSelection().w, _surface->getSelection().h,
+                                    45, 3);
             _spriteFlag = -1;
 
         }
@@ -167,7 +171,7 @@ void PacMan::nextSprite() {
 
 void PacMan::checkCollisionWithPacDots(PacDotsManager *pdm) {
 
-    if( pdm->eatPacDot( _row, _col, _position.x + 10, _position.y + 10 ) ) {
+    if( pdm->eatPacDot( _row, _col, _surface->getPosition().x + 10, _surface->getPosition().y + 10 ) ) {
 
         startPowerPelletChrono();
 
@@ -227,12 +231,11 @@ bool PacMan::checkCollisionWithFruit( FruitManager* frm ) {
 
 void PacMan::deathAnimation(SDL_Renderer* const& pRenderer) {
 
-    _selection.w = 19;
-    _selection.y = 244;
+    _surface->setSelectionW( 19 );
 
-    _selection.x = ( _deathAnimationCounter * 20 ) + 4;
-
+    _surface->setSelectionX( ( _deathAnimationCounter * 20 ) + 4 );
     _deathAnimationCounter++;
+    _surface->setSelectionY( 244 );
 
     show(pRenderer);
     SDL_Delay(150);

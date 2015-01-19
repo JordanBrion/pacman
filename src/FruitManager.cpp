@@ -4,7 +4,7 @@
 using namespace std;
 
 FruitManager::FruitManager() :
-    _currentFruitLocation( -1 ),
+    _currentFruitLocationGrid( -1 ),
     _currentFruitType( -1 ),
     _betweenFruitChrono( 0 ),
     _currentFruitChrono( 0 ),
@@ -14,11 +14,15 @@ FruitManager::FruitManager() :
 
 FruitManager::~FruitManager() {}
 
-void FruitManager::initFruit( SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) {
+void FruitManager::initFruit( SDL_Texture* const& sprite,
+                              const std::vector<SDL_Rect>& selections ) {
 
     for(int i(0); i < FRUIT_NBR; i++) {
 
-        _fruits.push_back( new Fruit( i, renderer, sprite ) );
+        _fruits.push_back( new Fruit( i,
+                                      sprite,
+                                      selections[i] )
+                           );
 
     }
 
@@ -60,9 +64,9 @@ int FruitManager::getFruitPoints( int const& type ) const {
 
 }
 
-void FruitManager::initFruitLocationCoord( vector<vector<int> > fruitLocationCoord ) {
+void FruitManager::initFruitLocationCoord( const vector<vector<int> >& fruitLocationsGrid ) {
 
-    _fruitLocationCoord = fruitLocationCoord;
+    _fruitLocationsGrid = fruitLocationsGrid;
 
 }
 
@@ -78,10 +82,10 @@ void FruitManager::startCurrentFruit() {
 
 bool FruitManager::randomFruit() {
 
-    if( _currentFruitLocation == -1 ) {
+    if( _currentFruitLocationGrid == -1 ) {
 
         // Random a fruit location
-        _currentFruitLocation = rand() % _fruitLocationCoord.size();
+        _currentFruitLocationGrid = rand() % _fruitLocationsGrid.size();
 
         // Random a fruit type
         _currentFruitType = rand() % _fruits.size();
@@ -100,7 +104,7 @@ bool FruitManager::randomFruit() {
 
 void FruitManager::resetCurrentFruit() {
 
-    _currentFruitLocation = -1;
+    _currentFruitLocationGrid = -1;
     _currentFruitType = -1;
     _currentFruitChrono = 0;
 
@@ -152,7 +156,7 @@ bool FruitManager::checkFruitChronos() {
 bool FruitManager::eatFruit( int const& row, int const& col ) {
 
     // If a fruit rendered
-    if( _currentFruitLocation != -1 ) {
+    if( _currentFruitLocationGrid != -1 ) {
 
         // If a collision is detected
         if( isThereAFruit( row, col )  ) {
@@ -170,8 +174,8 @@ bool FruitManager::eatFruit( int const& row, int const& col ) {
 
 bool FruitManager::isThereAFruit( int const& row, int const& col ) {
 
-    if( _fruitLocationCoord[ _currentFruitLocation ][0] == row
-            && _fruitLocationCoord[ _currentFruitLocation ][1] == col )
+    if( _fruitLocationsGrid[ _currentFruitLocationGrid ][0] == row
+            && _fruitLocationsGrid[ _currentFruitLocationGrid ][1] == col )
         return true;
 
     return false;
@@ -184,12 +188,17 @@ Uint16 FruitManager::getTotalFruitScore() {
 
 }
 
-void FruitManager::renderFruit( SDL_Renderer *renderer ) {
+void FruitManager::renderFruit( SDL_Renderer* renderer ) {
 
+    /*
     _fruits[ _currentFruitType ]->initPositionAreaGame(
                 _fruitLocationCoord[ _currentFruitLocation ][1] * 30 + AREAGAME_MARGIN,
                 _fruitLocationCoord[ _currentFruitLocation ][0] * 30 + AREATOP_HEIGHT
                 );
+*/
+
+    _fruits[ _currentFruitType ]->initPositionAreaGame(
+                _fruitPositions[ _currentFruitType ] );
 
     _fruits[ _currentFruitType ]->show( renderer );
 

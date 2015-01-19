@@ -30,10 +30,11 @@ public:
     ~FruitManager();
     //!
     //! \brief Method to initialize the instances of Fruit Class
-    //! \param renderer: SDL_Renderer* of the window
-    //! \param sprite: SDL_Surface* containing the sprite for the level */
+    //! \param sprite: SDL_Texture* containing the sprite for the level */
+    //! \param selections : Array for the fruit selections on the sprite
     //!
-    void initFruit( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initFruit( SDL_Texture* const& sprite,
+                    const std::vector<SDL_Rect>& selections );
     //!
     //! \brief Getter for all instances of Fruit
     //! \return Array containing the instances of Fruit
@@ -69,9 +70,9 @@ public:
     int getFruitPoints( int const& type ) const;
     //!
     //! \brief Method to initialize the coordonates where the fruit appears in the grid
-    //! \param fruitLocationCoord: Array containing the places where the fruit appear in the grid
+    //! \param fruitLocationGrid: Array containing the places where the fruit appear in the grid
     //!
-    void initFruitLocationCoord( std::vector<std::vector<int> > fruitLocationCoord );
+    void initFruitLocationCoord( const std::vector<std::vector<int> >& fruitLocationsGrid );
     //!
     //! \brief Method to start the value to know details about the rendered fruit (location and chrono)
     //!
@@ -128,12 +129,14 @@ public:
 
 private:
     std::vector<Fruit*> _fruits;                         /*!< Array containing instances of Fruit */
-    std::vector<std::vector<int> > _fruitLocationCoord; /*!< Array for the fruit locations in the grid */
-    int8_t _currentFruitLocation;                       /*!< Index of the current position where a fruit is rendered */
+    std::vector<std::vector<int> > _fruitLocationsGrid;  /*!< Array for the fruit locations in the grid */
+    std::vector<SDL_Rect> _fruiSelections;               /*!< Array for the fruit selections on the sprite */
+    std::vector<SDL_Rect> _fruitPositions;               /*!< Array for the fruit positions on the screen */
+    int8_t _currentFruitLocationGrid;                    /*!< Index of the current position where a fruit is rendered */
     int8_t _currentFruitType;                            /*!< Flag to know which type of fruit is rendered */
-    Uint32 _currentFruitChrono;                         /*!< Chronometer to know when the fruit was rendered */
-    Uint32 _betweenFruitChrono;                         /*!< Chronometer to know since when no fruit was rendered */
-    Uint64 _totalFruitScore;                            /*!< The points of eaten fruit */
+    Uint32 _currentFruitChrono;                          /*!< Chronometer to know when the fruit was rendered */
+    Uint32 _betweenFruitChrono;                          /*!< Chronometer to know since when no fruit was rendered */
+    Uint64 _totalFruitScore;                             /*!< The points of eaten fruit */
 
 };
 

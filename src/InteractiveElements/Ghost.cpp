@@ -13,43 +13,22 @@ using namespace std;
 /* STATIC MEMBERS */
 int8_t Ghost::eatenBrother = -1;
 
-Ghost::Ghost(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : Character(dest, renderer, sprite),
-      _forbiddenDirection( -1 ),
-      _powerPelletAlmostOver( false ) {
+Ghost::Ghost( std::map<std::string, int>& dest,
+              SDL_Texture* const& sprite,
+              const SDL_Rect& selection,
+              const SDL_Rect& position ) :
+    Character( dest ),
+    _forbiddenDirection( -1 ),
+    _powerPelletAlmostOver( false ) {
 
     _eatable = false;
 
     _stepCounter = 30;
 
-    // Modulo to determinate the color of the ghost
-    // 4 different colors
-    // _instanceID % 4 => result = from 0 to 3
-    Uint8 color = _instanceID % 4;
+    _surface = new SurfaceSelection( sprite, selection, position );
 
-    switch(color) {
-    case RED:
-        _initialStateSrc["x"] = 5;
-        _initialStateSrc["y"] = 84;
-        Surface::initRect( &_selection, 17, 19, 5, 84 );
-        break;
-    case PINK:
-        _initialStateSrc["x"] = 5;
-        _initialStateSrc["y"] = 104;
-        Surface::initRect( &_selection, 17, 19, 5, 104 );
-        break;
-    case BLUE:
-        _initialStateSrc["x"] = 5;
-        _initialStateSrc["y"] = 124;
-        Surface::initRect( &_selection, 17, 19, 5, 124 );
-        break;
-    case ORANGE:
-        _initialStateSrc["x"] = 5;
-        _initialStateSrc["y"] = 144;
-        Surface::initRect( &_selection, 17, 19, 5, 4 );
-        break;
-
-    }
+    _initialStateSrc["x"] = selection.x;
+    _initialStateSrc["y"] = selection.y;
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -303,10 +282,10 @@ void Ghost::nextSprite() {
             if( _spriteFlag < _spriteCoordEatable.size() -1 ) _spriteFlag++;
             else _spriteFlag = 0;
 
-            Surface::initRect( &_selection,
-                      _selection.w,
-                      _selection.h,
-                      _spriteCoordEatable[_spriteFlag][0],
+            _surface->setSelection(
+                        _surface->getSelection().w,
+                        _surface->getSelection().h,
+                        _spriteCoordEatable[_spriteFlag][0],
                     _spriteCoordEatable[_spriteFlag][1]);
 
         }
@@ -317,10 +296,10 @@ void Ghost::nextSprite() {
             if( _spriteFlag < 1 ) _spriteFlag++;
             else _spriteFlag = 0;
 
-            Surface::initRect( &_selection,
-                      _selection.w,
-                      _selection.h,
-                      _spriteCoordEatable[_spriteFlag][0],
+            _surface->setSelection(
+                        _surface->getSelection().w,
+                        _surface->getSelection().h,
+                        _spriteCoordEatable[_spriteFlag][0],
                     _spriteCoordEatable[_spriteFlag][1]);
 
         }
@@ -395,12 +374,13 @@ void Ghost::defineVelocity() {
 
 }
 
-bool Ghost::checkCollision( PacMan* const& pacman ) const {
+bool Ghost::checkCollision( PacMan* const& pacMan ) const {
 
-    if( (_position.x >= pacman->getPosition().x - 15
-         && _position.x <= pacman->getPosition().x + 15)
-            && (_position.y >= pacman->getPosition().y - 15
-                && _position.y <= pacman->getPosition().y + 15) )  {
+    SDL_Rect pman = pacMan->getPosition();
+    SDL_Rect me = _surface->getPosition();
+
+    if( ( me.x >= pman.x - 15 && me.x <= pman.x + 15)
+            && ( me.y - 15 && me.y <= pman.y + 15 ) )  {
 
         // Collision detected
         return true;
@@ -513,24 +493,30 @@ void Ghost::drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score ) 
     switch( score ) {
 
     case Points::ONE_GHOST_EATEN:
-        Surface::initRect( &_selection, 17, 19, 184, 0 );
+        _surface->setSelection( 17, 19, 184, 0 );
         break;
 
     case Points::TWO_GHOSTS_EATEN:
-        Surface::initRect( &_selection, 17, 19, 184, 0 );
+        _surface->setSelection( 17, 19, 184, 0 );
         break;
 
     case Points::THREE_GHOSTS_EATEN:
-        Surface::initRect( &_selection, 17, 19, 184, 0 );
+        _surface->setSelection( 17, 19, 184, 0 );
         break;
 
     case Points::FOUR_GHOSTS_EATEN:
-        Surface::initRect( &_selection, 17, 19, 184, 0 );
+        _surface->setSelection( 17, 19, 184, 0 );
         break;
 
     }
 
-    SDL_RenderCopy( renderer, _element, &_selection, &_position );
+    SDL_Rect selection = _surface->getSelection();
+    SDL_Rect position = _surface->getPosition();
+
+    SDL_RenderCopy( renderer,
+                    _surface->getTexture(),
+                    &selection,
+                    &position );
 
 }
 

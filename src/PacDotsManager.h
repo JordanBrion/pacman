@@ -22,10 +22,10 @@ public:
     //!
     //!  \brief PacDotsManager constructor
     //!  \param level : Array containing the level in the form of numbers
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    PacDotsManager( std::vector<std::vector<int> > level, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    PacDotsManager( std::vector<std::vector<int> > level,
+                    SDL_Texture* const& sprite );
     //!
     //!  \brief PacDotsManager destructor
     //!
@@ -38,10 +38,11 @@ public:
     //!  \brief Method to add a new case in _pacDotsCases
     //!  \param row : The row in _pacDotsCases
     //!  \param type : The type of the case
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void addCase( int const& row, int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void addCase( int const& row,
+                  int const& type,
+                  SDL_Texture* const& sprite );
     //!
     //!  \brief Method to render all the pac-dots to the screen
     //!  \param renderer : SDL_Renderer* of the window
@@ -56,7 +57,8 @@ public:
     //!  \param y : The y position on the screen
     //!  \return The pac-dot at the position of the pac-man
     //!
-    PacDot* isThereAPacDot( int const& row, int const& col, int const& x, int const& y );
+    PacDot* isThereAPacDot( int const& row, int const& col,
+                            int const& x, int const& y );
     //!
     //!  \brief Method to eat a pac-dot
     //!  \param row : The row in _pacDotsCases
@@ -65,7 +67,8 @@ public:
     //!  \param y : The y position on the screen
     //!  \return True if the pacman ate a power pellet. Otherwise, false.
     //!
-    bool eatPacDot( int const& row, int const& col, int const& x, int const& y );
+    bool eatPacDot( int const& row, int const& col,
+                    int const& x, int const& y );
     //!
     //! \brief Method to reinitialize all the pac-dots
     //!

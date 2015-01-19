@@ -27,10 +27,11 @@ public:
     //!  \param row : The row number of the case in the grid
     //!  \param col : The column number of the case in the grid
     //!  \param type : The type of the case
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    PacDotsCase( int const& row, int const& col, int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    PacDotsCase( int const& row, int const& col,
+                 int const& type,
+                 SDL_Texture* const& sprite );
     //!
     //!  \brief PacDotsCase destructor
     //!
@@ -76,34 +77,29 @@ public:
     void setPacDotEaten( int const& x, int const& y, bool eaten );
     //!
     //!  \brief Initialize the pac-dots in line before rendering it to the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void initPacDotsInLine( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initPacDotsInLine( SDL_Texture* const& sprite );
     //!
     //!  \brief Initialize the pac-dots in angle before rendering it to the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void initPacDotsInAngle( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initPacDotsInAngle( SDL_Texture* const& sprite );
     //!
     //!  \brief Initialize the pac-dots in junction (with 3 ways) before rendering it to the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void initPacDotsWithThreeJunctions( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initPacDotsWithThreeJunctions( SDL_Texture* const& sprite );
     //!
     //!  \brief Initialize the pac-dots in junction (with 4 ways) before rendering it to the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void initPacDotsWithFourJunctions( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initPacDotsWithFourJunctions( SDL_Texture* const& sprite );
     //!
     //!  \brief Initialize a case containing a power pellet
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters (and also the pac-dot)
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (and also the pac-dot)
     //!
-    void initPacDotPowerPellet( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    void initPacDotPowerPellet( SDL_Texture* const& sprite );
 
 private:
     int _row;                       /*!< The row number of the case in the grid */

@@ -21,10 +21,8 @@ protected:
     //!
     //!  \brief Character constructor
     //!  \param dest : The position where the character has to be rendered on the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters
     //!
-    Character( std::map<std::string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    Character( std::map<std::string, int>& dest );
     //!
     //!  \brief Virtual method to load the sprite coordonates of the character
     //!

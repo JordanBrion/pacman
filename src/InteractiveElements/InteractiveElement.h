@@ -6,7 +6,7 @@
 //! \brief Abstract class to manage an interactive element (pac-man, ghost, fruit...)
 //! \author Jordan Brion
 //! \version 0.1
-//! \date 2 september 2014
+//! \date 15 January 2015
 //!
 
 #include <SDL2/SDL.h>
@@ -21,6 +21,7 @@
 #include <map>
 
 #include "../Const.h"
+#include "../Surfaces/SurfaceSelection.h"
 
 //!
 //! \class InteractiveElement
@@ -30,24 +31,20 @@ class InteractiveElement {
 
 protected:
     //!
-    //!  \brief InteractiveElement constructor
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters
+    //! \brief InteractiveElement default constructor
     //!
-    InteractiveElement( SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    InteractiveElement();
     //!
     //!  \brief InteractiveElement constructor
     //!  \param dest : The position where the ghost has to be rendered on the screen
-    //!  \param renderer : SDL_Renderer* of the window
-    //!  \param sprite : SDL_Surface* containing the sprite of all the characters
     //!
-    InteractiveElement( std::map<std::string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    InteractiveElement( std::map<std::string, int>& dest );
 public:
     //!
     //!  \brief Method to render the element to the screen
-    //!  \param pRenderer : SDL_Renderer* of the window
+    //!  \param renderer : SDL_Renderer* of the window
     //!
-    void show(SDL_Renderer* const& pRenderer);
+    void show( SDL_Renderer* const& renderer);
     //!
     //!  \brief Getter for the row of the element in the grid
     //!  \return The row of the element in the grid
@@ -59,25 +56,26 @@ public:
     //!
     int getCol() const;
     //!
-    //!  \brief Getter for the position of the element in the area game
-    //!  \return The position of the element in the area game
-    //!
-    SDL_Rect getPosition() const;
-    //!
-    //!  \brief Getter for the selection of the element in the sprite
-    //!  \return The selection of the element in the sprite
+    //! \brief Getter for the selection of the element
+    //! \return Selection of the _surface attribute
     //!
     SDL_Rect getSelection() const;
+    //!
+    //! \brief Getter for the position of the element
+    //! \return Position of the _surface attribute
+    //!
+    SDL_Rect getPosition() const;
 
 protected:
-    int _row;                       /*!< The row of the element in the grid */
-    int _col;                       /*!< The column of the element in the grid */
-    SDL_Texture* _element;          /*!< Texture of the element */
-    SDL_Rect _position;             /*!< Position of the element in the area game */
-    SDL_Rect _selection;            /*!< Selection of the element in the sprite */
-    Uint16 _instanceID;                /*!< ID of the element */
+    int _row;                           /*!< The row of the element in the grid */
+    int _col;                           /*!< The column of the element in the grid */
+    SurfaceSelection* _surface;         /*!< SurfaceSelection instance for :
+                                                - selection on the sprite
+                                                - position on the screen
+                                                */
+    Uint16 _instanceID;                 /*!< ID of the element */
 public:
-    static Uint16 instancesCounter;       /*!< Static varible to count the number of elements */
+    static Uint16 instancesCounter;     /*!< Static varible to count the number of elements */
 
 };
 

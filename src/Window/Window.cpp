@@ -77,13 +77,26 @@ Window::Window() throw(exception) :
         _areaGame = new AreaGame( _renderer, _fm->getSpriteLevel() );
         _areaBottom = new AreaBottom();
 
+        SDL_Texture* textCharac = SDL_CreateTextureFromSurface( _renderer,
+                                                                _fm->getSpriteCharacters() );
+
+        std::vector<SDL_Rect> selections;
+        selections.push_back( { 173, 164, 18, 18 });
+        selections.push_back( { 173, 184, 18, 18 });
+        selections.push_back( { 173, 204, 18, 18 });
+        selections.push_back( { 173, 224, 18, 18 });
+        selections.push_back( { 213, 165, 18, 18 });
+        selections.push_back( { 213, 185, 18, 18 });
+        selections.push_back( { 213, 205, 18, 18 });
+        selections.push_back( { 213, 225, 18, 18 });
+
         // Initialize the fruit
         _frm = new FruitManager();
-        _frm->initFruit( _renderer, _fm->getSpriteCharacters() );
+        _frm->initFruit( textCharac, selections );
         _frm->initFruitLocationCoord( _fm->getFruitLocationCoord() );
 
         // Initialize the position of the bubbles
-        _pdm = new PacDotsManager( _fm->getLevelTable(), _renderer, _fm->getSpriteCharacters() );
+        _pdm = new PacDotsManager( _fm->getLevelTable(), textCharac );
 
         createCharacters();
 
@@ -183,22 +196,49 @@ void Window::createCharacters() {
 
     SDL_SetColorKey( _fm->getSpriteCharacters() , SDL_TRUE, SDL_MapRGB( _fm->getSpriteCharacters()->format, 0, 0, 0) );
 
+    SDL_Texture* text = SDL_CreateTextureFromSurface( _renderer, _fm->getSpriteCharacters() );
+
     map<string, int> dest;
 
     // Pacman creation
     dest["row"] = _fm->getCharacterCoordRow("Pacman");
     dest["col"] = _fm->getCharacterCoordCol("Pacman");
-    _pacMan = new PacMan( dest, _renderer, _fm->getSpriteCharacters() );
-    _pacMan->calculateDirection(_fm->getLevelTable());
+    SDL_Rect selection = { 45, 3, 16, 20 };
+    int x = dest["col"] * 30 + AREAGAME_MARGIN;
+    int y = dest["row"] * 30 + AREATOP_HEIGHT;
+    SDL_Rect position = { x, y, 30, 30 };
+    _pacMan = new PacMan( dest, text, selection, position );
+    _pacMan->calculateDirection( _fm->getLevelTable() );
+
 
     // Ghosts creation
     stringstream ss;
     for(int i(0); i < _fm->getGhostsNbr(); i++) {
 
+        int color = i % 4;
+
+        switch(color) {
+        case RED:
+            selection = { 5, 84, 17, 19 };
+            break;
+        case PINK:
+            selection = { 5, 104, 17, 19 };
+            break;
+        case BLUE:
+            selection = { 5, 124, 17, 19 };
+            break;
+        case ORANGE:
+            selection = { 5, 144, 17, 19 };
+            break;
+        }
+
         ss << "Ghost" << i+1;
         dest["row"] = _fm->getCharacterCoordRow( ss.str() );
         dest["col"] = _fm->getCharacterCoordCol( ss.str() );
-        _ghosts.push_back( new Ghost(dest, _renderer, _fm->getSpriteCharacters()) );
+        x = dest["col"] * 30 + AREAGAME_MARGIN;
+        y = dest["row"] * 30 + AREATOP_HEIGHT;
+        position = { x, y, 30, 30 };
+        _ghosts.push_back( new Ghost( dest, text, selection, position ) );
         _ghosts[i]->calculateDirection( _fm->getLevelTable() );
         ss.str(""); // Clear the string stream
 
@@ -310,7 +350,7 @@ void Window::drawCharacters() {
 
         // If a ghost has been eaten, don't render the pacman => because the score is rendered
         if( Ghost::eatenBrother == -1 )
-            _pacMan->show(_renderer);
+            _pacMan->show( _renderer );
 
         // Render the ghosts
         for( int i(0); i < _ghosts.size(); i++ ) {
@@ -322,7 +362,7 @@ void Window::drawCharacters() {
 
             // Otherwise, draw the ghost
             else
-                _ghosts[i]->show(_renderer);
+                _ghosts[i]->show( _renderer );
 
         }
 
@@ -691,14 +731,14 @@ void Window::startNewLife() {
 
         // Restore Pacman attributes to default
         _pacMan->startValues();
-        _pacMan->calculateDirection(_fm->getLevelTable());
-        _pacMan->show(_renderer);
+        _pacMan->calculateDirection( _fm->getLevelTable() );
+        _pacMan->show( _renderer );
 
         // Restore ghosts attributes to default
         for(int i(0); i < _ghosts.size(); i++) {
             _ghosts[i]->startValues();
-            _ghosts[i]->calculateDirection(_fm->getLevelTable());
-            _ghosts[i]->show(_renderer);
+            _ghosts[i]->calculateDirection( _fm->getLevelTable() );
+            _ghosts[i]->show( _renderer );
         }
 
     }

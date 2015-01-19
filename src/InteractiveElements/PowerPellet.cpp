@@ -15,15 +15,12 @@ using namespace std;
 Uint32 PowerPellet::blinkChrono = 0;
 Uint32 PowerPellet::betweenBlinkChrono = 0;
 
-PowerPellet::PowerPellet( map<string, int> dest,
-                          int type,
-                          int x,
-                          int y,
-                          SDL_Renderer* const& renderer,
-                          SDL_Surface* const& sprite ) :
-    PacDot( dest, type, x, y, renderer, sprite ) {
-
-    Surface::initRect(&_position, 20, 20, x, y);
+PowerPellet::PowerPellet( std::map<std::string, int>& dest,
+                          const int& type,
+                          const SDL_Rect& selection,
+                          const SDL_Rect& position,
+                          SDL_Texture* const& sprite ) :
+    PacDot( dest, type, selection, position, sprite ) {
 
 }
 
@@ -69,7 +66,7 @@ void PowerPellet::checkBlink() {
 
 }
 
-int PowerPellet::show( SDL_Renderer * const &renderer ) {
+int PowerPellet::show( SDL_Renderer* const& renderer ) {
 
     int score(0);
 

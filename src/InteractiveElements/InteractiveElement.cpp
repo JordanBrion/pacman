@@ -5,22 +5,11 @@ using namespace std;
 /* STATIC VARIABLES */
 Uint16 InteractiveElement::instancesCounter = 0;
 
-InteractiveElement::InteractiveElement(SDL_Renderer* const& renderer, SDL_Surface* const& sprite) {
+InteractiveElement::InteractiveElement() {}
 
-    // Initialize texture
-    _element = SDL_CreateTextureFromSurface(renderer, sprite);
-
-    // Inc counter for new instance ID
-    instancesCounter++;
-    _instanceID = instancesCounter;
-
-}
-
-InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite) :
-        _row(dest["row"]), _col(dest["col"]) {
-
-    // Initialize texture
-    _element = SDL_CreateTextureFromSurface(renderer, sprite);
+InteractiveElement::InteractiveElement( std::map<std::string, int>& dest ) :
+    _row( dest["row"] ),
+    _col( dest["col"] ) {
 
     // Inc counter for new instance ID
     instancesCounter++;
@@ -28,9 +17,15 @@ InteractiveElement::InteractiveElement(map<string, int> dest, SDL_Renderer* cons
 
 }
 
-void InteractiveElement::show(SDL_Renderer* const& pRenderer) {
+void InteractiveElement::show( SDL_Renderer* const& renderer) {
 
-    SDL_RenderCopy(pRenderer, _element, &_selection, &_position);
+    SDL_Rect selection = _surface->getSelection();
+    SDL_Rect position = _surface->getPosition();
+
+    SDL_RenderCopy( renderer,
+                    _surface->getTexture(),
+                    &selection,
+                    &position );
 
 }
 
@@ -46,14 +41,15 @@ int InteractiveElement::getCol() const {
 
 }
 
-SDL_Rect InteractiveElement::getPosition() const {
-
-    return _position;
-
-}
 
 SDL_Rect InteractiveElement::getSelection() const {
 
-    return _position;
+    return _surface->getSelection();
+
+}
+
+SDL_Rect InteractiveElement::getPosition() const {
+
+    return _surface->getPosition();
 
 }

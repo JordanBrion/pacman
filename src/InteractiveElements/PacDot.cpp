@@ -7,11 +7,16 @@ using namespace PacDots;
 
 using namespace std;
 
-PacDot::PacDot( map<string, int> dest, int type, int x, int y, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : InteractiveElement( dest, renderer, sprite ), _eaten( false ), _caseType( type ) {
+PacDot::PacDot( std::map<std::string, int>& dest,
+                const int& type,
+                const SDL_Rect& selection,
+                const SDL_Rect& position,
+                SDL_Texture* const& sprite ) :
+    InteractiveElement( dest ),
+    _eaten( false ),
+    _caseType( type ) {
 
-    Surface::initRect(&_selection, 13, 13, 3, 183);
-    Surface::initRect(&_position, 8, 8, x, y);
+    _surface = new SurfaceSelection( sprite, selection, position );
 
 }
 

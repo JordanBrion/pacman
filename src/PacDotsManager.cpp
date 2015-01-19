@@ -5,7 +5,8 @@ using namespace PacDots;
 
 using namespace std;
 
-PacDotsManager::PacDotsManager( vector<vector<int> > level, SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) {
+PacDotsManager::PacDotsManager( std::vector<std::vector<int> > level,
+                                SDL_Texture* const& sprite ) {
 
     for( int i(0); i < level.size(); i++ ) {
 
@@ -13,7 +14,7 @@ PacDotsManager::PacDotsManager( vector<vector<int> > level, SDL_Renderer* const&
 
         for( int j(0); j < level[i].size(); j++ ) {
 
-            addCase( i, level[i][j], renderer, sprite );
+            addCase( i, level[i][j], sprite );
 
         }
 
@@ -33,10 +34,12 @@ void PacDotsManager::addRow() {
 
 }
 
-void PacDotsManager::addCase( int const& row, int const& type, SDL_Renderer* const& renderer, SDL_Surface* const& sprite ) {
+void PacDotsManager::addCase( int const& row,
+                              int const& type,
+                              SDL_Texture* const& sprite ) {
 
     PacDotsCase *pdc = ( type < PACDOTS_PATH ) ?
-                                        new PacDotsCase( row, ( _pacDotsCases[ row ].size() ) -1, type, renderer, sprite ) :
+                                        new PacDotsCase( row, ( _pacDotsCases[ row ].size() ) -1, type, sprite ) :
                                         NULL;
 
     _pacDotsCases[ row ].push_back( pdc );
@@ -65,7 +68,8 @@ int PacDotsManager::render( SDL_Renderer* const& renderer ) {
 
 }
 
-PacDot* PacDotsManager::isThereAPacDot( int const& row, int const& col, int const& x, int const& y ) {
+PacDot* PacDotsManager::isThereAPacDot( int const& row, int const& col,
+                                        int const& x, int const& y ) {
 
     if( _pacDotsCases[ row ][ col ] != NULL ) {
 
@@ -88,7 +92,8 @@ PacDot* PacDotsManager::isThereAPacDot( int const& row, int const& col, int cons
 
 }
 
-bool PacDotsManager::eatPacDot( int const& row, int const& col, int const& x, int const& y ) {
+bool PacDotsManager::eatPacDot( int const& row, int const& col,
+                                int const& x, int const& y ) {
 
     int startRow = ( row-1 > -1 ) ? row-1 : row;
     int startCol = ( col-1 > -1 ) ? col-1 : col;

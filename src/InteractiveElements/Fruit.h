@@ -43,11 +43,13 @@ class Fruit : public InteractiveElement {
 public:
     //!
     //!  \brief Fruit constructor
-    //!  \param The name (type) of the fruit
-    //!  \param SDL_Renderer* of the window
-    //!  \param SDL_Surface* containing the sprite of all the characters (which containing also the fruit)
+    //!  \param type : The name (type) of the fruit
+    //!  \param sprite : SDL_Texture* containing the sprite of all the characters (which containing also the fruit)
+    //! \param selection : Selection on the sprite
     //!
-    Fruit( int const& name, SDL_Renderer* const& renderer, SDL_Surface* const& sprite );
+    Fruit( const int& type,
+           SDL_Texture* const& sprite,
+           const SDL_Rect& selection );
     //!
     //!  \brief Fruit destructor
     //!
@@ -78,11 +80,10 @@ public:
     //!
     int getPoints() const;
     //!
-    //!  \brief Method to initialize the position where the fruit appears in the grid
-    //!  \param x : The x position
-    //!  \param y : The y position
+    //!  \brief Method to initialize the position where the fruit appears on the screen
+    //!  \param position : Position on the screen
     //!
-    void initPositionAreaGame( int const& x, int const& y );
+    void initPositionAreaGame( const SDL_Rect& position );
     //!
     //!  \brief Method to initialize the position of the fruit in the area bottom
     //!

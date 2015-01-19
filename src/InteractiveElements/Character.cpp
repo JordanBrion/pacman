@@ -8,26 +8,22 @@ using namespace Directions;
 
 using namespace std;
 
-Character::Character(map<string, int> dest, SDL_Renderer* const& renderer, SDL_Surface* const& sprite)
-    : InteractiveElement(dest, renderer, sprite),
-      _initialRow( dest["row"] ),
-      _initialCol( dest["col"] ),
-      _step( -1 ),
-      _stepCounter( 0 ),
-      _goTo( -1 ),
-      _goToBackUp( -1 ),
-      _back( false ),
-      _spriteFlag( 1 ),
-      _velocity( 1 ),
-      _velocityX( 0 ),
-      _velocityY( 0 ),
-      _dead( false ) {
+Character::Character( std::map<std::string, int>& dest ) :
+    InteractiveElement( dest ),
+    _initialRow( dest["row"] ),
+    _initialCol( dest["col"] ),
+    _step( -1 ),
+    _stepCounter( 0 ),
+    _goTo( -1 ),
+    _goToBackUp( -1 ),
+    _back( false ),
+    _spriteFlag( 1 ),
+    _velocity( 1 ),
+    _velocityX( 0 ),
+    _velocityY( 0 ),
+    _dead( false ) {
 
-    // Initialize positions on the screen
-    int x = dest["col"] * 30 + AREAGAME_MARGIN;
-    int y = dest["row"] * 30 + AREATOP_HEIGHT;
-    Surface::initRect(&_position, 30, 30, x, y);
-
+    // Set default position in the grid
     _initialStateDest["x"] = dest["col"] * 30 + AREAGAME_MARGIN;
     _initialStateDest["y"] = dest["row"] * 30 + AREATOP_HEIGHT;
 
@@ -52,7 +48,7 @@ bool Character::moveVertically( bool up ) {
             if( _stepCounter > 0 ) {
 
                 // Update position
-                _position.y += _velocityY;
+                _surface->setPositionY( _surface->getPosition().y + _velocityY );
 
                 setStepCounter(UP, DOWN);
 
@@ -65,7 +61,7 @@ bool Character::moveVertically( bool up ) {
             else if( _stepCounter == 0 && _directionsPossible[UP] ) {
 
                 // Update position
-                _position.y += _velocityY;
+                _surface->setPositionY( _surface->getPosition().y + _velocityY );
 
                 _goTo = UP;
                 _stepCounter++;
@@ -83,7 +79,7 @@ bool Character::moveVertically( bool up ) {
             if( _stepCounter > 0 ) {
 
                 // Update position
-                _position.y += _velocityY;
+                _surface->setPositionY( _surface->getPosition().y + _velocityY );
 
                 setStepCounter(DOWN, UP);
 
@@ -96,7 +92,7 @@ bool Character::moveVertically( bool up ) {
             else if( _stepCounter == 0 && _directionsPossible[DOWN] ) {
 
                 // Update position
-                _position.y += _velocityY;
+                _surface->setPositionY( _surface->getPosition().y + _velocityY );
 
                 _goTo = DOWN;
                 _stepCounter++;
@@ -129,7 +125,7 @@ bool Character::moveHorizontally(bool left) {
             if( _stepCounter > 0 ) {
 
                 // Update position
-                _position.x += _velocityX;
+                _surface->setPositionX( _surface->getPosition().x + _velocityX );
 
                 setStepCounter(LEFT, RIGHT);
 
@@ -142,7 +138,7 @@ bool Character::moveHorizontally(bool left) {
             else if( _stepCounter == 0 && _directionsPossible[LEFT] ) {
 
                 // Update position
-                _position.x += _velocityX;
+                _surface->setPositionX( _surface->getPosition().x + _velocityX );
 
                 _goTo = LEFT;
                 _stepCounter++;
@@ -160,7 +156,7 @@ bool Character::moveHorizontally(bool left) {
             if( _stepCounter > 0 ) {
 
                 // Update position
-                _position.x += _velocityX;
+                _surface->setPositionX( _surface->getPosition().x + _velocityX );
 
                 setStepCounter(RIGHT, LEFT);
 
@@ -173,7 +169,7 @@ bool Character::moveHorizontally(bool left) {
             else if( _stepCounter == 0 && _directionsPossible[RIGHT] ) {
 
                 // Update position
-                _position.x += _velocityX;
+                _surface->setPositionX( _surface->getPosition().x + _velocityX );
 
                 _goTo = RIGHT;
                 _stepCounter++;
@@ -200,9 +196,11 @@ void Character::startValues() {
     _col = _initialCol;
     _row = _initialRow;
 
-    Surface::initRect( &_selection, 16, 20, _initialStateSrc["x"], _initialStateSrc["y"] );
+    _surface->setSelection( 16, 20,
+                            _initialStateSrc["x"], _initialStateSrc["y"] );
 
-    Surface::initRect( &_position, _position.w, _position.h, _initialStateDest["x"], _initialStateDest["y"] );
+    _surface->setPosition( _surface->getPosition().w, _surface->getPosition().h,
+                           _initialStateDest["x"], _initialStateDest["y"] );
 
     _dead = false;
 
@@ -436,10 +434,9 @@ void Character::nextSprite() {
         else _spriteFlag = 0;
 
         // Load new x and y
-        Surface::initRect( &_selection,
-                           _selection.w,
-                           _selection.h,
-                           _spriteCoord[_step][_spriteFlag][0],
+        _surface->setSelection( _surface->getSelection().w,
+                                _surface->getSelection().h,
+                                _spriteCoord[_step][_spriteFlag][0],
                 _spriteCoord[_step][_spriteFlag][1] );
 
     }
@@ -537,7 +534,7 @@ void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
     }
 
     // Initialize SDL_Rect position
-    Surface::initRect( &_position, 30, 30, x, y );
+    _surface->setPosition( 30, 30, x, y );
 
     // We made a 1-pixel move => _gotoToBackUp is useless => -1
     _goToBackUp = -1;
