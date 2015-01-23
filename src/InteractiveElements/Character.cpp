@@ -455,6 +455,12 @@ void Character::setDead() {
 
 }
 
+void Character::setDead( const bool& dead ) {
+
+    _dead = dead;
+
+}
+
 bool Character::isEatable() const {
 
     return _eatable;
@@ -467,7 +473,7 @@ void Character::setEatable() {
 
 }
 
-void Character::setEatable( bool eatable ) {
+void Character::setEatable( const bool& eatable ) {
 
     _eatable = eatable;
 

@@ -136,6 +136,10 @@ public:
     //!
     void setDead();
     //!
+    //!  \brief Setter to bring alive the character or kill him
+    //!
+    void setDead( const bool& dead );
+    //!
     //!  \brief Getter to know if the character is eatable
     //!  \return True if the character is eatable. Otherwise, false
     //!
@@ -148,7 +152,7 @@ public:
     //!  \brief Setter to put the character as eatable
     //!  \param True if the character is eatable. Otherwise, false
     //!
-    void setEatable( bool eatable );
+    void setEatable( const bool& eatable );
     //!
     //!  \brief Method to teleport the character to an other part of the level
     //!  \param to: Teleportation coordinates
