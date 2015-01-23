@@ -21,6 +21,9 @@
 #include <stdlib.h>
 #include <map>
 
+#include "WindowInitializer.h"
+#include "WindowHandler.h"
+#include "WindowManager.h"
 #include "../Const.h"
 #include "../FilesManager.h"
 #include "../AreaTop.h"
@@ -34,6 +37,8 @@
 #include "../MenuStart.h"
 #include "../MenuPause.h"
 #include "../MenuGameOver.h"
+
+class WindowManager;
 
 ///!
 //! \brief Enum to know where the player is in the game
@@ -60,19 +65,11 @@ public:
     //!
     //! \brief Window constructor
     //!
-    Window() throw(std::exception);
+    Window() throw( const std::exception& );
     //!
     //! \brief Window destructor
     //!
     ~Window();
-    //!
-    //! \brief Method to initialize SDL2 and the required SDL2 libraries
-    //!
-    void initSDL();
-    //!
-    //! \brief Method to initialize the media files (images, fonts...)
-    //!
-    void initRessources();
     //!
     //! \brief Method to create the characters
     //!
@@ -108,7 +105,7 @@ public:
     void drawHudBottom();
     //!
     //! \brief Method to handle all the events for each instance
-    //! \param e : SDL_Event
+    //! \param evt : SDL_Event
     //!
     void handleEvent( SDL_Event& e );
     //!
@@ -163,6 +160,7 @@ private:
     bool _loaded;                               /*!< Flag to know if the level has already been loaded */
 
     /* Instances of the project classes */
+    WindowInitializer* _initializer;            /*!<  Instance of WindowInitializer */
     FilesManager* _fm;                          /*!<  Instance of FilesManager */
     MenuStart* _ms;                             /*!<  Instance of MenuStart */
     MenuPause* _mp;                             /*!<  Instance of MenuPause */

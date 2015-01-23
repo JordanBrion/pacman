@@ -30,7 +30,7 @@ char _levelString[] =
         "0 ;-14;-3;-3;-3;-3;-3;-3;-3;-3;-9;-3;-7;-3;-3;-3;-3;-3;-3;-3;-3;-14;0;"
         "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
-Window::Window() throw(exception) :
+Window::Window() throw( const std::exception& ) :
     _quit(false),
     _screenWidth(900),
     _screenHeight(850),
@@ -39,12 +39,15 @@ Window::Window() throw(exception) :
 
     try {
 
-        // Initialize all the needed SDL libraries
-        initSDL();
+        _initializer = new WindowInitializer();
+
+        if( !_initializer->initSDL(_window, _screenWidth, _screenHeight, _renderer, _windowSurface ) )
+            throw std::exception();
 
         // Initialize the ressources files
         _fm = new FilesManager();
-        initRessources();
+        if( !_initializer->initRessources( _fm ) )
+            throw std::exception();
 
         // Load the level
         _fm->initLevelTable( _levelString );
@@ -98,10 +101,19 @@ Window::Window() throw(exception) :
         // Initialize the position of the bubbles
         _pdm = new PacDotsManager( _fm->getLevelTable(), textCharac );
 
-        createCharacters();
+        _initializer->initCharacters( _fm, _renderer, _pacMan, _ghosts );
+
+        //The mutex
+        _ghostsLock = SDL_CreateMutex();
+        //The conditions
+        _ghostsCanMove = SDL_CreateCond();
+
+        // At the start of the game, creation of the thread for the ghosts
+        _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
+
 
     }
-    catch(const exception &e) {
+    catch( const std::exception& e) {
 
         quit();
 
@@ -113,144 +125,6 @@ Window::~Window() {
 
     SDL_DestroyMutex( _ghostsLock );
     SDL_DestroyCond( _ghostsCanMove );
-
-}
-
-void Window::initSDL() {
-
-    // if error, we throw an exception
-    if ( SDL_Init(SDL_INIT_VIDEO) != 0 )
-        throw exception();
-
-    // SDL initialization is ok
-    else {
-
-        // Enable VSync
-        if( !SDL_SetHint( SDL_HINT_RENDER_VSYNC, "1" ) )
-            throw exception();
-
-        // Set texture filtering to linear
-        if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
-            throw exception();
-
-        // Create window
-        _window = SDL_CreateWindow( "Pac-Man", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_BORDERLESS );
-
-        if( _window == NULL )
-            throw exception();
-
-        else {
-
-            // Create renderer for window
-            _renderer = SDL_CreateRenderer( _window, -1, SDL_RENDERER_ACCELERATED );
-            if( _renderer == NULL )
-                throw exception();
-
-            else {
-
-                _windowSurface = SDL_GetWindowSurface(_window);
-
-                //Initialize renderer color
-                SDL_SetRenderDrawColor( _renderer, 13, 13, 11, 0 );
-
-                // Disable mouse cursor
-                SDL_ShowCursor(SDL_DISABLE);
-
-                //Initialize PNG loading
-                int imgFlags = IMG_INIT_PNG;
-                if( !( IMG_Init( imgFlags ) & imgFlags ) )
-                    throw exception();
-
-                else {
-
-                    // Load SDL_ttf and the font
-                    if( TTF_Init() == -1 ) {
-                        throw exception();
-                    }
-
-                }
-
-            }
-        }
-
-    }
-
-}
-
-void Window::initRessources() {
-
-    // Load the images
-    // If error when loading
-    if( !_fm->loadIMG() ) {
-        throw exception();
-    }
-
-    // Load SDL_ttf and the font
-    if( !_fm->loadFont() ) {
-        throw exception();
-    }
-
-}
-
-void Window::createCharacters() {
-
-    SDL_SetColorKey( _fm->getSpriteCharacters() , SDL_TRUE, SDL_MapRGB( _fm->getSpriteCharacters()->format, 0, 0, 0) );
-
-    SDL_Texture* text = SDL_CreateTextureFromSurface( _renderer, _fm->getSpriteCharacters() );
-
-    map<string, int> dest;
-
-    // Pacman creation
-    dest["row"] = _fm->getCharacterCoordRow("Pacman");
-    dest["col"] = _fm->getCharacterCoordCol("Pacman");
-    SDL_Rect selection = { 45, 3, 16, 20 };
-    int x = dest["col"] * 30 + AREAGAME_MARGIN;
-    int y = dest["row"] * 30 + AREATOP_HEIGHT;
-    SDL_Rect position = { x, y, 30, 30 };
-    _pacMan = new PacMan( dest, text, selection, position );
-    _pacMan->calculateDirection( _fm->getLevelTable() );
-
-
-    // Ghosts creation
-    stringstream ss;
-    for(int i(0); i < _fm->getGhostsNbr(); i++) {
-
-        int color = i % 4;
-
-        switch(color) {
-        case RED:
-            selection = { 5, 84, 17, 19 };
-            break;
-        case PINK:
-            selection = { 5, 104, 17, 19 };
-            break;
-        case BLUE:
-            selection = { 5, 124, 17, 19 };
-            break;
-        case ORANGE:
-            selection = { 5, 144, 17, 19 };
-            break;
-        }
-
-        ss << "Ghost" << i+1;
-        dest["row"] = _fm->getCharacterCoordRow( ss.str() );
-        dest["col"] = _fm->getCharacterCoordCol( ss.str() );
-        x = dest["col"] * 30 + AREAGAME_MARGIN;
-        y = dest["row"] * 30 + AREATOP_HEIGHT;
-        position = { x, y, 30, 30 };
-        _ghosts.push_back( new Ghost( dest, text, selection, position ) );
-        _ghosts[i]->calculateDirection( _fm->getLevelTable() );
-        ss.str(""); // Clear the string stream
-
-    }
-
-    //The mutex
-    _ghostsLock = SDL_CreateMutex();
-    //The conditions
-    _ghostsCanMove = SDL_CreateCond();
-
-    // At the start of the game, creation of the thread for the ghosts
-    _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
 
 }
 
