@@ -161,21 +161,21 @@ public:
     void teleport( std::vector<int> to, std::vector<std::vector<int> > levelTable );
 
 protected:
-    int _initialRow;                                            /*!< Initial row position of character at the start of the life  */
-    int _initialCol;                                            /*!< Initial column position of character at the start of the life */
+    Uint8 _initialRow;                                          /*!< Initial row position of character at the start of the life  */
+    Uint8 _initialCol;                                          /*!< Initial column position of character at the start of the life */
     std::map<std::string, int> _initialStateSrc;                /*!< Initial coord on the sprite */
     std::map<std::string, int> _initialStateDest;               /*!< Coord on the screen at the start of the game */
-    int _step;                                                  /*!< The direction towards the character just moved */
-    int _stepCounter;                                           /*!< Counter for the steps of the character */
-    int _goTo;                                                  /*!< Global direction of the character */
-    int _goToBackUp;                                            /*!< Backup of the global direction of the character */
+    int8_t _step;                                               /*!< The direction towards the character just moved */
+    int8_t _stepCounter;                                        /*!< Counter for the steps of the character */
+    int8_t _goTo;                                               /*!< Global direction of the character */
+    int8_t _goToBackUp;                                         /*!< Backup of the global direction of the character */
     bool _back;                                                 /*!< Flag to check if the character retrace his steps */
     std::vector<bool> _directionsPossible;                      /*!< Calculate the possible directions where the character can go */
     Uint8 _spriteFlag;                                          /*!< Flag to know which sprite to select */
     std::vector<std::vector<std::vector<int> > > _spriteCoord;  /*!< Coordinates of the sprite */
-    int _velocity;                                              /*!< The velocity of the character */
-    int _velocityX;                                             /*!< The velocity X of the character */
-    int _velocityY;                                             /*!< The velocity Y of the character */
+    Uint8 _velocity;                                            /*!< The velocity of the character */
+    int8_t _velocityX;                                          /*!< The velocity X of the character */
+    int8_t _velocityY;                                          /*!< The velocity Y of the character */
     bool _dead;                                                 /*!< Flag to know if a character is dead or not */
     bool _eatable;                                              /*!< Flag to know if a character is eatable */
     std::map<std::string, int> _positionForRespawn;             /*!< The respawn position of the character  */
