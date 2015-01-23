@@ -16,15 +16,6 @@
 #define     EVENTHANDLER_MENUPAUSE        3
 #define     EVENTHANDLER_MENUGAMEOVER     4
 
-#define     NO_MANAGEMENT           -1
-#define     MANAGEMENT_INGAME       0
-#define     MANAGEMENT_NEWLIFE      1
-#define     MANAGEMENT_RESETTER     2
-#define     MANAGEMENT_START        3
-#define     MANAGEMENT_PAUSE        4
-#define     MANAGEMENT_QUITGAME     5
-#define     MANAGEMENT_QUITAPP      6
-
 #include <SDL2/SDL.h>
 
 #include <iostream>
