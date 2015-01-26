@@ -11,8 +11,7 @@ PacMan::PacMan( std::map<std::string, int>& dest,
                 const SDL_Rect& selection,
                 const SDL_Rect& position ) :
     Character( dest ),
-    _deathAnimationCounter( 0 ),
-    _powerPelletChrono( 0 ) {
+    _deathAnimationCounter( 0 ){
 
     _eatable = true;
 
@@ -20,6 +19,12 @@ PacMan::PacMan( std::map<std::string, int>& dest,
     _initialStateSrc["x"] = selection.x;
     _initialStateSrc["y"] = selection.y;
     _surface = new SurfaceSelection( texture, selection, position );
+
+    // Initialize the power-pellet chronometer
+    _powerPelletChrono = new Chrono<PacMan>( POWERPELLET_DURATION,
+                                                     "Power Pellet Chrono",
+                                                     this,
+                                                     &PacMan::setEatable );
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -147,8 +152,6 @@ void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int>
 
 void PacMan::nextSprite() {
 
-    cout << _step << endl;
-
     if( _step != -1 ) {
 
         if( _spriteFlag+1 == _spriteCoord[ _step ].size() && _stepCounter % 5 == 0 ) {
@@ -173,46 +176,22 @@ void PacMan::checkCollisionWithPacDots(PacDotsManager *pdm) {
 
     if( pdm->eatPacDot( _row, _col, _surface->getPosition().x + 10, _surface->getPosition().y + 10 ) ) {
 
-        startPowerPelletChrono();
+        _eatable = false;
+
+        // Check if the Pac-Man didn't eat a pac-dot
+        // If he ate one => reset the chrono
+        if( !_powerPelletChrono->isRunning() )
+            _powerPelletChrono->start();
+        else
+            _powerPelletChrono->reset();
 
     }
 
 }
 
-Uint32 PacMan::getPowerPelletChrono() const {
+Chrono<PacMan>* PacMan::getPowerPelletChrono() const {
 
     return _powerPelletChrono;
-
-}
-
-void PacMan::startPowerPelletChrono() {
-
-    _powerPelletChrono = SDL_GetTicks();
-    _eatable = false;
-
-}
-
-bool PacMan::checkPowerPelletChrono() {
-
-    if( timeLeftPowerPellet() >= POWERPELLET_DURATION  ) {
-        resetPowerPelletChrono();
-        return true;
-    }
-
-    return false;
-
-}
-
-void PacMan::resetPowerPelletChrono() {
-
-    _powerPelletChrono = 0;
-    _eatable = true;
-
-}
-
-Uint32 PacMan::timeLeftPowerPellet() {
-
-    return SDL_GetTicks() - _powerPelletChrono;
 
 }
 

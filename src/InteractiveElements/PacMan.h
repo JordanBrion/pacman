@@ -9,6 +9,8 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
+#include <pm/Chrono.h>
+
 #include "Character.h"
 #include "../PacDotsManager.h"
 #include "../FruitManager.h"
@@ -64,25 +66,7 @@ public:
     //! \brief Getter for the power pellet chronometer
     //! \return The power pellet chronometer. 0 if the chrono is not started.
     //!
-    Uint32 getPowerPelletChrono() const;
-    //!
-    //! \brief Method to start the power pellet chronometer
-    //!
-    void startPowerPelletChrono();
-    //!
-    //! \brief Method to check if the power pellet chronometer is exceeded
-    //! \return True if the power pellet chrono is resetted. Otherwise, false
-    //!
-    bool checkPowerPelletChrono();
-    //!
-    //! \brief Method to reset the power pellet chronometer
-    //!
-    void resetPowerPelletChrono();
-    //!
-    //! \brief Method to calculate the time left for the power pellet duration
-    //! \return The time left
-    //!
-    Uint32 timeLeftPowerPellet();
+    Chrono<PacMan>* getPowerPelletChrono() const;
     //!
     //! \brief Method to check the collision with the fruit
     //! \param pdm : The fruit manager which contains all the fruit
@@ -105,8 +89,8 @@ public:
     void startValues();
 
 private:
-    int _deathAnimationCounter;     /*!< Counter of the death animation */
-    Uint32 _powerPelletChrono;      /*!< Flag when pac-man eat a */
+    int _deathAnimationCounter;             /*!< Counter of the death animation */
+    Chrono<PacMan>* _powerPelletChrono;
 
 };
 
