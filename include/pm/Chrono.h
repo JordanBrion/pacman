@@ -308,6 +308,8 @@ private:
 
         }
 
+        stop();
+
         // Call the callback
         (getObj()->*_callback)();
 
