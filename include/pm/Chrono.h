@@ -275,6 +275,16 @@ public:
     Uint8 getState() const { return _state; }
 
     //!
+    //! \brief Getter for the thread
+    //! \return The SDL_Thread
+    //!
+    SDL_Thread* getThread() const {
+
+        return _thread;
+
+    }
+
+    //!
     //! \brief Template getter for the instance on which call the callback method
     //! \return The instance on which call the callback method
     //!
