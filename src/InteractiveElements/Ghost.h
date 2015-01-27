@@ -1,5 +1,5 @@
-#ifndef FANTOME_H
-#define FANTOME_H
+#ifndef     GHOST_H
+#define     GHOST_H
 
 //!
 //! \file Ghost.h
@@ -134,14 +134,13 @@ class Ghost : public Character {
 
     /* STATIC VARIABLES */
     static int8_t eatenBrother;                             /*!< Flag to know if a ghost was eaten */
-    static const Uint32 POWERPELLET_SCORE_DURATION = 2000;  /*!< Duration of the chronometer to render the power-pellet score chrono */
+    static const Uint16 GHOST_EATEN_SCORE_DURATION = 2000;  /*!< The duration to wait when a ghost is eaten  */
 
 private:
-    Uint32 _powerPelletScoreChrono;                             /*!< Chronometer to render the power-pellet score chrono */
     int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
     std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
     bool _powerPelletAlmostOver;                                /*!< Flag to know if the power pellet duration is 50% over */
 
 };
 
-#endif
+#endif      /* GHOST_H */

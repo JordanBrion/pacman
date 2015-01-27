@@ -2,6 +2,7 @@
 using namespace PacDots;
 
 #include "PacMan.h"
+#include "Ghost.h"
 #include "../Surfaces/Surface.h"
 
 using namespace std;
@@ -22,9 +23,15 @@ PacMan::PacMan( std::map<std::string, int>& dest,
 
     // Initialize the power-pellet chronometer
     _powerPelletChrono = new Chrono<PacMan>( POWERPELLET_DURATION,
-                                                     "Power Pellet Chrono",
-                                                     this,
-                                                     &PacMan::setEatable );
+                                             "Power Pellet Chrono",
+                                             this,
+                                             &PacMan::setEatable );
+
+    // Initialize the chrono for the wait when a ghost is eaten
+    _ghostEatenScoreChrono = new Chrono<Chrono<PacMan> >( Ghost::GHOST_EATEN_SCORE_DURATION,
+                                                          "Ghost Eaten Score Duration",
+                                                          _powerPelletChrono,
+                                                          &Chrono<PacMan>::unpause );
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
@@ -192,6 +199,12 @@ void PacMan::checkCollisionWithPacDots(PacDotsManager *pdm) {
 Chrono<PacMan>* PacMan::getPowerPelletChrono() const {
 
     return _powerPelletChrono;
+
+}
+
+Chrono<Chrono<PacMan> >* PacMan::getGhostEatenScoreChrono() const {
+
+    return _ghostEatenScoreChrono;
 
 }
 

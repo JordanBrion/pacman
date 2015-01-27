@@ -426,14 +426,22 @@ void Window::threadGhostsLoop() {
                     if( _ghosts[i]->checkCollision( _pacMan ) ) {
 
                         // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
-                        if( !_ghosts[i]->eat( _pacMan ) ) {
+                        if( !_ghosts[i]->eat( _pacMan )
+                                && _pacMan->getPowerPelletChrono()->isRunning() ) {
 
-                            // If the pacman eat the ghost
+                            // The pacman eat the ghost
                             Ghost::eatenBrother = i;
-                            _ghosts[ i ]->startPowerPelletScoreChrono();
 
                             // Change the combo power-pellet score
                             _game->incComboPowerPellet();
+
+                            _pacMan->getPowerPelletChrono()->pause();
+                            _pacMan->getGhostEatenScoreChrono()->start();
+
+                            // The chrono is now running
+                            // => wait for the end
+                            SDL_WaitThread( _pacMan->getGhostEatenScoreChrono()->getThread(), 0 );
+                            break;
 
                         }
 
@@ -451,18 +459,14 @@ void Window::threadGhostsLoop() {
         }
 
         // If the pacman eat a ghost recently => don't move the ghosts and render the score
-        else if( Ghost::eatenBrother > -1 ) {
+        else {
 
             // If the chrono is over
-            if( _ghosts[ Ghost::eatenBrother ]->isPowerPelletScoreChronoOver() ) {
-
-                _ghosts[ Ghost::eatenBrother ]->resetPowerPelletScoreChrono();
+            if( _pacMan->getGhostEatenScoreChrono()->isOver() ) {
 
                 // The power-pellet score chrono is over
                 // The eaten ghost has to return to the warpzone
                 _ghosts[ Ghost::eatenBrother ]->returnToWarpZone();
-
-                _ghosts[ Ghost::eatenBrother ]->resetPowerPelletScoreChrono();
 
                 Ghost::eatenBrother = -1;
 

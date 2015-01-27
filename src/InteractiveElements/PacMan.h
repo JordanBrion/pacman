@@ -64,9 +64,14 @@ public:
     void checkCollisionWithPacDots( PacDotsManager* pdm );
     //!
     //! \brief Getter for the power pellet chronometer
-    //! \return The power pellet chronometer. 0 if the chrono is not started.
+    //! \return The power pellet chronometer
     //!
     Chrono<PacMan>* getPowerPelletChrono() const;
+    //!
+    //! \brief Getter for the chrono when a ghost is eaten
+    //! \return The chronometer
+    //!
+    Chrono<Chrono<PacMan> >* getGhostEatenScoreChrono() const;
     //!
     //! \brief Method to check the collision with the fruit
     //! \param pdm : The fruit manager which contains all the fruit
@@ -89,8 +94,9 @@ public:
     void startValues();
 
 private:
-    int _deathAnimationCounter;             /*!< Counter of the death animation */
-    Chrono<PacMan>* _powerPelletChrono;
+    int _deathAnimationCounter;                         /*!< Counter of the death animation */
+    Chrono<PacMan>* _powerPelletChrono;                 /*!< Chrono for a power-pellet eaten */
+    Chrono<Chrono<PacMan> >* _ghostEatenScoreChrono;    /*!< Chrono for the wait when a ghost is eaten. (When the score is shown) */
 
 };
 

@@ -418,7 +418,7 @@ void Ghost::handlePowerPellet( PacMan* pacMan ) {
 
     if( !pacMan->isEatable() ) {
 
-        if( !pacMan->getPowerPelletChrono()->isOver() ) {
+        if( !pacMan->getPowerPelletChrono()->isOver() && !pacMan->getGhostEatenScoreChrono()->isRunning() ) {
 
             _eatable = true;
 
@@ -449,31 +449,6 @@ void Ghost::handlePowerPellet( PacMan* pacMan ) {
 void Ghost::setPowerPelletAlmostOver( bool powerPelletAlmostOver ) {
 
     _powerPelletAlmostOver = powerPelletAlmostOver;
-
-}
-
-void Ghost::startPowerPelletScoreChrono() {
-
-    _powerPelletScoreChrono = SDL_GetTicks();
-
-}
-
-void Ghost::resetPowerPelletScoreChrono() {
-
-    _powerPelletScoreChrono = 0;
-
-}
-
-bool Ghost::isPowerPelletScoreChronoOver() {
-
-    if( _powerPelletScoreChrono > 0
-            && SDL_GetTicks() - POWERPELLET_SCORE_DURATION >= _powerPelletScoreChrono ) {
-
-        return true;
-
-    }
-
-    return false;
 
 }
 
