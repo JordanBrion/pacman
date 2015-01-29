@@ -31,13 +31,15 @@ char _levelString[] =
         "3;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;4;";
 
 Window::Window() throw( const std::exception& ) :
-    _quit(false),
-    _screenWidth(900),
-    _screenHeight(850),
+    _screenWidth( 900 ),
+    _screenHeight( 850 ),
     _gameState( GAMESTATE_INGAME ),
     _loaded(false) {
 
     try {
+
+        _quitApp = new bool();
+        _quitGame = new bool();
 
         _initializer = new WindowInitializer();
 
@@ -284,7 +286,7 @@ void Window::handleEvent( SDL_Event& e ) {
             break;
 
         case MENUSTART_QUIT:
-            _quit = true;
+            *_quitApp = true;
             break;
 
         default:
@@ -531,7 +533,7 @@ void Window::loop() {
     // Flag for blocking of key up infinite loop
     bool stopKeyUp(false);
 
-    while( !_quit ) {
+    while( !*_quitApp ) {
 
         startLoop = SDL_GetTicks();
 
@@ -540,14 +542,14 @@ void Window::loop() {
             switch( e.type ) {
 
             case SDL_QUIT:
-                _quit = true;
+                *_quitApp = true;
                 break;
 
             case SDL_KEYDOWN:
 
                 switch(e.key.keysym.sym) {
                 case SDLK_ESCAPE:
-                    _quit = true;
+                    *_quitApp = true;
                     break;
                 }
                 break;
@@ -571,6 +573,7 @@ void Window::loop() {
 
 
     }
+
 }
 
 void Window::calculateFPS( int const& fps, int const& startLoop, int const& endLoop ) {
@@ -598,6 +601,10 @@ void Window::quit() {
     cout << SDL_GetError() << endl;
 
 }
+
+bool* Window::getQuitApp() const { return _quitApp; }
+
+bool* Window::getQuitGame() const { return _quitGame; }
 
 void Window::startNewLife() {
 

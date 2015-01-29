@@ -22,8 +22,6 @@
 #include <map>
 
 #include "WindowInitializer.h"
-#include "WindowHandler.h"
-#include "WindowManager.h"
 #include "../Const.h"
 #include "../FilesManager.h"
 #include "../AreaTop.h"
@@ -138,6 +136,16 @@ public:
     //!
     void quit();
     //!
+    //! \brief Getter for the _quitApp attribute
+    //! \return The _quitApp attribute
+    //!
+    bool* getQuitApp() const;
+    //!
+    //! \brief Getter for the _quitGame attribute
+    //! \return The _quitGame attribute
+    //!
+    bool* getQuitGame() const;
+    //!
     //! \brief Method to start a new life and reset to default several values
     //!
     void startNewLife();
@@ -147,7 +155,8 @@ public:
     void resetData();
 
 private:
-    bool _quit;                                 /*!< Flag for the SDL loop */
+    bool* _quitApp;                             /*!< Flag for the SDL loop */
+    bool* _quitGame;                            /*!< Flag to quit the game */
     int _screenWidth;                           /*!< Width of the window */
     int _screenHeight;                          /*!< Height of window */
     SDL_Window *_window;                        /*!< Window */
