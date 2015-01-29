@@ -103,7 +103,7 @@ Window::Window() throw( const std::exception& ) :
         // Initialize the position of the bubbles
         _pdm = new PacDotsManager( _fm->getLevelTable(), textCharac );
 
-        _initializer->initCharacters( _fm, _renderer, _pacMan, _ghosts );
+        _initializer->initCharacters( this, _pacMan, _ghosts );
 
         //The mutex
         _ghostsLock = SDL_CreateMutex();
@@ -605,6 +605,10 @@ void Window::quit() {
 bool* Window::getQuitApp() const { return _quitApp; }
 
 bool* Window::getQuitGame() const { return _quitGame; }
+
+SDL_Renderer* Window::getRenderer() const { return _renderer; }
+
+FilesManager* Window::getFm() const { return _fm; }
 
 void Window::startNewLife() {
 

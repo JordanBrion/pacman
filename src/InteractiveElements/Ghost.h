@@ -16,8 +16,6 @@
 
 #include "Character.h"
 #include "PacMan.h"
-//#include "../GhostAlgo/GhostThread.h"
-#include "../GhostAlgo/GhostBehavior.h"
 
 //!
 //! \brief Enum for the ghost colors
@@ -44,12 +42,15 @@ public:
     //!  \param sprite : SDL_Texture* containing the sprite of all the characters
     //!  \param selection : Selection on the sprite
     //!  \param position : Position on the screen
+    //!  \param quitGame : Pointer to _quitGame Window class attribute (to know when kill the thread)
     //!  \param fm : Pointer on FilesManager instance (to retrieve levelTable and teleportation coordinates)
     //!
     Ghost( std::map<std::string, int>& dest,
            SDL_Texture* const& sprite,
            const SDL_Rect& selection,
            const SDL_Rect& position,
+           PacMan* const& pacMan,
+           bool* const& quitGame,
            FilesManager* fm );
     //!
     //!  \brief Method to load the sprite coordonates of the ghost

@@ -146,6 +146,16 @@ public:
     //!
     bool* getQuitGame() const;
     //!
+    //! \brief Getter for the SDL_Renderer of the window
+    //! \return The SDL_Renderer of the window
+    //!
+    SDL_Renderer* getRenderer() const;
+    //!
+    //! \brief Getter for the FilesManager instance
+    //! \return The FilesManager instance
+    //!
+    FilesManager* getFm() const;
+    //!
     //! \brief Method to start a new life and reset to default several values
     //!
     void startNewLife();

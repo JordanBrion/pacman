@@ -3,6 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "Window.h"
+
 WindowInitializer::WindowInitializer() {}
 
 WindowInitializer::~WindowInitializer() {}
@@ -110,10 +112,12 @@ bool WindowInitializer::initRessources( FilesManager* fm ) throw( const char* ) 
 
 }
 
-void WindowInitializer::initCharacters( FilesManager* fm,
-                                        SDL_Renderer* renderer,
+void WindowInitializer::initCharacters( Window* w,
                                         PacMan* &pacMan,
                                         std::vector<Ghost*>& ghosts ) {
+
+    SDL_Renderer* renderer = w->getRenderer();
+    FilesManager* fm = w->getFm();
 
     SDL_SetColorKey( fm->getSpriteCharacters() ,
                      SDL_TRUE,
@@ -163,11 +167,13 @@ void WindowInitializer::initCharacters( FilesManager* fm,
         x = dest["col"] * 30 + AREAGAME_MARGIN;
         y = dest["row"] * 30 + AREATOP_HEIGHT;
         position = { x, y, 30, 30 };
+
         ghosts.push_back( new Ghost( dest,
                                      text,
                                      selection, position,
+                                     pacMan,
+                                     w->getQuitGame(),
                                      fm ) );
-
         ghosts[i]->calculateDirection();
         ss.str(""); // Clear the string stream
 

@@ -17,6 +17,8 @@
 
 #include <iostream>
 
+class Window;
+
 //!
 //! \class WindowInitializer
 //! \brief Class to initialize the ressources and the libs of the project.
@@ -53,6 +55,15 @@ public:
     //! \return
     //!
     bool initRessources( FilesManager* fm ) throw( const char* );
+
+
+
+
+
+
+
+
+
     //!
     //! \brief initCharacters
     //! \param fm : Instance of file manager
@@ -60,10 +71,14 @@ public:
     //! \param pacMan : Instance of Pac-Man
     //! \param ghosts : Vector array of ghost intances
     //!
-    void initCharacters( FilesManager* fm,
-                         SDL_Renderer* renderer,
+    void initCharacters( Window* w,
                          PacMan* &pacMan,
                          std::vector<Ghost*>& ghosts);
+
+
+
+
+
 
     /* ATTRIBUTES */
 private:

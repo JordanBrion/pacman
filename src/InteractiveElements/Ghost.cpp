@@ -23,6 +23,8 @@ Ghost::Ghost( std::map<std::string, int>& dest,
               SDL_Texture* const& sprite,
               const SDL_Rect& selection,
               const SDL_Rect& position,
+              PacMan* const& pacMan,
+              bool* const& quitGame,
               FilesManager* fm ) :
     Character( dest,
                fm ),
@@ -41,9 +43,6 @@ Ghost::Ghost( std::map<std::string, int>& dest,
 
     // Initialize the sprite coord for the eatable animations
     loadSpriteCoordEatable();
-
-    // _thread = new GhostThread( this, _instanceID );
-    //_behavior = 0;
 
 }
 
@@ -507,4 +506,3 @@ void Ghost::returnToWarpZone() {
     startValues();
 
 }
-
