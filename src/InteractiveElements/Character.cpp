@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include <pm/PacDots.h>
 using namespace PacDots;
 #include <pm/Directions.h>
@@ -8,7 +10,8 @@ using namespace Directions;
 
 using namespace std;
 
-Character::Character( std::map<std::string, int>& dest ) :
+Character::Character( std::map<std::string, int>& dest,
+                      FilesManager* fm ) :
     InteractiveElement( dest ),
     _initialRow( dest["row"] ),
     _initialCol( dest["col"] ),
@@ -21,7 +24,8 @@ Character::Character( std::map<std::string, int>& dest ) :
     _velocity( 1 ),
     _velocityX( 0 ),
     _velocityY( 0 ),
-    _dead( false ) {
+    _dead( false ),
+    _fm( fm ) {
 
     // Set default position in the grid
     _initialStateDest["x"] = dest["col"] * 30 + AREAGAME_MARGIN;
@@ -206,12 +210,14 @@ void Character::startValues() {
 
 }
 
-void Character::calculateDirection(vector<vector<int> > levelTable) {
+void Character::calculateDirection() {
 
     if(!_back) {
 
         // Check if the next positions are runnable by the character
         // AND check if we are not at out of range of the grid
+
+        const std::vector<std::vector<int> >& levelTable = _fm->getLevelTable();
 
         _directionsPossible[UP] = ( _row-1 > -1 && levelTable[_row-1][_col] <= PACDOTS_PATH  ) ? true : false;
         _directionsPossible[DOWN] = ( _row+1 < levelTable.size() && levelTable[_row+1][_col] <= PACDOTS_PATH ) ? true : false;
@@ -248,29 +254,27 @@ void Character::setStepCounter(int direction1, int direction2) {
 
 }
 
-vector<int> Character::checkTeleportation( map<string, vector<int> > teleportationLocationsCoord ) {
+const char* Character::checkTeleportation() const {
 
-    vector<int> location;
+    const std::map<string, std::vector<int> >& coords = _fm->getTeleportationLocationsCoord();
 
-    for( map<string, vector<int> >::iterator it = teleportationLocationsCoord.begin();
-         it != teleportationLocationsCoord.end();
+    for( std::map<std::string, std::vector<int> >::const_iterator it = coords.begin();
+         it != coords.end();
          ++it ) {
 
-        location = it->second;
+        // If the character is in a teleporation place
+        if( it->second[0] == _row && it->second[1] == _col ) {
 
-        if( location[0] == _row && location[1] == _col ) {
+            std::stringstream ss;
+            ss << _row << "-" << _col;
 
-            string key = to_string( _row ) + "_" + to_string( _col );
-            return teleportationLocationsCoord[ key ];
+            return ss.str().c_str();
 
         }
 
-        // Clear the vector for the return value
-        location.clear();
-
     }
 
-    return location;
+    return 0;
 
 }
 
@@ -479,11 +483,12 @@ void Character::setEatable( const bool& eatable ) {
 
 }
 
-void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
+void Character::teleport( const char* to ) {
 
     // Position in the grid
-    _row = to[0];
-    _col = to[1];
+    std::map<string, std::vector<int> >::iterator it = _fm->getTeleportationLocationsCoord().find( to );
+    _row = it->second[0];
+    _col =  it->second[1];
 
     // In case pacman turns back after a teleportation
     // Without this, impossible to calculate the new possible direction in Character::calculateDirection()
@@ -495,7 +500,7 @@ void Character::teleport( vector<int> to, vector<vector<int> > levelTable ) {
     _stepCounter = 5;
 
     // Calculate the possible directions
-    calculateDirection( levelTable );
+    calculateDirection();
 
     // Coordinates on the screen
     int x( 0);

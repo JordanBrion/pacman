@@ -1,15 +1,18 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef     CHARACTER_H
+#define     CHARACTER_H
 
 //!
 //! \file Character.h
 //! \brief Class representing a character. It can be a pacman or a ghost.
 //! \author Jordan Brion
 //! \version 0.1
-//! \date 2 september 2014
+//! \date 29 January 2015
 //!
 
 #include "InteractiveElement.h"
+#include "../FilesManager.h"
+
+#define     NO_TELEPORTATION    0       /*!< \def Macro for no teleportation value */
 
 //!
 //! \class Character
@@ -18,11 +21,14 @@
 class Character: public InteractiveElement {
 
 protected:
+
     //!
     //!  \brief Character constructor
     //!  \param dest : The position where the character has to be rendered on the screen
+    //!  \param fm : Pointer on FilesManager instance (to retrieve levelTable and teleportation coordinates)
     //!
-    Character( std::map<std::string, int>& dest );
+    Character( std::map<std::string, int>& dest,
+               FilesManager* fm );
     //!
     //!  \brief Virtual method to load the sprite coordonates of the character
     //!
@@ -50,17 +56,14 @@ protected:
     void startValues();
     //!
     //! \brief Virtual method to update the data ( position of the character in the grid, possible directions, etc.  )
-    //! \param levelTable: Array containing the level in form of caracters
-    //! \param teleportationLocationsCoord: The cases which are able to teleport the character
     //!
-    virtual void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord ) = 0;
+    virtual void updateAll() = 0;
 
 public:
     //!
     //!  \brief Method to calculate the next possible directions for the characters
-    //!  \param levelTable : Array containing the level in the form of caracters
     //!
-    void calculateDirection( std::vector<std::vector<int> > levelTable );
+    void calculateDirection();
     //!
     //!  \brief Method to check if the character is centered in the square (checkout needed for correct moves)
     //!  \return True if the character is in the center of the square. Otherwise, false
@@ -74,10 +77,9 @@ public:
     void setStepCounter( int direction1, int direction2 );
     //!
     //! \brief Method to check if the character is in a case which is able to teleport him
-    //! \param teleportationLocationsCoord: The cases which are able to teleport the character
-    //! \return The coordinates in a vector. Otherwise, false
+    //! \return The coordinates in string key. Otherwise, NO_TELEPORTATION macro
     //!
-    std::vector<int> checkTeleportation( std::map<std::string, std::vector<int> > teleportationLocationsCoord );
+    const char* checkTeleportation() const;
     //!
     //!  \brief Method to update the position where the character is in the grid
     //!
@@ -155,10 +157,9 @@ public:
     void setEatable( const bool& eatable );
     //!
     //!  \brief Method to teleport the character to an other part of the level
-    //!  \param to: Teleportation coordinates
-    //!  \param levelTable: The array containing the level in form of caracters
+    //!  \param to: Teleportation coordinates in a string key
     //!
-    void teleport( std::vector<int> to, std::vector<std::vector<int> > levelTable );
+    void teleport( const char* to );
 
 protected:
     Uint8 _initialRow;                                          /*!< Initial row position of character at the start of the life  */
@@ -179,7 +180,8 @@ protected:
     bool _dead;                                                 /*!< Flag to know if a character is dead or not */
     bool _eatable;                                              /*!< Flag to know if a character is eatable */
     std::map<std::string, int> _positionForRespawn;             /*!< The respawn position of the character  */
+    FilesManager* _fm;                                          /*!< Instance of FilesManager (to retrieve levelTable and teleportation coordinates) */
 
 };
 
-#endif
+#endif      /* CHARACTER_H */

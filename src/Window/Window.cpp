@@ -111,7 +111,6 @@ Window::Window() throw( const std::exception& ) :
         // At the start of the game, creation of the thread for the ghosts
         _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
 
-
     }
     catch( const std::exception& e) {
 
@@ -204,7 +203,7 @@ void Window::drawCharacters() {
     }
     else {
 
-        _pacMan->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
+        _pacMan->updateAll();
         if( Ghost::eatenBrother == -1 && _pacMan->move() != -1 ) {
 
             _pacMan->nextSprite();
@@ -417,7 +416,7 @@ void Window::threadGhostsLoop() {
             for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
 
                 // Update the ghost attributes
-                _ghosts[i]->updateAll( _fm->getLevelTable(), _fm->getTeleportationLocationsCoord() );
+                _ghosts[i]->updateAll();
 
                 // Move the ghost
                 if( _ghosts[i]->move() != -1 ) {
@@ -609,13 +608,13 @@ void Window::startNewLife() {
 
         // Restore Pacman attributes to default
         _pacMan->startValues();
-        _pacMan->calculateDirection( _fm->getLevelTable() );
+        _pacMan->calculateDirection();
         _pacMan->show( _renderer );
 
         // Restore ghosts attributes to default
         for(int i(0); i < _ghosts.size(); i++) {
             _ghosts[i]->startValues();
-            _ghosts[i]->calculateDirection( _fm->getLevelTable() );
+            _ghosts[i]->calculateDirection();
             _ghosts[i]->show( _renderer );
         }
 

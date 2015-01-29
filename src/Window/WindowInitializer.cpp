@@ -132,8 +132,9 @@ void WindowInitializer::initCharacters( FilesManager* fm,
     SDL_Rect position = { x, y, 30, 30 };
     pacMan = new PacMan( dest,
                          text,
-                         selection, position );
-    pacMan->calculateDirection( fm->getLevelTable() );
+                         selection, position,
+                         fm );
+    pacMan->calculateDirection();
 
     // Ghosts creation
     std::stringstream ss;
@@ -164,9 +165,10 @@ void WindowInitializer::initCharacters( FilesManager* fm,
         position = { x, y, 30, 30 };
         ghosts.push_back( new Ghost( dest,
                                      text,
-                                     selection,
-                                     position ));
-        ghosts[i]->calculateDirection( fm->getLevelTable() );
+                                     selection, position,
+                                     fm ) );
+
+        ghosts[i]->calculateDirection();
         ss.str(""); // Clear the string stream
 
     }

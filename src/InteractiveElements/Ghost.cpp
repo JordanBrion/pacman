@@ -6,6 +6,12 @@ using namespace Directions;
 using namespace PacDots;
 
 #include "Ghost.h"
+#include "../GhostAlgo/Behavior_EnterWarpzone.h"
+#include "../GhostAlgo/Behavior_ExitWarpzone.h"
+#include "../GhostAlgo/Behavior_Hunted.h"
+#include "../GhostAlgo/Behavior_Hunter.h"
+#include "../GhostAlgo/Behavior_InWarpzone.h"
+#include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
 
 using namespace std;
@@ -16,25 +22,28 @@ int8_t Ghost::eatenBrother = -1;
 Ghost::Ghost( std::map<std::string, int>& dest,
               SDL_Texture* const& sprite,
               const SDL_Rect& selection,
-              const SDL_Rect& position ) :
-    Character( dest ),
+              const SDL_Rect& position,
+              FilesManager* fm ) :
+    Character( dest,
+               fm ),
     _forbiddenDirection( -1 ),
     _powerPelletAlmostOver( false ) {
 
     _eatable = false;
-
     _stepCounter = 30;
-
-    _surface = new SurfaceSelection( sprite, selection, position );
 
     _initialStateSrc["x"] = selection.x;
     _initialStateSrc["y"] = selection.y;
+    _surface = new SurfaceSelection( sprite, selection, position );
 
     // Initialize the sprite coord for the animations
     loadSpriteCoord();
 
     // Initialize the sprite coord for the eatable animations
     loadSpriteCoordEatable();
+
+    // _thread = new GhostThread( this, _instanceID );
+    //_behavior = 0;
 
 }
 
@@ -224,19 +233,19 @@ void Ghost::loadSpriteCoordEatable() {
 
 }
 
-void Ghost::updateAll( vector<vector<int> > levelTable, map<string, vector<int> > teleportationLocationsCoord ) {
+void Ghost::updateAll() {
 
     if( isCenteredInTheSquare() ) {
 
         updatePositionInTheGrid();
 
         // Check if the updated position is a teleportation position
-        vector<int> teleportationTo = checkTeleportation( teleportationLocationsCoord );
+        const char* to = checkTeleportation();
 
         // If the updated position is a teleportation position
-        if( teleportationTo.size() == 2 ) {
+        if( to != NO_TELEPORTATION ) {
 
-            teleport( teleportationTo, levelTable );
+            teleport( to );
             nextSprite(); // Load the sprite
 
         }
@@ -244,7 +253,7 @@ void Ghost::updateAll( vector<vector<int> > levelTable, map<string, vector<int> 
         // No teleportation
         else {
 
-            calculateDirection( levelTable );
+            calculateDirection();
             resetValues();
 
         }
@@ -498,3 +507,4 @@ void Ghost::returnToWarpZone() {
     startValues();
 
 }
+

@@ -3,7 +3,7 @@
 //! \brief Class to manage the Pac-Man character ( moves, directions, images, ... )
 //! \author Jordan Brion
 //! \version 0.1
-//! \date 2 september 2014
+//! \date 29 January 2015
 //!
 
 #ifndef PACMAN_H
@@ -28,11 +28,13 @@ public:
     //! \param sprite : The SDL_Texture of the sprites
     //! \param selection : Selection on the sprite
     //! \param position : Position on the screen
+    //! \param fm : Pointer on FilesManager instance (to retrieve levelTable and teleportation coordinates)
     //!
     PacMan( std::map<std::string, int>& dest,
             SDL_Texture* const& texture,
             const SDL_Rect& selection,
-            const SDL_Rect& position );
+            const SDL_Rect& position,
+            FilesManager* fm );
     //!
     //! \brief PacMan destructor
     //!
@@ -47,14 +49,11 @@ public:
     //!
     void handleEvent( SDL_Event& e );
     //!
-    //! \brief Method to update the data ( position of the pacman in the grid, possible directions, etc.  )
-    //! \param levelTable: Array containing the level in form of caracters
-    //! \param teleportationLocationsCoord: The cases which are able to teleport the pacman
+    //! \brief Method to update the data ( position of the pacman in the grid, possible directions, etc. )
     //!
-    void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord );
+    void updateAll();
     //!
     //!  \brief Method to load the next sprite for the pacman animation
-    //!  \param direction : The direction towards the pacman is going
     //!
     void nextSprite();
     //!

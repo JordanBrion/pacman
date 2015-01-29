@@ -10,8 +10,10 @@ using namespace std;
 PacMan::PacMan( std::map<std::string, int>& dest,
                 SDL_Texture* const& texture,
                 const SDL_Rect& selection,
-                const SDL_Rect& position ) :
-    Character( dest ),
+                const SDL_Rect& position,
+                FilesManager* fm ) :
+    Character( dest,
+               fm ),
     _deathAnimationCounter( 0 ){
 
     _eatable = true;
@@ -126,19 +128,19 @@ void PacMan::handleEvent(SDL_Event& e ) {
 
 }
 
-void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int> > teleportationLocationsCoord ) {
+void PacMan::updateAll() {
 
     if( isCenteredInTheSquare() ) {
 
         updatePositionInTheGrid();
 
         // Check if the updated position is a teleportation position
-        vector<int> teleportationTo = checkTeleportation( teleportationLocationsCoord );
+        const char* to = checkTeleportation();
 
         // If the updated position is a teleportation position
-        if( teleportationTo.size() == 2 ) {
+        if( to != NO_TELEPORTATION ) {
 
-            teleport( teleportationTo, levelTable );
+            teleport( to );
             nextSprite(); // Load the sprite
 
         }
@@ -146,7 +148,7 @@ void PacMan::updateAll( vector<vector<int> > levelTable, map<string, vector<int>
         // No teleportation
         else {
 
-            calculateDirection( levelTable );
+            calculateDirection();
             resetValues();
 
         }

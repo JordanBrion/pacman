@@ -6,15 +6,18 @@
 //! \brief Class to manage a ghost character
 //! \author Jordan Brion
 //! \version 0.1
-//! \date 2 september 2014
+//! \date 29 January 2015
 //!
 
 #include <sstream>
 #include <iterator>
 #include <algorithm>
 #include <stdlib.h>
+
 #include "Character.h"
 #include "PacMan.h"
+//#include "../GhostAlgo/GhostThread.h"
+#include "../GhostAlgo/GhostBehavior.h"
 
 //!
 //! \brief Enum for the ghost colors
@@ -34,18 +37,20 @@ enum colors {
 //!
 class Ghost : public Character {
 
-  public:
+public:
     //!
     //!  \brief Ghost constructor
     //!  \param dest : The position where the ghost has to be rendered on the screen
     //!  \param sprite : SDL_Texture* containing the sprite of all the characters
     //!  \param selection : Selection on the sprite
     //!  \param position : Position on the screen
+    //!  \param fm : Pointer on FilesManager instance (to retrieve levelTable and teleportation coordinates)
     //!
     Ghost( std::map<std::string, int>& dest,
            SDL_Texture* const& sprite,
            const SDL_Rect& selection,
-           const SDL_Rect& position );
+           const SDL_Rect& position,
+           FilesManager* fm );
     //!
     //!  \brief Method to load the sprite coordonates of the ghost
     //!
@@ -56,13 +61,10 @@ class Ghost : public Character {
     void loadSpriteCoordEatable();
     //!
     //! \brief Method to update the data ( position of the ghost in the grid, possible directions, etc.  )
-    //! \param levelTable: Array containing the level in form of caracters
-    //! \param teleportationLocationsCoord: The cases which are able to teleport the ghost
     //!
-    void updateAll( std::vector<std::vector<int> > levelTable, std::map<std::string, std::vector<int> > teleportationLocationsCoord );
+    void updateAll();
     //!
     //!  \brief Method to load the next sprite for the ghost animation
-    //!  \param direction : The direction towards the ghost is going
     //!
     void nextSprite();
     //!
