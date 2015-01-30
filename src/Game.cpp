@@ -99,7 +99,7 @@ void Game::incComboPowerPellet() {
         break;
 
     default:
-        _comboPowerPellet *= PowerPellet::POWER_PELLET_MULTIPLICATOR;
+        _comboPowerPellet *= POWERPELLET_MULTIPLICATOR;
         break;
 
     }

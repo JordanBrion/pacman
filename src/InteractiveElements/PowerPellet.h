@@ -11,7 +11,10 @@
 
 #include "PacDot.h"
 
-#define     POWERPELLET_DURATION    3000   /*!< The duration of the power pellet chronometer */
+#define     POWERPELLET_DURATION                3000   //! \def The duration of the power pellet chronometer
+#define     POWERPOWER_BLINK_DURATION           1000   //! \def The blink duration
+#define     POWERPOWER_BLINK_BETWEEN_DURATION   1000   //! \def The duration between blink
+#define     POWERPELLET_MULTIPLICATOR           2      //! \def Power-pellet multiplicator
 
 //!
 //! \class PowerPellet.
@@ -56,11 +59,8 @@ public:
 
     /* STATIC ATTRIBUTES */
 public:
-    static const Uint16 POWERPOWER_BLINK_DURATION = 1000;           /*!< Static attribute for the blink duration */
-    static const Uint16 POWERPOWER_BLINK_BETWEEN_DURATION = 1000;   /*!< Static attribute for the duration between blink */
     static Uint32 blinkChrono;                                      /*!< Static attribute for blink chronometer */
     static Uint32 betweenBlinkChrono;                               /*!< Static attribute for between blink chronometer */
-    static const Uint8 POWER_PELLET_MULTIPLICATOR = 2;              /*!< Static attribute for power-pellet multiplicator */
 
     /* ATTRIBUTES */
 private:
