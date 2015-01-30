@@ -30,6 +30,22 @@ class Chrono {
 public:
 
     //!
+    //! \brief Chrono constructor (with no callback)
+    //! \param durationInMillis : duration in ms
+    //! \param name : name of the chronometer
+    //!
+    Chrono( Uint32 durationInMillis,
+            const std::string& name ) :
+        _durationInMillis( durationInMillis ),
+        _state( STOPPED ),
+        _name( name ),
+        _thread( NULL ),
+        _obj( NULL ),
+        _callback( NULL ) {
+
+    }
+
+    //!
     //! \brief Chrono constructor
     //! \param durationInMillis : duration in ms
     //! \param name : name of the chronometer
@@ -321,7 +337,8 @@ private:
         stop();
 
         // Call the callback
-        (getObj()->*_callback)();
+        if( _obj != NULL )
+            (getObj()->*_callback)();
 
         return 0;
 
