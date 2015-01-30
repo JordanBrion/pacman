@@ -8,6 +8,7 @@
 
 #include <pm/Arithmetic.h>
 #include <pm/PacDots.h>
+#include <pm/Directions.h>
 
 Behavior_Hunted::Behavior_Hunted( Ghost* master,
                                   PacMan* pacMan ) {
@@ -32,7 +33,7 @@ void Behavior_Hunted::run() {
         // If the Pac-Man ate a ghost, the power-pellet combo score is shown for 2 seconds
         // => If this chrono is running, don't move the ghost
         if( !_pacMan->getGhostEatenScoreChrono()->isRunning()
-                && _ghost->move() != -1 ) {
+                && _ghost->move() != NO_DIRECTION ) {
 
             // If the power pellet duration is equal or less than 50%
             if( Arithmetic::valueInPercent(

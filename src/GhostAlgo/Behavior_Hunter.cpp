@@ -4,6 +4,8 @@
 #include "../InteractiveElements/Ghost.h"
 #include "Behavior_Hunted.h"
 
+#include <pm/Directions.h>
+
 Behavior_Hunter::Behavior_Hunter( Ghost* master,
                                   PacMan* pacMan ) {
 
@@ -28,7 +30,7 @@ void Behavior_Hunter::run() {
     }
 
     // Move the ghost
-    else if( _ghost->move() != -1 ) {
+    else if( _ghost->move() != NO_DIRECTION ) {
 
         // After the move, detect if there is a collision
         if( _ghost->checkCollision( _pacMan ) ) {

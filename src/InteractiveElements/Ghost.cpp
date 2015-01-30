@@ -1,11 +1,7 @@
-#include <pm/Directions.h>
-using namespace Directions;
-#include <pm/Arithmetic.h>
-#include <pm/Points.h>
-#include <pm/PacDots.h>
-using namespace PacDots;
-
 #include "Ghost.h"
+
+using namespace std;
+
 #include "../GhostAlgo/Behavior_EnterWarpzone.h"
 #include "../GhostAlgo/Behavior_ExitWarpzone.h"
 #include "../GhostAlgo/Behavior_Hunted.h"
@@ -14,7 +10,11 @@ using namespace PacDots;
 #include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
 
-using namespace std;
+#include <pm/Directions.h>
+#include <pm/Arithmetic.h>
+#include <pm/Points.h>
+#include <pm/PacDots.h>
+using namespace PacDots;
 
 Ghost::Ghost( std::map<std::string, int>& dest,
               SDL_Texture* const& sprite,

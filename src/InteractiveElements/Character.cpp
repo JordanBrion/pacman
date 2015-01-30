@@ -1,14 +1,13 @@
+#include "Character.h"
+
 #include <sstream>
+using namespace std;
+
+#include "../Surfaces/Surface.h"
 
 #include <pm/PacDots.h>
 using namespace PacDots;
 #include <pm/Directions.h>
-using namespace Directions;
-
-#include "Character.h"
-#include "../Surfaces/Surface.h"
-
-using namespace std;
 
 Character::Character( std::map<std::string, int>& dest,
                       FilesManager* fm ) :

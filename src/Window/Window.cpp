@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <pm/Color.h>
+#include <pm/Directions.h>
 #include <pm/PacDots.h>
 using namespace PacDots;
 
@@ -204,7 +205,7 @@ void Window::drawCharacters() {
 
         _pacMan->updateAll();
         if( !_pacMan->getGhostEatenScoreChrono()->isRunning()
-                && _pacMan->move() != -1 ) {
+                && _pacMan->move() != NO_DIRECTION ) {
 
             _pacMan->nextSprite();
 
@@ -220,6 +221,7 @@ void Window::drawCharacters() {
         score += drawPacDots();
 
         _game->setScoreP1( score );
+        _game->incComboPowerPellet();
 
         // If a ghost has been eaten, don't render the pacman => because the score is rendered
         if( !_pacMan->getGhostEatenScoreChrono()->isRunning() )
