@@ -1,9 +1,8 @@
-#include <pm/PacDots.h>
-using namespace PacDots;
-
 #include "PacMan.h"
+
 #include "Ghost.h"
 #include "../Surfaces/Surface.h"
+#include "PacDot.h"
 
 using namespace std;
 

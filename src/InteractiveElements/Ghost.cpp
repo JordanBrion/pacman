@@ -9,13 +9,12 @@ using namespace std;
 #include "../GhostAlgo/Behavior_InWarpzone.h"
 #include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
+#include "PacDot.h"
 
 #include <pm/Color.h>
 #include <pm/Directions.h>
 #include <pm/Arithmetic.h>
 #include <pm/Points.h>
-#include <pm/PacDots.h>
-using namespace PacDots;
 
 Ghost::Ghost( std::map<std::string, int>& dest,
               SDL_Texture* const& sprite,

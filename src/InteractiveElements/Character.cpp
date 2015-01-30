@@ -4,9 +4,8 @@
 using namespace std;
 
 #include "../Surfaces/Surface.h"
+#include "PacDot.h"
 
-#include <pm/PacDots.h>
-using namespace PacDots;
 #include <pm/Directions.h>
 
 Character::Character( std::map<std::string, int>& dest,
@@ -218,10 +217,10 @@ void Character::calculateDirection() {
 
         const std::vector<std::vector<int> >& levelTable = _fm->getLevelTable();
 
-        _directionsPossible[UP] = ( _row-1 > -1 && levelTable[_row-1][_col] <= PACDOTS_PATH  ) ? true : false;
-        _directionsPossible[DOWN] = ( _row+1 < levelTable.size() && levelTable[_row+1][_col] <= PACDOTS_PATH ) ? true : false;
-        _directionsPossible[RIGHT] = ( _col+1 < levelTable[0].size() && levelTable[_row][_col+1] <= PACDOTS_PATH ) ? true : false;
-        _directionsPossible[LEFT] = ( _col-1 > -1 && levelTable[_row][_col-1] <= PACDOTS_PATH ) ? true : false;
+        _directionsPossible[UP] = ( _row-1 > -1 && levelTable[_row-1][_col] <= PACDOTS_LAYOUT  ) ? true : false;
+        _directionsPossible[DOWN] = ( _row+1 < levelTable.size() && levelTable[_row+1][_col] <= PACDOTS_LAYOUT ) ? true : false;
+        _directionsPossible[RIGHT] = ( _col+1 < levelTable[0].size() && levelTable[_row][_col+1] <= PACDOTS_LAYOUT ) ? true : false;
+        _directionsPossible[LEFT] = ( _col-1 > -1 && levelTable[_row][_col-1] <= PACDOTS_LAYOUT ) ? true : false;
 
     }
 

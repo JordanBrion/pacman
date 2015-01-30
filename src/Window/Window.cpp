@@ -1,11 +1,11 @@
 #include "Window.h"
 
+using namespace std;
+
+#include "../InteractiveElements/PacDot.h"
+
 #include <pm/Color.h>
 #include <pm/Directions.h>
-#include <pm/PacDots.h>
-using namespace PacDots;
-
-using namespace std;
 
 char _levelString[] =
         "2;1;1;1;1;1;1;1;1;1;1;7;1;1;1;1;1;1;1;1;1;1;5;"

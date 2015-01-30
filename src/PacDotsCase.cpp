@@ -1,10 +1,9 @@
 #include "PacDotsCase.h"
-#include "InteractiveElements/PowerPellet.h"
-
-#include <pm/PacDots.h>
-using namespace PacDots;
 
 using namespace std;
+
+#include "InteractiveElements/PowerPellet.h"
+#include "InteractiveElements/PacDot.h"
 
 PacDotsCase::PacDotsCase( int const& row, int const& col,
                           int const& type,

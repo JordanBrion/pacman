@@ -1,9 +1,8 @@
 #include "PacDotsManager.h"
 
-#include <pm/PacDots.h>
-using namespace PacDots;
-
 using namespace std;
+
+#include "InteractiveElements/PacDot.h"
 
 PacDotsManager::PacDotsManager( std::vector<std::vector<int> > level,
                                 SDL_Texture* const& sprite ) {
@@ -38,7 +37,7 @@ void PacDotsManager::addCase( int const& row,
                               int const& type,
                               SDL_Texture* const& sprite ) {
 
-    PacDotsCase *pdc = ( type < PACDOTS_PATH ) ?
+    PacDotsCase *pdc = ( type < PACDOTS_LAYOUT ) ?
                                         new PacDotsCase( row, ( _pacDotsCases[ row ].size() ) -1, type, sprite ) :
                                         NULL;
 

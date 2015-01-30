@@ -7,7 +7,6 @@
 #include "Behavior_ShowScore.h"
 
 #include <pm/Arithmetic.h>
-#include <pm/PacDots.h>
 #include <pm/Directions.h>
 
 Behavior_Hunted::Behavior_Hunted( Ghost* master,
@@ -38,7 +37,7 @@ void Behavior_Hunted::run() {
             // If the power pellet duration is equal or less than 50%
             if( Arithmetic::valueInPercent(
                         _pacMan->getPowerPelletChrono()->getRemainingTimeInMillis(),
-                        PacDots::POWERPELLET_DURATION )
+                        POWERPELLET_DURATION )
                     <= 50 )
                 _ghost->setPowerPelletAlmostOver( true );
 

@@ -1,5 +1,5 @@
-#ifndef BUBBLE_H
-#define BUBBLE_H
+#ifndef     PACDOT_H
+#define     PACDOT_H
 
 //!
 //! \file PacDot.h
@@ -10,6 +10,28 @@
 //!
 
 #include "InteractiveElement.h"
+
+//!
+//! \defgroup PacDots layouts in the grid element
+//! @{
+//!
+#define     PACDOTS_LAYOUT                  -1
+#define     PACDOTS_EMPTY                   -2
+#define     PACDOTS_HOR                     -3
+#define     PACDOTS_VER                     -4
+#define     PACDOTS_ANGLE_TOP_LEFT          -5
+#define     PACDOTS_ANGLE_TOP_RIGHT         -6
+#define     PACDOTS_ANGLE_BOTTOM_LEFT       -7
+#define     PACDOTS_ANGLE_BOTTOM_RIGHT      -8
+#define     PACDOTS_JUNCTION_3_TOTOP        -9
+#define     PACDOTS_JUNCTION_3_TOBOTTOM     -10
+#define     PACDOTS_JUNCTION_3_TORIGHT      -11
+#define     PACDOTS_JUNCTION_3_TOLEFT       -12
+#define     PACDOTS_JUNCTION_4              -13
+#define     PACDOTS_POWERPELLET             -14
+//!@}
+
+#define     POWERPELLET_DURATION            3000   /*!< The duration of the power pellet chronometer */
 
 //!
 //! \class PacDot
@@ -68,4 +90,4 @@ protected:
 
 };
 
-#endif
+#endif      /* PACDOT_H */

@@ -1,5 +1,3 @@
-#include <pm/PacDots.h>
-using namespace PacDots;
 #include <pm/Points.h>
 
 #include "PacDot.h"
