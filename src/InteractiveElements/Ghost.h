@@ -136,7 +136,6 @@ public:
     void returnToWarpZone();
 
     /* STATIC VARIABLES */
-    static int8_t eatenBrother;                             /*!< Flag to know if a ghost was eaten */
     static const Uint16 GHOST_EATEN_SCORE_DURATION = 2000;  /*!< The duration to wait when a ghost is eaten  */
 
 private:

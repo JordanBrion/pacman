@@ -206,7 +206,8 @@ void Window::drawCharacters() {
     else {
 
         _pacMan->updateAll();
-        if( Ghost::eatenBrother == -1 && _pacMan->move() != -1 ) {
+        if( !_pacMan->getGhostEatenScoreChrono()->isRunning()
+                && _pacMan->move() != -1 ) {
 
             _pacMan->nextSprite();
 
@@ -224,14 +225,14 @@ void Window::drawCharacters() {
         _game->setScoreP1( score );
 
         // If a ghost has been eaten, don't render the pacman => because the score is rendered
-        if( Ghost::eatenBrother == -1 )
+        if( !_pacMan->getGhostEatenScoreChrono()->isRunning() )
             _pacMan->show( _renderer );
 
         // Render the ghosts
         for( int i(0); i < _ghosts.size(); i++ ) {
 
             // If the ghost has recently been eaten, draw the score
-            if( Ghost::eatenBrother == i ) {
+            if( !_pacMan->getGhostEatenScoreChrono()->isRunning() ) {
                 _ghosts[i]->drawScorePowerPellet( _renderer, _game->getComboPowerPellet() );
             }
 
@@ -413,7 +414,7 @@ void Window::threadGhostsLoop() {
         }
 
         // If the pacman didn't ate eat a ghost recently => don't move the ghosts
-        else if( Ghost::eatenBrother == -1 ) {
+        else if( !_pacMan->getGhostEatenScoreChrono()->isRunning() ) {
 
             for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
 
@@ -429,9 +430,6 @@ void Window::threadGhostsLoop() {
                         // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
                         if( !_ghosts[i]->eat( _pacMan )
                                 && _pacMan->getPowerPelletChrono()->isRunning() ) {
-
-                            // The pacman eat the ghost
-                            Ghost::eatenBrother = i;
 
                             // Change the combo power-pellet score
                             _game->incComboPowerPellet();
@@ -467,9 +465,7 @@ void Window::threadGhostsLoop() {
 
                 // The power-pellet score chrono is over
                 // The eaten ghost has to return to the warpzone
-                _ghosts[ Ghost::eatenBrother ]->returnToWarpZone();
-
-                Ghost::eatenBrother = -1;
+                _ghosts[ 0 ]->returnToWarpZone();
 
                 // Set the power-pellet multiplicator value to 0
                 _game->resetComboPowerPellet();

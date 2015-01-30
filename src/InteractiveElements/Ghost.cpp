@@ -6,18 +6,9 @@ using namespace Directions;
 using namespace PacDots;
 
 #include "Ghost.h"
-#include "../GhostAlgo/Behavior_EnterWarpzone.h"
-#include "../GhostAlgo/Behavior_ExitWarpzone.h"
-#include "../GhostAlgo/Behavior_Hunted.h"
-#include "../GhostAlgo/Behavior_Hunter.h"
-#include "../GhostAlgo/Behavior_InWarpzone.h"
-#include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
 
 using namespace std;
-
-/* STATIC MEMBERS */
-int8_t Ghost::eatenBrother = -1;
 
 Ghost::Ghost( std::map<std::string, int>& dest,
               SDL_Texture* const& sprite,
