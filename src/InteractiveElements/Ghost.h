@@ -31,6 +31,8 @@ enum colors {
 
 };
 
+#define     GHOST_EATEN_SCORE_DURATION      2000    //! \def The duration to wait when a ghost is eaten
+
 //!
 //! \class Ghost
 //! \brief Class to manage a ghost character
@@ -134,9 +136,6 @@ public:
     //! \param newBehavior: New type of behavior
     //!
     void setBehavior( GhostBehavior* newBehavior );
-
-    /* STATIC VARIABLES */
-    static const Uint16 GHOST_EATEN_SCORE_DURATION = 2000;  /*!< The duration to wait when a ghost is eaten  */
 
 private:
     int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */

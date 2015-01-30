@@ -30,7 +30,7 @@ PacMan::PacMan( std::map<std::string, int>& dest,
                                              &PacMan::setEatable );
 
     // Initialize the chrono for the wait when a ghost is eaten
-    _ghostEatenScoreChrono = new Chrono<Chrono<PacMan> >( Ghost::GHOST_EATEN_SCORE_DURATION,
+    _ghostEatenScoreChrono = new Chrono<Chrono<PacMan> >( GHOST_EATEN_SCORE_DURATION,
                                                           "Ghost Eaten Score Duration",
                                                           _powerPelletChrono,
                                                           &Chrono<PacMan>::unpause );
