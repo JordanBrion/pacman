@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#include "InteractiveElements/Fruit.h"
+
 FruitManager::FruitManager() :
     _currentFruitLocationGrid( -1 ),
     _currentFruitType( -1 ),

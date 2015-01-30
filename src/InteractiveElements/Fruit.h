@@ -1,5 +1,5 @@
-#ifndef COLLECTIBLE_H
-#define COLLECTIBLE_H
+#ifndef     FRUIT_H
+#define     FRUIT_H
 
 //!
 //! \file Fruit.h
@@ -11,28 +11,30 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
 #include <map>
 #include <string>
+
 #include "../Const.h"
 #include "InteractiveElement.h"
 
 //!
-//! \brief Enum for the fruit values
+//! \defgroup Macros for the fruit types
+//! @{
 //!
-enum fruit {
+#define     CHERRY          0
+#define     STRAWBERRY      1
+#define     APRICOT         2
+#define     APPLE           3
+#define     MELON           4
+#define     GALXIAN_BOSS    5
+#define     BELL            6
+#define     KEY             7
+#define     FRUIT_NBR       8
+//! @}
 
-    CHERRY,
-    STRAWBERRY,
-    APRICOT,
-    APPLE,
-    MELON,
-    GALXIAN_BOSS,
-    BELL,
-    KEY,
-
-    FRUIT_NBR
-
-};
+#define     FRUIT_BETWEEN_DURATION          25000   //! \def Macro for duration between fruit appearance
+#define     FRUIT_SHOWN_DURATION            15000   //! \def Macro for duration of fruit appearance
 
 //!
 //! \class Fruit
@@ -96,4 +98,4 @@ private:
 
 };
 
-#endif
+#endif      /* FRUIT_H */

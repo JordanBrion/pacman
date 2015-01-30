@@ -9,9 +9,9 @@
 //! \date 22 september 2014
 //!
 
-#include "InteractiveElements/Fruit.h"
-
 #include <SDL2/SDL.h>
+
+#include "InteractiveElements/Fruit.h"
 
 //!
 //! \class FruitManager
@@ -122,10 +122,6 @@ public:
     //! \param renderer: SDL_Renderer* of the window
     //!
     void renderFruit( SDL_Renderer* renderer );
-
-    /* STATIC ATTRIBUTES */
-    static const Uint32 FRUIT_BETWEEN_DURATION = 25000;  /*!< Static attribute for duration between fruit appearance */
-    static const Uint32 FRUIT_SHOWN_DURATION = 15000;    /*!< Static attribute for duration of fruit appearance */
 
 private:
     std::vector<Fruit*> _fruits;                         /*!< Array containing instances of Fruit */
