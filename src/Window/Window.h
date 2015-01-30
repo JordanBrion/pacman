@@ -106,16 +106,6 @@ public:
     //! \param evt : SDL_Event
     //!
     void handleEvent( SDL_Event& e );
-    //!
-    //! \brief Method to create a thread for the ghosts moves
-    //! \param data : ???????
-    //! \return 0
-    //!
-    static int createThread( void* data );
-    //!
-    //! \brief Method called by the thread and containing the loop for the ghosts actions
-    //!
-    void threadGhostsLoop();
     ///!
     //! \brief Method to render the inside window
     //!
@@ -172,26 +162,25 @@ private:
     SDL_Window *_window;                        /*!< Window */
     SDL_Surface *_windowSurface;                /*!< SDL_Surface of the Window */
     SDL_Renderer *_renderer;                    /*!< Renderer of the window */
-    SDL_Thread *_threadGhosts;                  /*!< Thread to manage the ghosts moves */
     SDL_mutex *_ghostsLock;                     /*!< Mutex to pause the ghosts thread */
     SDL_cond *_ghostsCanMove;                   /*!< Condition to (un)pause the ghosts thread */
     int _gameState;                             /*!< Flag to know where the player is in the game */
     bool _loaded;                               /*!< Flag to know if the level has already been loaded */
 
     /* Instances of the project classes */
-    WindowInitializer* _initializer;            /*!<  Instance of WindowInitializer */
-    FilesManager* _fm;                          /*!<  Instance of FilesManager */
-    MenuStart* _ms;                             /*!<  Instance of MenuStart */
-    MenuPause* _mp;                             /*!<  Instance of MenuPause */
-    MenuGameOver* _mgo;                         /*!<  Instance of MenuGameOver */
-    Game* _game;                                /*!<  Instance of Game */
-    AreaTop* _areaTop;                          /*!<  Instance of AreaTop */
-    AreaGame* _areaGame;                        /*!<  Instance of AreaGame */
-    AreaBottom* _areaBottom;                    /*!<  Instance of AreaBottom */
-    PacMan *_pacMan;                            /*!<  Instance of PacMan */
-    std::vector<Ghost*> _ghosts;                /*!<  Array containing instances of Ghost */
-    FruitManager* _frm;                         /*!<  Instance of FruitManager */
-    PacDotsManager* _pdm;                       /*!<  Instance of PacDotsManager */
+    WindowInitializer* _initializer;            /*!< Instance of WindowInitializer */
+    FilesManager* _fm;                          /*!< Instance of FilesManager */
+    MenuStart* _ms;                             /*!< Instance of MenuStart */
+    MenuPause* _mp;                             /*!< Instance of MenuPause */
+    MenuGameOver* _mgo;                         /*!< Instance of MenuGameOver */
+    Game* _game;                                /*!< Instance of Game */
+    AreaTop* _areaTop;                          /*!< Instance of AreaTop */
+    AreaGame* _areaGame;                        /*!< Instance of AreaGame */
+    AreaBottom* _areaBottom;                    /*!< Instance of AreaBottom */
+    PacMan *_pacMan;                            /*!< Instance of PacMan */
+    std::vector<Ghost*> _ghosts;                /*!< Array containing instances of Ghost */
+    FruitManager* _frm;                         /*!< Instance of FruitManager */
+    PacDotsManager* _pdm;                       /*!< Instance of PacDotsManager */
 
 };
 #endif

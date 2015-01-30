@@ -6,6 +6,12 @@ using namespace Directions;
 using namespace PacDots;
 
 #include "Ghost.h"
+#include "../GhostAlgo/Behavior_EnterWarpzone.h"
+#include "../GhostAlgo/Behavior_ExitWarpzone.h"
+#include "../GhostAlgo/Behavior_Hunted.h"
+#include "../GhostAlgo/Behavior_Hunter.h"
+#include "../GhostAlgo/Behavior_InWarpzone.h"
+#include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
 
 using namespace std;
@@ -34,6 +40,9 @@ Ghost::Ghost( std::map<std::string, int>& dest,
 
     // Initialize the sprite coord for the eatable animations
     loadSpriteCoordEatable();
+
+    _behavior = new Behavior_Hunter( this, pacMan );
+    _thread = new GhostThread( this, _instanceID, quitGame );
 
 }
 
@@ -495,5 +504,18 @@ void Ghost::drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score ) 
 void Ghost::returnToWarpZone() {
 
     startValues();
+
+}
+
+GhostBehavior* Ghost::getBehavior() const {
+
+    return _behavior;
+
+}
+
+void Ghost::setBehavior( GhostBehavior* newBehavior ) {
+
+    delete _behavior;
+    _behavior = newBehavior;
 
 }

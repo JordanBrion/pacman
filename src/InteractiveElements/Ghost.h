@@ -16,6 +16,8 @@
 
 #include "Character.h"
 #include "PacMan.h"
+#include "../GhostAlgo/GhostThread.h"
+#include "../GhostAlgo/GhostBehavior.h"
 
 //!
 //! \brief Enum for the ghost colors
@@ -134,6 +136,16 @@ public:
     //!  \brief Method to return the ghost to the warp zone after his death
     //!
     void returnToWarpZone();
+    //!
+    //! \brief Getter for the behavior instance
+    //! \return The behavior instance
+    //!
+    GhostBehavior* getBehavior() const;
+    //!
+    //! \brief Setter for the behavior instance
+    //! \param newBehavior: New type of behavior
+    //!
+    void setBehavior( GhostBehavior* newBehavior );
 
     /* STATIC VARIABLES */
     static const Uint16 GHOST_EATEN_SCORE_DURATION = 2000;  /*!< The duration to wait when a ghost is eaten  */
@@ -142,6 +154,8 @@ private:
     int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
     std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
     bool _powerPelletAlmostOver;                                /*!< Flag to know if the power pellet duration is 50% over */
+    GhostThread* _thread;                                       /*!< Ghost thread to run the behavior */
+    GhostBehavior* _behavior;                                   /*!< The current behavior of the ghost */
 
 };
 

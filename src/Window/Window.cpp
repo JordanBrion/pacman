@@ -110,9 +110,6 @@ Window::Window() throw( const std::exception& ) :
         //The conditions
         _ghostsCanMove = SDL_CreateCond();
 
-        // At the start of the game, creation of the thread for the ghosts
-        _threadGhosts = SDL_CreateThread( Window::createThread, "Thread for Ghosts moves", (void*) this );
-
     }
     catch( const std::exception& e) {
 
@@ -231,14 +228,22 @@ void Window::drawCharacters() {
         // Render the ghosts
         for( int i(0); i < _ghosts.size(); i++ ) {
 
-            // If the ghost has recently been eaten, draw the score
-            if( !_pacMan->getGhostEatenScoreChrono()->isRunning() ) {
-                _ghosts[i]->drawScorePowerPellet( _renderer, _game->getComboPowerPellet() );
-            }
+            switch( _ghosts[i]->getBehavior()->getState() ) {
 
-            // Otherwise, draw the ghost
-            else
+            // If the ghost has recently been eaten, draw the score
+            case SHOW_SCORE:
+                _ghosts[i]->drawScorePowerPellet( _renderer, _game->getComboPowerPellet() );
+                break;
+            case HUNTER:
+            case HUNTED:
+            case RETURN_TO_WARPZONE:
+            case DEFAULT_WARPZONE:
+            case ENTER_WARPZONE:
+            case EXIT_WARPZONE:
                 _ghosts[i]->show( _renderer );
+                break;
+
+            }
 
         }
 
@@ -383,98 +388,6 @@ void Window::handleEvent( SDL_Event& e ) {
 
     default:
         break;
-
-    }
-
-}
-
-int Window::createThread(void* data) {
-
-    Window *w = (Window*) data;
-    w->threadGhostsLoop();
-
-    return 0;
-
-}
-
-void Window::threadGhostsLoop() {
-
-    while( 1 ) {
-
-        // Condition to pause the ghosts thread if the player is in the menus
-        if( _gameState != GAMESTATE_INGAME ) {
-
-            cout << "Waiting... Ghosts thread is in pause because the player is in the menus." << endl;
-
-            // Pause the thread
-            SDL_mutexP( _ghostsLock );
-            SDL_CondWait( _ghostsCanMove, _ghostsLock );
-            SDL_mutexV( _ghostsLock );
-
-        }
-
-        // If the pacman didn't ate eat a ghost recently => don't move the ghosts
-        else if( !_pacMan->getGhostEatenScoreChrono()->isRunning() ) {
-
-            for( int i(0); i < _fm->getGhostsNbr(); i++ ) {
-
-                // Update the ghost attributes
-                _ghosts[i]->updateAll();
-
-                // Move the ghost
-                if( _ghosts[i]->move() != -1 ) {
-
-                    // After the move, detect if there is a collision
-                    if( _ghosts[i]->checkCollision( _pacMan ) ) {
-
-                        // Eat the pacman... or be eaten by him. Depending the power-pellet chronometer
-                        if( !_ghosts[i]->eat( _pacMan )
-                                && _pacMan->getPowerPelletChrono()->isRunning() ) {
-
-                            // Change the combo power-pellet score
-                            _game->incComboPowerPellet();
-
-                            _pacMan->getPowerPelletChrono()->pause();
-                            _pacMan->getGhostEatenScoreChrono()->start();
-
-                            // The chrono is now running
-                            // => wait for the end
-                            SDL_WaitThread( _pacMan->getGhostEatenScoreChrono()->getThread(), 0 );
-                            break;
-
-                        }
-
-                    }
-
-                    _ghosts[i]->nextSprite();
-
-                }
-
-                // Power pellet behavior
-                _ghosts[i]->handlePowerPellet( _pacMan );
-
-            }
-
-        }
-
-        // If the pacman eat a ghost recently => don't move the ghosts and render the score
-        else {
-
-            // If the chrono is over
-            if( _pacMan->getGhostEatenScoreChrono()->isOver() ) {
-
-                // The power-pellet score chrono is over
-                // The eaten ghost has to return to the warpzone
-                _ghosts[ 0 ]->returnToWarpZone();
-
-                // Set the power-pellet multiplicator value to 0
-                _game->resetComboPowerPellet();
-
-            }
-
-        }
-
-        SDL_Delay(20);
 
     }
 
