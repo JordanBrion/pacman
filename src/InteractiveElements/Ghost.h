@@ -19,18 +19,6 @@
 #include "../GhostAlgo/GhostThread.h"
 #include "../GhostAlgo/GhostBehavior.h"
 
-//!
-//! \brief Enum for the ghost colors
-//!
-enum colors {
-
-    RED,
-    PINK,
-    BLUE,
-    ORANGE
-
-};
-
 #define     GHOST_EATEN_SCORE_DURATION      2000    //! \def The duration to wait when a ghost is eaten
 
 //!

@@ -1,7 +1,12 @@
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef     COLOR_H
+#define     COLOR_H
 
 #include <SDL2/SDL.h>
+
+#define     RED         0
+#define     PINK        1
+#define     BLUE        2
+#define     ORANGE      3
 
 namespace Color {
 
@@ -12,4 +17,4 @@ namespace Color {
 
 }
 
-#endif /* COLOR_H */
+#endif      /* COLOR_H */

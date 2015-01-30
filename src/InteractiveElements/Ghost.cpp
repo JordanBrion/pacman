@@ -10,6 +10,7 @@ using namespace std;
 #include "../GhostAlgo/Behavior_ReturnToWarpzone.h"
 #include "../Surfaces/Surface.h"
 
+#include <pm/Color.h>
 #include <pm/Directions.h>
 #include <pm/Arithmetic.h>
 #include <pm/Points.h>

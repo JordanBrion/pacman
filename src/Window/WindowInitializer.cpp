@@ -5,6 +5,8 @@
 
 #include "Window.h"
 
+#include <pm/Color.h>
+
 WindowInitializer::WindowInitializer() {}
 
 WindowInitializer::~WindowInitializer() {}
