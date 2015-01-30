@@ -106,18 +106,6 @@ public:
     //!
     void setPowerPelletAlmostOver( bool powerPelletAlmostOver );
     //!
-    //! \brief Method to start the power pellet score chronometer
-    //!
-    void startPowerPelletScoreChrono();
-    //!
-    //! \brief Method to reset the power pellet score chronometer
-    //!
-    void resetPowerPelletScoreChrono();
-    //!
-    //! \brief Method to know if the power pellet score chronometer is over
-    //!
-    bool isPowerPelletScoreChronoOver();
-    //!
     //!  \brief Method to load the death animation of the ghost
     //!  \param pRenderer : SDL_Renderer* of the window
     //!
