@@ -223,18 +223,22 @@ void Window::drawCharacters() {
         _game->setScoreP1( score );
         _game->incComboPowerPellet();
 
-        // If a ghost has been eaten, don't render the pacman => because the score is rendered
-        if( !_pacMan->getGhostEatenScoreChrono()->isRunning() )
-            _pacMan->show( _renderer );
+        auto funcPacMan = []( PacMan* pacMan, SDL_Renderer* renderer ) {
 
-        // Render the ghosts
-        for( int i(0); i < _ghosts.size(); i++ ) {
+            // If a ghost has been eaten, don't render the pacman => because the score is rendered
+            if( !pacMan->getGhostEatenScoreChrono()->isRunning() )
+                pacMan->show( renderer );
 
-            switch( _ghosts[i]->getBehavior()->getState() ) {
+        };
+
+        auto funcGhosts = []( Ghost* ghost, SDL_Renderer* renderer, Game* game ) {
+
+            // Render the ghost
+            switch( ghost->getBehavior()->getState() ) {
 
             // If the ghost has recently been eaten, draw the score
             case SHOW_SCORE:
-                _ghosts[i]->drawScorePowerPellet( _renderer, _game->getComboPowerPellet() );
+                ghost->drawScorePowerPellet( renderer, game->getComboPowerPellet() );
                 break;
             case HUNTER:
             case HUNTED:
@@ -242,10 +246,29 @@ void Window::drawCharacters() {
             case DEFAULT_WARPZONE:
             case ENTER_WARPZONE:
             case EXIT_WARPZONE:
-                _ghosts[i]->show( _renderer );
+                ghost->show( renderer );
                 break;
 
             }
+
+        };
+
+        // If the Pac-Man as eaten a power-pellet
+        // => render the gosts first rather than him (for the superposition of the sprites)
+        if( _pacMan->getPowerPelletChrono()->isRunning() ) {
+
+            for( int i(0); i < _ghosts.size(); i++ )
+                funcGhosts( _ghosts[i], _renderer, _game );
+            funcPacMan( _pacMan, _renderer );
+
+        }
+
+        // Otherwise, render the Pac-Man first
+        else {
+
+            funcPacMan( _pacMan, _renderer );
+            for( int i(0); i < _ghosts.size(); i++ )
+                funcGhosts( _ghosts[i], _renderer, _game );
 
         }
 
