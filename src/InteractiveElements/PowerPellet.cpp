@@ -1,9 +1,9 @@
-#include <pm/Points.h>
-
 #include "PowerPellet.h"
-#include "../Surfaces/Surface.h"
 
 using namespace std;
+
+#include "../Surfaces/Surface.h"
+#include <pm/Points.h>
 
 /*
  * STATIC ATTRIBUTES
@@ -82,7 +82,7 @@ int PowerPellet::show( SDL_Renderer* const& renderer ) {
     }
     else {
 
-        score = Points::POWER_PELLET;
+        score = POINTS_POWERPELLET;
 
     }
 

@@ -56,7 +56,7 @@ int PacDot::show( SDL_Renderer* const& renderer ) {
     }
     else {
 
-        score = Points::PAC_DOT;
+        score = POINTS_PACDOT;
 
     }
 

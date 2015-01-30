@@ -473,19 +473,19 @@ void Ghost::drawScorePowerPellet( SDL_Renderer* renderer, Uint16 const& score ) 
 
     switch( score ) {
 
-    case Points::ONE_GHOST_EATEN:
+    case POINTS_ONE_GHOST_EATEN:
         _surface->setSelection( 17, 19, 184, 0 );
         break;
 
-    case Points::TWO_GHOSTS_EATEN:
+    case POINTS_TWO_GHOSTS_EATEN:
         _surface->setSelection( 17, 19, 184, 0 );
         break;
 
-    case Points::THREE_GHOSTS_EATEN:
+    case POINTS_THREE_GHOSTS_EATEN:
         _surface->setSelection( 17, 19, 184, 0 );
         break;
 
-    case Points::FOUR_GHOSTS_EATEN:
+    case POINTS_FOUR_GHOSTS_EATEN:
         _surface->setSelection( 17, 19, 184, 0 );
         break;
 
