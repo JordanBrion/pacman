@@ -11,9 +11,11 @@
 
 #include "PacDot.h"
 
+#include <pm/Chrono.h>
+
 #define     POWERPELLET_DURATION                3000   //! \def The duration of the power pellet chronometer
-#define     POWERPOWER_BLINK_DURATION           1000   //! \def The blink duration
-#define     POWERPOWER_BLINK_BETWEEN_DURATION   1000   //! \def The duration between blink
+#define     POWERPELLET_BLINK_DURATION          1000   //! \def The blink duration
+#define     POWERPELLET_BLINK_BETWEEN_DURATION  1000   //! \def The duration between blink
 #define     POWERPELLET_MULTIPLICATOR           2      //! \def Power-pellet multiplicator
 
 //!
@@ -52,15 +54,11 @@ public:
     //! \return True if the power-pellet has to blink. Otherwise, false
     //!
     static bool blink();
-    //!
-    //! \brief Static method to check and reset the chronometers
-    //!
-    static void checkBlink();
 
     /* STATIC ATTRIBUTES */
 public:
-    static Uint32 blinkChrono;                                      /*!< Static attribute for blink chronometer */
-    static Uint32 betweenBlinkChrono;                               /*!< Static attribute for between blink chronometer */
+    static Chrono<PowerPellet>* blinkChrono;            /*!< Chrono for blink duration */
+    static Chrono<PowerPellet>* betweenBlinkChrono;     /*!< Chrono for duration between 2 blinks */
 
     /* ATTRIBUTES */
 private:

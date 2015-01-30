@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "../Surfaces/Surface.h"
+
 #include <pm/Points.h>
 
 /*
@@ -12,15 +13,20 @@ using namespace std;
  * the same chronometers to blink at the same time
  *
  */
-Uint32 PowerPellet::blinkChrono = 0;
-Uint32 PowerPellet::betweenBlinkChrono = 0;
+Chrono<PowerPellet>* PowerPellet::blinkChrono = new Chrono<PowerPellet>( POWERPELLET_BLINK_DURATION,
+                                                                         "Chrono for blink duration" );
+Chrono<PowerPellet>* PowerPellet::betweenBlinkChrono = new Chrono<PowerPellet>( POWERPELLET_BLINK_BETWEEN_DURATION,
+                                                                                "Chrono for duration between 2 blinks" );
 
 PowerPellet::PowerPellet( std::map<std::string, int>& dest,
                           const int& type,
                           const SDL_Rect& selection,
                           const SDL_Rect& position,
                           SDL_Texture* const& sprite ) :
-    PacDot( dest, type, selection, position, sprite ) {
+    PacDot( dest,
+            type,
+            selection, position,
+            sprite ) {
 
 }
 
@@ -28,41 +34,29 @@ PowerPellet::~PowerPellet() {}
 
 bool PowerPellet::blink() {
 
-    // Blink
-    if( SDL_GetTicks() - blinkChrono <= POWERPOWER_BLINK_DURATION ) {
+    // No chrono are running ?
+    // => start the blinkChrono
+    if( PowerPellet::blinkChrono->isStopped()
+            && PowerPellet::betweenBlinkChrono->isStopped() ) {
 
+        PowerPellet::blinkChrono->start();
+
+    }
+
+    // If the blinkChrono is running and the remaining time is less than 100 ms
+    // => start the other chrono
+    else if( PowerPellet::blinkChrono->isRunning()
+             && PowerPellet::blinkChrono->getRemainingTimeInMillis() < 10
+             && !PowerPellet::betweenBlinkChrono->isRunning() ) {
+
+        PowerPellet::betweenBlinkChrono->start();
+
+    }
+
+    if( PowerPellet::blinkChrono->isRunning() )
         return true;
-
-    }
-
-    // Don't blink
-    else if( SDL_GetTicks() - betweenBlinkChrono <= POWERPOWER_BLINK_BETWEEN_DURATION ) {
-
+    else
         return false;
-
-    }
-
-}
-
-void PowerPellet::checkBlink() {
-
-    // Check if the blinkChrono is not over the duration
-    if( betweenBlinkChrono == 0
-            && SDL_GetTicks() - blinkChrono > POWERPOWER_BLINK_DURATION ) {
-
-        betweenBlinkChrono = SDL_GetTicks();
-        blinkChrono = 0;
-
-    }
-
-    // Check if the betweenBlinkChrono is not over the duration
-    else if( blinkChrono == 0
-             && SDL_GetTicks() - betweenBlinkChrono > POWERPOWER_BLINK_BETWEEN_DURATION ) {
-
-        blinkChrono = SDL_GetTicks();
-        betweenBlinkChrono = 0;
-
-    }
 
 }
 
@@ -71,8 +65,6 @@ int PowerPellet::show( SDL_Renderer* const& renderer ) {
     int score(0);
 
     if( !_eaten ) {
-
-        PowerPellet::checkBlink();
 
         // If the power-pellet has to blink, don't render it
         if( PowerPellet::blink() ) {
