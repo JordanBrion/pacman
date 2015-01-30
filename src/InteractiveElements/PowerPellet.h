@@ -11,6 +11,8 @@
 
 #include "PacDot.h"
 
+#define     POWERPELLET_DURATION    3000   /*!< The duration of the power pellet chronometer */
+
 //!
 //! \class PowerPellet.
 //! \brief Class of a power-pellet. A power-pellet is a pac-dot given to pacman the ability to eat ghosts.

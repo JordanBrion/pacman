@@ -2,6 +2,7 @@
 
 #include "../InteractiveElements/PacMan.h"
 #include "../InteractiveElements/Ghost.h"
+#include "../InteractiveElements/PowerPellet.h"
 #include "Behavior_Hunter.h"
 #include "Behavior_ReturnToWarpzone.h"
 #include "Behavior_ShowScore.h"

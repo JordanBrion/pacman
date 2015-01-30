@@ -31,8 +31,6 @@
 #define     PACDOTS_POWERPELLET             -14
 //!@}
 
-#define     POWERPELLET_DURATION            3000   /*!< The duration of the power pellet chronometer */
-
 //!
 //! \class PacDot
 //! \brief Class of a pac-dot. A pac-dot is a small circle eaten by the pac-man to finish the game.

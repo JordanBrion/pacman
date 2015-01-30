@@ -1,8 +1,9 @@
 #include "PacMan.h"
 
 #include "Ghost.h"
-#include "../Surfaces/Surface.h"
+#include "PowerPellet.h"
 #include "PacDot.h"
+#include "../Surfaces/Surface.h"
 
 using namespace std;
 
