@@ -13,10 +13,10 @@ Character::Character( std::map<std::string, int>& dest,
     InteractiveElement( dest ),
     _initialRow( dest["row"] ),
     _initialCol( dest["col"] ),
-    _step( -1 ),
+    _step( NO_DIRECTION ),
     _stepCounter( 0 ),
-    _goTo( -1 ),
-    _goToBackUp( -1 ),
+    _goTo( NO_DIRECTION ),
+    _goToBackUp( NO_DIRECTION ),
     _back( false ),
     _spriteFlag( 1 ),
     _velocity( 1 ),
@@ -314,7 +314,7 @@ void Character::resetValues() {
 
     // Reset goTo because the user has not choose a direction yet
     _goToBackUp = _goTo;
-    _goTo = -1;
+    _goTo = NO_DIRECTION;
 
 }
 
@@ -331,14 +331,14 @@ int Character::move() {
         // => That way the player can press two key together
         if( horizontal && moveHorizontally( isStepLeft() ) ) {
 
-            _goToBackUp = -1;
+            _goToBackUp = NO_DIRECTION;
             return _step = ( isStepLeft() ) ? LEFT : RIGHT;
 
         }
 
         else if( vertical && moveVertically( isStepUp() ) ) {
 
-            _goToBackUp = -1;
+            _goToBackUp = NO_DIRECTION;
             return _step = ( isStepUp() ) ? UP : DOWN;
 
         }
@@ -353,14 +353,14 @@ int Character::move() {
         // => That way the player can press two key together
         if( vertical && moveVertically( isStepUp() ) ) {
 
-            _goToBackUp = -1;
+            _goToBackUp = NO_DIRECTION;
             return _step = ( isStepUp() ) ? UP : DOWN;
 
         }
 
         else if( horizontal && moveHorizontally( isStepLeft() ) ) {
 
-            _goToBackUp = -1;
+            _goToBackUp = NO_DIRECTION;
             return _step = ( isStepLeft() ) ? LEFT : RIGHT;
 
         }
@@ -385,7 +385,7 @@ int Character::move() {
     }
 
     // No move
-    return -1;
+    return NO_DIRECTION;
 
 }
 
@@ -427,7 +427,7 @@ bool Character::isStepRight() const {
 
 void Character::nextSprite() {
 
-    if( _step != -1 && _stepCounter % 5 == 0 ) {
+    if( _step != NO_DIRECTION && _stepCounter % 5 == 0 ) {
 
         // The character's animation has two parts
         // 0 = first part
@@ -545,7 +545,7 @@ void Character::teleport( const char* to ) {
     // Initialize SDL_Rect position
     _surface->setPosition( 30, 30, x, y );
 
-    // We made a 1-pixel move => _gotoToBackUp is useless => -1
-    _goToBackUp = -1;
+    // We made a 1-pixel move => _gotoToBackUp is useless => NO_DIRECTION
+    _goToBackUp = NO_DIRECTION;
 
 }
