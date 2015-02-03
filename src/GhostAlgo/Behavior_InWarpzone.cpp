@@ -61,6 +61,9 @@ void Behavior_InWarpzone::run() {
                 _ghost->setPowerPelletAlmostOver( false );
 
         }
+        else {
+            _ghost->setEatable( false );
+        }
 
         // If the ghost is going to UP
         if( _ghost->getGoTo() == UP ) {
