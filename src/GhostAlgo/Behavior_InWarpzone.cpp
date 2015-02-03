@@ -26,13 +26,16 @@ Behavior_InWarpzone::Behavior_InWarpzone( Ghost* master,
     else
         _ghost->setGoTo( DOWN );
 
-    // Increment the instances counter
-    Behavior_InWarpzone::instancesCounter += 1;
-
     // Initialize the chrono for the duration in the Warpzone
-    _inWarpZoneChrono = new Chrono<Behavior_InWarpzone>( INWARPZONE_DURATION,
+    // The ghosts don't quit the Warpzone at the same time
+    // => different duration for each ghost
+    Uint16 duration = ( Behavior_InWarpzone::instancesCounter % 4 ) * INWARPZONE_EXIT_INTERVAL;
+    _inWarpZoneChrono = new Chrono<Behavior_InWarpzone>( INWARPZONE_DURATION + duration,
                                                          "Chrono for duration in the Warpzone" );
     _inWarpZoneChrono->start();
+
+    // Increment the instances counter
+    Behavior_InWarpzone::instancesCounter += 1;
 
 }
 
@@ -125,9 +128,7 @@ void Behavior_InWarpzone::run() {
     // => We change the behavior => the ghost has to exit the Warpzone
     else {
 
-        // Wait a moment
-        // => The ghosts don't quit the Warpzone at the same time
-        SDL_Delay( ( (_ghost->getInstanceID()-1) % 4 ) * 1000 );
+        Behavior_InWarpzone::instancesCounter -= 1;
         _ghost->setBehavior( new Behavior_ExitWarpzone( _ghost, _pacMan ) );
 
     }

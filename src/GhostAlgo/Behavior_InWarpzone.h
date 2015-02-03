@@ -13,7 +13,8 @@
 
 #include <pm/Chrono.h>
 
-#define     INWARPZONE_DURATION                     3000        //! \def The duration in the Warpzone
+#define     INWARPZONE_DURATION                     5000        //! \def The duration in the Warpzone
+#define     INWARPZONE_EXIT_INTERVAL                5000        //! \def The duration between each ghost exit
 #define     INWARPZONE_OFFSETY_MAX                  5           //! \def The maximum offset-y towards the ghost is moving
 #define     INWARPZONE_VELOCITY                     1           //! \def The velocity of the ghost in the Warpzone
 #define     INWARPZONE_VELOCITY_MODERATOR_MAX       1           //! \def Moderate the velocity of the ghost
