@@ -13,7 +13,7 @@
 
 #include <pm/Chrono.h>
 
-#define     POWERPELLET_DURATION                3000   //! \def The duration of the power pellet chronometer
+#define     POWERPELLET_DURATION                5000   //! \def The duration of the power pellet chronometer
 #define     POWERPELLET_BLINK_DURATION          1000   //! \def The blink duration
 #define     POWERPELLET_BLINK_BETWEEN_DURATION  1000   //! \def The duration between blink
 #define     POWERPELLET_MULTIPLICATOR           2      //! \def Power-pellet multiplicator
