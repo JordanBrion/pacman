@@ -229,13 +229,32 @@ void Character::calculateDirection() {
 bool Character::isCenteredInTheSquare() {
 
     // If the character is centered
-    if( _stepCounter == 30 || (_back && _stepCounter == 0 ) ) {
+    if( _stepCounter == 30 || ( _back && _stepCounter == 0 ) ) {
 
         return true;
 
     }
 
     return false;
+
+}
+
+int8_t Character::getStep() const { return _step; }
+
+void Character::setStep( const int8_t& step ) {
+
+    if( step >= UP && step <= LEFT )
+        _step = step;
+    else
+        _step = step;
+
+}
+
+int8_t Character::getStepCounter() const { return _stepCounter; }
+
+void Character::setStepCounter( const int8_t& stepCounter ) {
+
+    _stepCounter = stepCounter;
 
 }
 
@@ -249,6 +268,18 @@ void Character::setStepCounter(int direction1, int direction2) {
         _stepCounter--;
         _back = true;
     }
+
+}
+
+int8_t Character::getGoTo() const { return _goTo; }
+
+void Character::setGoTo( const int8_t& goTo ) {
+
+    if( goTo >= UP && goTo <= LEFT )
+        _goTo = goTo;
+
+    else
+        _goTo = NO_DIRECTION;
 
 }
 

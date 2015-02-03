@@ -11,6 +11,13 @@
 
 #include "GhostBehavior.h"
 
+#include <pm/Chrono.h>
+
+#define     INWARPZONE_DURATION                     3000        //! \def The duration in the Warpzone
+#define     INWARPZONE_OFFSETY_MAX                  5           //! \def The maximum offset-y towards the ghost is moving
+#define     INWARPZONE_VELOCITY                     1           //! \def The velocity of the ghost in the Warpzone
+#define     INWARPZONE_VELOCITY_MODERATOR_MAX       1           //! \def Moderate the velocity of the ghost
+
 //!
 //! \class Behavior_InWarpzone
 //! \brief Class representing the ghost behavior when the ghost is in the Warpzone
@@ -40,8 +47,13 @@ public:
     //!
     Uint8 getState() const;
 
+    /* STATIC ATTRIBUTES */
+    static uint8_t instancesCounter;                        /*!< Static attribute to count the instances */
+
     /* ATTRIBUTES */
 private:
+    Chrono<Behavior_InWarpzone>* _inWarpZoneChrono;         /*!< Chrono for the duration in the Warpzone */
+    uint8_t _velocityModerator;                             /*!< Attribute to moderate the velocity */
 
 };
 

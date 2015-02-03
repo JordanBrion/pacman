@@ -41,15 +41,10 @@ int InteractiveElement::getCol() const {
 
 }
 
+SurfaceSelection* InteractiveElement::getSurface() const { return _surface; }
 
-SDL_Rect InteractiveElement::getSelection() const {
+SDL_Rect InteractiveElement::getSelection() const { return _surface->getSelection(); }
 
-    return _surface->getSelection();
+SDL_Rect InteractiveElement::getPosition() const { return _surface->getPosition(); }
 
-}
-
-SDL_Rect InteractiveElement::getPosition() const {
-
-    return _surface->getPosition();
-
-}
+Uint16 InteractiveElement::getInstanceID() const { return _instanceID; }

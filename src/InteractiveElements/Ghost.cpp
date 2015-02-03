@@ -42,7 +42,7 @@ Ghost::Ghost( std::map<std::string, int>& dest,
     // Initialize the sprite coord for the eatable animations
     loadSpriteCoordEatable();
 
-    _behavior = new Behavior_Hunter( this, pacMan );
+    _behavior = new Behavior_InWarpzone( this, pacMan );
     _thread = new GhostThread( this, _instanceID, quitGame );
 
 }

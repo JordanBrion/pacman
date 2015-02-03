@@ -70,11 +70,41 @@ public:
     //!
     bool isCenteredInTheSquare();
     //!
+    //! \brief Getter for the _step attribute
+    //! \return The _step attribute (see the macros in pm/Directions.h)
+    //!
+    int8_t getStep() const;
+    //!
+    //! \brief Setter for the _step attribute
+    //! \param step : The new value of the _step attribute (see the macros in pm/Directions.h)
+    //!
+    void setStep( const int8_t& step );
+    //!
+    //! \brief Getter for the _stepCounter attribute
+    //! \return The _stepCounter attribute
+    //!
+    int8_t getStepCounter() const;
+    //!
+    //! \brief Setter for the _stepCounter attribute
+    //! \param stepCounter : The new value of the _stepCounter attribute
+    //!
+    void setStepCounter( const int8_t& stepCounter );
+    //!
     //!  \brief Method to increment/decrement the steps counter
     //!  \param direction1 : The direction to the character is moving
     //!  \param direction2 : The opposite direction to the character is moving
     //!
     void setStepCounter( int direction1, int direction2 );
+    //!
+    //! \brief Getter for the _goTo attribute
+    //! \return The goTo attribute (see the macros in pm/Directions.h)
+    //!
+    int8_t getGoTo() const;
+    //!
+    //! \brief Setter for the _goTo attribute
+    //! \param goTo : The new value of the goTo attribute (see the macros in pm/Directions.h)
+    //!
+    void setGoTo( const int8_t& goTo );
     //!
     //! \brief Method to check if the character is in a case which is able to teleport him
     //! \return The coordinates in string key. Otherwise, NO_TELEPORTATION macro

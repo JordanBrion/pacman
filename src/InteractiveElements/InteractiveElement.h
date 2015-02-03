@@ -29,6 +29,7 @@
 //!
 class InteractiveElement {
 
+    /* METHODS */
 protected:
     //!
     //! \brief InteractiveElement default constructor
@@ -56,6 +57,11 @@ public:
     //!
     int getCol() const;
     //!
+    //! \brief Getter for the SurfaceSelection instance
+    //! \return The SurfaceSelection instance
+    //!
+    SurfaceSelection* getSurface() const;
+    //!
     //! \brief Getter for the selection of the element
     //! \return Selection of the _surface attribute
     //!
@@ -65,7 +71,17 @@ public:
     //! \return Position of the _surface attribute
     //!
     SDL_Rect getPosition() const;
+    //!
+    //! \brief Getter for the _instanceID attribute
+    //! \return The _instanceID attribute
+    //!
+    Uint16 getInstanceID() const;
 
+    /* STATIC ATTRIBUTES */
+public:
+    static Uint16 instancesCounter;     /*!< Static varible to count the number of elements */
+
+    /* ATTRIBUTES */
 protected:
     int _row;                           /*!< The row of the element in the grid */
     int _col;                           /*!< The column of the element in the grid */
@@ -74,8 +90,6 @@ protected:
                                                 - position on the screen
                                                 */
     Uint16 _instanceID;                 /*!< ID of the element */
-public:
-    static Uint16 instancesCounter;     /*!< Static varible to count the number of elements */
 
 };
 
