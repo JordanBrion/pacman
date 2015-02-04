@@ -1,22 +1,22 @@
 #include "FilesManager.h"
 
-#include <pm/Level.h>
-using namespace Level;
-
 using namespace std;
 
-FilesManager::FilesManager() {
+#include <pm/Level.h>
+using namespace Level;
+#include <pm/Directions.h>
 
-    _rowsNbr = 22;
-    _colsNbr = 23;
-    _lifesNbr = 3;
-    _pacdotsNbr = 350;
-    _ghostsNbr = 4;
-    _highScore = 0;
-    _logo = NULL;
-    _spriteLevel = NULL;
-    _spriteCharacters = NULL;
-    _font = NULL;
+FilesManager::FilesManager() :
+    _rowsNbr( 22 ),
+    _colsNbr( 23 ),
+    _lifesNbr( 3 ),
+    _pacdotsNbr( 350 ),
+    _ghostsNbr( 4 ),
+    _highScore( 0 ),
+    _logo( NULL ),
+    _spriteLevel( NULL ),
+    _spriteCharacters( NULL ),
+    _font( NULL ) {
 
 }
 
@@ -126,6 +126,20 @@ void FilesManager::initLevelTable(char pLevel[]) {
 
         }
 
+        // Entrance of the Warpzone => >
+        else if( *rows == '>' ) {
+            _warpzoneCoord.entrance.row = i;
+            _warpzoneCoord.entrance.col = j;
+            _levelTable[i].push_back( EMPTY_CASE ); // Free space
+        }
+
+        // Exit of the Warpzone => <
+        else if( *rows == '<' ) {
+            _warpzoneCoord.exit.row = i;
+            _warpzoneCoord.exit.col = j;
+            _levelTable[i].push_back( EMPTY_CASE ); // Free space
+        }
+
         // Alphabetic caracters => teleportation to another part of the level
         else if( isalpha( *rows ) ) {
 
@@ -161,6 +175,29 @@ void FilesManager::initLevelTable(char pLevel[]) {
         j++;
 
         rows = strtok_r( NULL, ";", &context );
+
+    }
+
+    // Calculate the Warpzone orientation
+    // (the direction from the entrance to the exit => see directions macros in <pm/Directions.h> )
+    if( _warpzoneCoord.entrance.row == _warpzoneCoord.exit.row ) {
+
+        if( _warpzoneCoord.entrance.col < _warpzoneCoord.exit.col ) {
+            _warpzoneCoord.orientation = RIGHT;
+        }
+        else {
+            _warpzoneCoord.orientation = LEFT;
+        }
+
+    }
+    else if( _warpzoneCoord.entrance.col == _warpzoneCoord.exit.col ) {
+
+        if( _warpzoneCoord.entrance.row < _warpzoneCoord.exit.row ) {
+            _warpzoneCoord.orientation = DOWN;
+        }
+        else {
+            _warpzoneCoord.orientation = UP;
+        }
 
     }
 
@@ -237,6 +274,12 @@ vector<map<string, int> > FilesManager::getLevelSpriteCoord() const {
     return _levelSpriteCoord;
 
 }
+
+Warpzone* FilesManager::getWarpzoneCoord() { return &_warpzoneCoord; }
+
+Element* FilesManager::getWarpzoneEntrance() { return &_warpzoneCoord.entrance; }
+
+Element* FilesManager::getWarpzoneExit() { return &_warpzoneCoord.exit; }
 
 void FilesManager::addCharacterCoord(string key, int row, int col) {
 

@@ -23,6 +23,19 @@
 #include <sstream>
 #include "Const.h"
 
+typedef struct element {
+    uint8_t row;
+    uint8_t col;
+} Element;
+
+typedef struct s_warpzone {
+
+    Element entrance, exit;
+
+    int8_t orientation;
+
+} Warpzone;
+
 //!
 //! \class FilesManager
 //! \brief Class to manage all the media files (images, fonts...) .
@@ -123,6 +136,21 @@ public:
     //!
     std::vector<std::map<std::string, int> > getLevelSpriteCoord() const;
     //!
+    //! \brief Getter for the Warpzone infos (see struct above)
+    //! \return The Warpzone infos
+    //!
+    Warpzone* getWarpzoneCoord();
+    //!
+    //! \brief Getter for the entrance coordinates of the Warpzone
+    //! \return The entrance coordinates of the Warpzone
+    //!
+    Element* getWarpzoneEntrance();
+    //!
+    //! \brief Getter for the exit coordinates of the Warpzone
+    //! \return The exit coordinates of the Warpzone
+    //!
+    Element* getWarpzoneExit();
+    //!
     //!  \brief Method to add the position of a character in the grid
     //!  \param key : The key to identify the character
     //!  \param row : The row
@@ -188,23 +216,24 @@ public:
     void free();
 
 private:
-    int _rowsNbr;                               /*!< Number of rows in the level */
-    int _colsNbr;                               /*!< Number of columns in the level */
-    int _areaGameWidth;                         /*!< Width of the area game */
-    int _areaGameHeight;                        /*!< Height of the area game */
-    int _lifesNbr;                              /*!< Number of lifes */
-    int _pacdotsNbr;                            /*!< Number of pac-dots */
-    int _ghostsNbr;                             /*!< Number of ghosts */
-    int _highScore;                             /*!< Highscore of the level */
-    SDL_Surface* _logo;                         /*!< SDL_Surface containing the logo of the game */
-    SDL_Surface* _spriteLevel;                  /*!< Sprite for the level */
-    SDL_Surface* _spriteCharacters;             /*!< Sprite for the characters */
-    std::vector<std::vector<int> > _levelTable; /*!< Array containing the level in form of caracters */
+    int _rowsNbr;                                                           /*!< Number of rows in the level */
+    int _colsNbr;                                                           /*!< Number of columns in the level */
+    int _areaGameWidth;                                                     /*!< Width of the area game */
+    int _areaGameHeight;                                                    /*!< Height of the area game */
+    int _lifesNbr;                                                          /*!< Number of lifes */
+    int _pacdotsNbr;                                                        /*!< Number of pac-dots */
+    int _ghostsNbr;                                                         /*!< Number of ghosts */
+    int _highScore;                                                         /*!< Highscore of the level */
+    SDL_Surface* _logo;                                                     /*!< SDL_Surface containing the logo of the game */
+    SDL_Surface* _spriteLevel;                                              /*!< Sprite for the level */
+    SDL_Surface* _spriteCharacters;                                         /*!< Sprite for the characters */
+    std::vector<std::vector<int> > _levelTable;                             /*!< Array containing the level in form of caracters */
     std::vector<std::map<std::string, int> > _levelSpriteCoord;             /*!< Array containing the coordinates of the sprite level */
+    Warpzone _warpzoneCoord;                                                /*!< Warpzone infos (see struct above) */
     std::map<std::string, std::map<std::string, int> > _charactersCoord;    /*!< Array containing the position of the characters in the level */
     std::vector<std::vector<int> > _fruitLocationCoord;                     /*!< Array containing the position of the fruit in the level */
     std::map<std::string, std::vector<int> > _teleportationLocationsCoord;  /*!< Array containing all the teleporation locations */
-    TTF_Font* _font;                            /*!< Font of the game */
+    TTF_Font* _font;                                                        /*!< Font of the game */
 
 };
 
