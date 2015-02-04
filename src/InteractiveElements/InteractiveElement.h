@@ -50,12 +50,23 @@ public:
     //!  \brief Getter for the row of the element in the grid
     //!  \return The row of the element in the grid
     //!
-    int getRow() const;
+    uint8_t getRow() const;
+    //!
+    //! \brief Setter for the row of the element in the grid
+    //! \param row : The new value of the row
+    //!
+    void setRow( const uint8_t row );
+
     //!
     //!  \brief Getter for the column of the element in the grid
     //!  \return The column of the element in the grid
     //!
-    int getCol() const;
+    uint8_t getCol() const;
+    //!
+    //! \brief Setter for the col of the element in the grid
+    //! \param col : The new value of the col
+    //!
+    void setCol( const uint8_t& col );
     //!
     //! \brief Getter for the SurfaceSelection instance
     //! \return The SurfaceSelection instance
@@ -83,13 +94,13 @@ public:
 
     /* ATTRIBUTES */
 protected:
-    int _row;                           /*!< The row of the element in the grid */
-    int _col;                           /*!< The column of the element in the grid */
-    SurfaceSelection* _surface;         /*!< SurfaceSelection instance for :
+    uint8_t _row;                           /*!< The row of the element in the grid */
+    uint8_t _col;                           /*!< The column of the element in the grid */
+    SurfaceSelection* _surface;             /*!< SurfaceSelection instance for :
                                                 - selection on the sprite
                                                 - position on the screen
                                                 */
-    Uint16 _instanceID;                 /*!< ID of the element */
+    Uint16 _instanceID;                     /*!< ID of the element */
 
 };
 

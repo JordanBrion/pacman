@@ -29,15 +29,27 @@ void InteractiveElement::show( SDL_Renderer* const& renderer) {
 
 }
 
-int InteractiveElement::getRow() const {
+uint8_t InteractiveElement::getRow() const {
 
     return _row;
 
 }
 
-int InteractiveElement::getCol() const {
+void InteractiveElement::setRow( const uint8_t row ) {
+
+    _row = row;
+
+}
+
+uint8_t InteractiveElement::getCol() const {
 
     return _col;
+
+}
+
+void InteractiveElement::setCol( const uint8_t& col ) {
+
+    _col = col;
 
 }
 
