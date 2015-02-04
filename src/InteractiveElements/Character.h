@@ -106,6 +106,11 @@ public:
     //!
     void setGoTo( const int8_t& goTo );
     //!
+    //! \brief Setter for the _back attribute
+    //! \param back : The new value of the _back attribute
+    //!
+    void setBack( const bool& back );
+    //!
     //! \brief Method to check if the character is in a case which is able to teleport him
     //! \return The coordinates in string key. Otherwise, NO_TELEPORTATION macro
     //!
@@ -190,6 +195,11 @@ public:
     //!  \param to: Teleportation coordinates in a string key
     //!
     void teleport( const char* to );
+    //!
+    //! \brief Getter for the _fm attribute
+    //! \return The _fm attribute
+    //!
+    FilesManager* getFm() const;
 
 protected:
     Uint8 _initialRow;                                          /*!< Initial row position of character at the start of the life  */

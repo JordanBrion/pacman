@@ -283,6 +283,12 @@ void Character::setGoTo( const int8_t& goTo ) {
 
 }
 
+void Character::setBack( const bool& back ) {
+
+    _back = back;
+
+}
+
 const char* Character::checkTeleportation() const {
 
     const std::map<string, std::vector<int> >& coords = _fm->getTeleportationLocationsCoord();
@@ -580,3 +586,5 @@ void Character::teleport( const char* to ) {
     _goToBackUp = NO_DIRECTION;
 
 }
+
+FilesManager* Character::getFm() const { return _fm; }
