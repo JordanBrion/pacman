@@ -65,6 +65,11 @@ public:
     //!
     void resetValues();
     //!
+    //! \brief Setter for the forbidden direction
+    //! \param forbiddenDirection : the forbidden direction
+    //!
+    void setForbiddenDirection( const int8_t& forbiddenDirection );
+    //!
     //!  \brief Method to calculate a randomized direction
     //!  \return The randomized direction
     //!
@@ -126,7 +131,7 @@ public:
     void setBehavior( GhostBehavior* newBehavior );
 
 private:
-    int _forbiddenDirection;                                    /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
+    int8_t _forbiddenDirection;                                 /*!< Flag to forbid the previous direction of the ghost. Because the ghosts are stupid and don't know where they come from. :)  */
     std::vector<std::vector<int> > _spriteCoordEatable;         /*!< Vector for the sprite coordonates when the ghost is eatable by the pacman */
     bool _powerPelletAlmostOver;                                /*!< Flag to know if the power pellet duration is 50% over */
     GhostThread* _thread;                                       /*!< Ghost thread to run the behavior */

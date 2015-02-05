@@ -26,7 +26,7 @@ Ghost::Ghost( std::map<std::string, int>& dest,
               FilesManager* fm ) :
     Character( dest,
                fm ),
-    _forbiddenDirection( -1 ),
+    _forbiddenDirection( NO_DIRECTION ),
     _powerPelletAlmostOver( false ) {
 
     _eatable = false;
@@ -331,6 +331,15 @@ void Ghost::resetValues() {
     _velocityY = 0;
 
     Character::resetValues();
+
+}
+
+void Ghost::setForbiddenDirection( const int8_t& forbiddenDirection ) {
+
+    if( forbiddenDirection >= UP && forbiddenDirection <= LEFT )
+        _forbiddenDirection = forbiddenDirection;
+    else
+        _forbiddenDirection = NO_DIRECTION;
 
 }
 
