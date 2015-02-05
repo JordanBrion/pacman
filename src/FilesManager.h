@@ -31,8 +31,9 @@ typedef struct element {
 typedef struct s_warpzone {
 
     Element entrance, exit;
-
-    int8_t orientation;
+    int8_t orientationEnter;
+    int8_t orientationExit;
+    bool vertical;
 
 } Warpzone;
 
@@ -139,7 +140,7 @@ public:
     //! \brief Getter for the Warpzone infos (see struct above)
     //! \return The Warpzone infos
     //!
-    Warpzone* getWarpzoneCoord();
+    Warpzone* getWarpzone();
     //!
     //! \brief Getter for the entrance coordinates of the Warpzone
     //! \return The entrance coordinates of the Warpzone
@@ -229,7 +230,7 @@ private:
     SDL_Surface* _spriteCharacters;                                         /*!< Sprite for the characters */
     std::vector<std::vector<int> > _levelTable;                             /*!< Array containing the level in form of caracters */
     std::vector<std::map<std::string, int> > _levelSpriteCoord;             /*!< Array containing the coordinates of the sprite level */
-    Warpzone _warpzoneCoord;                                                /*!< Warpzone infos (see struct above) */
+    Warpzone _warpzone;                                                     /*!< Warpzone infos (see struct above) */
     std::map<std::string, std::map<std::string, int> > _charactersCoord;    /*!< Array containing the position of the characters in the level */
     std::vector<std::vector<int> > _fruitLocationCoord;                     /*!< Array containing the position of the fruit in the level */
     std::map<std::string, std::vector<int> > _teleportationLocationsCoord;  /*!< Array containing all the teleporation locations */

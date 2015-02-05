@@ -128,15 +128,15 @@ void FilesManager::initLevelTable(char pLevel[]) {
 
         // Entrance of the Warpzone => >
         else if( *rows == '>' ) {
-            _warpzoneCoord.entrance.row = i;
-            _warpzoneCoord.entrance.col = j;
+            _warpzone.entrance.row = i;
+            _warpzone.entrance.col = j;
             _levelTable[i].push_back( EMPTY_CASE ); // Free space
         }
 
         // Exit of the Warpzone => <
         else if( *rows == '<' ) {
-            _warpzoneCoord.exit.row = i;
-            _warpzoneCoord.exit.col = j;
+            _warpzone.exit.row = i;
+            _warpzone.exit.col = j;
             _levelTable[i].push_back( EMPTY_CASE ); // Free space
         }
 
@@ -180,24 +180,32 @@ void FilesManager::initLevelTable(char pLevel[]) {
 
     // Calculate the Warpzone orientation
     // (the direction from the entrance to the exit => see directions macros in <pm/Directions.h> )
-    if( _warpzoneCoord.entrance.row == _warpzoneCoord.exit.row ) {
+    if( _warpzone.entrance.row == _warpzone.exit.row ) {
 
-        if( _warpzoneCoord.entrance.col < _warpzoneCoord.exit.col ) {
-            _warpzoneCoord.orientation = RIGHT;
+        if( _warpzone.entrance.col < _warpzone.exit.col ) {
+            _warpzone.orientationEnter = RIGHT;
+            _warpzone.orientationExit = LEFT;
         }
         else {
-            _warpzoneCoord.orientation = LEFT;
+            _warpzone.orientationEnter = LEFT;
+            _warpzone.orientationExit = RIGHT;
         }
+
+        _warpzone.vertical = true;
 
     }
-    else if( _warpzoneCoord.entrance.col == _warpzoneCoord.exit.col ) {
+    else if( _warpzone.entrance.col == _warpzone.exit.col ) {
 
-        if( _warpzoneCoord.entrance.row < _warpzoneCoord.exit.row ) {
-            _warpzoneCoord.orientation = DOWN;
+        if( _warpzone.entrance.row < _warpzone.exit.row ) {
+            _warpzone.orientationEnter = DOWN;
+            _warpzone.orientationExit = UP;
         }
         else {
-            _warpzoneCoord.orientation = UP;
+            _warpzone.orientationEnter = UP;
+            _warpzone.orientationExit = DOWN;
         }
+
+        _warpzone.vertical = false;
 
     }
 
@@ -275,11 +283,11 @@ vector<map<string, int> > FilesManager::getLevelSpriteCoord() const {
 
 }
 
-Warpzone* FilesManager::getWarpzoneCoord() { return &_warpzoneCoord; }
+Warpzone* FilesManager::getWarpzone() { return &_warpzone; }
 
-Element* FilesManager::getWarpzoneEntrance() { return &_warpzoneCoord.entrance; }
+Element* FilesManager::getWarpzoneEntrance() { return &_warpzone.entrance; }
 
-Element* FilesManager::getWarpzoneExit() { return &_warpzoneCoord.exit; }
+Element* FilesManager::getWarpzoneExit() { return &_warpzone.exit; }
 
 void FilesManager::addCharacterCoord(string key, int row, int col) {
 
