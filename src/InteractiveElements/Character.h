@@ -164,6 +164,16 @@ public:
     //!
     void nextSprite();
     //!
+    //! \brief Getter for the velocity
+    //! \return The _velocity attribute
+    //!
+    Uint8 getVelocity() const;
+    //!
+    //! \brief Setter for the velocity
+    //! \param velocity : the new value of the _velocity attribute
+    //!
+    void setVelocity( const Uint8& velocity );
+    //!
     //!  \brief Getter to know if the character is dead
     //!  \return True if the character is dead. Otherwise, false
     //!

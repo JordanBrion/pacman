@@ -482,11 +482,15 @@ void Character::nextSprite() {
 
 }
 
-bool Character::isDead() const {
+Uint8 Character::getVelocity() const { return _velocity; }
 
-    return _dead;
+void Character::setVelocity( const Uint8& velocity ) {
+
+    _velocity = velocity;
 
 }
+
+bool Character::isDead() const { return _dead; }
 
 void Character::setDead() {
 
