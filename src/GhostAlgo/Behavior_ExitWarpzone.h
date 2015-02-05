@@ -11,6 +11,8 @@
 
 #include "GhostBehavior.h"
 
+#define     EXIT_WARPZONE_VELOCITY      1
+
 //!
 //! \class Behavior_ExitWarpzone
 //! \brief Class representing the ghost behavior when the ghost is exiting in the Warpzone
